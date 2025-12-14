@@ -27,6 +27,23 @@ _iterm_set_title() {
     printf '\033]2;%s\007' "$new_title"  # Window title (OSC 2)
 }
 
+# Get git branch and dirty status
+_iterm_git_info() {
+    [[ -d ".git" ]] || git rev-parse --git-dir &>/dev/null || return
+
+    local branch=$(git branch --show-current 2>/dev/null)
+    [[ -z "$branch" ]] && branch=$(git describe --tags --exact-match 2>/dev/null || echo "detached")
+
+    # Truncate long branch names
+    (( ${#branch} > 20 )) && branch="${branch:0:8}…${branch: -8}"
+
+    # Check for uncommitted changes
+    local dirty=""
+    git diff --quiet 2>/dev/null && git diff --cached --quiet 2>/dev/null || dirty="*"
+
+    echo "($branch)$dirty"
+}
+
 # Map project types to iTerm2 profiles
 _iterm_type_to_profile() {
     case "$1" in
@@ -44,18 +61,21 @@ _iterm_detect_context() {
     local icon=""
     local name="${PWD:t}"  # Current directory name
 
+    # Get git info (branch + dirty)
+    local git_info=$(_iterm_git_info)
+
     # Priority overrides (Safety > AI sessions)
     if [[ $PWD == */production/* || $PWD == */prod/* ]]; then
         profile="Production"
         icon="🚨"
         _iterm_switch_profile "$profile"
-        _iterm_set_title "$icon $name"
+        _iterm_set_title "$icon $name $git_info"
         return
     elif [[ $PWD == */claude-sessions/* || $PWD == */gemini-sessions/* ]]; then
         profile="AI-Session"
         icon="🤖"
         _iterm_switch_profile "$profile"
-        _iterm_set_title "$icon $name"
+        _iterm_set_title "$icon $name $git_info"
         return
     fi
 
@@ -68,7 +88,7 @@ _iterm_detect_context() {
             name=$(get_project_name 2>/dev/null || echo "$name")
             profile=$(_iterm_type_to_profile "$proj_type")
             _iterm_switch_profile "$profile"
-            [[ -n "$icon" ]] && _iterm_set_title "$icon $name" || _iterm_set_title "$name"
+            [[ -n "$icon" ]] && _iterm_set_title "$icon $name $git_info" || _iterm_set_title "$name $git_info"
             return
         fi
     fi
@@ -102,11 +122,11 @@ _iterm_detect_context() {
 
     _iterm_switch_profile "$profile"
 
-    # Set title: icon + name (or just directory if no special context)
+    # Set title: icon + name + git info
     if [[ -n "$icon" ]]; then
-        _iterm_set_title "$icon $name"
+        _iterm_set_title "$icon $name $git_info"
     else
-        _iterm_set_title "$name"
+        _iterm_set_title "$name $git_info"
     fi
 }
 

@@ -1,287 +1,319 @@
 {
-  "Profiles": [
+  "Profiles" : [
     {
-      "Name": "Python-Dev",
-      "Guid": "python-dev-context-switcher-001",
-      "Badge Text": "\ud83d\udc0d",
-      "Dynamic Profile Parent Name": "Default",
-      "Ansi 0 Color": {
-        "Red Component": 0.0,
-        "Green Component": 0.0,
-        "Blue Component": 0.0
+      "Name" : "R-Dev",
+      "Guid" : "r-dev-context-switcher-001",
+      "Dynamic Profile Parent Name" : "Default",
+      "Rewritable" : true,
+      "Use Separate Colors for Light and Dark Mode" : false,
+      "Background Color" : {
+        "Red Component" : 0.08,
+        "Green Component" : 0.12,
+        "Blue Component" : 0.18,
+        "Alpha Component" : 1
       },
-      "Ansi 1 Color": {
-        "Red Component": 0.733333,
-        "Green Component": 0.0,
-        "Blue Component": 0.0
+      "Foreground Color" : {
+        "Red Component" : 0.8,
+        "Green Component" : 0.9,
+        "Blue Component" : 1.0,
+        "Alpha Component" : 1
       },
-      "Ansi 10 Color": {
-        "Red Component": 0.0,
-        "Green Component": 0.733333,
-        "Blue Component": 0.0
+      "Bold Color" : {
+        "Red Component" : 0.6,
+        "Green Component" : 0.85,
+        "Blue Component" : 1.0,
+        "Alpha Component" : 1
       },
-      "Ansi 11 Color": {
-        "Red Component": 0.905882,
-        "Green Component": 0.690196,
-        "Blue Component": 0.0
+      "Selection Color" : {
+        "Red Component" : 0.15,
+        "Green Component" : 0.3,
+        "Blue Component" : 0.5,
+        "Alpha Component" : 1
       },
-      "Ansi 12 Color": {
-        "Red Component": 0.0,
-        "Green Component": 0.0,
-        "Blue Component": 0.733333
+      "Selected Text Color" : {
+        "Red Component" : 1.0,
+        "Green Component" : 1.0,
+        "Blue Component" : 1.0,
+        "Alpha Component" : 1
       },
-      "Ansi 13 Color": {
-        "Red Component": 1.0,
-        "Green Component": 0.333333,
-        "Blue Component": 1.0
+      "Cursor Color" : {
+        "Red Component" : 0.3,
+        "Green Component" : 0.6,
+        "Blue Component" : 1.0,
+        "Alpha Component" : 1
       },
-      "Ansi 14 Color": {
-        "Red Component": 0.333333,
-        "Green Component": 1.0,
-        "Blue Component": 1.0
+      "Cursor Text Color" : {
+        "Red Component" : 0.0,
+        "Green Component" : 0.0,
+        "Blue Component" : 0.0,
+        "Alpha Component" : 1
       },
-      "Ansi 15 Color": {
-        "Red Component": 1.0,
-        "Green Component": 1.0,
-        "Blue Component": 1.0
-      },
-      "Ansi 2 Color": {
-        "Red Component": 0.0,
-        "Green Component": 0.733333,
-        "Blue Component": 0.0
-      },
-      "Ansi 3 Color": {
-        "Red Component": 0.905882,
-        "Green Component": 0.690196,
-        "Blue Component": 0.0
-      },
-      "Ansi 4 Color": {
-        "Red Component": 0.0,
-        "Green Component": 0.0,
-        "Blue Component": 0.639216
-      },
-      "Ansi 5 Color": {
-        "Red Component": 0.584314,
-        "Green Component": 0.0,
-        "Blue Component": 0.384314
-      },
-      "Ansi 6 Color": {
-        "Red Component": 0.0,
-        "Green Component": 0.733333,
-        "Blue Component": 0.733333
-      },
-      "Ansi 7 Color": {
-        "Red Component": 0.733333,
-        "Green Component": 0.733333,
-        "Blue Component": 0.733333
-      },
-      "Ansi 8 Color": {
-        "Red Component": 0.333333,
-        "Green Component": 0.333333,
-        "Blue Component": 0.333333
-      },
-      "Ansi 9 Color": {
-        "Red Component": 0.733333,
-        "Green Component": 0.0,
-        "Blue Component": 0.0
-      },
-      "Background Color": {
-        "Red Component": 0.07451,
-        "Green Component": 0.466667,
-        "Blue Component": 0.239216
-      },
-      "Bold Color": {
-        "Red Component": 1.0,
-        "Green Component": 0.690196,
-        "Blue Component": 0.231373
-      },
-      "Cursor Color": {
-        "Red Component": 0.54902,
-        "Green Component": 0.156863,
-        "Blue Component": 0.0
-      },
-      "Cursor Text Color": {
-        "Red Component": 1.0,
-        "Green Component": 1.0,
-        "Blue Component": 1.0
-      },
-      "Foreground Color": {
-        "Red Component": 1.0,
-        "Green Component": 0.941176,
-        "Blue Component": 0.647059
-      },
-      "Selected Text Color": {
-        "Red Component": 1.0,
-        "Green Component": 1.0,
-        "Blue Component": 1.0
-      },
-      "Selection Color": {
-        "Red Component": 0.713725,
-        "Green Component": 0.286275,
-        "Blue Component": 0.14902
-      }
+      "Ansi 0 Color" : { "Red Component" : 0.1, "Green Component" : 0.14, "Blue Component" : 0.2, "Alpha Component" : 1 },
+      "Ansi 1 Color" : { "Red Component" : 1.0, "Green Component" : 0.4, "Blue Component" : 0.4, "Alpha Component" : 1 },
+      "Ansi 2 Color" : { "Red Component" : 0.4, "Green Component" : 0.9, "Blue Component" : 0.6, "Alpha Component" : 1 },
+      "Ansi 3 Color" : { "Red Component" : 1.0, "Green Component" : 0.85, "Blue Component" : 0.4, "Alpha Component" : 1 },
+      "Ansi 4 Color" : { "Red Component" : 0.4, "Green Component" : 0.7, "Blue Component" : 1.0, "Alpha Component" : 1 },
+      "Ansi 5 Color" : { "Red Component" : 0.8, "Green Component" : 0.5, "Blue Component" : 1.0, "Alpha Component" : 1 },
+      "Ansi 6 Color" : { "Red Component" : 0.4, "Green Component" : 0.85, "Blue Component" : 0.9, "Alpha Component" : 1 },
+      "Ansi 7 Color" : { "Red Component" : 0.85, "Green Component" : 0.9, "Blue Component" : 0.95, "Alpha Component" : 1 },
+      "Ansi 8 Color" : { "Red Component" : 0.3, "Green Component" : 0.4, "Blue Component" : 0.5, "Alpha Component" : 1 },
+      "Ansi 9 Color" : { "Red Component" : 1.0, "Green Component" : 0.5, "Blue Component" : 0.5, "Alpha Component" : 1 },
+      "Ansi 10 Color" : { "Red Component" : 0.5, "Green Component" : 1.0, "Blue Component" : 0.7, "Alpha Component" : 1 },
+      "Ansi 11 Color" : { "Red Component" : 1.0, "Green Component" : 0.9, "Blue Component" : 0.5, "Alpha Component" : 1 },
+      "Ansi 12 Color" : { "Red Component" : 0.5, "Green Component" : 0.8, "Blue Component" : 1.0, "Alpha Component" : 1 },
+      "Ansi 13 Color" : { "Red Component" : 0.9, "Green Component" : 0.6, "Blue Component" : 1.0, "Alpha Component" : 1 },
+      "Ansi 14 Color" : { "Red Component" : 0.5, "Green Component" : 0.95, "Blue Component" : 1.0, "Alpha Component" : 1 },
+      "Ansi 15 Color" : { "Red Component" : 0.95, "Green Component" : 0.97, "Blue Component" : 1.0, "Alpha Component" : 1 }
     },
     {
-      "Name": "Node-Dev",
-      "Guid": "node-dev-context-switcher-001",
-      "Badge Text": "\ud83d\udce6",
-      "Dynamic Profile Parent Name": "Default",
-      "Ansi 0 Color": {
-        "Red Component": 0.25098,
-        "Green Component": 0.25098,
-        "Blue Component": 0.25098,
-        "Alpha Component": 1.0
+      "Name" : "AI-Session",
+      "Guid" : "ai-session-context-switcher-001",
+      "Dynamic Profile Parent Name" : "Default",
+      "Rewritable" : true,
+      "Use Separate Colors for Light and Dark Mode" : false,
+      "Background Color" : {
+        "Red Component" : 0.12,
+        "Green Component" : 0.08,
+        "Blue Component" : 0.16,
+        "Alpha Component" : 1
       },
-      "Ansi 1 Color": {
-        "Red Component": 1.0,
-        "Green Component": 0.329412,
-        "Blue Component": 0.329412,
-        "Alpha Component": 1.0
+      "Foreground Color" : {
+        "Red Component" : 0.9,
+        "Green Component" : 0.85,
+        "Blue Component" : 1.0,
+        "Alpha Component" : 1
       },
-      "Ansi 10 Color": {
-        "Red Component": 0.101961,
-        "Green Component": 1.0,
-        "Blue Component": 0.639216,
-        "Alpha Component": 1.0
+      "Bold Color" : {
+        "Red Component" : 0.85,
+        "Green Component" : 0.7,
+        "Blue Component" : 1.0,
+        "Alpha Component" : 1
       },
-      "Ansi 11 Color": {
-        "Red Component": 1.0,
-        "Green Component": 1.0,
-        "Blue Component": 0.0,
-        "Alpha Component": 1.0
+      "Selection Color" : {
+        "Red Component" : 0.35,
+        "Green Component" : 0.2,
+        "Blue Component" : 0.45,
+        "Alpha Component" : 1
       },
-      "Ansi 12 Color": {
-        "Red Component": 0.2,
-        "Green Component": 0.811765,
-        "Blue Component": 1.0,
-        "Alpha Component": 1.0
+      "Selected Text Color" : {
+        "Red Component" : 1.0,
+        "Green Component" : 1.0,
+        "Blue Component" : 1.0,
+        "Alpha Component" : 1
       },
-      "Ansi 13 Color": {
-        "Red Component": 1.0,
-        "Green Component": 0.6979,
-        "Blue Component": 0.997607,
-        "Alpha Component": 1.0
+      "Cursor Color" : {
+        "Red Component" : 0.7,
+        "Green Component" : 0.4,
+        "Blue Component" : 1.0,
+        "Alpha Component" : 1
       },
-      "Ansi 14 Color": {
-        "Red Component": 0.0,
-        "Green Component": 1.0,
-        "Blue Component": 0.94902,
-        "Alpha Component": 1.0
+      "Cursor Text Color" : {
+        "Red Component" : 1.0,
+        "Green Component" : 1.0,
+        "Blue Component" : 1.0,
+        "Alpha Component" : 1
       },
-      "Ansi 15 Color": {
-        "Red Component": 0.976471,
-        "Green Component": 0.976471,
-        "Blue Component": 0.976471,
-        "Alpha Component": 1.0
+      "Ansi 0 Color" : { "Red Component" : 0.15, "Green Component" : 0.1, "Blue Component" : 0.2, "Alpha Component" : 1 },
+      "Ansi 1 Color" : { "Red Component" : 1.0, "Green Component" : 0.4, "Blue Component" : 0.5, "Alpha Component" : 1 },
+      "Ansi 2 Color" : { "Red Component" : 0.5, "Green Component" : 0.9, "Blue Component" : 0.7, "Alpha Component" : 1 },
+      "Ansi 3 Color" : { "Red Component" : 1.0, "Green Component" : 0.85, "Blue Component" : 0.5, "Alpha Component" : 1 },
+      "Ansi 4 Color" : { "Red Component" : 0.5, "Green Component" : 0.6, "Blue Component" : 1.0, "Alpha Component" : 1 },
+      "Ansi 5 Color" : { "Red Component" : 0.9, "Green Component" : 0.5, "Blue Component" : 1.0, "Alpha Component" : 1 },
+      "Ansi 6 Color" : { "Red Component" : 0.5, "Green Component" : 0.85, "Blue Component" : 0.95, "Alpha Component" : 1 },
+      "Ansi 7 Color" : { "Red Component" : 0.85, "Green Component" : 0.82, "Blue Component" : 0.9, "Alpha Component" : 1 },
+      "Ansi 8 Color" : { "Red Component" : 0.4, "Green Component" : 0.35, "Blue Component" : 0.5, "Alpha Component" : 1 },
+      "Ansi 9 Color" : { "Red Component" : 1.0, "Green Component" : 0.5, "Blue Component" : 0.6, "Alpha Component" : 1 },
+      "Ansi 10 Color" : { "Red Component" : 0.6, "Green Component" : 1.0, "Blue Component" : 0.8, "Alpha Component" : 1 },
+      "Ansi 11 Color" : { "Red Component" : 1.0, "Green Component" : 0.9, "Blue Component" : 0.6, "Alpha Component" : 1 },
+      "Ansi 12 Color" : { "Red Component" : 0.6, "Green Component" : 0.7, "Blue Component" : 1.0, "Alpha Component" : 1 },
+      "Ansi 13 Color" : { "Red Component" : 1.0, "Green Component" : 0.6, "Blue Component" : 1.0, "Alpha Component" : 1 },
+      "Ansi 14 Color" : { "Red Component" : 0.6, "Green Component" : 0.95, "Blue Component" : 1.0, "Alpha Component" : 1 },
+      "Ansi 15 Color" : { "Red Component" : 0.95, "Green Component" : 0.93, "Blue Component" : 1.0, "Alpha Component" : 1 }
+    },
+    {
+      "Name" : "Production",
+      "Guid" : "production-context-switcher-001",
+      "Dynamic Profile Parent Name" : "Default",
+      "Rewritable" : true,
+      "Use Separate Colors for Light and Dark Mode" : false,
+      "Background Color" : {
+        "Red Component" : 0.2,
+        "Green Component" : 0.05,
+        "Blue Component" : 0.05,
+        "Alpha Component" : 1
       },
-      "Ansi 2 Color": {
-        "Red Component": 0.0,
-        "Green Component": 0.8,
-        "Blue Component": 0.478431,
-        "Alpha Component": 1.0
+      "Foreground Color" : {
+        "Red Component" : 1.0,
+        "Green Component" : 0.85,
+        "Blue Component" : 0.85,
+        "Alpha Component" : 1
       },
-      "Ansi 3 Color": {
-        "Red Component": 1.0,
-        "Green Component": 0.831373,
-        "Blue Component": 0.0,
-        "Alpha Component": 1.0
+      "Bold Color" : {
+        "Red Component" : 1.0,
+        "Green Component" : 0.6,
+        "Blue Component" : 0.6,
+        "Alpha Component" : 1
       },
-      "Ansi 4 Color": {
-        "Red Component": 0.0,
-        "Green Component": 0.74902,
-        "Blue Component": 1.0,
-        "Alpha Component": 1.0
+      "Selection Color" : {
+        "Red Component" : 0.5,
+        "Green Component" : 0.15,
+        "Blue Component" : 0.15,
+        "Alpha Component" : 1
       },
-      "Ansi 5 Color": {
-        "Red Component": 1.0,
-        "Green Component": 0.563534,
-        "Blue Component": 0.994252,
-        "Alpha Component": 1.0
+      "Selected Text Color" : {
+        "Red Component" : 1.0,
+        "Green Component" : 1.0,
+        "Blue Component" : 1.0,
+        "Alpha Component" : 1
       },
-      "Ansi 6 Color": {
-        "Red Component": 0.282353,
-        "Green Component": 0.819608,
-        "Blue Component": 0.8,
-        "Alpha Component": 1.0
+      "Cursor Color" : {
+        "Red Component" : 1.0,
+        "Green Component" : 0.3,
+        "Blue Component" : 0.3,
+        "Alpha Component" : 1
       },
-      "Ansi 7 Color": {
-        "Red Component": 0.74902,
-        "Green Component": 0.74902,
-        "Blue Component": 0.74902,
-        "Alpha Component": 1.0
+      "Cursor Text Color" : {
+        "Red Component" : 1.0,
+        "Green Component" : 1.0,
+        "Blue Component" : 1.0,
+        "Alpha Component" : 1
       },
-      "Ansi 8 Color": {
-        "Red Component": 0.501961,
-        "Green Component": 0.501961,
-        "Blue Component": 0.501961,
-        "Alpha Component": 1.0
-      },
-      "Ansi 9 Color": {
-        "Red Component": 1.0,
-        "Green Component": 0.101961,
-        "Blue Component": 0.458824,
-        "Alpha Component": 1.0
-      },
-      "Background Color": {
-        "Red Component": 0.070588,
-        "Green Component": 0.070588,
-        "Blue Component": 0.070588,
-        "Alpha Component": 1.0
-      },
-      "Badge Color": {
-        "Red Component": 1.0,
-        "Green Component": 0.329412,
-        "Blue Component": 0.329412,
-        "Alpha Component": 0.5
-      },
-      "Bold Color": {
-        "Red Component": 0.976471,
-        "Green Component": 0.976471,
-        "Blue Component": 0.976471,
-        "Alpha Component": 1.0
-      },
-      "Cursor Color": {
-        "Red Component": 0.4,
-        "Green Component": 0.4,
-        "Blue Component": 0.4,
-        "Alpha Component": 1.0
-      },
-      "Cursor Guide Color": {
-        "Red Component": 0.70214,
-        "Green Component": 0.926814,
-        "Blue Component": 1.0,
-        "Alpha Component": 0.25
-      },
-      "Cursor Text Color": {
-        "Red Component": 0.976471,
-        "Green Component": 0.976471,
-        "Blue Component": 0.976471,
-        "Alpha Component": 1.0
-      },
-      "Foreground Color": {
-        "Red Component": 0.74902,
-        "Green Component": 0.74902,
-        "Blue Component": 0.74902,
-        "Alpha Component": 1.0
-      },
-      "Link Color": {
-        "Red Component": 0.2,
-        "Green Component": 0.811765,
-        "Blue Component": 1.0,
-        "Alpha Component": 1.0
-      },
-      "Selected Text Color": {
-        "Red Component": 0.958261,
-        "Green Component": 0.958261,
-        "Blue Component": 0.958261,
-        "Alpha Component": 1.0
-      },
-      "Selection Color": {
-        "Red Component": 1.0,
-        "Green Component": 0.54902,
-        "Blue Component": 0.0,
-        "Alpha Component": 1.0
-      }
+      "Ansi 0 Color" : { "Red Component" : 0.25, "Green Component" : 0.1, "Blue Component" : 0.1, "Alpha Component" : 1 },
+      "Ansi 1 Color" : { "Red Component" : 1.0, "Green Component" : 0.3, "Blue Component" : 0.3, "Alpha Component" : 1 },
+      "Ansi 2 Color" : { "Red Component" : 0.5, "Green Component" : 0.9, "Blue Component" : 0.5, "Alpha Component" : 1 },
+      "Ansi 3 Color" : { "Red Component" : 1.0, "Green Component" : 0.8, "Blue Component" : 0.4, "Alpha Component" : 1 },
+      "Ansi 4 Color" : { "Red Component" : 0.5, "Green Component" : 0.7, "Blue Component" : 1.0, "Alpha Component" : 1 },
+      "Ansi 5 Color" : { "Red Component" : 1.0, "Green Component" : 0.5, "Blue Component" : 0.8, "Alpha Component" : 1 },
+      "Ansi 6 Color" : { "Red Component" : 0.5, "Green Component" : 0.9, "Blue Component" : 0.9, "Alpha Component" : 1 },
+      "Ansi 7 Color" : { "Red Component" : 0.9, "Green Component" : 0.85, "Blue Component" : 0.85, "Alpha Component" : 1 },
+      "Ansi 8 Color" : { "Red Component" : 0.5, "Green Component" : 0.3, "Blue Component" : 0.3, "Alpha Component" : 1 },
+      "Ansi 9 Color" : { "Red Component" : 1.0, "Green Component" : 0.4, "Blue Component" : 0.4, "Alpha Component" : 1 },
+      "Ansi 10 Color" : { "Red Component" : 0.6, "Green Component" : 1.0, "Blue Component" : 0.6, "Alpha Component" : 1 },
+      "Ansi 11 Color" : { "Red Component" : 1.0, "Green Component" : 0.9, "Blue Component" : 0.5, "Alpha Component" : 1 },
+      "Ansi 12 Color" : { "Red Component" : 0.6, "Green Component" : 0.8, "Blue Component" : 1.0, "Alpha Component" : 1 },
+      "Ansi 13 Color" : { "Red Component" : 1.0, "Green Component" : 0.6, "Blue Component" : 0.9, "Alpha Component" : 1 },
+      "Ansi 14 Color" : { "Red Component" : 0.6, "Green Component" : 1.0, "Blue Component" : 1.0, "Alpha Component" : 1 },
+      "Ansi 15 Color" : { "Red Component" : 1.0, "Green Component" : 0.95, "Blue Component" : 0.95, "Alpha Component" : 1 }
+    },
+    {
+      "Name" : "Dev-Tools",
+      "Guid" : "dev-tools-context-switcher-001",
+      "Dynamic Profile Parent Name" : "Default",
+      "Rewritable" : true,
+      "Use Separate Colors for Light and Dark Mode" : false,
+      "Background Color" : { "Red Component" : 0.12, "Green Component" : 0.10, "Blue Component" : 0.06, "Alpha Component" : 1 },
+      "Foreground Color" : { "Red Component" : 1.0, "Green Component" : 0.76, "Blue Component" : 0.35, "Alpha Component" : 1 },
+      "Bold Color" : { "Red Component" : 1.0, "Green Component" : 0.85, "Blue Component" : 0.4, "Alpha Component" : 1 },
+      "Selection Color" : { "Red Component" : 0.35, "Green Component" : 0.25, "Blue Component" : 0.1, "Alpha Component" : 1 },
+      "Selected Text Color" : { "Red Component" : 1.0, "Green Component" : 0.9, "Blue Component" : 0.7, "Alpha Component" : 1 },
+      "Cursor Color" : { "Red Component" : 1.0, "Green Component" : 0.6, "Blue Component" : 0.0, "Alpha Component" : 1 },
+      "Cursor Text Color" : { "Red Component" : 0.0, "Green Component" : 0.0, "Blue Component" : 0.0, "Alpha Component" : 1 },
+      "Ansi 0 Color" : { "Red Component" : 0.15, "Green Component" : 0.12, "Blue Component" : 0.08, "Alpha Component" : 1 },
+      "Ansi 1 Color" : { "Red Component" : 0.95, "Green Component" : 0.35, "Blue Component" : 0.2, "Alpha Component" : 1 },
+      "Ansi 2 Color" : { "Red Component" : 0.6, "Green Component" : 0.8, "Blue Component" : 0.3, "Alpha Component" : 1 },
+      "Ansi 3 Color" : { "Red Component" : 1.0, "Green Component" : 0.75, "Blue Component" : 0.0, "Alpha Component" : 1 },
+      "Ansi 4 Color" : { "Red Component" : 0.4, "Green Component" : 0.6, "Blue Component" : 0.8, "Alpha Component" : 1 },
+      "Ansi 5 Color" : { "Red Component" : 0.9, "Green Component" : 0.5, "Blue Component" : 0.3, "Alpha Component" : 1 },
+      "Ansi 6 Color" : { "Red Component" : 0.5, "Green Component" : 0.75, "Blue Component" : 0.7, "Alpha Component" : 1 },
+      "Ansi 7 Color" : { "Red Component" : 0.85, "Green Component" : 0.8, "Blue Component" : 0.7, "Alpha Component" : 1 },
+      "Ansi 8 Color" : { "Red Component" : 0.4, "Green Component" : 0.35, "Blue Component" : 0.25, "Alpha Component" : 1 },
+      "Ansi 9 Color" : { "Red Component" : 1.0, "Green Component" : 0.45, "Blue Component" : 0.3, "Alpha Component" : 1 },
+      "Ansi 10 Color" : { "Red Component" : 0.7, "Green Component" : 0.9, "Blue Component" : 0.4, "Alpha Component" : 1 },
+      "Ansi 11 Color" : { "Red Component" : 1.0, "Green Component" : 0.85, "Blue Component" : 0.3, "Alpha Component" : 1 },
+      "Ansi 12 Color" : { "Red Component" : 0.5, "Green Component" : 0.7, "Blue Component" : 0.9, "Alpha Component" : 1 },
+      "Ansi 13 Color" : { "Red Component" : 1.0, "Green Component" : 0.6, "Blue Component" : 0.4, "Alpha Component" : 1 },
+      "Ansi 14 Color" : { "Red Component" : 0.6, "Green Component" : 0.85, "Blue Component" : 0.8, "Alpha Component" : 1 },
+      "Ansi 15 Color" : { "Red Component" : 0.95, "Green Component" : 0.92, "Blue Component" : 0.85, "Alpha Component" : 1 }
+    },
+    {
+      "Name" : "Emacs",
+      "Guid" : "emacs-context-switcher-001",
+      "Dynamic Profile Parent Name" : "Default",
+      "Rewritable" : true,
+      "Use Separate Colors for Light and Dark Mode" : false,
+      "Background Color" : { "Red Component" : 0.1, "Green Component" : 0.08, "Blue Component" : 0.14, "Alpha Component" : 1 },
+      "Foreground Color" : { "Red Component" : 0.85, "Green Component" : 0.8, "Blue Component" : 0.95, "Alpha Component" : 1 },
+      "Bold Color" : { "Red Component" : 0.95, "Green Component" : 0.85, "Blue Component" : 1.0, "Alpha Component" : 1 },
+      "Selection Color" : { "Red Component" : 0.3, "Green Component" : 0.2, "Blue Component" : 0.4, "Alpha Component" : 1 },
+      "Selected Text Color" : { "Red Component" : 1.0, "Green Component" : 0.95, "Blue Component" : 1.0, "Alpha Component" : 1 },
+      "Cursor Color" : { "Red Component" : 0.7, "Green Component" : 0.4, "Blue Component" : 0.9, "Alpha Component" : 1 },
+      "Cursor Text Color" : { "Red Component" : 1.0, "Green Component" : 1.0, "Blue Component" : 1.0, "Alpha Component" : 1 },
+      "Ansi 0 Color" : { "Red Component" : 0.12, "Green Component" : 0.1, "Blue Component" : 0.16, "Alpha Component" : 1 },
+      "Ansi 1 Color" : { "Red Component" : 0.95, "Green Component" : 0.35, "Blue Component" : 0.45, "Alpha Component" : 1 },
+      "Ansi 2 Color" : { "Red Component" : 0.5, "Green Component" : 0.85, "Blue Component" : 0.6, "Alpha Component" : 1 },
+      "Ansi 3 Color" : { "Red Component" : 0.95, "Green Component" : 0.8, "Blue Component" : 0.5, "Alpha Component" : 1 },
+      "Ansi 4 Color" : { "Red Component" : 0.5, "Green Component" : 0.6, "Blue Component" : 0.95, "Alpha Component" : 1 },
+      "Ansi 5 Color" : { "Red Component" : 0.85, "Green Component" : 0.5, "Blue Component" : 0.9, "Alpha Component" : 1 },
+      "Ansi 6 Color" : { "Red Component" : 0.5, "Green Component" : 0.8, "Blue Component" : 0.85, "Alpha Component" : 1 },
+      "Ansi 7 Color" : { "Red Component" : 0.8, "Green Component" : 0.78, "Blue Component" : 0.85, "Alpha Component" : 1 },
+      "Ansi 8 Color" : { "Red Component" : 0.35, "Green Component" : 0.3, "Blue Component" : 0.45, "Alpha Component" : 1 },
+      "Ansi 9 Color" : { "Red Component" : 1.0, "Green Component" : 0.45, "Blue Component" : 0.55, "Alpha Component" : 1 },
+      "Ansi 10 Color" : { "Red Component" : 0.6, "Green Component" : 0.95, "Blue Component" : 0.7, "Alpha Component" : 1 },
+      "Ansi 11 Color" : { "Red Component" : 1.0, "Green Component" : 0.9, "Blue Component" : 0.6, "Alpha Component" : 1 },
+      "Ansi 12 Color" : { "Red Component" : 0.6, "Green Component" : 0.7, "Blue Component" : 1.0, "Alpha Component" : 1 },
+      "Ansi 13 Color" : { "Red Component" : 0.95, "Green Component" : 0.6, "Blue Component" : 1.0, "Alpha Component" : 1 },
+      "Ansi 14 Color" : { "Red Component" : 0.6, "Green Component" : 0.9, "Blue Component" : 0.95, "Alpha Component" : 1 },
+      "Ansi 15 Color" : { "Red Component" : 0.95, "Green Component" : 0.93, "Blue Component" : 1.0, "Alpha Component" : 1 }
+    },
+    {
+      "Name" : "Python-Dev",
+      "Guid" : "python-dev-context-switcher-001",
+      "Dynamic Profile Parent Name" : "Default",
+      "Rewritable" : true,
+      "Use Separate Colors for Light and Dark Mode" : false,
+      "Background Color" : { "Red Component" : 0.075, "Green Component" : 0.467, "Blue Component" : 0.239, "Alpha Component" : 1 },
+      "Foreground Color" : { "Red Component" : 1.0, "Green Component" : 0.941, "Blue Component" : 0.647, "Alpha Component" : 1 },
+      "Bold Color" : { "Red Component" : 1.0, "Green Component" : 0.69, "Blue Component" : 0.231, "Alpha Component" : 1 },
+      "Selection Color" : { "Red Component" : 0.714, "Green Component" : 0.286, "Blue Component" : 0.149, "Alpha Component" : 1 },
+      "Selected Text Color" : { "Red Component" : 1.0, "Green Component" : 1.0, "Blue Component" : 1.0, "Alpha Component" : 1 },
+      "Cursor Color" : { "Red Component" : 0.549, "Green Component" : 0.157, "Blue Component" : 0.0, "Alpha Component" : 1 },
+      "Cursor Text Color" : { "Red Component" : 1.0, "Green Component" : 1.0, "Blue Component" : 1.0, "Alpha Component" : 1 },
+      "Ansi 0 Color" : { "Red Component" : 0.0, "Green Component" : 0.0, "Blue Component" : 0.0, "Alpha Component" : 1 },
+      "Ansi 1 Color" : { "Red Component" : 0.733, "Green Component" : 0.0, "Blue Component" : 0.0, "Alpha Component" : 1 },
+      "Ansi 2 Color" : { "Red Component" : 0.0, "Green Component" : 0.733, "Blue Component" : 0.0, "Alpha Component" : 1 },
+      "Ansi 3 Color" : { "Red Component" : 0.906, "Green Component" : 0.69, "Blue Component" : 0.0, "Alpha Component" : 1 },
+      "Ansi 4 Color" : { "Red Component" : 0.0, "Green Component" : 0.0, "Blue Component" : 0.639, "Alpha Component" : 1 },
+      "Ansi 5 Color" : { "Red Component" : 0.584, "Green Component" : 0.0, "Blue Component" : 0.384, "Alpha Component" : 1 },
+      "Ansi 6 Color" : { "Red Component" : 0.0, "Green Component" : 0.733, "Blue Component" : 0.733, "Alpha Component" : 1 },
+      "Ansi 7 Color" : { "Red Component" : 0.733, "Green Component" : 0.733, "Blue Component" : 0.733, "Alpha Component" : 1 },
+      "Ansi 8 Color" : { "Red Component" : 0.333, "Green Component" : 0.333, "Blue Component" : 0.333, "Alpha Component" : 1 },
+      "Ansi 9 Color" : { "Red Component" : 0.733, "Green Component" : 0.0, "Blue Component" : 0.0, "Alpha Component" : 1 },
+      "Ansi 10 Color" : { "Red Component" : 0.0, "Green Component" : 0.733, "Blue Component" : 0.0, "Alpha Component" : 1 },
+      "Ansi 11 Color" : { "Red Component" : 0.906, "Green Component" : 0.69, "Blue Component" : 0.0, "Alpha Component" : 1 },
+      "Ansi 12 Color" : { "Red Component" : 0.0, "Green Component" : 0.0, "Blue Component" : 0.733, "Alpha Component" : 1 },
+      "Ansi 13 Color" : { "Red Component" : 1.0, "Green Component" : 0.333, "Blue Component" : 1.0, "Alpha Component" : 1 },
+      "Ansi 14 Color" : { "Red Component" : 0.333, "Green Component" : 1.0, "Blue Component" : 1.0, "Alpha Component" : 1 },
+      "Ansi 15 Color" : { "Red Component" : 1.0, "Green Component" : 1.0, "Blue Component" : 1.0, "Alpha Component" : 1 }
+    },
+    {
+      "Name" : "Node-Dev",
+      "Guid" : "node-dev-context-switcher-001",
+      "Dynamic Profile Parent Name" : "Default",
+      "Rewritable" : true,
+      "Use Separate Colors for Light and Dark Mode" : false,
+      "Background Color" : { "Red Component" : 0.071, "Green Component" : 0.071, "Blue Component" : 0.071, "Alpha Component" : 1 },
+      "Foreground Color" : { "Red Component" : 0.749, "Green Component" : 0.749, "Blue Component" : 0.749, "Alpha Component" : 1 },
+      "Bold Color" : { "Red Component" : 0.976, "Green Component" : 0.976, "Blue Component" : 0.976, "Alpha Component" : 1 },
+      "Selection Color" : { "Red Component" : 1.0, "Green Component" : 0.549, "Blue Component" : 0.0, "Alpha Component" : 1 },
+      "Selected Text Color" : { "Red Component" : 0.958, "Green Component" : 0.958, "Blue Component" : 0.958, "Alpha Component" : 1 },
+      "Cursor Color" : { "Red Component" : 0.4, "Green Component" : 0.4, "Blue Component" : 0.4, "Alpha Component" : 1 },
+      "Cursor Text Color" : { "Red Component" : 0.976, "Green Component" : 0.976, "Blue Component" : 0.976, "Alpha Component" : 1 },
+      "Ansi 0 Color" : { "Red Component" : 0.251, "Green Component" : 0.251, "Blue Component" : 0.251, "Alpha Component" : 1 },
+      "Ansi 1 Color" : { "Red Component" : 1.0, "Green Component" : 0.329, "Blue Component" : 0.329, "Alpha Component" : 1 },
+      "Ansi 2 Color" : { "Red Component" : 0.0, "Green Component" : 0.8, "Blue Component" : 0.478, "Alpha Component" : 1 },
+      "Ansi 3 Color" : { "Red Component" : 1.0, "Green Component" : 0.831, "Blue Component" : 0.0, "Alpha Component" : 1 },
+      "Ansi 4 Color" : { "Red Component" : 0.0, "Green Component" : 0.749, "Blue Component" : 1.0, "Alpha Component" : 1 },
+      "Ansi 5 Color" : { "Red Component" : 1.0, "Green Component" : 0.563, "Blue Component" : 0.994, "Alpha Component" : 1 },
+      "Ansi 6 Color" : { "Red Component" : 0.282, "Green Component" : 0.82, "Blue Component" : 0.8, "Alpha Component" : 1 },
+      "Ansi 7 Color" : { "Red Component" : 0.749, "Green Component" : 0.749, "Blue Component" : 0.749, "Alpha Component" : 1 },
+      "Ansi 8 Color" : { "Red Component" : 0.502, "Green Component" : 0.502, "Blue Component" : 0.502, "Alpha Component" : 1 },
+      "Ansi 9 Color" : { "Red Component" : 1.0, "Green Component" : 0.102, "Blue Component" : 0.459, "Alpha Component" : 1 },
+      "Ansi 10 Color" : { "Red Component" : 0.102, "Green Component" : 1.0, "Blue Component" : 0.639, "Alpha Component" : 1 },
+      "Ansi 11 Color" : { "Red Component" : 1.0, "Green Component" : 1.0, "Blue Component" : 0.0, "Alpha Component" : 1 },
+      "Ansi 12 Color" : { "Red Component" : 0.2, "Green Component" : 0.812, "Blue Component" : 1.0, "Alpha Component" : 1 },
+      "Ansi 13 Color" : { "Red Component" : 1.0, "Green Component" : 0.698, "Blue Component" : 0.998, "Alpha Component" : 1 },
+      "Ansi 14 Color" : { "Red Component" : 0.0, "Green Component" : 1.0, "Blue Component" : 0.949, "Alpha Component" : 1 },
+      "Ansi 15 Color" : { "Red Component" : 0.976, "Green Component" : 0.976, "Blue Component" : 0.976, "Alpha Component" : 1 }
     }
   ]
 }

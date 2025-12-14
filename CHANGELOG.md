@@ -2,10 +2,25 @@
 
 All notable changes to iterm2-context-switcher will be documented in this file.
 
+## [2.2.0] - 2025-12-14
+
+### Added
+- **Git branch in title** - Shows current branch: `📦 medfit (main)`
+- **Git dirty indicator** - Shows `*` when uncommitted changes: `📦 medfit (main)*`
+- **Install script** - `scripts/install-profiles.sh` for easy setup
+- **Profiles in repo** - `profiles/context-switcher-profiles.json` for distribution
+
+### Changed
+- Titles now include git info for all contexts
+- Long branch names truncated (>20 chars)
+
 ## [2.1.0] - 2025-12-14
 
 ### Added
 - **Dynamic Profiles** - Auto-installed color themes for all project types
+  - R-Dev: Blue theme 📦
+  - AI-Session: Purple theme 🤖
+  - Production: Red theme 🚨
   - Dev-Tools: Amber/orange theme 🔧
   - Emacs: Purple/magenta theme ⚡
   - Python-Dev: Green theme 🐍
@@ -89,11 +104,11 @@ All notable changes to iterm2-context-switcher will be documented in this file.
 ## [Unreleased]
 
 ### Planned
-- Git branch in tab title (`📦 medfit (main)`)
 - iTerm2 triggers for Claude Code notifications
 - Status bar integration
+- Production warning sound/bell
 
 ---
 
-**Project Status:** Complete (v2.1.0)
+**Project Status:** Complete (v2.2.0)
 **Live Docs:** https://data-wise.github.io/iterm2-context-switcher/
