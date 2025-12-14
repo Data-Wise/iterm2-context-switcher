@@ -44,7 +44,10 @@
       "Bash(curl:*)",
       "Bash(git commit:*)",
       "Bash(# Check if Claude Code or statusline is setting title grep -r \"\"SetTitle\\|OSC.*2\\|\\\\\\\\033\\]2\"\" ~/.claude/*.sh)",
-      "Bash(# Check if dev-tools are being scanned echo \"\"=== .STATUS files in dev-tools ===\"\" find ~/projects/dev-tools -name \"\".STATUS\"\" -exec echo {} \\; echo \"\"\"\" echo \"\"=== Scanner target ===\"\" head -20 ~/projects/dev-tools/apple-notes-sync/scanner.sh)"
+      "Bash(# Check if dev-tools are being scanned echo \"\"=== .STATUS files in dev-tools ===\"\" find ~/projects/dev-tools -name \"\".STATUS\"\" -exec echo {} \\; echo \"\"\"\" echo \"\"=== Scanner target ===\"\" head -20 ~/projects/dev-tools/apple-notes-sync/scanner.sh)",
+      "Bash(~/.claude/statusline-p10k.sh)",
+      "Bash(bash:*)",
+      "Bash(git restore:*)"
     ]
   }
 }

@@ -86,9 +86,14 @@ _iterm_detect_context() {
         icon="📦"
         name=$(grep '"name"' package.json 2>/dev/null | head -1 | cut -d'"' -f4 || echo "$name")
     elif [[ -f "_quarto.yml" ]]; then
+        profile="R-Dev"
         icon="📊"
         name=$(grep "^title:" _quarto.yml 2>/dev/null | head -1 | cut -d'"' -f2 || echo "$name")
+    elif [[ -d "mcp-server" ]] || [[ "$PWD" == *"mcp"* && -f "package.json" ]]; then
+        profile="AI-Session"
+        icon="🔌"
     elif [[ -f "Cask" ]] || [[ -f ".dir-locals.el" ]] || [[ -f "init.el" ]] || [[ -f "early-init.el" ]]; then
+        profile="Emacs"
         icon="⚡"
     elif [[ -d ".git" ]] && { [[ -d "commands" ]] || [[ -d "scripts" ]] || [[ -d "bin" && -f "Makefile" ]]; }; then
         profile="Dev-Tools"
