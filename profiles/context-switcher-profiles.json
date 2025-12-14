@@ -71,6 +71,32 @@
       "Dynamic Profile Parent Name" : "Default",
       "Rewritable" : true,
       "Use Separate Colors for Light and Dark Mode" : false,
+      "Triggers" : [
+        {
+          "regex" : "Allow .+\\?",
+          "action" : "BounceDockIconTrigger",
+          "parameter" : "",
+          "partial" : true
+        },
+        {
+          "regex" : "Error:|error:|ERROR:|failed|Failed|FAILED",
+          "action" : "HighlightTextTrigger",
+          "parameter" : "{#ff4444,#330000}",
+          "partial" : false
+        },
+        {
+          "regex" : "Session cost:|Total cost:",
+          "action" : "PostNotificationTrigger",
+          "parameter" : "Claude Code - Task Complete",
+          "partial" : false
+        },
+        {
+          "regex" : "✓|✔|completed|Completed",
+          "action" : "HighlightTextTrigger",
+          "parameter" : "{#44ff44,}",
+          "partial" : false
+        }
+      ],
       "Background Color" : {
         "Red Component" : 0.12,
         "Green Component" : 0.08,

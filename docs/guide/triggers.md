@@ -1,64 +1,146 @@
 # iTerm2 Triggers
 
-Optional triggers for Claude Code notifications.
+Automatic notifications for Claude Code sessions.
 
-## What Are Triggers?
+## Built-in Triggers (v2.3.0)
 
-iTerm2 triggers watch terminal output and perform actions when patterns match.
-Use them to get notified when Claude Code needs input.
+The **AI-Session** profile now includes triggers for Claude Code:
 
-## Setting Up Triggers
+| Pattern | Action | Effect |
+|---------|--------|--------|
+| `Allow .+?` | Bounce Dock Icon | Dock bounces when tool approval needed |
+| `Error:\|error:\|failed` | Highlight Text | Errors shown in red |
+| `Session cost:\|Total cost:` | Post Notification | macOS notification on `/cost` |
+| `✓\|completed` | Highlight Text | Success markers shown in green |
 
-1. Open iTerm2 → Settings → Profiles → Default
-2. Go to **Advanced** tab
-3. Click **Edit** next to Triggers
-4. Add triggers below
+These triggers activate automatically when using the AI-Session profile.
 
-## Recommended Triggers
+---
 
-### Notification When Claude Waiting
+## How Triggers Work
 
-| Field | Value |
-|-------|-------|
-| Regular Expression | `^> $` |
-| Action | Post Notification |
-| Parameters | `Claude waiting for input` |
-| Instant | ✅ Check |
+iTerm2 triggers watch terminal output and perform actions when regex patterns match.
 
-### Bounce Dock on Permission Prompt
+```
+Terminal Output → Regex Match → Action Triggered
+```
 
-| Field | Value |
-|-------|-------|
-| Regular Expression | `(Allow\|Deny)\?` |
-| Action | Bounce Dock Icon |
-| Parameters | *(leave empty)* |
-| Instant | ✅ Check |
+Useful for:
 
-### Highlight Permission Lines (Optional)
+- Getting notified when Claude needs input
+- Highlighting errors and successes
+- Bouncing dock when attention needed
 
-| Field | Value |
-|-------|-------|
-| Regular Expression | `Do you want to` |
-| Action | Highlight Line |
-| Parameters | *(pick yellow)* |
-| Instant | ✅ Check |
+---
 
-## Available Trigger Actions
+## Customizing Triggers
+
+### View/Edit Triggers
+
+1. Open iTerm2 → Settings → Profiles
+2. Select **AI-Session**
+3. Go to **Advanced** tab
+4. Click **Edit** next to Triggers
+
+### Add New Trigger
+
+| Field | Description |
+|-------|-------------|
+| Regular Expression | Regex pattern to match |
+| Action | What to do when matched |
+| Parameters | Action-specific options |
+| Instant | Match immediately (don't wait for newline) |
+
+---
+
+## Additional Trigger Ideas
+
+### Notification When Claude Idle
+
+```
+Regex: ^> $
+Action: Post Notification
+Parameters: Claude waiting for input
+Instant: ✅
+```
+
+### Sound on Long Tasks
+
+```
+Regex: (completed|finished|done)
+Action: Ring Bell
+Instant: ❌
+```
+
+### Highlight Warnings
+
+```
+Regex: [Ww]arning:|WARN
+Action: Highlight Text
+Parameters: {#ffaa00,}
+```
+
+---
+
+## Available Actions
 
 | Action | Description |
 |--------|-------------|
-| Post Notification | macOS notification |
-| Bounce Dock Icon | Bounces until focused |
-| Ring Bell | Plays sound |
-| Highlight Line | Colors the line |
-| Highlight Text | Colors matched text |
+| Post Notification | macOS notification center |
+| Bounce Dock Icon | Bounces until window focused |
+| Ring Bell | Plays system bell sound |
+| Highlight Line | Colors entire line |
+| Highlight Text | Colors matched text only |
 | Set Title | Changes tab title |
-| Show Alert | Popup alert box |
+| Show Alert | Popup alert dialog |
 | Run Command | Execute shell command |
+| Send Text | Send text to terminal |
 
-## Inheritance
+---
 
-Triggers set on the **Default** profile are inherited by child profiles
-(R-Dev, Python-Dev, etc.) if they use `Dynamic Profile Parent Name: Default`.
+## Color Format
 
-Set triggers once on Default, they work everywhere.
+For Highlight triggers, use `{#rrggbb,#rrggbb}` format:
+
+- First color: foreground
+- Second color: background
+- Empty string for unchanged: `{#ff0000,}` (red text, no bg change)
+
+Examples:
+
+- `{#ff4444,#330000}` - Red text on dark red background
+- `{#44ff44,}` - Green text, default background
+- `{,#ffffcc}` - Default text, yellow background
+
+---
+
+## Profile Inheritance
+
+Triggers on the **Default** profile are inherited by child profiles.
+
+Since all our profiles use `Dynamic Profile Parent Name: Default`, you can:
+
+1. Add triggers to **Default** for global behavior
+2. Add triggers to **AI-Session** for Claude-specific behavior
+
+The AI-Session triggers are specific to Claude/AI sessions and won't affect other profiles.
+
+---
+
+## Troubleshooting
+
+**Triggers not firing:**
+
+- Check regex syntax (use ICU regex)
+- Try enabling "Instant" for prompts without newlines
+- Verify profile is active (check tab color)
+
+**Too many notifications:**
+
+- Make regex more specific
+- Remove broad patterns like `completed`
+
+**Dock won't stop bouncing:**
+
+- Click on iTerm2 window to focus it
+- Or disable the trigger temporarily

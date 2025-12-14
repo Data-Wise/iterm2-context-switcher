@@ -2,6 +2,20 @@
 
 All notable changes to iterm2-context-switcher will be documented in this file.
 
+## [2.3.0] - 2025-12-14
+
+### Added
+- **iTerm2 Triggers for Claude Code** - Auto-notifications in AI-Session profile
+  - Bounce Dock Icon when tool approval needed (`Allow .+?`)
+  - Highlight errors in red (`Error:|error:|failed`)
+  - macOS notification on `/cost` command
+  - Highlight success markers in green (`✓|completed`)
+- **Trigger documentation** - Updated docs/guide/triggers.md with customization guide
+
+### Changed
+- AI-Session profile now includes built-in triggers
+- Triggers activate automatically when using AI-Session profile
+
 ## [2.2.0] - 2025-12-14
 
 ### Added
@@ -104,11 +118,11 @@ All notable changes to iterm2-context-switcher will be documented in this file.
 ## [Unreleased]
 
 ### Planned
-- iTerm2 triggers for Claude Code notifications
 - Status bar integration
 - Production warning sound/bell
+- Smart triggers for test results
 
 ---
 
-**Project Status:** Complete (v2.2.0)
+**Project Status:** Complete (v2.3.0)
 **Live Docs:** https://data-wise.github.io/iterm2-context-switcher/
