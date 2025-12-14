@@ -35,7 +35,14 @@
       "Bash(ls:*)",
       "Bash(mkdocs build:*)",
       "Bash(cat:*)",
-      "Bash(git commit -m \"$(cat <<''EOF''\ndocs: add MkDocs documentation site\n\n- Material theme with dark/light toggle\n- 7 documentation pages:\n  - Getting Started (installation, quickstart)\n  - User Guide (context-detection, profiles, triggers)\n  - Reference (configuration, troubleshooting)\n- GitHub Actions workflow for Pages deployment\n- Remove old standalone doc files\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n)\")"
+      "Bash(git commit -m \"$(cat <<''EOF''\ndocs: add MkDocs documentation site\n\n- Material theme with dark/light toggle\n- 7 documentation pages:\n  - Getting Started (installation, quickstart)\n  - User Guide (context-detection, profiles, triggers)\n  - Reference (configuration, troubleshooting)\n- GitHub Actions workflow for Pages deployment\n- Remove old standalone doc files\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n)\")",
+      "Bash(git merge:*)",
+      "Bash(git stash:*)",
+      "Bash(gh run list:*)",
+      "Bash(gh repo view:*)",
+      "Bash(# Enable GitHub Pages with correct format\ngh api repos/Data-Wise/iterm2-context-switcher/pages \\\n  -X POST \\\n  -H \"\"Accept: application/vnd.github+json\"\" \\\n  --input - <<'EOF'\n{\n  \"build_type\": \"legacy\",\n  \"source\": {\n    \"branch\": \"gh-pages\",\n    \"path\": \"/\"\n  }\n}\nEOF)",
+      "Bash(curl:*)",
+      "Bash(git commit:*)"
     ]
   }
 }
