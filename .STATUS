@@ -4,6 +4,7 @@ priority: P2
 progress: 100
 version: 2.0.0
 updated: 2025-12-14
+Next: Complete - consider git branch in title
 
 # What it does
 Smart iTerm2 context switching with auto-profile and tab titles.
@@ -19,12 +20,3 @@ switches terminal colors + sets tab title with icon.
 # Links
 repo: https://github.com/Data-Wise/iterm2-context-switcher
 docs: https://data-wise.github.io/iterm2-context-switcher/
-
-# Next actions
-- none (stable)
-
-# Backlog
-- Git branch in tab title
-- Color profiles for Quarto/Emacs/DevTools
-- MCP server detection
-- iTerm2 triggers for Claude notifications
