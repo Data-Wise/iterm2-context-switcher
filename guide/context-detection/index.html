@@ -663,6 +663,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#profile-icon-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Profile + Icon Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#conflict-resolution" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -681,6 +692,45 @@
       
     </span>
   </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#detection-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Detection Requirements
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Detection Requirements">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dev-tools-detection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dev-Tools Detection
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mcp-server-detection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MCP Server Detection
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -948,6 +998,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#profile-icon-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Profile + Icon Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#conflict-resolution" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -966,6 +1027,45 @@
       
     </span>
   </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#detection-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Detection Requirements
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Detection Requirements">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dev-tools-detection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dev-Tools Detection
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mcp-server-detection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MCP Server Detection
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -993,15 +1093,16 @@
 <p>How the switcher detects your project type.</p>
 <h2 id="detection-priority">Detection Priority</h2>
 <p>Contexts are checked in this order (first match wins):</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>1. 🚨 Production   (path)     ─┐
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>2. 🤖 AI-Session   (path)      │ Safety first
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>3. 📦 R Package    (DESCRIPTION)─┐
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>1. 🚨 Production   (path)        ─┐
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>2. 🤖 AI-Session   (path)         │ Safety first
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>3. 📦 R Package    (DESCRIPTION) ─┐
 <a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>4. 🐍 Python       (pyproject.toml)│ Language-specific
 <a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>5. 📦 Node         (package.json)  ─┘
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>6. 📊 Quarto       (_quarto.yml)─┐
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>7. ⚡ Emacs        (Cask, etc.)  │ Document/Tool types
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>8. 🔧 Dev-Tools    (commands/)  ─┘
-<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>9.    Default      (fallback)
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>6. 📊 Quarto       (_quarto.yml) ─┐
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>7. 🔌 MCP Server   (mcp-server/)  │
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>8. ⚡ Emacs        (Cask, etc.)   │ Tool types
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>9. 🔧 Dev-Tools    (scripts/)    ─┘
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>10.   Default      (fallback)
 </code></pre></div>
 <h2 id="detection-methods">Detection Methods</h2>
 <h3 id="path-based-detection">Path-based Detection</h3>
@@ -1010,16 +1111,19 @@
 <tr>
 <th>Context</th>
 <th>Path Pattern</th>
+<th>Profile</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>Production</td>
 <td><code>*/production/*</code> or <code>*/prod/*</code></td>
+<td>Production</td>
 </tr>
 <tr>
 <td>AI Sessions</td>
 <td><code>*/claude-sessions/*</code> or <code>*/gemini-sessions/*</code></td>
+<td>AI-Session</td>
 </tr>
 </tbody>
 </table>
@@ -1029,32 +1133,117 @@
 <tr>
 <th>Context</th>
 <th>File/Directory</th>
+<th>Profile</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>R Package</td>
-<td><code>DESCRIPTION</code> file</td>
+<td><code>DESCRIPTION</code> file with <code>Package:</code> field</td>
+<td>R-Dev</td>
 </tr>
 <tr>
 <td>Python</td>
 <td><code>pyproject.toml</code> file</td>
+<td>Python-Dev</td>
 </tr>
 <tr>
 <td>Node.js</td>
 <td><code>package.json</code> file</td>
+<td>Node-Dev</td>
 </tr>
 <tr>
 <td>Quarto</td>
 <td><code>_quarto.yml</code> file</td>
+<td>R-Dev</td>
+</tr>
+<tr>
+<td>MCP Server</td>
+<td><code>mcp-server/</code> directory or <code>*mcp*</code> with <code>package.json</code></td>
+<td>AI-Session</td>
 </tr>
 <tr>
 <td>Emacs</td>
 <td><code>Cask</code>, <code>.dir-locals.el</code>, <code>init.el</code>, or <code>early-init.el</code></td>
+<td>Emacs</td>
 </tr>
 <tr>
 <td>Dev-Tools</td>
-<td><code>commands/</code> directory</td>
+<td>Git repo with <code>commands/</code> or <code>scripts/</code> directory</td>
+<td>Dev-Tools</td>
+</tr>
+</tbody>
+</table>
+<h2 id="profile-icon-summary">Profile + Icon Summary</h2>
+<table>
+<thead>
+<tr>
+<th>Context</th>
+<th>Profile</th>
+<th>Icon</th>
+<th>Theme</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Production</td>
+<td>Production</td>
+<td>🚨</td>
+<td>Red</td>
+</tr>
+<tr>
+<td>AI Sessions</td>
+<td>AI-Session</td>
+<td>🤖</td>
+<td>Purple</td>
+</tr>
+<tr>
+<td>R Package</td>
+<td>R-Dev</td>
+<td>📦</td>
+<td>Blue</td>
+</tr>
+<tr>
+<td>Python</td>
+<td>Python-Dev</td>
+<td>🐍</td>
+<td>Green</td>
+</tr>
+<tr>
+<td>Node.js</td>
+<td>Node-Dev</td>
+<td>📦</td>
+<td>Dark</td>
+</tr>
+<tr>
+<td>Quarto</td>
+<td>R-Dev</td>
+<td>📊</td>
+<td>Blue</td>
+</tr>
+<tr>
+<td>MCP Server</td>
+<td>AI-Session</td>
+<td>🔌</td>
+<td>Purple</td>
+</tr>
+<tr>
+<td>Emacs</td>
+<td>Emacs</td>
+<td>⚡</td>
+<td>Purple</td>
+</tr>
+<tr>
+<td>Dev-Tools</td>
+<td>Dev-Tools</td>
+<td>🔧</td>
+<td>Amber</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>Default</td>
+<td>(none)</td>
+<td>Default</td>
 </tr>
 </tbody>
 </table>
@@ -1083,6 +1272,11 @@
 <td>Quarto in production folder</td>
 <td>🚨 Production</td>
 <td>Safety priority</td>
+</tr>
+<tr>
+<td>MCP server with Node</td>
+<td>🔌 MCP</td>
+<td>MCP detected before Node</td>
 </tr>
 </tbody>
 </table>
@@ -1114,6 +1308,23 @@
 </tr>
 </tbody>
 </table>
+<h2 id="detection-requirements">Detection Requirements</h2>
+<h3 id="dev-tools-detection">Dev-Tools Detection</h3>
+<p>Dev-tools detection requires:</p>
+<ol>
+<li><strong>Git repository</strong> (<code>.git</code> directory exists)</li>
+<li><strong>AND</strong> one of:</li>
+<li><code>commands/</code> directory</li>
+<li><code>scripts/</code> directory</li>
+<li><code>bin/</code> directory with <code>Makefile</code></li>
+</ol>
+<p>This prevents false positives (e.g., <code>~/scripts</code> folder).</p>
+<h3 id="mcp-server-detection">MCP Server Detection</h3>
+<p>MCP servers are detected by:</p>
+<ol>
+<li><code>mcp-server/</code> directory exists, <strong>OR</strong></li>
+<li>Path contains <code>mcp</code> AND has <code>package.json</code></li>
+</ol>
 
 
 

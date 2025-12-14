@@ -455,6 +455,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#dynamic-profiles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dynamic Profiles
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -906,6 +917,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#dynamic-profiles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dynamic Profiles
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -928,6 +950,7 @@
 
 <h1 id="iterm2-context-switcher">iTerm2 Context Switcher</h1>
 <p><strong>Smart context switching for iTerm2 with auto-profile switching and tab titles.</strong></p>
+<p><strong>Version:</strong> 2.1.0</p>
 <hr />
 <h2 id="what-it-does">What It Does</h2>
 <p>Automatically switches iTerm2 profiles (colors) and sets tab titles based on your current directory:</p>
@@ -937,77 +960,86 @@
 <th>Context</th>
 <th>Icon</th>
 <th>Profile</th>
-<th>Detection</th>
+<th>Theme</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>Production</td>
-<td><img alt="🚨" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f6a8.svg" title=":rotating_light:" /></td>
+<td>🚨</td>
 <td>Production</td>
-<td><code>*/production/*</code> or <code>*/prod/*</code></td>
+<td>Red</td>
 </tr>
 <tr>
 <td>AI Sessions</td>
-<td><img alt="🤖" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f916.svg" title=":robot:" /></td>
+<td>🤖</td>
 <td>AI-Session</td>
-<td><code>*/claude-sessions/*</code> or <code>*/gemini-sessions/*</code></td>
+<td>Purple</td>
 </tr>
 <tr>
 <td>R Package</td>
-<td><img alt="📦" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f4e6.svg" title=":package:" /></td>
+<td>📦</td>
 <td>R-Dev</td>
-<td><code>DESCRIPTION</code> file</td>
+<td>Blue</td>
 </tr>
 <tr>
 <td>Python</td>
-<td><img alt="🐍" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f40d.svg" title=":snake:" /></td>
+<td>🐍</td>
 <td>Python-Dev</td>
-<td><code>pyproject.toml</code> file</td>
+<td>Green</td>
 </tr>
 <tr>
 <td>Node.js</td>
-<td><img alt="📦" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f4e6.svg" title=":package:" /></td>
+<td>📦</td>
 <td>Node-Dev</td>
-<td><code>package.json</code> file</td>
+<td>Dark</td>
 </tr>
 <tr>
 <td>Quarto</td>
-<td><img alt="📊" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f4ca.svg" title=":bar_chart:" /></td>
-<td>Default</td>
-<td><code>_quarto.yml</code> file</td>
+<td>📊</td>
+<td>R-Dev</td>
+<td>Blue</td>
+</tr>
+<tr>
+<td>MCP Server</td>
+<td>🔌</td>
+<td>AI-Session</td>
+<td>Purple</td>
 </tr>
 <tr>
 <td>Emacs</td>
-<td><img alt="⚡" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/26a1.svg" title=":zap:" /></td>
-<td>Default</td>
-<td><code>Cask</code>, <code>.dir-locals.el</code>, <code>init.el</code></td>
+<td>⚡</td>
+<td>Emacs</td>
+<td>Purple</td>
 </tr>
 <tr>
 <td>Dev-Tools</td>
-<td><img alt="🔧" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f527.svg" title=":wrench:" /></td>
-<td>Default</td>
-<td><code>commands/</code> directory</td>
+<td>🔧</td>
+<td>Dev-Tools</td>
+<td>Amber</td>
 </tr>
 </tbody>
 </table>
 <hr />
 <h2 id="features">Features</h2>
 <ul>
-<li><img alt="✅" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2705.svg" title=":white_check_mark:" /> Auto-switch profiles by directory context</li>
-<li><img alt="✅" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2705.svg" title=":white_check_mark:" /> Tab titles with icons (📦 medfit, 🐍 myproject)</li>
-<li><img alt="✅" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2705.svg" title=":white_check_mark:" /> Production environment warnings (🚨)</li>
-<li><img alt="✅" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2705.svg" title=":white_check_mark:" /> Caches state to prevent redundant switches</li>
-<li><img alt="✅" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2705.svg" title=":white_check_mark:" /> No conflicts with other shell hooks</li>
-<li><img alt="✅" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2705.svg" title=":white_check_mark:" /> Zero configuration after setup</li>
+<li>✅ Auto-switch profiles by directory context</li>
+<li>✅ Tab titles with icons (📦 medfit, 🐍 myproject)</li>
+<li>✅ Production environment warnings (🚨)</li>
+<li>✅ Dynamic profiles auto-installed (no manual setup)</li>
+<li>✅ Caches state to prevent redundant switches</li>
+<li>✅ No conflicts with other shell hooks</li>
+<li>✅ Zero configuration after setup</li>
 </ul>
 <hr />
 <h2 id="quick-start">Quick Start</h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># Add to ~/.config/zsh/.zshrc</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># Add to ~/.config/zsh/.zshrc (before Oh-My-Zsh loads)</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nv">DISABLE_AUTO_TITLE</span><span class="o">=</span><span class="s2">&quot;true&quot;</span>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="nb">source</span><span class="w"> </span>~/projects/dev-tools/iterm2-context-switcher/zsh/iterm2-integration.zsh
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="c1"># At end of .zshrc</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="nb">source</span><span class="w"> </span>~/projects/dev-tools/iterm2-context-switcher/zsh/iterm2-integration.zsh
 </code></pre></div>
+<p><strong>Important:</strong> Set each iTerm2 profile's Title to "Session Name" in Preferences.</p>
 <p>Then reload your shell:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nb">source</span><span class="w"> </span>~/.config/zsh/.zshrc
 </code></pre></div>
@@ -1021,6 +1053,16 @@
 <li><strong>Sets title</strong> - Updates tab title with icon + project name</li>
 </ol>
 <p>All changes are cached to prevent redundant switches.</p>
+<hr />
+<h2 id="dynamic-profiles">Dynamic Profiles</h2>
+<p>Color profiles are automatically installed via iTerm2 Dynamic Profiles:</p>
+<ul>
+<li><strong>Dev-Tools</strong> - Amber/orange theme for shell tools</li>
+<li><strong>Emacs</strong> - Purple/magenta theme for Emacs configs</li>
+<li><strong>Python-Dev</strong> - Green theme for Python projects</li>
+<li><strong>Node-Dev</strong> - Dark theme for Node.js projects</li>
+</ul>
+<p>See <a href="guide/profiles/">Profiles Guide</a> for customization.</p>
 
 
 
