@@ -526,10 +526,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#minimal-setup" class="md-nav__link">
+  <a href="#fastest-setup-recommended" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Minimal Setup
+        Fastest Setup (Recommended)
       
     </span>
   </a>
@@ -541,6 +541,17 @@
     <span class="md-ellipsis">
       
         What You'll See
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#git-info-format" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Git Info Format
       
     </span>
   </a>
@@ -859,10 +870,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#minimal-setup" class="md-nav__link">
+  <a href="#fastest-setup-recommended" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Minimal Setup
+        Fastest Setup (Recommended)
       
     </span>
   </a>
@@ -874,6 +885,17 @@
     <span class="md-ellipsis">
       
         What You'll See
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#git-info-format" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Git Info Format
       
     </span>
   </a>
@@ -913,19 +935,24 @@
 
 <h1 id="quick-start">Quick Start</h1>
 <p>Get up and running in 2 minutes.</p>
-<h2 id="minimal-setup">Minimal Setup</h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># 1. Add to your .zshrc</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;DISABLE_AUTO_TITLE=&quot;true&quot;&#39;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>~/.zshrc
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;source ~/path/to/iterm2-context-switcher/zsh/iterm2-integration.zsh&#39;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>~/.zshrc
+<h2 id="fastest-setup-recommended">Fastest Setup (Recommended)</h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># 1. Run install script</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nb">cd</span><span class="w"> </span>~/projects/dev-tools/iterm2-context-switcher
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>bash<span class="w"> </span>scripts/install-profiles.sh
 <a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="c1"># 2. Reload</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="nb">source</span><span class="w"> </span>~/.zshrc
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="c1"># 3. Test</span>
-<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="nb">cd</span><span class="w"> </span>~/your/r-package
-<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="c1"># Tab should show: 📦 package-name</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="c1"># 2. Add to your .zshrc</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;DISABLE_AUTO_TITLE=&quot;true&quot;&#39;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>~/.zshrc
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;source ~/projects/dev-tools/iterm2-context-switcher/zsh/iterm2-integration.zsh&#39;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>~/.zshrc
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="c1"># 3. Reload</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="nb">source</span><span class="w"> </span>~/.zshrc
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="c1"># 4. Test</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="nb">cd</span><span class="w"> </span>~/projects/r-packages/active/medfit
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="c1"># Tab should show: 📦 medfit (main)</span>
 </code></pre></div>
 <h2 id="what-youll-see">What You'll See</h2>
+<p>Titles now include <strong>git branch</strong> and <strong>dirty indicator</strong>:</p>
 <table>
 <thead>
 <tr>
@@ -936,47 +963,63 @@
 </thead>
 <tbody>
 <tr>
-<td>R package (has DESCRIPTION)</td>
-<td>📦 pkgname</td>
-<td>R-Dev (green)</td>
+<td>R package (clean)</td>
+<td><code>📦 medfit (main)</code></td>
+<td>R-Dev (blue)</td>
+</tr>
+<tr>
+<td>R package (dirty)</td>
+<td><code>📦 medfit (main)*</code></td>
+<td>R-Dev (blue)</td>
 </tr>
 <tr>
 <td>Python project</td>
-<td>🐍 dirname</td>
-<td>Python-Dev</td>
+<td><code>🐍 myapp (dev)</code></td>
+<td>Python-Dev (green)</td>
 </tr>
 <tr>
 <td>Node project</td>
-<td>📦 pkgname</td>
-<td>Node-Dev</td>
+<td><code>📦 webapp (feature/x)</code></td>
+<td>Node-Dev (dark)</td>
 </tr>
 <tr>
 <td>Quarto project</td>
-<td>📊 dirname</td>
-<td>Default</td>
+<td><code>📊 report (main)</code></td>
+<td>R-Dev (blue)</td>
 </tr>
 <tr>
 <td>Emacs project</td>
-<td>⚡ dirname</td>
-<td>Default</td>
+<td><code>⚡ dotemacs (master)</code></td>
+<td>Emacs (purple)</td>
 </tr>
 <tr>
 <td>Dev tools</td>
-<td>🔧 dirname</td>
-<td>Default</td>
+<td><code>🔧 cli-tool (dev)*</code></td>
+<td>Dev-Tools (amber)</td>
 </tr>
 <tr>
 <td>Production folder</td>
-<td>🚨 dirname</td>
+<td><code>🚨 server (main)</code></td>
 <td>Production (red)</td>
+</tr>
+<tr>
+<td>AI session</td>
+<td><code>🤖 claude (main)</code></td>
+<td>AI-Session (purple)</td>
 </tr>
 </tbody>
 </table>
+<h2 id="git-info-format">Git Info Format</h2>
+<ul>
+<li><code>(branch)</code> - Current branch name</li>
+<li><code>(branch)*</code> - Has uncommitted changes</li>
+<li><code>(feature/lo…ng-name)</code> - Long branches truncated</li>
+</ul>
 <h2 id="next-steps">Next Steps</h2>
 <ul>
-<li><a href="../installation/">Full Installation</a> - Create all profiles</li>
+<li><a href="../installation/">Full Installation</a> - Detailed setup guide</li>
 <li><a href="../../guide/context-detection/">Context Detection</a> - How detection works</li>
-<li><a href="../../guide/triggers/">Triggers</a> - Claude Code notifications</li>
+<li><a href="../../guide/profiles/">Profiles</a> - Customize colors</li>
 </ul>
 
 

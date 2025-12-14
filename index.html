@@ -442,6 +442,34 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Quick Start">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#option-1-install-script" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Option 1: Install Script
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#option-2-manual-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Option 2: Manual Setup
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -904,6 +932,34 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Quick Start">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#option-1-install-script" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Option 1: Install Script
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#option-2-manual-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Option 2: Manual Setup
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -950,7 +1006,7 @@
 
 <h1 id="iterm2-context-switcher">iTerm2 Context Switcher</h1>
 <p><strong>Smart context switching for iTerm2 with auto-profile switching and tab titles.</strong></p>
-<p><strong>Version:</strong> 2.1.0</p>
+<p><strong>Version:</strong> 2.2.0</p>
 <hr />
 <h2 id="what-it-does">What It Does</h2>
 <p>Automatically switches iTerm2 profiles (colors) and sets tab titles based on your current directory:</p>
@@ -1024,24 +1080,29 @@
 <h2 id="features">Features</h2>
 <ul>
 <li>✅ Auto-switch profiles by directory context</li>
-<li>✅ Tab titles with icons (📦 medfit, 🐍 myproject)</li>
+<li>✅ Tab titles with icons and <strong>git branch</strong>: <code>📦 medfit (main)</code></li>
+<li>✅ <strong>Git dirty indicator</strong>: <code>📦 medfit (main)*</code> when uncommitted changes</li>
 <li>✅ Production environment warnings (🚨)</li>
 <li>✅ Dynamic profiles auto-installed (no manual setup)</li>
 <li>✅ Caches state to prevent redundant switches</li>
-<li>✅ No conflicts with other shell hooks</li>
 <li>✅ Zero configuration after setup</li>
 </ul>
 <hr />
 <h2 id="quick-start">Quick Start</h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># Add to ~/.config/zsh/.zshrc (before Oh-My-Zsh loads)</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nv">DISABLE_AUTO_TITLE</span><span class="o">=</span><span class="s2">&quot;true&quot;</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="c1"># At end of .zshrc</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="nb">source</span><span class="w"> </span>~/projects/dev-tools/iterm2-context-switcher/zsh/iterm2-integration.zsh
+<h3 id="option-1-install-script">Option 1: Install Script</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nb">cd</span><span class="w"> </span>~/projects/dev-tools/iterm2-context-switcher
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>bash<span class="w"> </span>scripts/install-profiles.sh
+</code></pre></div>
+<h3 id="option-2-manual-setup">Option 2: Manual Setup</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># Add to ~/.config/zsh/.zshrc (before Oh-My-Zsh loads)</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="nv">DISABLE_AUTO_TITLE</span><span class="o">=</span><span class="s2">&quot;true&quot;</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="c1"># At end of .zshrc</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="nb">source</span><span class="w"> </span>~/projects/dev-tools/iterm2-context-switcher/zsh/iterm2-integration.zsh
 </code></pre></div>
 <p><strong>Important:</strong> Set each iTerm2 profile's Title to "Session Name" in Preferences.</p>
 <p>Then reload your shell:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nb">source</span><span class="w"> </span>~/.config/zsh/.zshrc
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nb">source</span><span class="w"> </span>~/.config/zsh/.zshrc
 </code></pre></div>
 <p>See the <a href="getting-started/installation/">Installation Guide</a> for detailed setup.</p>
 <hr />
@@ -1050,13 +1111,23 @@
 <ol>
 <li><strong>Detects context</strong> - Checks for project files (DESCRIPTION, pyproject.toml, etc.)</li>
 <li><strong>Switches profile</strong> - Changes iTerm2 colors via escape sequence</li>
-<li><strong>Sets title</strong> - Updates tab title with icon + project name</li>
+<li><strong>Sets title</strong> - Updates tab title with icon + project name + git branch</li>
 </ol>
+<p>Example titles:</p>
+<ul>
+<li><code>📦 medfit (main)</code> - R package on main branch</li>
+<li><code>📦 medfit (main)*</code> - R package with uncommitted changes</li>
+<li><code>🔧 iterm2-context-switcher (dev)</code> - Dev-tools on dev branch</li>
+<li><code>🐍 myproject (feature/api)</code> - Python project on feature branch</li>
+</ul>
 <p>All changes are cached to prevent redundant switches.</p>
 <hr />
 <h2 id="dynamic-profiles">Dynamic Profiles</h2>
-<p>Color profiles are automatically installed via iTerm2 Dynamic Profiles:</p>
+<p>All 7 color profiles are automatically installed via iTerm2 Dynamic Profiles:</p>
 <ul>
+<li><strong>R-Dev</strong> - Blue theme for R packages</li>
+<li><strong>AI-Session</strong> - Purple theme for Claude/Gemini</li>
+<li><strong>Production</strong> - Red theme for production warning</li>
 <li><strong>Dev-Tools</strong> - Amber/orange theme for shell tools</li>
 <li><strong>Emacs</strong> - Purple/magenta theme for Emacs configs</li>
 <li><strong>Python-Dev</strong> - Green theme for Python projects</li>
