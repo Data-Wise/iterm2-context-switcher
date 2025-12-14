@@ -2,6 +2,22 @@
 
 All notable changes to iterm2-context-switcher will be documented in this file.
 
+## [2.1.0] - 2025-12-14
+
+### Added
+- **Dynamic Profiles** - Auto-installed color themes for all project types
+  - Dev-Tools: Amber/orange theme 🔧
+  - Emacs: Purple/magenta theme ⚡
+  - Python-Dev: Green theme 🐍
+  - Node-Dev: Dark theme 📦
+- **Quarto profile switching** - Uses R-Dev profile (blue theme) 📊
+- **MCP profile switching** - Uses AI-Session profile 🔌
+- **Emacs profile switching** - New dedicated purple theme ⚡
+
+### Changed
+- All project types now have profile + icon switching
+- Profiles auto-load via iTerm2 Dynamic Profiles
+
 ## [2.0.1] - 2025-12-14
 
 ### Added
@@ -74,11 +90,10 @@ All notable changes to iterm2-context-switcher will be documented in this file.
 
 ### Planned
 - Git branch in tab title (`📦 medfit (main)`)
-- Color profiles for Quarto/Emacs/MCP
 - iTerm2 triggers for Claude Code notifications
 - Status bar integration
 
 ---
 
-**Project Status:** Complete (v2.0.1)
+**Project Status:** Complete (v2.1.0)
 **Live Docs:** https://data-wise.github.io/iterm2-context-switcher/

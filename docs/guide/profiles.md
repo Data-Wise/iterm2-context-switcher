@@ -2,68 +2,101 @@
 
 Configure iTerm2 profiles for visual context switching.
 
-## Required Profiles
+## Auto-Installed Profiles
 
-| Profile Name | Purpose | Background Color |
-|--------------|---------|------------------|
-| Default | Fallback | Your preference |
-| R-Dev | R packages | Green (#134F3C) |
-| Python-Dev | Python projects | Green (#137746) |
-| Node-Dev | Node.js projects | Dark (#121212) |
-| AI-Session | Claude/Gemini | Purple |
-| Production | Production warning | Red |
+Dynamic profiles are automatically installed and ready to use:
 
-## Creating Profiles Manually
+| Profile | Icon | Theme | Use Case |
+|---------|------|-------|----------|
+| Dev-Tools | 🔧 | Amber/Orange | Shell scripts, CLI tools |
+| Emacs | ⚡ | Purple/Magenta | Emacs configurations |
+| Python-Dev | 🐍 | Green | Python projects |
+| Node-Dev | 📦 | Dark | Node.js projects |
+| R-Dev | 📦 | Blue | R packages (create manually) |
+| AI-Session | 🤖 | Purple | Claude/Gemini sessions |
+| Production | 🚨 | Red | Production warning |
 
-1. Open iTerm2 → Settings → Profiles
-2. Select "Default" → Click "+" to duplicate
-3. Rename to profile name (e.g., "R-Dev")
-4. Customize colors under "Colors" tab
+## Profile Mappings
 
-## Using Dynamic Profiles
+| Context Type | Profile Used | Icon |
+|--------------|--------------|------|
+| R packages | R-Dev | 📦 |
+| Python projects | Python-Dev | 🐍 |
+| Node.js projects | Node-Dev | 📦 |
+| Quarto projects | R-Dev | 📊 |
+| MCP servers | AI-Session | 🔌 |
+| Emacs configs | Emacs | ⚡ |
+| Dev-tools | Dev-Tools | 🔧 |
+| AI sessions | AI-Session | 🤖 |
+| Production | Production | 🚨 |
+| Default | Default | (none) |
 
-Dynamic Profiles auto-load from JSON files.
+## Important: Title Configuration
 
-### Install Profiles
+For profile switching to work, each profile must have:
 
-Copy the included profiles:
+1. **General → Title**: Set to **"Session Name"**
+2. **Check**: "Applications in terminal may change title"
 
-```bash
-cp profiles/context-switcher-profiles.json \
-   ~/Library/Application\ Support/iTerm2/DynamicProfiles/
+Without this, escape sequences won't update the title.
+
+## Dynamic Profiles Location
+
+Profiles are stored in:
+
+```
+~/Library/Application Support/iTerm2/DynamicProfiles/context-switcher-profiles.json
 ```
 
-### Included Dynamic Profiles
+## Creating Additional Profiles
 
-- **Python-Dev** - Grass theme (green jungle)
-- **Node-Dev** - Citruszest theme (dark with yellow accents)
+### R-Dev Profile (Manual)
 
-### Creating Custom Dynamic Profiles
+The R-Dev profile needs to be created manually:
 
-Create a JSON file in `~/Library/Application Support/iTerm2/DynamicProfiles/`:
+1. Open iTerm2 → Settings → Profiles
+2. Click "+" to create new profile
+3. Name it exactly: `R-Dev`
+4. Set background color: Blue (#1a3a5c recommended)
+5. Under General → Title: Select "Session Name"
+6. Check "Applications in terminal may change title"
+
+### Custom Dynamic Profiles
+
+Add to the existing JSON file:
 
 ```json
 {
-  "Profiles": [
-    {
-      "Name": "My-Profile",
-      "Guid": "unique-id-here",
-      "Dynamic Profile Parent Name": "Default",
-      "Background Color": {
-        "Red Component": 0.1,
-        "Green Component": 0.1,
-        "Blue Component": 0.1
-      }
-    }
-  ]
+  "Name": "My-Profile",
+  "Guid": "unique-id-here",
+  "Dynamic Profile Parent Name": "Default",
+  "Background Color": {
+    "Red Component": 0.1,
+    "Green Component": 0.1,
+    "Blue Component": 0.1,
+    "Alpha Component": 1
+  }
 }
 ```
 
-## Profile Colors Reference
+## Profile Color Reference
 
-| Profile | Hex | RGB |
-|---------|-----|-----|
-| R-Dev (green) | #134F3C | 19, 79, 60 |
-| Python-Dev | #137746 | 19, 119, 70 |
-| Node-Dev | #121212 | 18, 18, 18 |
-| Production | #8B0000 | 139, 0, 0 |
+| Profile | Background | Foreground |
+|---------|------------|------------|
+| Dev-Tools | Dark brown (#1f1a0f) | Amber (#ffc259) |
+| Emacs | Dark purple (#1a1424) | Light purple (#d9ccf2) |
+| Python-Dev | Green (#137746) | Yellow (#fff0a5) |
+| Node-Dev | Dark (#121212) | Gray (#bfbfbf) |
+
+## Troubleshooting
+
+**Profile doesn't switch:**
+
+- Ensure `$TERM_PROGRAM` equals `iTerm.app`
+- Check profile name matches exactly (case-sensitive)
+- Verify profile exists in iTerm2 Preferences
+
+**Title doesn't update:**
+
+- Set Title to "Session Name" in profile settings
+- Enable "Applications in terminal may change title"
