@@ -66,6 +66,7 @@ nav:
   - User Guide:
     - Context Detection: guide/context-detection.md
     - Profiles: guide/profiles.md
+    - Status Bar: guide/status-bar.md
     - Triggers: guide/triggers.md
   - Reference:
     - Configuration: reference/configuration.md

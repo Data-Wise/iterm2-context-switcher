@@ -2,6 +2,20 @@
 
 All notable changes to iterm2-context-switcher will be documented in this file.
 
+## [2.4.0] - 2025-12-14
+
+### Added
+- **Status Bar Integration** - Display context in iTerm2 status bar
+  - `\(user.ctxIcon)` - Context icon (📦, 🐍, 🔧, etc.)
+  - `\(user.ctxName)` - Project name
+  - `\(user.ctxBranch)` - Git branch
+  - `\(user.ctxProfile)` - Active profile name
+- **Status bar documentation** - New docs/guide/status-bar.md with setup guide
+
+### Changed
+- Refactored detection to set user variables alongside profile/title
+- Variables update on every directory change
+
 ## [2.3.0] - 2025-12-14
 
 ### Added
@@ -118,11 +132,10 @@ All notable changes to iterm2-context-switcher will be documented in this file.
 ## [Unreleased]
 
 ### Planned
-- Status bar integration
 - Production warning sound/bell
 - Smart triggers for test results
 
 ---
 
-**Project Status:** Complete (v2.3.0)
+**Project Status:** Complete (v2.4.0)
 **Live Docs:** https://data-wise.github.io/iterm2-context-switcher/

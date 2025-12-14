@@ -2,7 +2,7 @@
 
 **Smart context switching for iTerm2 with auto-profile switching and tab titles.**
 
-**Version:** 2.3.0
+**Version:** 2.4.0
 
 ---
 
@@ -32,6 +32,7 @@ Automatically switches iTerm2 profiles (colors) and sets tab titles based on you
 - ✅ Production environment warnings (🚨)
 - ✅ Dynamic profiles auto-installed (no manual setup)
 - ✅ **Claude Code triggers** - Dock bounce, error highlighting, notifications
+- ✅ **Status bar variables** - Show context in iTerm2 status bar
 - ✅ Caches state to prevent redundant switches
 - ✅ Zero configuration after setup
 
