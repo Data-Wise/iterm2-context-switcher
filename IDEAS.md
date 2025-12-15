@@ -99,13 +99,18 @@
   - backup-creator (save versions before changes)
   - changelog-updater (track file modifications)
 - **UserPromptSubmit Hooks:**
-  - ✅ **@smart prompt optimizer** (Tier 1 MVP IMPLEMENTED!)
+  - ✅ **@smart prompt optimizer v1.0** (AUTO-ENHANCE MODE - ACTIVE!)
     - Detects `@smart` or `[refine]` in prompts
-    - Auto-adds project context (type, git, recent files)
-    - Interactive menu: Submit/Revise/Cancel
+    - **Automatically** adds project context (type, git, recent files)
+    - **Non-interactive** - instant enhancement, zero friction
     - Works with existing `/workflow:*` commands
     - Location: `~/.claude/hooks/prompt-optimizer.sh`
-    - Status: Active and working!
+    - Status: Production-ready ✅
+  - 🔮 **@smart v2.0** (Future: INTERACTIVE MODE)
+    - Build `/smart` slash command with menu
+    - Options: Submit/Revise/Delegate/Cancel
+    - Works alongside auto-enhance hook
+    - See "Command Templates" section below
   - context-injector (add project-specific context)
   - style-enforcer (ensure consistency)
 - **PermissionRequest Hooks:**
@@ -120,6 +125,15 @@
 - [ ] `aiterm claude commands namespace <category>` - Create namespaced commands
 
 **Template types with full frontmatter:**
+- **Smart Prompting** (`/smart`) - 🔮 PLANNED (v2.0)
+  - `/smart [prompt]` - Interactive menu for prompt optimization
+    - Gathers project context (like @smart hook)
+    - Shows interactive menu: Submit/Revise/Delegate/Cancel
+    - Allows editing in $EDITOR before submission
+    - Background agent delegation via Task tool
+    - Complements auto-enhance @smart hook
+  - Implementation: Interactive slash command (not hook)
+  - Priority: Week 2-3 after core CLI is stable
 - **Research** (`/research:*`):
   - `/research:literature` (with Zotero MCP integration)
   - `/research:cite` (format citations)
