@@ -87,7 +87,9 @@
       "Bash(do)",
       "Bash(defaults read:*)",
       "Bash(plutil:*)",
-      "Bash(ps:*)"
+      "Bash(ps:*)",
+      "Bash(bash -c 'zsh ./scripts/test-context-switcher.sh >/dev/null 2>&1; echo \"\"Exit code: $?\"\"')",
+      "Bash(timeout 5 ./scripts/test-context-switcher.sh:*)"
     ]
   }
 }
