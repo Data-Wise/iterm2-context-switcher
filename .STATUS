@@ -2,9 +2,9 @@ project: iterm2-context-switcher
 status: stable
 priority: P2
 progress: 100
-version: 2.0.0
-updated: 2025-12-14
-Next: Complete - consider git branch in title
+version: 2.5.0
+updated: 2025-12-15
+Next: Complete - maintenance mode
 
 # What it does
 Smart iTerm2 context switching with auto-profile and tab titles.

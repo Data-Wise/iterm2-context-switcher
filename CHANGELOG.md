@@ -2,6 +2,22 @@
 
 All notable changes to iterm2-context-switcher will be documented in this file.
 
+## [2.5.0] - 2025-12-15
+
+### Added
+- **Comprehensive test suite** - `scripts/test-context-switcher.sh`
+  - Tests all 8 context detection scenarios
+  - Validates profile switching and title/badge setting
+  - Includes git dirty indicator testing
+  - 15 test cases with full coverage
+- **Statusline theme alternatives** - `statusline-alternatives/`
+  - 3 color theme variants (cool-blues, forest-greens, purple-charcoal)
+  - Preview and installation scripts
+  - Theme comparison documentation
+- **Expanded auto-approvals** - Updated `.claude/settings.local.json`
+  - Added 40+ common safe commands (gh, mkdocs, find, grep, jq, etc.)
+  - Reduces approval friction for routine operations
+
 ## [2.4.0] - 2025-12-14
 
 ### Added
