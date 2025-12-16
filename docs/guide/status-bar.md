@@ -26,7 +26,7 @@ The context switcher sets these user variables on every directory change:
 5. Check the box: **Status bar enabled**
 6. Click **Configure Status Bar** button
 
-![Status Bar Enable](https://iterm2.com/img/screenshots/v3-screen-shots/session.png)
+> 📖 See [iTerm2 Status Bar Documentation](https://iterm2.com/documentation-status-bar.html) for official reference.
 
 ### Step 2: Add Interpolated String Component
 
