@@ -1,7 +1,7 @@
 {
   "statusLine": {
     "type": "command",
-    "command": "/bin/bash -c 'tee /tmp/claude-statusline-input.log | /bin/bash /Users/dt/.claude/statusline-p10k.sh'"
+    "command": "/bin/bash /Users/dt/.claude/statusline-debug.sh"
   },
   "permissions": {
     "allow": [
@@ -63,7 +63,16 @@
       "Bash(/bin/bash:*)",
       "Bash(env)",
       "Bash(git commit -m \"$(cat <<''EOF''\ndebug: add statusLine JSON capture debug wrapper\n\nSet up debug tooling to capture and analyze Claude Code''s statusLine JSON structure:\n- Add tee wrapper to intercept statusLine input\n- Log JSON to /tmp/claude-statusline-input.log for analysis\n- Update Production profile colors to cool blues theme\n- Expand auto-approvals for aiterm CLI and testing commands\n- Add session state docs (RESUME-SESSION.md, AFTER-RESTART.md)\n\nNext: Restart Claude Code to capture fresh JSON data\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>\nEOF\n)\")",
-      "Bash(git tag:*)"
+      "Bash(git tag:*)",
+      "Bash(gh api:*)",
+      "Bash(test:*)",
+      "Bash(chmod:*)",
+      "Bash(claude --version:*)",
+      "Bash(claude doctor)",
+      "Bash(tee:*)",
+      "Bash(brew info:*)",
+      "Bash(claude --upgrade)",
+      "Bash(brew upgrade:*)"
     ]
   }
 }

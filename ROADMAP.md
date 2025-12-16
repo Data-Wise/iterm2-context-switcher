@@ -5,7 +5,9 @@
 **Timeline:** 7 days (COMPLETED 2025-12-16)
 **Target Version:** v0.1.0-dev
 **User:** DT (primary user testing)
-**Status:** 95% complete - awaiting PR merge
+**Status:** 100% complete ✅ - Tagged and ready for release
+
+**Known Issue:** StatusLine bug in Claude Code v2.0.70 (documented in STATUSLINE-BUG.md) - does not affect aiterm functionality
 
 ---
 

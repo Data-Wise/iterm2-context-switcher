@@ -74,10 +74,19 @@ pipx install git+https://github.com/Data-Wise/iterm2-context-switcher
 - Cleaned settings.local.json (95% reduction)
 - Consolidated documentation
 
+# Known Issues
+
+## StatusLine Bug in Claude Code v2.0.70
+**Status:** Documented (STATUSLINE-BUG.md)
+**Impact:** Low (does not affect aiterm functionality)
+**Description:** Claude Code v2.0.70 (current brew version) does not pass JSON to statusLine scripts via stdin. The statusline-p10k.sh script is correctly implemented but cannot receive session data from Claude Code.
+**Workaround:** None until Claude Code updates
+**Note:** This bug was discovered during v0.1.0-dev release prep. The statusLine script itself is production-ready and will work once Claude Code is updated.
+
 # Next Actions
-1. Create PR: claude/recap-dev-main-branches-3eCZB → dev
-2. After merge: Tag v0.1.0-dev release
-3. v0.2.0: Hook management, MCP integration
+1. ✅ Tag created: v0.1.0-dev (merged to main and dev)
+2. Create GitHub release with STATUSLINE-BUG.md noted in known issues
+3. v0.2.0: Hook management, MCP integration, statusLine builder tool
 
 # Links
 repo: https://github.com/Data-Wise/iterm2-context-switcher
