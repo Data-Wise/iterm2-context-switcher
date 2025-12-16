@@ -72,7 +72,22 @@
       "Bash(tee:*)",
       "Bash(brew info:*)",
       "Bash(claude --upgrade)",
-      "Bash(brew upgrade:*)"
+      "Bash(brew upgrade:*)",
+      "Bash(command -v:*)",
+      "Bash(zoxide query:*)",
+      "Bash(claude /doctor)",
+      "Bash(brew install:*)",
+      "Bash(atuin import:*)",
+      "Bash(xargs:*)",
+      "Bash(bat:*)",
+      "Bash(glowhelp)",
+      "Bash(_glowsplit_help)",
+      "Bash(glowsplit:*)",
+      "Bash(bg-help)",
+      "Bash(bg-list:*)",
+      "Bash(bg-status:*)",
+      "Bash(bg-kill:*)",
+      "Bash(bg-clean)"
     ]
   }
 }
