@@ -14,3 +14,13 @@ site/
 __pycache__/
 *.pyc
 .venv/
+*.egg-info/
+dist/
+build/
+.eggs/
+*.egg
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+htmlcov/
+.coverage

@@ -1,10 +1,10 @@
 project: aiterm (formerly iterm2-context-switcher)
 status: active-development
 priority: P1
-progress: 25
+progress: 35
 version: 0.1.0-dev
 updated: 2025-12-16
-Next: Phase 4 - Python project structure setup
+Next: Phase 5 - Terminal integration (migrate from zsh)
 
 # What it is
 Terminal optimizer CLI for AI-assisted development.
@@ -18,13 +18,31 @@ v3.0.0 (Dec 15): aiterm (Python CLI, multi-tool, expandable)
 # Current state (v0.1.0-dev)
 - [x] Planning complete (IDEAS.md, ROADMAP.md)
 - [x] @smart Prompt Optimizer (Tier 1 MVP) ✅ IMPLEMENTED!
-- [ ] Python project structure
-- [ ] Core CLI commands (init, doctor)
+- [x] Python project structure ✅
+- [x] Core CLI commands (init, doctor) ✅
 - [ ] Terminal integration (migrate from zsh)
 - [ ] Claude Code settings management
 - [ ] Testing & documentation
 
-## ✅ Just Completed (2025-12-16 - Slash Commands Optimization)
+## ✅ Just Completed (2025-12-16 - Python Project Structure)
+
+### Phase 4: Python Project Structure
+- ✅ Created pyproject.toml with all dependencies
+- ✅ Set up src/aiterm/ package structure (cli, terminal, context, claude, utils)
+- ✅ Implemented basic CLI with Typer + Rich
+- ✅ Working commands: --version, init, doctor, profile list, claude settings
+- ✅ Added test suite (6 tests, all passing)
+- ✅ Installed with `pip install -e ".[dev]"`
+
+**Files Created:**
+- `pyproject.toml` (project config + dependencies)
+- `src/aiterm/` (main package)
+- `src/aiterm/cli/main.py` (CLI entry point)
+- `tests/test_cli.py` (6 CLI tests)
+
+**Result:** `aiterm --version` works! CLI foundation ready.
+
+---
 
 ### Phase 3: Slash Commands Optimization
 - ✅ Created 6 core hub commands: /hub, /workflow, /git, /site, /code, /research
@@ -73,11 +91,11 @@ v3.0.0 (Dec 15): aiterm (Python CLI, multi-tool, expandable)
 
 ## 🎯 Next Action
 
-**Phase 4: Python Project Structure** 🟡
-- Set up Python project with pyproject.toml
-- Create src/aiterm/ package structure
-- Install dependencies (Typer, Rich, Questionary)
-- Basic CLI: `aiterm --version`
+**Phase 5: Terminal Integration** 🟡
+- Port zsh/iterm2-integration.zsh to Python
+- Implement context detection (8 types)
+- Add profile switching logic
+- Test iTerm2 escape sequences
 
 # Week 1 MVP Goals
 Day 1-2: Project setup, Python structure
