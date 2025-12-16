@@ -1,22 +1,61 @@
-project: iterm2-context-switcher
-status: stable
-priority: P2
-progress: 100
-version: 2.5.0
+project: aiterm (formerly iterm2-context-switcher)
+status: active-development
+priority: P1
+progress: 15
+version: 0.1.0-dev
 updated: 2025-12-15
-Next: Complete - maintenance mode
+Next: Test @smart prompt optimizer with real workflows
 
-# What it does
-Smart iTerm2 context switching with auto-profile and tab titles.
-Detects project type (R, Python, Node, Quarto, Emacs, DevTools) and
-switches terminal colors + sets tab title with icon.
+# What it is
+Terminal optimizer CLI for AI-assisted development.
+Optimizes iTerm2 (+ other terminals) for Claude Code and Gemini CLI.
+Manages profiles, hooks, commands, context detection, and auto-approvals.
 
-# Current state
-- Profile switching: working
-- Tab titles: working
-- 8 context types: implemented
-- Documentation: deployed
+# Project Evolution
+v2.5.0 (Dec 15): iterm2-context-switcher (zsh-based, iTerm2 only)
+v3.0.0 (Dec 15): aiterm (Python CLI, multi-tool, expandable)
+
+# Current state (v0.1.0-dev)
+- [x] Planning complete (IDEAS.md, ROADMAP.md)
+- [x] @smart Prompt Optimizer (Tier 1 MVP) ✅ IMPLEMENTED!
+- [ ] Python project structure
+- [ ] Core CLI commands (init, doctor)
+- [ ] Terminal integration (migrate from zsh)
+- [ ] Claude Code settings management
+- [ ] Testing & documentation
+
+## ✅ Just Completed (2025-12-15 - @smart MVP)
+
+### Meta-Prompting Feature (FIRST FEATURE SHIPPED!)
+- ✅ Created UserPromptSubmit hook for prompt optimization
+- ✅ Implements `@smart` and `[refine]` detection
+- ✅ Auto-detects project context:
+  - Project type (R, Python, Node, Quarto)
+  - Git status (branch, uncommitted files)
+  - Recent files (last 3 modified)
+- ✅ Interactive menu: Submit/Revise/Cancel
+- ✅ Works with existing `/workflow:*` commands
+- ✅ Complete documentation (guide + examples)
+- ✅ Configured in `~/.claude/settings.json`
+
+**Files Created:**
+- `~/.claude/hooks/prompt-optimizer.sh` (273 lines)
+- `~/.claude/PROMPT-OPTIMIZER-GUIDE.md` (comprehensive guide)
+- `~/.claude/SMART-EXAMPLES.md` (quick reference)
+
+**Files Modified:**
+- `~/.claude/settings.json` (added UserPromptSubmit hook)
+- `IDEAS.md` (documented @smart feature)
+
+**Result:** First working Claude Code enhancement! Ready to test.
+
+# Week 1 MVP Goals
+Day 1-2: Project setup, Python structure
+Day 3-4: Core terminal integration, context detection
+Day 5: Claude Code settings & auto-approvals
+Day 6: Testing & documentation
+Day 7: Polish & dogfooding
 
 # Links
 repo: https://github.com/Data-Wise/iterm2-context-switcher
-docs: https://data-wise.github.io/iterm2-context-switcher/
+docs: https://data-wise.github.io/iterm2-context-switcher/ (will update)

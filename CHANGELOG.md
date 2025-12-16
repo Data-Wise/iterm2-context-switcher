@@ -1,6 +1,74 @@
 # Changelog
 
-All notable changes to iterm2-context-switcher will be documented in this file.
+All notable changes to this project will be documented in this file.
+
+---
+
+## [3.0.0] - 2025-12-15 - PROJECT PIVOT
+
+### 🎉 Major Change: iterm2-context-switcher → **aiterm**
+
+**Vision Evolution:**
+- **Was:** zsh-based iTerm2 context switcher
+- **Now:** Python CLI for optimizing terminals for AI development
+
+**Why the pivot:**
+- Expand beyond iTerm2 to support multiple terminals
+- Deep integration with Claude Code and Gemini CLI
+- Hook/command/MCP management systems
+- Easier to extend and maintain in Python
+- Better testing and distribution (PyPI)
+
+### Project Reorganization
+- **New name:** aiterm (AI Terminal optimizer)
+- **New architecture:** Python CLI (Typer + Rich)
+- **New scope:** Multi-tool terminal optimization
+- **Target users:** DT first, then public release
+
+### Documentation Overhaul
+- ✅ `IDEAS.md` - Full feature roadmap (Phases 1-4)
+- ✅ `ROADMAP.md` - Week 1 MVP plan (day-by-day)
+- ✅ `ARCHITECTURE.md` - Technical design
+- ✅ `CLAUDE.md` - Updated for Python project
+- ✅ `README.md` - Complete rewrite
+- ✅ `.STATUS` - Reset to v0.1.0-dev
+
+### v2.5.0 Features Preserved
+All existing functionality will be ported to Python:
+- 8 context types (R, Python, Node, Quarto, MCP, Production, AI sessions, Dev-tools)
+- Profile switching
+- Tab titles with icons
+- Git branch + dirty indicator
+- Status bar integration
+- 15 comprehensive tests
+
+### What's Next
+See `ROADMAP.md` for Week 1 MVP plan:
+- Day 1-2: Python project setup
+- Day 3-4: Core terminal integration
+- Day 5: Claude Code settings management
+- Day 6: Testing & documentation
+- Day 7: Polish & dogfooding
+
+**Target:** DT using aiterm daily by Dec 22, 2025
+
+---
+
+## [2.5.0] - 2025-12-15 - Final zsh-based release
+
+### Added
+- **Comprehensive test suite** - `scripts/test-context-switcher.sh`
+  - Tests all 8 context detection scenarios
+  - Validates profile switching and title/badge setting
+  - Includes git dirty indicator testing
+  - 15 test cases with full coverage
+- **Statusline theme alternatives** - `statusline-alternatives/`
+  - 3 color theme variants (cool-blues, forest-greens, purple-charcoal)
+  - Preview and installation scripts
+  - Theme comparison documentation
+- **Expanded auto-approvals** - Updated `.claude/settings.local.json`
+  - Added 40+ common safe commands (gh, mkdocs, find, grep, jq, etc.)
+  - Reduces approval friction for routine operations
 
 ## [2.5.0] - 2025-12-15
 

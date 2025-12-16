@@ -1,133 +1,217 @@
-# iTerm2 Context Switcher
+# aiterm
 
-**Smart context switching for iTerm2 with auto-profile switching and tab titles.**
+**Terminal Optimizer for AI-Assisted Development**
 
----
-
-## What It Does
-
-Automatically switches iTerm2 profiles (colors) and sets tab titles based on your current directory:
-
-| Context | Icon | Profile | Detection |
-|---------|------|---------|-----------|
-| Production | 🚨 | Production | `*/production/*` or `*/prod/*` |
-| AI Sessions | 🤖 | AI-Session | `*/claude-sessions/*` or `*/gemini-sessions/*` |
-| R Package | 📦 | R-Dev | `DESCRIPTION` file |
-| Python | 🐍 | Python-Dev | `pyproject.toml` file |
-| Node.js | 📦 | Node-Dev | `package.json` file |
-| Quarto | 📊 | Default | `_quarto.yml` file |
-| Emacs | ⚡ | Default | `Cask`, `.dir-locals.el`, `init.el` |
-| Dev-Tools | 🔧 | Default | `commands/` directory |
+Optimize your terminal (iTerm2+) for AI coding with Claude Code and Gemini CLI. Manage profiles, contexts, hooks, commands, and auto-approvals from one powerful CLI.
 
 ---
 
-## Quick Start
-
-### 1. Create iTerm2 Profiles
-
-The following profiles are required (create in iTerm2 → Settings → Profiles):
-
-| Profile | Purpose | Suggested Colors |
-|---------|---------|------------------|
-| Default | Fallback | Your default |
-| R-Dev | R packages | Green background |
-| Python-Dev | Python projects | Green/jungle |
-| Node-Dev | Node.js projects | Dark theme |
-| AI-Session | Claude/Gemini work | Purple |
-| Production | Production servers | Red (warning) |
-
-### 2. Enable Auto-Switching
-
-Add to `~/.config/zsh/.zshrc`:
-
-```zsh
-# Disable OMZ auto-title (we set our own)
-DISABLE_AUTO_TITLE="true"
-
-# iTerm2 Smart Context Switching
-[[ -f ~/projects/dev-tools/iterm2-context-switcher/zsh/iterm2-integration.zsh ]] && \
-  source ~/projects/dev-tools/iterm2-context-switcher/zsh/iterm2-integration.zsh
-```
-
-### 3. Configure iTerm2 Title
-
-- Settings → Profiles → General → Title
-- Set to: **Session Name** (or **Session Name + Job**)
-
-### 4. Reload Shell
+## 🚀 Quick Start
 
 ```bash
-source ~/.config/zsh/.zshrc
+# Install (coming soon - PyPI)
+pip install aiterm
+
+# Interactive setup
+aiterm init
+
+# Check your setup
+aiterm doctor
 ```
 
 ---
 
-## Features
+## ✨ What It Does
 
-- ✅ Auto-switch profiles by directory context
-- ✅ Tab titles with icons (📦 medfit, 🐍 myproject)
-- ✅ Production environment warnings (🚨)
-- ✅ Caches state to prevent redundant switches
-- ✅ No conflicts with other shell hooks
-- ✅ Zero configuration after setup
+**aiterm** makes your terminal intelligent for AI-assisted development:
+
+### 🎨 Context-Aware Profiles
+Automatically switch terminal colors and titles based on your project:
+
+| Context | Icon | Profile | Triggered By |
+|---------|------|---------|--------------|
+| Production | 🚨 | Red theme | `*/production/*` path |
+| AI Sessions | 🤖 | Purple theme | `*/claude-sessions/*` |
+| R Packages | 📦 | Blue theme | `DESCRIPTION` file |
+| Python | 🐍 | Green theme | `pyproject.toml` |
+| Node.js | 📦 | Dark theme | `package.json` |
+| Quarto | 📊 | Blue theme | `_quarto.yml` |
+
+### 🛠️ Claude Code Integration
+- Manage hooks (session-start, pre-commit, cost-tracker)
+- Install command templates (/recap, /next, /focus)
+- Configure auto-approvals (safe-reads, git-ops, dev-tools)
+- Control MCP servers
+
+### 📊 Status Bar Customization
+Build custom status bars with:
+- Project icon & name
+- Git branch + dirty indicator
+- API quota tracking
+- Time in context
+- Custom components
 
 ---
 
-## Optional: Claude Code Triggers
+## 💡 Features
 
-Add iTerm2 triggers for Claude Code notifications:
+### Current (v0.1.0-dev)
 
-**Settings → Profiles → Default → Advanced → Triggers → Edit**
+- [x] **Planning Complete** - Roadmap, architecture, docs ready
+- [ ] **Context Detection** - 8 project types (R, Python, Node, etc.)
+- [ ] **Profile Management** - Install, list, test terminal profiles
+- [ ] **Claude Code Settings** - Manage auto-approvals and configuration
+- [ ] **Diagnostics** - `aiterm doctor` health checks
 
-| Regex | Action | Parameter |
-|-------|--------|-----------|
-| `^> $` | Post Notification | `Claude waiting` |
-| `(Allow\|Deny)\?` | Bounce Dock Icon | |
+### Coming Soon (v0.2+)
+
+- Hook management system
+- Command template library
+- MCP server integration
+- Gemini CLI support
+- Multi-terminal support (Warp, Alacritty, Kitty)
+- Web UI configuration builder
+
+See [IDEAS.md](IDEAS.md) for full roadmap.
 
 ---
 
-## Project Structure
+## 🏗️ Architecture
 
+### CLI-First Design
 ```
-iterm2-context-switcher/
-├── README.md
-├── CLAUDE.md              # AI assistant instructions
-├── profiles/              # Dynamic Profiles JSON
-├── zsh/
-│   └── iterm2-integration.zsh  # Main integration
-├── scripts/
-│   ├── verify-setup.sh    # Setup verification
-│   ├── diagnose.sh        # Troubleshooting
-│   └── add-triggers.sh    # Trigger setup guide
-└── docs/
-    ├── setup-guide.md
-    └── quick-reference.md
+aiterm/
+├── Core Library      # Business logic, testable
+├── CLI Layer         # Typer commands
+└── Templates         # Profiles, hooks, commands
+```
+
+### Tech Stack
+- **Language:** Python 3.10+
+- **CLI:** Typer (modern, type-safe)
+- **Output:** Rich (beautiful tables, colors)
+- **Testing:** pytest
+- **Distribution:** pip/PyPI
+
+---
+
+## 📖 Documentation
+
+- **[IDEAS.md](IDEAS.md)** - Feature brainstorm & roadmap
+- **[ROADMAP.md](ROADMAP.md)** - Week 1 MVP plan (day-by-day)
+- **[ARCHITECTURE.md](ARCHITECTURE.md)** - Technical design
+- **[CLAUDE.md](CLAUDE.md)** - Guidance for Claude Code
+- **[CHANGELOG.md](CHANGELOG.md)** - Version history
+
+---
+
+## 🎯 Use Cases
+
+### For R Developers
+```bash
+cd ~/projects/r-packages/medfit
+# Terminal switches to R-Dev profile (blue)
+# Title shows: 📦 medfit (main)
+# Status bar shows quota usage
+```
+
+### For AI Power Users
+```bash
+aiterm claude approvals add-preset safe-reads
+aiterm claude hooks install session-start
+aiterm context history  # See where you've been today
+```
+
+### For Multi-Project Workflows
+```bash
+# Automatic profile switching as you navigate
+cd ~/production/app          # → Red theme, production warnings
+cd ~/claude-sessions/        # → Purple theme, AI optimized
+cd ~/projects/research/      # → Default theme, research context
 ```
 
 ---
 
-## Troubleshooting
+## 🔧 Development
 
-**Profiles not switching?**
-- Verify profile names exist exactly (case-sensitive)
-- Check `echo $TERM_PROGRAM` shows "iTerm.app"
-- Run: `source ~/.config/zsh/.zshrc`
+### Setup
+```bash
+# Clone repo
+git clone https://github.com/Data-Wise/iterm2-context-switcher.git
+cd iterm2-context-switcher
 
-**Title not showing?**
-- Set iTerm2 title to "Session Name"
-- Add `DISABLE_AUTO_TITLE="true"` before OMZ loads
+# Set up environment
+python3 -m venv venv
+source venv/bin/activate
+pip install -e ".[dev]"
 
-**Colors not changing?**
-- Ensure profiles have different background colors
-- Check Dynamic Profiles at `~/Library/Application Support/iTerm2/DynamicProfiles/`
+# Run tests
+pytest
+
+# Try CLI
+aiterm --help
+```
+
+### Project Status
+**Version:** 0.1.0-dev (Week 1 MVP in progress)
+**Status:** Active development
+**Target:** DT using daily by end of week
+
+See [ROADMAP.md](ROADMAP.md) for current progress.
 
 ---
 
-## License
+## 📜 History
 
-MIT
+**v2.5.0 (Dec 15, 2024):** iterm2-context-switcher
+- zsh-based terminal integration
+- 8 context types
+- iTerm2 status bar support
+- Comprehensive test suite (15 tests)
+
+**v3.0.0 (Dec 15, 2024):** Pivot to **aiterm**
+- Python CLI architecture
+- Claude Code deep integration
+- Multi-tool support (Gemini)
+- Expandable plugin system
 
 ---
 
-**Last Updated:** 2025-12-13
-**Version:** 2.0
+## 🤝 Contributing
+
+Not accepting external contributions yet (MVP phase). Check back at v1.0!
+
+**Target for public release:**
+- Multi-terminal support
+- Documentation site
+- PyPI distribution
+- Community templates
+
+---
+
+## 📝 License
+
+MIT License - See [LICENSE](LICENSE) for details
+
+---
+
+## 🙏 Acknowledgments
+
+Built for AI-assisted development workflows with:
+- [Claude Code](https://claude.com/code) - Anthropic's CLI tool
+- [Gemini CLI](https://ai.google.dev/) - Google's AI CLI
+- [iTerm2](https://iterm2.com/) - macOS terminal emulator
+
+---
+
+## 📧 Contact
+
+**Author:** DT
+**Project:** Part of the Data-Wise development toolkit
+**Repo:** https://github.com/Data-Wise/iterm2-context-switcher
+
+---
+
+**Status:** 🚧 Active Development (Week 1 MVP)
+**Next Milestone:** v0.1.0 - Basic CLI + terminal integration
+**See:** [ROADMAP.md](ROADMAP.md) for current tasks

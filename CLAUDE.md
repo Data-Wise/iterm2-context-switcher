@@ -1,179 +1,162 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides guidance to Claude Code when working with the aiterm project.
 
 ## Project Overview
 
-**iTerm2 Context Switcher** - Smart context switching for iTerm2 with auto-profile switching, dynamic badges, and hotkey windows. Part of the Data-Wise development toolkit.
+**aiterm** (formerly iterm2-context-switcher) - Terminal optimizer CLI for AI-assisted development with Claude Code and Gemini CLI.
 
-Automatically switches iTerm2 profiles and badges based on directory context:
-- R packages → Blue theme with package name badge
-- AI sessions → Purple theme with AI type badge
-- Production paths → Red theme with warning badge
-- Focus mode → Minimal dark theme
+**What it does:**
+- Optimizes terminal setup (iTerm2 primarily) for AI coding workflows
+- Manages terminal profiles, context detection, and visual customization
+- Integrates with Claude Code CLI (hooks, commands, auto-approvals, MCP servers)
+- Supports Gemini CLI integration
+- Provides workflow templates for different dev contexts
 
-## Architecture
+**Target Users:**
+- Primary: DT (power user, R developer, statistician, ADHD-friendly workflows)
+- Secondary: Public release (developers using Claude Code/Gemini CLI)
 
-### Core Integration: zsh/iterm2-integration.zsh
+**Tech Stack:**
+- **Language:** Python 3.10+
+- **CLI Framework:** Typer (modern CLI with type hints)
+- **Terminal:** Rich (beautiful terminal output)
+- **Prompts:** Questionary (interactive prompts)
+- **Testing:** pytest
+- **Distribution:** pip/PyPI
 
-The entire auto-switching logic is contained in a single zsh hook function:
+---
 
-1. **chpwd_iterm_profile()** - Hook function registered with `add-zsh-hook chpwd`
-   - Runs on every directory change
-   - Detects context by checking PWD patterns and file existence
-   - Calls `it2profile` to switch profiles
-   - Sets badges via iTerm2 escape sequences (base64 encoded)
+## Project Status: Week 1 MVP (v0.1.0-dev)
 
-2. **Context Detection Logic (priority order)**:
-   - **Priority 1 - Location-based:**
-     - Production paths (`*/production/*` or `*/prod/*`) → Production profile
-     - AI sessions (`~/claude-sessions/` or `~/gemini-sessions/`) → AI-Session profile
-     - Research projects (`*/research/*`) → Default profile + 🔬 badge
-   - **Priority 2 - File-based:**
-     - R packages (has `DESCRIPTION`) → R-Dev profile + 📦 package-name
-     - Quarto projects (has `_quarto.yml`) → Default profile + 📝 title
-     - Python projects (has `pyproject.toml`) → Python-Dev profile + 🐍 package-name
-     - Node.js projects (has `package.json`) → Node-Dev profile + 📦 package-name
-     - MCP projects (has `mcp-server/` dir) → Node-Dev profile + 🔌 project-name
-     - Emacs Lisp projects (has `*.el` files) → Default profile + 🦬 project-name
-   - **Priority 3:** Default fallback → Default profile + clear badge
+**Current Phase:** First feature shipped (@smart prompt optimizer)!
 
-3. **Git Dirty Indicator**: Badges show `✗` when repo has uncommitted changes (e.g., `📦 medfit ✗`)
+**Progress:**
+- [x] Planning complete (IDEAS.md, ROADMAP.md, ARCHITECTURE.md)
+- [x] @smart Prompt Optimizer (Tier 1 MVP) ✅ IMPLEMENTED!
+- [ ] Python project structure
+- [ ] Core CLI commands (init, doctor)
+- [ ] Terminal integration (migrate from zsh)
+- [ ] Claude Code settings management
+- [ ] Testing & documentation
 
-4. **Badge Format**: Uses helper function `_iterm_badge "text"` which handles base64 encoding
+**This Week's Goals:**
+1. Set up Python project structure (Poetry/pip)
+2. Migrate zsh integration to Python
+3. Build core CLI commands (init, doctor, profile, claude)
+4. Port existing test suite
+5. Get DT using it daily
 
-### Integration Points
+See `ROADMAP.md` for detailed day-by-day plan.
 
-**User's zsh configuration** (`~/.config/zsh/.zshrc`):
-```zsh
-[[ -f ~/projects/dev-tools/iterm2-context-switcher/zsh/iterm2-integration.zsh ]] && \
-  source ~/projects/dev-tools/iterm2-context-switcher/zsh/iterm2-integration.zsh
-```
+---
 
-**Enhanced focus functions** (user's `~/.config/zsh/functions.zsh`):
-- `focus()` - Switches to Focus profile, sets 🎯 badge, closes distractions
-- `unfocus()` - Calls `chpwd_iterm_profile` to restore context-based profile
+## Quick Reference
 
-### Dependencies
+### Common Commands
 
-- **iTerm2 utilities** - Must be installed at `~/.iterm2/` (specifically `it2profile`)
-- **iTerm2 profiles** - User must create these exact profiles: `R-Dev`, `AI-Session`, `Focus`, `Production`
-- **$TERM_PROGRAM** - Must equal "iTerm.app" for switching to activate
-
-## Common Commands
-
-### Quick Verification
 ```bash
-# Run the full setup verification (recommended)
-./scripts/verify-setup.sh
+# Development
+aiterm --help                    # See available commands
+aiterm doctor                    # Check installation
+python -m pytest                 # Run tests
 
-# Or run from anywhere:
-zsh ~/projects/dev-tools/iterm2-context-switcher/scripts/verify-setup.sh
+# Testing existing functionality
+cd ~/test-dir
+# (zsh integration still works for now)
 ```
 
-### Testing Profile Switching
-```bash
-# Test R package detection
-cd ~/projects/r-packages/active/medfit
-# Expected: Blue theme, badge shows "📦 medfit" (or "📦 medfit ✗" if dirty)
+### Key Files
 
-# Test AI session detection
-cd ~/claude-sessions
-# Expected: Purple theme, badge shows "🤖 Claude"
+- `IDEAS.md` - Full feature brainstorm
+- `ROADMAP.md` - Week 1 day-by-day plan
+- `ARCHITECTURE.md` - Technical design
+- `.STATUS` - Current progress
+- `zsh/` and `scripts/` - Existing code (reference)
 
-# Test Python project detection
-cd ~/projects/dev-tools/some-python-project
-# Expected: Python-Dev theme, badge shows "🐍 project-name"
+---
 
-# Test production detection
-cd ~/production/server
-# Expected: Red theme, badge shows "🔴 PROD"
+## Integration with DT's Existing Setup
 
-# Test default
-cd ~
-# Expected: Default theme, no badge
+**Existing Tools:**
+- `~/.claude/statusline-p10k.sh` - Status bar (will integrate)
+- `~/.claude/settings.json` - Claude Code config (will manage)
+- `~/.config/zsh/functions.zsh` - Shell functions (will complement)
 
-# Manually trigger switching (for debugging)
-chpwd_iterm_profile
+**Workflow Commands:**
+- `/recap`, `/next`, `/focus` - ADHD-friendly workflow (will enhance)
+- `work`, `finish`, `dash`, `pp` - Project management (will integrate with context)
 
-# Verify integration loaded
-type chpwd_iterm_profile
-```
+**MCP Servers:**
+- Statistical Research MCP (14 tools, 17 skills)
+- Shell MCP server
+- Filesystem MCP
+- (aiterm will help configure these)
 
-### Debugging
-```bash
-# Check if running in iTerm2
-echo $TERM_PROGRAM  # Should output: iTerm.app
+**@smart Feature (NEW!):**
+- UserPromptSubmit hook: `~/.claude/hooks/prompt-optimizer.sh`
+- Optimizes prompts with project context
+- Interactive menu: Submit/Revise/Delegate/Cancel
+- Docs: `~/.claude/PROMPT-OPTIMIZER-GUIDE.md`
 
-# Verify it2profile utility exists
-which it2profile  # Should output: /Users/dt/.iterm2/it2profile
+---
 
-# Check if hook is registered
-add-zsh-hook -L | grep chpwd  # Should show chpwd_iterm_profile
+## Current Limitations & Next Steps
 
-# Test badge encoding
-echo -n "📦 test" | base64  # See what badge format looks like
-```
+### MVP Limitations (v0.1.0)
+- iTerm2 only (no multi-terminal yet)
+- Basic Claude Code integration (settings only, no hooks/commands managed)
+- No Gemini integration yet
+- No web UI
+- Manual installation
 
-## Modifying Context Detection
+### Planned for v0.2.0 (Phase 2)
+- Hook management system
+- Command template library
+- MCP server integration
+- Advanced status bar builder
 
-When adding new context patterns to `zsh/iterm2-integration.zsh`:
-
-1. **Add before the default fallback** (line 43-46)
-2. **Use PWD pattern matching**: `[[ $PWD == */pattern/* ]]`
-3. **Use file detection**: `[[ -f "filename" ]]`
-4. **Extract dynamic badge text** from files when possible (see R package example, lines 28-31)
-5. **Always redirect stderr**: `it2profile "ProfileName" 2>/dev/null`
-6. **Always base64 encode badges**: `$(echo -n "text" | base64)`
-
-Example adding a new context:
-```zsh
-# Python projects (check for pyproject.toml)
-elif [[ -f "pyproject.toml" ]]; then
-    local pkg=$(grep "^name" pyproject.toml 2>/dev/null | cut -d'"' -f2)
-    it2profile "Python-Dev" 2>/dev/null
-    printf "\033]1337;SetBadgeFormat=%s\a" $(echo -n "🐍 ${pkg:-Python}" | base64)
-```
-
-## File Structure
-
-```
-iterm2-context-switcher/
-├── zsh/
-│   └── iterm2-integration.zsh    # Core auto-switching logic (~120 lines)
-├── scripts/
-│   └── verify-setup.sh           # Setup verification script
-├── docs/
-│   ├── setup-guide.md             # Complete installation guide
-│   ├── quick-reference.md         # ADHD-friendly cheat sheet
-│   ├── profile-creation-guide.md  # Detailed profile setup
-│   └── badge-location-correction.md
-├── profiles/                      # Placeholder (profiles created in iTerm2)
-├── README.md                      # Project overview
-├── CHANGELOG.md                   # Version history
-└── CLAUDE.md                      # Claude Code guidance
-```
+---
 
 ## Key Constraints
 
-1. **Profile names are case-sensitive** - Must match exactly: `R-Dev`, `AI-Session`, `Focus`, `Production`
-2. **Only runs in iTerm2** - Checks `$TERM_PROGRAM` before executing
-3. **Requires iTerm2 utilities** - `it2profile` must be in PATH (typically `~/.iterm2/`)
-4. **Badges require iTerm2 3.4+** - Badge setting moved to General tab in recent versions
-5. **No Python/scripting** - Pure zsh for performance and simplicity
+1. **ADHD-Friendly:** Fast commands, clear output, no analysis paralysis
+2. **Week 1 MVP:** Ship v0.1.0 in 7 days, DT using daily
+3. **No Regressions:** Must work as well as v2.5.0 zsh version
+4. **Python 3.10+:** Modern Python, type hints, async-ready
+5. **Medium Integration:** Active control, not just config files
 
-## Integration with Data-Wise Toolkit
+---
 
-Works seamlessly with existing 133+ zsh aliases and 22 functions:
-- `startwork <project>` - Automatically switches profile when jumping to project
-- `focus <minutes>` - Enhanced to switch to Focus profile
-- `here` - Shows current context (can display profile info)
-- All existing aliases continue working unchanged
+## Detailed Documentation
 
-## Future Enhancements (Not Implemented)
+Detailed docs have been split into focused rule files in `.claude/rules/`:
 
-Documented in CHANGELOG.md under [Unreleased]:
-- Smart triggers for test results (change badge on test pass/fail)
-- Command duration badges (show how long last command took)
-- Python API automation (programmatic profile creation)
-- Status bar integration (show context in status bar)
+- **architecture.md** - System architecture, file structure, design principles
+- **migration.md** - Code migration from v2.5.0 (zsh → Python)
+- **development.md** - Development workflow, testing, adding commands
+
+These files load automatically when working in relevant paths.
+
+---
+
+## Success Criteria
+
+### MVP (v0.1.0)
+- [ ] Installs in <5 minutes
+- [ ] `aiterm init` sets up terminal
+- [ ] Context switching works (8 types)
+- [ ] Claude Code auto-approvals manageable
+- [ ] Tests pass (>80% coverage)
+- [ ] DT uses daily for 1 week
+
+### Long-term (v1.0.0)
+- [ ] Multi-terminal support
+- [ ] 10+ external users
+- [ ] Community templates
+- [ ] Web UI option
+- [ ] Featured in Claude Code docs
+
+---
+
+**Remember:** This is a pivot from a working project. The zsh integration still works. We're rebuilding in Python for expandability!
