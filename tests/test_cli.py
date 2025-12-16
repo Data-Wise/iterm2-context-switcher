@@ -86,3 +86,28 @@ def test_switch_shortcut():
     result = runner.invoke(app, ["switch"])
     assert result.exit_code == 0
     assert "Context Detection" in result.output
+
+
+# ─── Claude command tests ────────────────────────────────────────────────────
+
+
+def test_claude_backup():
+    """Test claude backup command."""
+    result = runner.invoke(app, ["claude", "backup"])
+    # Will either create backup or report no settings found
+    assert result.exit_code == 0
+
+
+def test_claude_approvals_list():
+    """Test claude approvals list command."""
+    result = runner.invoke(app, ["claude", "approvals", "list"])
+    assert result.exit_code == 0
+
+
+def test_claude_approvals_presets():
+    """Test claude approvals presets command."""
+    result = runner.invoke(app, ["claude", "approvals", "presets"])
+    assert result.exit_code == 0
+    assert "Available Presets" in result.output
+    assert "safe-reads" in result.output
+    assert "git-ops" in result.output

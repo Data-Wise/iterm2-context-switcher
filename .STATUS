@@ -1,10 +1,10 @@
 project: aiterm (formerly iterm2-context-switcher)
 status: active-development
 priority: P1
-progress: 70
+progress: 80
 version: 0.1.0-dev
 updated: 2025-12-16
-Next: Phase 7 - Testing & documentation polish
+Next: Phase 8 - Final polish & release prep
 
 # What it is
 Terminal optimizer CLI for AI-assisted development.
@@ -22,9 +22,17 @@ v3.0.0 (Dec 15): aiterm (Python CLI, multi-tool, expandable)
 - [x] Core CLI commands (init, doctor) ✅
 - [x] Terminal integration (migrate from zsh) ✅
 - [x] Claude Code settings management ✅
-- [ ] Testing & documentation
+- [x] Testing & documentation ✅ (51 tests, 83% coverage)
 
-## ✅ Just Completed (2025-12-16 - Claude Code Settings)
+## ✅ Just Completed (2025-12-16 - Testing & Docs)
+
+### Phase 7: Testing & Documentation Polish
+- ✅ Added 3 more CLI tests (51 total)
+- ✅ Test coverage: 83% (443 statements, 74 missing)
+- ✅ Updated README with all implemented commands
+- ✅ Documented CLI usage and presets
+
+---
 
 ### Phase 6: Claude Code Settings Management
 - ✅ Created settings module (load, save, backup)
@@ -126,11 +134,10 @@ v3.0.0 (Dec 15): aiterm (Python CLI, multi-tool, expandable)
 
 ## 🎯 Next Action
 
-**Phase 7: Testing & Documentation Polish** 🟡
-- Increase test coverage
-- Add CLI integration tests
-- Update README with new commands
-- Polish error messages and help text
+**Phase 8: Final Polish & Release Prep** 🟡
+- Create PR to merge into main
+- Tag v0.1.0-dev release
+- Final testing on fresh install
 
 # Week 1 MVP Goals
 Day 1-2: Project setup, Python structure

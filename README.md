@@ -9,14 +9,17 @@ Optimize your terminal (iTerm2+) for AI coding with Claude Code and Gemini CLI. 
 ## 🚀 Quick Start
 
 ```bash
-# Install (coming soon - PyPI)
-pip install aiterm
-
-# Interactive setup
-aiterm init
+# Install from source
+pip install -e .
 
 # Check your setup
 aiterm doctor
+
+# Detect project context
+ait detect
+
+# View Claude Code settings
+ait claude settings
 ```
 
 ---
@@ -55,13 +58,37 @@ Build custom status bars with:
 
 ## 💡 Features
 
-### Current (v0.1.0-dev)
+### Implemented (v0.1.0-dev)
 
-- [x] **Planning Complete** - Roadmap, architecture, docs ready
-- [ ] **Context Detection** - 8 project types (R, Python, Node, etc.)
-- [ ] **Profile Management** - Install, list, test terminal profiles
-- [ ] **Claude Code Settings** - Manage auto-approvals and configuration
-- [ ] **Diagnostics** - `aiterm doctor` health checks
+- [x] **Context Detection** - 8 project types with auto-switching
+- [x] **iTerm2 Integration** - Profiles, titles, user variables
+- [x] **Claude Code Settings** - View, backup, manage approvals
+- [x] **Auto-Approval Presets** - 8 ready-to-use presets
+- [x] **Diagnostics** - `aiterm doctor` health checks
+- [x] **Short Aliases** - `ait` for quick access
+
+### CLI Commands
+
+```bash
+# Core commands
+ait --version          # Show version
+ait doctor             # Health check
+ait detect             # Detect project context
+ait switch             # Apply context to terminal
+
+# Context detection
+ait context detect     # Show project type, git info
+ait context apply      # Apply to iTerm2
+
+# Claude Code settings
+ait claude settings    # Show settings
+ait claude backup      # Backup settings
+
+# Auto-approvals
+ait claude approvals list      # List permissions
+ait claude approvals presets   # Show 8 presets
+ait claude approvals add <preset>  # Add preset
+```
 
 ### Coming Soon (v0.2+)
 
@@ -69,8 +96,6 @@ Build custom status bars with:
 - Command template library
 - MCP server integration
 - Gemini CLI support
-- Multi-terminal support (Warp, Alacritty, Kitty)
-- Web UI configuration builder
 
 See [IDEAS.md](IDEAS.md) for full roadmap.
 
@@ -153,9 +178,9 @@ aiterm --help
 ```
 
 ### Project Status
-**Version:** 0.1.0-dev (Week 1 MVP in progress)
+**Version:** 0.1.0-dev (70% complete)
+**Tests:** 51 passing, 83% coverage
 **Status:** Active development
-**Target:** DT using daily by end of week
 
 See [ROADMAP.md](ROADMAP.md) for current progress.
 
@@ -212,6 +237,6 @@ Built for AI-assisted development workflows with:
 
 ---
 
-**Status:** 🚧 Active Development (Week 1 MVP)
-**Next Milestone:** v0.1.0 - Basic CLI + terminal integration
+**Status:** 🚧 Active Development (70% complete)
+**Tests:** 51 passing, 83% coverage
 **See:** [ROADMAP.md](ROADMAP.md) for current tasks
