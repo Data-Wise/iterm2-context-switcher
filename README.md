@@ -6,14 +6,45 @@ Optimize your terminal (iTerm2+) for AI coding with Claude Code and Gemini CLI. 
 
 ---
 
-## 🚀 Quick Start
+## 🚀 Installation
+
+### Recommended: uv (fastest)
 
 ```bash
-# Install from source
-pip install -e .
+# Install uv first (if needed)
+curl -LsSf https://astral.sh/uv/install.sh | sh
 
+# Install aiterm globally
+uv tool install aiterm                    # from PyPI (after publish)
+uv tool install git+https://github.com/Data-Wise/iterm2-context-switcher
+```
+
+### Alternative: pipx
+
+```bash
+# Install pipx first (if needed)
+brew install pipx && pipx ensurepath
+
+# Install aiterm globally
+pipx install aiterm                       # from PyPI (after publish)
+pipx install git+https://github.com/Data-Wise/iterm2-context-switcher
+```
+
+### From source (development)
+
+```bash
+git clone https://github.com/Data-Wise/iterm2-context-switcher.git
+cd iterm2-context-switcher
+uv tool install .                         # or: pip install -e .
+```
+
+---
+
+## 🎯 Quick Start
+
+```bash
 # Check your setup
-aiterm doctor
+ait doctor
 
 # Detect project context
 ait detect
@@ -116,7 +147,7 @@ aiterm/
 - **CLI:** Typer (modern, type-safe)
 - **Output:** Rich (beautiful tables, colors)
 - **Testing:** pytest
-- **Distribution:** pip/PyPI
+- **Distribution:** uv/pipx/PyPI
 
 ---
 
@@ -165,9 +196,13 @@ cd ~/projects/research/      # → Default theme, research context
 git clone https://github.com/Data-Wise/iterm2-context-switcher.git
 cd iterm2-context-switcher
 
-# Set up environment
-python3 -m venv venv
-source venv/bin/activate
+# Set up environment (using uv - recommended)
+uv venv
+source .venv/bin/activate
+uv pip install -e ".[dev]"
+
+# Or traditional pip
+python3 -m venv .venv && source .venv/bin/activate
 pip install -e ".[dev]"
 
 # Run tests
@@ -178,7 +213,7 @@ aiterm --help
 ```
 
 ### Project Status
-**Version:** 0.1.0-dev (70% complete)
+**Version:** 0.1.0-dev (95% complete)
 **Tests:** 51 passing, 83% coverage
 **Status:** Active development
 
@@ -209,7 +244,7 @@ Not accepting external contributions yet (MVP phase). Check back at v1.0!
 **Target for public release:**
 - Multi-terminal support
 - Documentation site
-- PyPI distribution
+- PyPI + uv/pipx distribution
 - Community templates
 
 ---
@@ -237,6 +272,6 @@ Built for AI-assisted development workflows with:
 
 ---
 
-**Status:** 🚧 Active Development (70% complete)
+**Status:** 🚧 Active Development (95% complete)
 **Tests:** 51 passing, 83% coverage
 **See:** [ROADMAP.md](ROADMAP.md) for current tasks
