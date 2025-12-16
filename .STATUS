@@ -1,10 +1,10 @@
 project: aiterm (formerly iterm2-context-switcher)
 status: active-development
 priority: P1
-progress: 80
+progress: 95
 version: 0.1.0-dev
 updated: 2025-12-16
-Next: Phase 8 - Final polish & release prep
+Next: Merge PR and tag release
 
 # What it is
 Terminal optimizer CLI for AI-assisted development.
@@ -24,7 +24,15 @@ v3.0.0 (Dec 15): aiterm (Python CLI, multi-tool, expandable)
 - [x] Claude Code settings management ✅
 - [x] Testing & documentation ✅ (51 tests, 83% coverage)
 
-## ✅ Just Completed (2025-12-16 - Testing & Docs)
+## ✅ Just Completed (2025-12-16 - Final Polish)
+
+### Phase 8: Final Polish & Release Prep
+- ✅ Ran final test suite (51 tests, all passing)
+- ✅ Branch ready for PR: `claude/recap-dev-main-branches-3eCZB`
+- 🟡 Awaiting PR merge to main
+- 🟡 Tag v0.1.0-dev release after merge
+
+---
 
 ### Phase 7: Testing & Documentation Polish
 - ✅ Added 3 more CLI tests (51 total)
@@ -134,10 +142,10 @@ v3.0.0 (Dec 15): aiterm (Python CLI, multi-tool, expandable)
 
 ## 🎯 Next Action
 
-**Phase 8: Final Polish & Release Prep** 🟡
-- Create PR to merge into main
-- Tag v0.1.0-dev release
-- Final testing on fresh install
+**PR Ready for Review** 🟢
+- Branch: `claude/recap-dev-main-branches-3eCZB` → `dev`
+- After merge to dev: Final review & merge to main
+- After main merge: Tag v0.1.0-dev release
 
 # Week 1 MVP Goals
 Day 1-2: Project setup, Python structure
