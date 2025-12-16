@@ -1,10 +1,10 @@
 project: aiterm (formerly iterm2-context-switcher)
 status: active-development
 priority: P1
-progress: 20
+progress: 25
 version: 0.1.0-dev
-updated: 2025-12-15
-Next: Phase 3 - Slash commands optimization (10 → 6 hubs)
+updated: 2025-12-16
+Next: Phase 4 - Python project structure setup
 
 # What it is
 Terminal optimizer CLI for AI-assisted development.
@@ -24,7 +24,23 @@ v3.0.0 (Dec 15): aiterm (Python CLI, multi-tool, expandable)
 - [ ] Claude Code settings management
 - [ ] Testing & documentation
 
-## ✅ Just Completed (2025-12-15 - Claude Code Refactoring)
+## ✅ Just Completed (2025-12-16 - Slash Commands Optimization)
+
+### Phase 3: Slash Commands Optimization
+- ✅ Created 6 core hub commands: /hub, /workflow, /git, /site, /code, /research
+- ✅ Archived 5 deprecated commands: help, math, write, github, teach
+- ✅ Enhanced /hub to absorb /help functionality
+- ✅ Added command templates in `templates/commands/`
+- ✅ Result: 40% reduction (10 → 6 commands), clearer structure
+
+**Files Created:**
+- `templates/commands/hubs/*.md` (6 hub commands)
+- `templates/commands/archive/*.md` (5 archived commands)
+- `templates/commands/README.md` (documentation)
+
+---
+
+## ✅ Previously Completed (2025-12-15 - Claude Code Refactoring)
 
 ### Phase 1: Settings Cleanup (CRITICAL)
 - ✅ Cleaned .claude/settings.local.json (95% reduction)
@@ -57,11 +73,11 @@ v3.0.0 (Dec 15): aiterm (Python CLI, multi-tool, expandable)
 
 ## 🎯 Next Action
 
-**Phase 3: Slash Commands Optimization** (~15 min) 🟢
-- Archive 5 command files (help, math, write, github, teach)
-- Enhance /hub to absorb /help functionality
-- Keep 6 core hubs: /hub, /workflow, /git, /site, /code, /research
-- Result: 40% reduction, clearer command structure
+**Phase 4: Python Project Structure** 🟡
+- Set up Python project with pyproject.toml
+- Create src/aiterm/ package structure
+- Install dependencies (Typer, Rich, Questionary)
+- Basic CLI: `aiterm --version`
 
 # Week 1 MVP Goals
 Day 1-2: Project setup, Python structure
