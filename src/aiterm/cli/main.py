@@ -87,30 +87,11 @@ def doctor() -> None:
     console.print("[yellow]Full diagnostics coming in v0.2.0[/]")
 
 
-# Sub-command groups
-context_app = typer.Typer(help="Context detection commands.")
-profile_app = typer.Typer(help="Profile management commands.")
-claude_app = typer.Typer(help="Claude Code integration commands.")
-
-app.add_typer(context_app, name="context")
-app.add_typer(profile_app, name="profile")
-app.add_typer(claude_app, name="claude")
+# ─── Context detection implementation ────────────────────────────────────────
 
 
-@context_app.command("detect")
-def context_detect(
-    path: Optional[Path] = typer.Argument(
-        None,
-        help="Directory to analyze. Defaults to current directory.",
-    ),
-    apply: bool = typer.Option(
-        False,
-        "--apply",
-        "-a",
-        help="Apply detected context to terminal (switch profile, set title).",
-    ),
-) -> None:
-    """Detect the project context for a directory."""
+def _context_detect_impl(path: Optional[Path], apply: bool) -> None:
+    """Shared implementation for context detection commands."""
     from aiterm.context.detector import detect_context
     from aiterm.terminal import iterm2
 
@@ -140,6 +121,54 @@ def context_detect(
             console.print("\n[green]✓[/] Context applied to iTerm2")
         else:
             console.print("\n[yellow]⚠[/] Not running in iTerm2 - context not applied")
+
+
+# ─── Top-level shortcuts ─────────────────────────────────────────────────────
+
+
+@app.command()
+def detect(
+    path: Optional[Path] = typer.Argument(None, help="Directory to analyze."),
+) -> None:
+    """Detect project context (shortcut for 'context detect')."""
+    _context_detect_impl(path, apply=False)
+
+
+@app.command()
+def switch(
+    path: Optional[Path] = typer.Argument(None, help="Directory to analyze."),
+) -> None:
+    """Detect and apply context to terminal (shortcut for 'context apply')."""
+    _context_detect_impl(path, apply=True)
+
+
+# ─── Sub-command groups ──────────────────────────────────────────────────────
+
+
+context_app = typer.Typer(help="Context detection commands.")
+profile_app = typer.Typer(help="Profile management commands.")
+claude_app = typer.Typer(help="Claude Code integration commands.")
+
+app.add_typer(context_app, name="context")
+app.add_typer(profile_app, name="profile")
+app.add_typer(claude_app, name="claude")
+
+
+@context_app.command("detect")
+def context_detect(
+    path: Optional[Path] = typer.Argument(
+        None,
+        help="Directory to analyze. Defaults to current directory.",
+    ),
+    apply: bool = typer.Option(
+        False,
+        "--apply",
+        "-a",
+        help="Apply detected context to terminal (switch profile, set title).",
+    ),
+) -> None:
+    """Detect the project context for a directory."""
+    _context_detect_impl(path, apply)
 
 
 @context_app.command("show")

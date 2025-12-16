@@ -51,6 +51,7 @@ docs = [
 
 [project.scripts]
 aiterm = "aiterm.cli.main:app"
+ait = "aiterm.cli.main:app"  # Short alias
 
 [project.urls]
 Homepage = "https://github.com/Data-Wise/iterm2-context-switcher"

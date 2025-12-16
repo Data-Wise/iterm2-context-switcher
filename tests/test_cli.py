@@ -69,3 +69,20 @@ def test_context_apply():
     assert result.exit_code == 0
     # Should show warning about not being in iTerm2
     assert "Context Detection" in result.output
+
+
+# ─── Shortcut command tests ──────────────────────────────────────────────────
+
+
+def test_detect_shortcut():
+    """Test detect shortcut command."""
+    result = runner.invoke(app, ["detect"])
+    assert result.exit_code == 0
+    assert "Context Detection" in result.output
+
+
+def test_switch_shortcut():
+    """Test switch shortcut command."""
+    result = runner.invoke(app, ["switch"])
+    assert result.exit_code == 0
+    assert "Context Detection" in result.output
