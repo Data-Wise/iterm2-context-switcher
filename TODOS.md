@@ -2,15 +2,30 @@
 
 Tasks and next steps for the aiterm project.
 
-**Updated:** 2025-12-16
+**Updated:** 2025-12-17
 **Version:** 0.1.0-dev
 
 ---
 
-## Immediate (Pre-Release)
+## Completed (December 2025)
 
-- [ ] Create PR: `claude/recap-dev-main-branches-3eCZB` → `dev`
-- [ ] Review and merge PR
+- [x] ✅ Created comprehensive Claude Code CLI tutorial (3,266 lines)
+  - 16 sections covering all features
+  - ADHD-friendly workflows and tips
+  - Plugins & Marketplaces guide with vetting checklist
+  - Plain English explanations for beginners
+  - DT's workflow applications throughout
+- [x] ✅ Documented Claude Code plugins system
+- [x] ✅ Added terminal setup guides (iTerm2, VS Code, Terminal.app)
+
+---
+
+## Immediate (Current Sprint)
+
+- [x] ✅ Add Claude Code tutorial to MkDocs site
+- [ ] Preview and verify MkDocs build
+- [ ] Push tutorial to dev branch
+- [ ] Merge dev → main
 - [ ] Tag v0.1.0-dev release
 
 ---
@@ -74,6 +89,9 @@ Tasks and next steps for the aiterm project.
 
 ## Documentation
 
+- [x] ✅ Claude Code CLI comprehensive tutorial (docs/CLAUDE-CODE-TUTORIAL.md)
+- [x] ✅ ADHD-friendly workflow guide (Section 16 of tutorial)
+- [x] ✅ Plugin vetting guide and recommendations
 - [ ] Quickstart video tutorial
 - [ ] Update MkDocs site with v0.1.0 features
 - [ ] API documentation
