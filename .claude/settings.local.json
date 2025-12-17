@@ -87,7 +87,16 @@
       "Bash(bg-list:*)",
       "Bash(bg-status:*)",
       "Bash(bg-kill:*)",
-      "Bash(bg-clean)"
+      "Bash(bg-clean)",
+      "WebFetch(domain:docs.anthropic.com)",
+      "Bash(mdls:*)",
+      "Bash(__NEW_LINE__ echo \"\")",
+      "Bash(__NEW_LINE__ sleep 2)",
+      "WebFetch(domain:www.anthropic.com)",
+      "WebFetch(domain:claude.com)",
+      "WebFetch(domain:github.com)",
+      "Bash(git -C /Users/dt/projects/dev-tools/iterm2-context-switcher status)",
+      "Bash(mkdocs gh-deploy:*)"
     ]
   }
 }

@@ -9,7 +9,7 @@
 
 ## Table of Contents
 
-1. [Installation & Setup](#1-installation--setup)
+1. [Installation & Setup](#1-installation-setup)
 2. [Core Concepts](#2-core-concepts)
 3. [Interactive Mode](#3-interactive-mode)
 4. [Permission System](#4-permission-system)
@@ -17,7 +17,7 @@
 6. [Configuration Deep Dive](#6-configuration-deep-dive)
 7. [Hooks System](#7-hooks-system)
 8. [MCP (Model Context Protocol)](#8-mcp-model-context-protocol)
-9. [Plugins & Marketplaces](#9-plugins--marketplaces) *(extend Claude Code with community tools)*
+9. [Plugins & Marketplaces](#9-plugins-marketplaces) *(extend Claude Code with community tools)*
 10. [Advanced Workflows](#10-advanced-workflows)
 11. [Real-World Examples](#11-real-world-examples)
 12. [Troubleshooting](#12-troubleshooting)

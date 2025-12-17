@@ -70,6 +70,11 @@ nav:
     - Triggers: guide/triggers.md
   - Claude Code:
     - Comprehensive Tutorial: CLAUDE-CODE-TUTORIAL.md
+  - Gemini CLI:
+    - Tutorial: gemini-cli/GEMINI_TUTORIAL.md
+    - Reference Card: gemini-cli/GEMINI_REFCARD.md
+    - Prompt Engineering: gemini-cli/PROMPT_ENGINEERING_ADHD.md
+    - Workflow Guide: gemini-cli/WORKFLOW_GUIDE.md
   - Reference:
     - Configuration: reference/configuration.md
     - Troubleshooting: reference/troubleshooting.md
