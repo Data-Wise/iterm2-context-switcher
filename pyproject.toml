@@ -1,6 +1,6 @@
 [build-system]
-requires = ["setuptools>=61.0", "wheel"]
-build-backend = "setuptools.build_meta"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
 
 [project]
 name = "aiterm"
@@ -59,8 +59,8 @@ Documentation = "https://data-wise.github.io/aiterm/"
 Repository = "https://github.com/Data-Wise/aiterm"
 Issues = "https://github.com/Data-Wise/aiterm/issues"
 
-[tool.setuptools.packages.find]
-where = ["src"]
+[tool.hatch.build.targets.wheel]
+packages = ["src/aiterm"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
