@@ -1,152 +1,282 @@
 # Installation
 
-Complete installation guide for iTerm2 Context Switcher.
+Complete installation guide for **aiterm** v0.1.0.
+
+---
 
 ## Requirements
 
-- iTerm2 (macOS terminal)
-- Zsh shell
-- Git (for project detection)
+### System Requirements
+
+- **Operating System:** macOS (Linux support coming in v0.2.0)
+- **Python:** 3.10 or higher
+- **Terminal:** iTerm2 (other terminals coming in v0.2.0)
+
+### Optional Requirements
+
+- **Claude Code CLI:** For Claude Code integration features
+- **Gemini CLI:** For Gemini integration (v0.2.0+)
+- **Git:** For git branch/status detection
 
 ---
 
-## Option 1: Install Script (Recommended)
+## Installation Methods
 
-The fastest way to get started:
+### Method 1: UV (Recommended ⚡)
+
+**UV** is 10-100x faster than pip and handles everything automatically.
+
+#### Install UV
 
 ```bash
-cd ~/projects/dev-tools/aiterm
-bash scripts/install-profiles.sh
+# Install uv if you don't have it
+curl -LsSf https://astral.sh/uv/install.sh | sh
+
+# Verify installation
+uv --version
 ```
 
-This automatically installs all 7 color profiles via iTerm2 Dynamic Profiles.
+#### Install aiterm
 
-### After Running Install Script
+```bash
+# Install aiterm as a CLI tool
+uv tool install git+https://github.com/Data-Wise/aiterm
 
-1. **Add to your .zshrc** (before Oh-My-Zsh loads):
+# Verify installation
+aiterm --version
+ait --version  # Short alias also works
+```
 
-    ```zsh
-    DISABLE_AUTO_TITLE="true"
-    ```
+#### Update aiterm
 
-2. **Add at end of .zshrc**:
-
-    ```zsh
-    source ~/projects/dev-tools/aiterm/zsh/iterm2-integration.zsh
-    ```
-
-3. **Configure iTerm2 profiles** (one-time):
-
-    For each installed profile (R-Dev, AI-Session, etc.):
-
-    - Open iTerm2 → Settings → Profiles
-    - Select the profile
-    - Go to **General** tab
-    - Set **Title** to: `Session Name`
-    - Check: `Applications in terminal may change title`
-
-4. **Reload shell**:
-
-    ```bash
-    source ~/.zshrc
-    ```
+```bash
+# Update to latest version
+uv tool upgrade aiterm
+```
 
 ---
 
-## Option 2: Manual Installation
+### Method 2: pipx
 
-### Step 1: Install Dynamic Profiles
+**pipx** installs Python CLI tools in isolated environments.
 
-Copy the profiles JSON to iTerm2:
-
-```bash
-cp profiles/context-switcher-profiles.json \
-   ~/Library/Application\ Support/iTerm2/DynamicProfiles/
-```
-
-### Step 2: Configure Shell
-
-Add to `~/.config/zsh/.zshrc` (or `~/.zshrc`):
-
-```zsh
-# Disable OMZ auto-title (MUST be before Oh My Zsh loads)
-DISABLE_AUTO_TITLE="true"
-
-# At end of file:
-source ~/projects/dev-tools/aiterm/zsh/iterm2-integration.zsh
-```
-
-!!! warning "DISABLE_AUTO_TITLE"
-    This must be set **before** Oh My Zsh or Antidote loads, otherwise
-    OMZ will override your tab titles.
-
-### Step 3: Configure iTerm2 Title
-
-For **each profile** (R-Dev, AI-Session, Production, etc.):
-
-1. Open iTerm2 → Settings → Profiles → General
-2. Set **Title** to: `Session Name`
-3. Check: `Applications in terminal may change title`
-
-!!! tip "Why Session Name?"
-    iTerm2 escape sequences only work when Title is set to "Session Name".
-    Without this, titles will show "zsh" instead of your project name.
-
-### Step 4: Reload Shell
+#### Install pipx
 
 ```bash
+# Install pipx
+python3 -m pip install --user pipx
+
+# Add pipx to PATH
+python3 -m pipx ensurepath
+
+# Restart your terminal, then verify
+pipx --version
+```
+
+#### Install aiterm
+
+```bash
+# Install aiterm
+pipx install git+https://github.com/Data-Wise/aiterm
+
+# Verify installation
+aiterm --version
+```
+
+#### Update aiterm
+
+```bash
+# Update to latest version
+pipx upgrade aiterm
+```
+
+---
+
+### Method 3: Development Installation
+
+For contributing or local development:
+
+```bash
+# Clone the repository
+git clone https://github.com/Data-Wise/aiterm.git
+cd aiterm
+
+# Create virtual environment with uv
+uv venv
+
+# Activate environment
+source .venv/bin/activate
+
+# Install in editable mode with dev dependencies
+uv pip install -e ".[dev]"
+
+# Run tests
+pytest -v
+
+# Verify installation
+aiterm --version
+```
+
+---
+
+## Post-Installation
+
+### Verify Installation
+
+```bash
+# Check version
+aiterm --version
+
+# Run health check
+aiterm doctor
+
+# Test context detection
+aiterm detect
+```
+
+Expected output from `aiterm doctor`:
+
+```
+aiterm doctor - Health check
+
+Terminal: iTerm.app
+Shell: /bin/zsh
+Python: 3.10+
+aiterm: 0.1.0-dev
+
+Basic checks passed!
+```
+
+### Shell Completion (Optional)
+
+Enable tab completion for your shell:
+
+#### Zsh
+
+```bash
+# Add to ~/.zshrc
+eval "$(_AITERM_COMPLETE=zsh_source aiterm)"
+
+# Reload shell
 source ~/.zshrc
 ```
 
----
-
-## Installed Profiles
-
-The install script adds these 7 profiles:
-
-| Profile | Theme | Use Case |
-|---------|-------|----------|
-| R-Dev | Blue | R packages, Quarto |
-| AI-Session | Purple | Claude/Gemini sessions |
-| Production | Red | Production warning |
-| Dev-Tools | Amber | Shell scripts, CLI tools |
-| Emacs | Purple | Emacs configurations |
-| Python-Dev | Green | Python projects |
-| Node-Dev | Dark | Node.js projects |
-
----
-
-## Verify Installation
+#### Bash
 
 ```bash
-# Test R package
-cd ~/projects/r-packages/active/medfit
-# Expected: 📦 medfit (main) with blue theme
+# Add to ~/.bashrc
+eval "$(_AITERM_COMPLETE=bash_source aiterm)"
 
-# Test default
-cd ~
-# Expected: Default profile, no icon
-
-# Check hook is registered
-type chpwd_iterm_profile
+# Reload shell
+source ~/.bashrc
 ```
 
 ---
 
 ## Troubleshooting
 
-**Title shows "zsh" instead of project name:**
+### Command Not Found
 
-- Set each profile's Title to "Session Name" in iTerm2 Preferences
+If `aiterm` command is not found after installation:
 
-**Profile colors don't change:**
+**UV users:**
+```bash
+# Check UV bin directory is in PATH
+echo $PATH | grep -o ~/.local/bin
 
-- Verify profile names match exactly (case-sensitive)
-- Check `echo $TERM_PROGRAM` shows `iTerm.app`
+# If not found, add to your shell config (~/.zshrc or ~/.bashrc)
+export PATH="$HOME/.local/bin:$PATH"
+```
 
-**Git branch not showing:**
+**pipx users:**
+```bash
+# Ensure pipx path
+python3 -m pipx ensurepath
 
-- Ensure you're in a git repository
-- Run `git branch --show-current` to verify
+# Restart terminal
+```
 
-See [Troubleshooting Guide](../reference/troubleshooting.md) for more help.
+### Permission Denied
+
+If you get permission errors:
+
+```bash
+# Don't use sudo with uv or pipx!
+# They install to user directories automatically
+
+# If you accidentally used sudo, uninstall and reinstall:
+uv tool uninstall aiterm
+uv tool install git+https://github.com/Data-Wise/aiterm
+```
+
+### Python Version Issues
+
+```bash
+# Check Python version
+python3 --version
+
+# aiterm requires Python 3.10+
+# Update Python if needed:
+brew install python@3.12  # macOS with Homebrew
+```
+
+### iTerm2 Not Detected
+
+If `aiterm doctor` shows wrong terminal:
+
+```bash
+# Check TERM_PROGRAM environment variable
+echo $TERM_PROGRAM
+
+# Should show: iTerm.app
+# If not, you're not running in iTerm2
+```
+
+---
+
+## Uninstalling
+
+### UV
+
+```bash
+uv tool uninstall aiterm
+```
+
+### pipx
+
+```bash
+pipx uninstall aiterm
+```
+
+### Development Install
+
+```bash
+cd aiterm
+uv pip uninstall aiterm
+```
+
+---
+
+## Next Steps
+
+- ✅ **Quick Start:** [Get started in 2 minutes](quickstart.md)
+- 📖 **CLI Reference:** [All commands and examples](../reference/commands.md)
+- 🎯 **Workflows:** [Common use cases](../guide/workflows.md)
+- ⚙️ **Claude Integration:** [Set up auto-approvals](../guide/claude-integration.md)
+
+---
+
+## Version Information
+
+- **Current Version:** 0.1.0-dev
+- **Release Date:** December 2024
+- **Python Support:** 3.10, 3.11, 3.12, 3.13, 3.14
+- **macOS Support:** Monterey (12.0) and later
+
+---
+
+## Getting Help
+
+- **Documentation:** [https://data-wise.github.io/aiterm](https://data-wise.github.io/aiterm)
+- **Issues:** [GitHub Issues](https://github.com/Data-Wise/aiterm/issues)
+- **Discussions:** [GitHub Discussions](https://github.com/Data-Wise/aiterm/discussions)

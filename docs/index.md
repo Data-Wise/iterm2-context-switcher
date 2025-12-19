@@ -1,103 +1,267 @@
-# iTerm2 Context Switcher
+# aiterm
 
-**Smart context switching for iTerm2 with auto-profile switching and tab titles.**
+**Terminal optimizer CLI for AI-assisted development with Claude Code and Gemini CLI.**
 
-**Version:** 2.4.0
+![Version](https://img.shields.io/badge/version-0.1.0--dev-blue)
+![Python](https://img.shields.io/badge/python-3.10%2B-blue)
+![Tests](https://img.shields.io/badge/tests-51%20passing-green)
+![Coverage](https://img.shields.io/badge/coverage-83%25-green)
 
 ---
 
 ## What It Does
 
-Automatically switches iTerm2 profiles (colors) and sets tab titles based on your current directory:
+**aiterm** optimizes your terminal for AI-assisted development by:
 
-| Context | Icon | Profile | Theme |
-|---------|------|---------|-------|
-| Production | 🚨 | Production | Red |
-| AI Sessions | 🤖 | AI-Session | Purple |
-| R Package | 📦 | R-Dev | Blue |
-| Python | 🐍 | Python-Dev | Green |
-| Node.js | 📦 | Node-Dev | Dark |
-| Quarto | 📊 | R-Dev | Blue |
-| MCP Server | 🔌 | AI-Session | Purple |
-| Emacs | ⚡ | Emacs | Purple |
-| Dev-Tools | 🔧 | Dev-Tools | Amber |
+- 🎯 **Smart Context Detection** - Automatically detects project type (Python, R, Node.js, etc.)
+- 🎨 **Auto Profile Switching** - Changes iTerm2 colors based on context (production = red!)
+- ⚙️ **Claude Code Integration** - Manages settings, hooks, and auto-approvals
+- 📊 **Status Bar** - Shows project info, git status, and session metrics
+- 🚀 **Fast Setup** - Install in < 5 minutes with `uv` or `pipx`
+
+---
+
+## Quick Example
+
+```bash
+# Install with uv (recommended - 10-100x faster!)
+uv tool install git+https://github.com/Data-Wise/aiterm
+
+# Or with pipx
+pipx install git+https://github.com/Data-Wise/aiterm
+
+# Check health
+aiterm doctor
+
+# Detect current project
+aiterm detect
+
+# View Claude Code settings
+aiterm claude settings
+
+# List auto-approval presets
+aiterm claude approvals presets
+```
+
+---
+
+## Context Detection
+
+**aiterm** automatically detects 8 project types:
+
+| Context | Icon | Profile | When Detected |
+|---------|------|---------|---------------|
+| Production | 🚨 | Production | `/production/`, `/prod/` paths |
+| AI Session | 🤖 | AI-Session | `/claude-sessions/`, `/gemini-sessions/` |
+| R Package | 📦 | R-Dev | `DESCRIPTION` file present |
+| Python | 🐍 | Python-Dev | `pyproject.toml` present |
+| Node.js | 📦 | Node-Dev | `package.json` present |
+| Quarto | 📊 | R-Dev | `_quarto.yml` present |
+| Emacs | 🔧 | Dev-Tools | `.spacemacs` file |
+| Dev Tools | 🛠️ | Dev-Tools | `.git` + `scripts/` |
 
 ---
 
 ## Features
 
-- ✅ Auto-switch profiles by directory context
-- ✅ Tab titles with icons and **git branch**: `📦 medfit (main)`
-- ✅ **Git dirty indicator**: `📦 medfit (main)*` when uncommitted changes
-- ✅ Production environment warnings (🚨)
-- ✅ Dynamic profiles auto-installed (no manual setup)
-- ✅ **Claude Code triggers** - Dock bounce, error highlighting, notifications
-- ✅ **Status bar variables** - Show context in iTerm2 status bar
-- ✅ Caches state to prevent redundant switches
-- ✅ Zero configuration after setup
+### Context Management
+- Detect project type from file markers and path patterns
+- Apply context to terminal (profile, title, git status)
+- Short aliases: `ait detect`, `ait switch`
+
+### Claude Code Integration
+- View and backup `~/.claude/settings.json`
+- Manage auto-approval permissions with 8 presets:
+  - `safe-reads` - Read-only operations
+  - `git-ops` - Git commands (status, diff, log)
+  - `github-cli` - GitHub CLI operations
+  - `python-dev` - Python tools (pytest, pip, uv)
+  - `node-dev` - Node.js tools (npm, npx, bun)
+  - `r-dev` - R development tools
+  - `web-tools` - Web search and fetch
+  - `minimal` - Basic shell commands only
+
+### Terminal Integration (iTerm2)
+- Profile switching via escape sequences
+- Tab title with project name and git branch
+- Status bar variables for custom displays
+
+---
+
+## Installation
+
+### Requirements
+
+- **Python:** 3.10+
+- **Terminal:** iTerm2 (macOS) - other terminals coming in v0.2.0
+- **Optional:** Claude Code CLI, Gemini CLI
+
+### Install with UV (Recommended)
+
+```bash
+# Install uv if you don't have it
+curl -LsSf https://astral.sh/uv/install.sh | sh
+
+# Install aiterm
+uv tool install git+https://github.com/Data-Wise/aiterm
+```
+
+**Why UV?** 10-100x faster than pip, compatible with everything, no lock file confusion.
+
+### Install with pipx
+
+```bash
+# Install pipx if you don't have it
+python3 -m pip install --user pipx
+python3 -m pipx ensurepath
+
+# Install aiterm
+pipx install git+https://github.com/Data-Wise/aiterm
+```
+
+### Verify Installation
+
+```bash
+aiterm --version
+aiterm doctor
+```
 
 ---
 
 ## Quick Start
 
-### Option 1: Install Script
+### 1. Basic Usage
 
 ```bash
-cd ~/projects/dev-tools/aiterm
-bash scripts/install-profiles.sh
+# Check installation
+aiterm doctor
+
+# Detect current directory
+aiterm detect
+
+# Switch to another project
+cd ~/my-python-project
+aiterm switch    # Applies context to iTerm2
 ```
 
-### Option 2: Manual Setup
+### 2. Claude Code Integration
 
 ```bash
-# Add to ~/.config/zsh/.zshrc (before Oh-My-Zsh loads)
-DISABLE_AUTO_TITLE="true"
+# View current settings
+aiterm claude settings
 
-# At end of .zshrc
-source ~/projects/dev-tools/aiterm/zsh/iterm2-integration.zsh
+# Backup settings
+aiterm claude backup
+
+# View auto-approvals
+aiterm claude approvals list
+
+# Add safe preset
+aiterm claude approvals add safe-reads
+
+# Add development presets
+aiterm claude approvals add python-dev
+aiterm claude approvals add git-ops
 ```
 
-**Important:** Set each iTerm2 profile's Title to "Session Name" in Preferences.
-
-Then reload your shell:
+### 3. Use Short Alias
 
 ```bash
-source ~/.config/zsh/.zshrc
+ait detect      # Same as: aiterm detect
+ait switch      # Same as: aiterm switch
+ait doctor      # Same as: aiterm doctor
 ```
-
-See the [Installation Guide](getting-started/installation.md) for detailed setup.
 
 ---
 
-## How It Works
+## Use Cases
 
-When you `cd` into a directory, the integration:
+### For Claude Code Users
 
-1. **Detects context** - Checks for project files (DESCRIPTION, pyproject.toml, etc.)
-2. **Switches profile** - Changes iTerm2 colors via escape sequence
-3. **Sets title** - Updates tab title with icon + project name + git branch
+```bash
+# Set up safe auto-approvals
+ait claude approvals add safe-reads
+ait claude approvals add git-ops
+ait claude approvals add python-dev
 
-Example titles:
+# Verify configuration
+ait claude settings
+```
 
-- `📦 medfit (main)` - R package on main branch
-- `📦 medfit (main)*` - R package with uncommitted changes
-- `🔧 aiterm (dev)` - Dev-tools on dev branch
-- `🐍 myproject (feature/api)` - Python project on feature branch
+### For Multi-Project Developers
 
-All changes are cached to prevent redundant switches.
+```bash
+# Navigate between projects with auto-context
+cd ~/projects/my-webapp/
+ait switch    # → Node-Dev profile (green)
+
+cd ~/projects/api-service/
+ait switch    # → Python-Dev profile (blue)
+
+cd ~/production/live-site/
+ait switch    # → Production profile (RED!) 🚨
+```
+
+### For R Package Developers
+
+```bash
+cd ~/r-packages/mypackage/
+ait detect    # Shows: 📦 r-package → R-Dev profile
+
+# Context includes:
+# - Package name from DESCRIPTION
+# - Git branch and dirty status
+# - Profile colors optimized for R work
+```
 
 ---
 
-## Dynamic Profiles
+## What's Next?
 
-All 7 color profiles are automatically installed via iTerm2 Dynamic Profiles:
+### v0.2.0 (Coming Soon)
 
-- **R-Dev** - Blue theme for R packages
-- **AI-Session** - Purple theme for Claude/Gemini
-- **Production** - Red theme for production warning
-- **Dev-Tools** - Amber/orange theme for shell tools
-- **Emacs** - Purple/magenta theme for Emacs configs
-- **Python-Dev** - Green theme for Python projects
-- **Node-Dev** - Dark theme for Node.js projects
+- **Hook Management** - Install and manage Claude Code hooks
+- **MCP Server Integration** - Configure and test MCP servers
+- **StatusLine Builder** - Interactive status bar generator
+- **Multi-Terminal Support** - Beyond iTerm2
 
-See [Profiles Guide](guide/profiles.md) for customization.
+### Long Term (v1.0.0)
+
+- **Gemini CLI Integration**
+- **Profile Templates** - Community-contributed themes
+- **Web UI** - Visual configuration tool
+- **Plugin System** - Extend with custom contexts
+
+---
+
+## Links
+
+- **Documentation:** [https://data-wise.github.io/aiterm](https://data-wise.github.io/aiterm)
+- **Repository:** [https://github.com/Data-Wise/aiterm](https://github.com/Data-Wise/aiterm)
+- **Issues:** [https://github.com/Data-Wise/aiterm/issues](https://github.com/Data-Wise/aiterm/issues)
+
+---
+
+## Why aiterm?
+
+**Built for ADHD-friendly workflows:**
+
+- ⚡ Fast commands with clear output
+- 🎯 Single-purpose commands (no analysis paralysis)
+- 🎨 Visual context cues (production = red!)
+- 📝 Comprehensive docs with examples
+- 🧪 Well-tested (51 tests, 83% coverage)
+
+**Perfect for:**
+
+- Claude Code power users
+- Multi-project developers
+- R package maintainers
+- Production/staging separation
+- ADHD-friendly workflows
+
+---
+
+## License
+
+MIT - see [LICENSE](https://github.com/Data-Wise/aiterm/blob/main/LICENSE) for details.

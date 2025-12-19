@@ -1,5 +1,5 @@
-site_name: iTerm2 Context Switcher
-site_description: Smart context switching for iTerm2 with auto-profile switching and tab titles
+site_name: aiterm
+site_description: Terminal optimizer CLI for AI-assisted development with Claude Code and Gemini CLI
 site_author: Data-Wise
 site_url: https://data-wise.github.io/aiterm
 
@@ -65,12 +65,15 @@ nav:
     - Quick Start: getting-started/quickstart.md
   - User Guide:
     - Context Detection: guide/context-detection.md
-    - Profiles: guide/profiles.md
-    - Status Bar: guide/status-bar.md
-    - Triggers: guide/triggers.md
-  - Reference:
+    - Claude Code Integration: guide/claude-integration.md
+    - Workflows: guide/workflows.md
+  - CLI Reference:
+    - Commands: reference/commands.md
     - Configuration: reference/configuration.md
     - Troubleshooting: reference/troubleshooting.md
+  - Development:
+    - Contributing: development/contributing.md
+    - Architecture: development/architecture.md
 
 extra:
   social:
