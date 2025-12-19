@@ -1,10 +1,10 @@
 project: aiterm (formerly iterm2-context-switcher)
-status: release-ready
+status: active
 priority: P1
-progress: 100
-version: 0.1.0-dev
-updated: 2025-12-16
-next: Create PR → merge → tag release
+progress: 0
+version: 0.2.0-dev
+updated: 2025-12-18
+next: Plan v0.2.0 hook management system
 
 # What it is
 Terminal optimizer CLI for AI-assisted development.
@@ -14,7 +14,8 @@ Manages profiles, hooks, commands, context detection, and auto-approvals.
 # Project Evolution
 v2.5.0 (Dec 15): iterm2-context-switcher (zsh-based, iTerm2 only)
 v3.0.0 (Dec 15): aiterm (Python CLI, multi-tool, expandable)
-v0.1.0-dev (Dec 16): First Python release - all Phase 1 features complete
+v0.1.0-dev (Dec 16-18): First Python release - SHIPPED ✅
+v0.2.0-dev (Dec 18+): Hook management & MCP integration
 
 # v0.1.0-dev Summary
 
@@ -83,10 +84,36 @@ pipx install git+https://github.com/Data-Wise/iterm2-context-switcher
 **Workaround:** None until Claude Code updates
 **Note:** This bug was discovered during v0.1.0-dev release prep. The statusLine script itself is production-ready and will work once Claude Code is updated.
 
-# Next Actions
+# v0.1.0-dev Release (COMPLETE ✅)
 1. ✅ Tag created: v0.1.0-dev (merged to main and dev)
-2. Create GitHub release with STATUSLINE-BUG.md noted in known issues
-3. v0.2.0: Hook management, MCP integration, statusLine builder tool
+2. ✅ GitHub release published: https://github.com/Data-Wise/iterm2-context-switcher/releases/tag/v0.1.0-dev
+3. ✅ StatusLine bug documented in known issues
+
+# v0.2.0-dev Planning
+
+## 🎯 Next Actions
+
+**A) Planning Phase (Start here)** ⚡ 30-45 min
+   - Design hook management CLI interface
+   - Plan hook template system
+   - Map 9 hook types to aiterm commands
+
+**B) Hook Discovery & Status** 🔧 2-3 hours
+   - `ait hooks list` - Show installed hooks
+   - `ait hooks status` - Health check
+   - Read hooks from ~/.claude/hooks/
+
+**C) Hook Installation** 🔧 3-4 hours
+   - `ait hooks install <preset>` - Install hook templates
+   - Template library (session-start, pre-commit, cost-tracker, etc.)
+   - Interactive hook configuration
+
+## Priority Features (v0.2.0)
+1. **Hook Management System** (9 hook types)
+   - SessionStart, SessionEnd, UserPromptSubmit, Stop
+   - PreApprove, PreCommit, PrePush, CostTracker, Custom
+2. **MCP Server Integration** (discovery, config, testing)
+3. **StatusLine Builder** (interactive generator, themes, preview)
 
 # Links
 repo: https://github.com/Data-Wise/iterm2-context-switcher
