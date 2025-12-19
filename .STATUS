@@ -1,10 +1,25 @@
 project: aiterm (formerly iterm2-context-switcher)
-status: active
+status: released
 priority: P1
-progress: 0
-version: 0.2.0-dev
-updated: 2025-12-18
-next: Plan v0.2.0 hook management system
+progress: 100
+version: 0.1.0
+updated: 2024-12-18
+next: Create announcement materials (GIF, blog post, social media)
+
+## ✅ Just Completed (v0.1.0 Release Session - Dec 18, 2024)
+- UV build system migration (10-100x faster installation)
+- Comprehensive documentation (2,647 lines, 8 pages)
+- Deployed docs to GitHub Pages
+- Complete testing report (all 51 tests passing)
+- Repository renamed to "aiterm"
+- v0.1.0 release published
+- Merged to main branch
+
+## 🎯 Next Action
+**Choose one:**
+- **A)** Create installation GIF/video [30-45 min] 🟢 RECOMMENDED
+- **B)** Write blog post announcement [1 hour]
+- **C)** Prepare social media posts [15-30 min]
 
 # What it is
 Terminal optimizer CLI for AI-assisted development.
@@ -14,18 +29,17 @@ Manages profiles, hooks, commands, context detection, and auto-approvals.
 # Project Evolution
 v2.5.0 (Dec 15): iterm2-context-switcher (zsh-based, iTerm2 only)
 v3.0.0 (Dec 15): aiterm (Python CLI, multi-tool, expandable)
-v0.1.0-dev (Dec 16-18): First Python release - SHIPPED ✅
-v0.2.0-dev (Dec 18+): Hook management & MCP integration
+v0.1.0-dev (Dec 16): First Python release - all Phase 1 features complete
 
 # v0.1.0-dev Summary
 
 ## Installation
 ```bash
-# Recommended (uv) - 10-100x faster!
-uv tool install git+https://github.com/Data-Wise/aiterm
+# Recommended (uv)
+uv tool install git+https://github.com/Data-Wise/iterm2-context-switcher
 
 # Alternative (pipx)
-pipx install git+https://github.com/Data-Wise/aiterm
+pipx install git+https://github.com/Data-Wise/iterm2-context-switcher
 ```
 
 ## Features Implemented
@@ -62,11 +76,10 @@ pipx install git+https://github.com/Data-Wise/aiterm
 - Context detection: 8 types with icons and profiles
 - iTerm2 module: profile switching, title, user variables
 
-## ✅ Phase 4: Python Project Structure (Dec 16-18)
-- pyproject.toml with hatchling (uv-compatible) ✅ Dec 18
+## ✅ Phase 4: Python Project Structure (Dec 16)
+- pyproject.toml with setuptools
 - src/aiterm/ package (cli, terminal, context, claude, utils)
 - Typer + Rich CLI
-- UV virtual environment setup (10-100x faster than pip)
 
 ## ✅ Phase 3: Slash Commands (Dec 16)
 - 6 hub commands, 5 archived
@@ -85,42 +98,24 @@ pipx install git+https://github.com/Data-Wise/aiterm
 **Workaround:** None until Claude Code updates
 **Note:** This bug was discovered during v0.1.0-dev release prep. The statusLine script itself is production-ready and will work once Claude Code is updated.
 
-# v0.1.0-dev Status (READY FOR RELEASE ✅)
-1. ✅ Repository renamed to "aiterm"
-2. ✅ Comprehensive documentation (2,647 lines)
-3. ✅ Deployed to GitHub Pages: https://data-wise.github.io/aiterm/
-4. ✅ All 51 tests passing (83% coverage)
-5. ✅ UV build system (10-100x faster)
-6. ✅ Testing report complete
-7. ⏳ Pending: Create v0.1.0 release tag
+# ✅ Just Completed (Dec 17)
+- Created comprehensive Claude Code CLI tutorial (3,266 lines, 16 sections)
+- Added ADHD-friendly workflows, tips, and plugin vetting guide
+- Deployed site to GitHub Pages with Gemini CLI docs
+- Tagged v0.1.0-dev release
+- Fixed broken anchors in tutorial
 
-# v0.2.0-dev Planning
+# 🎯 Next Action
+**Choose one:**
+- **A)** Test aiterm CLI features daily (dogfooding) 🟢
+- **B)** Implement full `aiterm init` wizard (v0.1.1)
+- **C)** Add more `aiterm doctor` diagnostics
 
-## 🎯 Next Actions
-
-**A) Planning Phase (Start here)** ⚡ 30-45 min
-   - Design hook management CLI interface
-   - Plan hook template system
-   - Map 9 hook types to aiterm commands
-
-**B) Hook Discovery & Status** 🔧 2-3 hours
-   - `ait hooks list` - Show installed hooks
-   - `ait hooks status` - Health check
-   - Read hooks from ~/.claude/hooks/
-
-**C) Hook Installation** 🔧 3-4 hours
-   - `ait hooks install <preset>` - Install hook templates
-   - Template library (session-start, pre-commit, cost-tracker, etc.)
-   - Interactive hook configuration
-
-## Priority Features (v0.2.0)
-1. **Hook Management System** (9 hook types)
-   - SessionStart, SessionEnd, UserPromptSubmit, Stop
-   - PreApprove, PreCommit, PrePush, CostTracker, Custom
-2. **MCP Server Integration** (discovery, config, testing)
-3. **StatusLine Builder** (interactive generator, themes, preview)
+# Future Actions
+1. Create GitHub release with STATUSLINE-BUG.md noted in known issues
+2. v0.2.0: Hook management, MCP integration, statusLine builder tool
 
 # Links
-repo: https://github.com/Data-Wise/aiterm
-docs: https://data-wise.github.io/aiterm/
-issues: https://github.com/Data-Wise/aiterm/issues
+repo: https://github.com/Data-Wise/iterm2-context-switcher
+docs: https://data-wise.github.io/iterm2-context-switcher/
+PR: https://github.com/Data-Wise/iterm2-context-switcher/compare/dev...claude/recap-dev-main-branches-3eCZB
