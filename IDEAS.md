@@ -57,9 +57,22 @@
 
 ## Phase 2: Enhanced Claude Integration (v0.2.0)
 
-**Goal:** Deep Claude Code customization
-**Timeline:** 2 weeks post v0.1.0 release
-**Priorities:** Hook management > MCP integration > StatusLine builder
+**Goal:** Deep Claude Code customization + R-Development MCP consolidation
+**Timeline:** 3-4 weeks post v0.1.0 release
+**Priorities:** R-Development MCP refactoring > MCP creation tools > Hook management
+
+**NEW: R-Development MCP Consolidation** ⭐
+- **Discovery:** 59% of Claude commands (35/59) are R-ecosystem related!
+- **Strategy:** Rename `statistical-research` → `r-development` MCP
+- **Add 6 new R tools:**
+  - r_ecosystem_health (MediationVerse health check)
+  - r_package_check_quick (quick R package check)
+  - manuscript_section_writer (write statistical papers)
+  - reviewer_response_generator (respond to reviewers)
+  - pkgdown_build (R package documentation)
+  - pkgdown_deploy (deploy to GitHub Pages)
+- **Result:** 14 → 20 tools (+43%), comprehensive R toolkit
+- **See:** COMMAND-MCP-REFACTORING-ANALYSIS-REVISED.md
 
 ### NEW KNOWLEDGE: 9 Hook Types Available!
 - PreToolUse (block/approve tools before execution)
@@ -156,6 +169,18 @@
   - `/rpkg:build` (full build pipeline)
 
 #### 3. MCP Server Management (Comprehensive)
+
+**PRIORITY: MCP Creation Wizard** ✨
+- [ ] `aiterm mcp create` - Interactive MCP server creation wizard
+  - Template selection (simple-api, research-tools, r-package-dev, etc.)
+  - Step-by-step configuration
+  - Automatic file structure generation
+  - Test server creation
+- [ ] `aiterm mcp templates list` - Show available MCP templates
+- [ ] `aiterm mcp validate <server>` - Validate MCP server structure
+- [ ] Template library with 10+ starter templates
+
+**MCP Management:**
 - [ ] `aiterm mcp list` - Show configured servers with status
 - [ ] `aiterm mcp search <keyword>` - Search mcp.run, glama.ai
 - [ ] `aiterm mcp install <server>` - Install + configure interactively
@@ -164,15 +189,14 @@
 - [ ] `aiterm mcp credentials <server>` - Secure credential management
 - [ ] `aiterm mcp recommend` - Suggest servers based on project type
 - [ ] `aiterm mcp oauth <server>` - OAuth 2.0 authentication setup
-- [ ] `aiterm mcp validate` - Validate .mcp.json syntax
 - [ ] `aiterm mcp export/import` - Team configuration sharing
 
 **MCP Server Categories:**
 - **Research & Data:**
-  - zotero-mcp (your existing Statistical Research MCP!)
+  - **r-development** (your comprehensive R toolkit - 20 tools!) ✨
   - postgres-mcp, sqlite-mcp (database access)
   - jupyter-mcp (notebook interaction)
-  - r-execution (execute R code)
+  - teaching-toolkit (statistical courses, Canvas integration)
 - **Development:**
   - filesystem (you already use this!)
   - github (issues, PRs)
