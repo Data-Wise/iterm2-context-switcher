@@ -21,13 +21,14 @@ next: Inventory Claude CLI custom commands and MCP servers for refactoring
 - v0.1.0 release published
 - All 51 tests passing (83% coverage)
 
-## 🎯 Current Focus: Custom Commands & MCP Refactoring
-**Task:** Inventory and refactor Claude CLI custom commands and MCP servers
-- Analyze ~/.claude/commands/ (194 files)
-- Analyze ~/.claude/settings.json MCP servers (3 configured)
-- Identify duplication and opportunities for consolidation
-- Propose refactoring into organized plugins
-- Better maintenance and discoverability
+## 🎯 Current Focus: R-Development MCP Consolidation
+**Task:** Consolidate R ecosystem into comprehensive r-development MCP server
+- INSIGHT: 59% of commands (35/59) are R-ecosystem related!
+- Rename statistical-research → r-development MCP
+- Add 6 new R tools (ecosystem-health, pkgdown, manuscript, etc.)
+- Consolidate 10 R-related commands into MCP
+- Result: 14 → 20 tools (+43%), 59 → 36 files (-39%)
+- See: COMMAND-MCP-REFACTORING-ANALYSIS-REVISED.md
 
 ## 📋 Planned Refactoring Outcomes
 1. Organize commands into logical plugin groups
