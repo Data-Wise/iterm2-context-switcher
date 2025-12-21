@@ -8,7 +8,17 @@ Optimize your terminal (iTerm2+) for AI coding with Claude Code and Gemini CLI. 
 
 ## 🚀 Installation
 
-### Recommended: uv (fastest)
+### macOS (Recommended)
+
+```bash
+# Install from Homebrew tap
+brew install data-wise/tap/aiterm
+
+# Update to latest version
+brew upgrade aiterm
+```
+
+### All Platforms (uv - fastest)
 
 ```bash
 # Install uv first (if needed)
@@ -37,6 +47,15 @@ git clone https://github.com/Data-Wise/aiterm.git
 cd aiterm
 uv tool install .                         # or: pip install -e .
 ```
+
+### Installation Methods Comparison
+
+| Method | Platform | Speed | Updates | Best For |
+|--------|----------|-------|---------|----------|
+| **Homebrew** | macOS | Fast | `brew upgrade` | Mac users (recommended) |
+| **uv** | All | Fastest | `uv tool upgrade` | All platforms |
+| **pipx** | All | Fast | `pipx upgrade` | Python developers |
+| **Source** | All | Slow | `git pull` | Contributors |
 
 ---
 

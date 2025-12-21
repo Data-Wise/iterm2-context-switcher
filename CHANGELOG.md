@@ -4,6 +4,26 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+## [Unreleased]
+
+### Added
+- 🍺 **Homebrew Distribution** - macOS users can now install via `brew install data-wise/tap/aiterm`
+  - Added formula to private Homebrew tap
+  - Automatic dependency management
+  - Simple updates with `brew upgrade aiterm`
+  - Primary installation method for macOS
+
+### Changed
+- Updated README with Homebrew as recommended macOS installation method
+- Added installation methods comparison table
+
+### Documentation
+- Created `HOMEBREW-DISTRIBUTION-PLAN.md` - comprehensive Homebrew roadmap
+- Created `HOMEBREW-QUICKSTART.md` - quick implementation guide
+- Updated `IDEAS.md` with Homebrew phases (2.7, 3, 4.5)
+
+---
+
 ## [0.1.0] - 2024-12-18 - FIRST PRODUCTION RELEASE 🎉
 
 **First production release of aiterm!**

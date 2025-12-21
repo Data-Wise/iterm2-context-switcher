@@ -329,13 +329,92 @@ aiterm mcp recommend
 
 ---
 
-## Phase 3: Gemini & Multi-Tool (v0.3.0)
+## Phase 2.7: Distribution & Installation (v0.2.7)
 
-**Goal:** Support multiple AI tools
+**Goal:** Professional distribution via Homebrew
+**Timeline:** 1-2 weeks (setup + testing)
 
 ### Features
 
-#### 1. Gemini CLI Integration
+#### 1. Homebrew Formula (Primary macOS Distribution) ⭐
+- [ ] `Formula/aiterm.rb` - Python formula with virtualenv
+- [ ] Private tap testing (data-wise/homebrew-tap)
+- [ ] Installation: `brew install data-wise/tap/aiterm`
+- [ ] Auto-dependency management (Python 3.10+)
+- [ ] Update workflow: `brew upgrade aiterm`
+
+**Benefits:**
+- One-line installation for Mac users
+- Automatic Python dependency handling
+- Familiar workflow (`brew install/upgrade`)
+- Professional appearance for public release
+
+**Technical Approach:**
+- Use `Language::Python::Virtualenv` pattern
+- Install from GitHub releases (tarball)
+- Automated SHA256 computation
+- Test block for validation
+
+#### 2. Automated Release Workflow
+- [ ] `.github/workflows/release.yml` - Automated releases
+- [ ] GitHub Release → PyPI upload (automatic)
+- [ ] GitHub Release → Homebrew formula update (PR to tap)
+- [ ] Auto-generate release notes from commits
+- [ ] Version bump automation (`bump2version`)
+
+**Workflow:**
+```bash
+# Single command triggers everything
+git tag v0.2.7
+git push --tags
+
+# GitHub Action handles:
+# 1. Build Python package
+# 2. Upload to PyPI
+# 3. Update Homebrew formula
+# 4. Generate release notes
+```
+
+#### 3. Updated Installation Documentation
+- [ ] README.md - Add Homebrew as primary method (macOS)
+- [ ] Keep pip/UV as cross-platform option
+- [ ] Installation comparison table
+- [ ] Platform-specific instructions
+
+**Installation Options:**
+| Platform | Primary Method | Alternative |
+|----------|---------------|-------------|
+| macOS | `brew install data-wise/tap/aiterm` | `pip install aiterm` |
+| Linux | `pip install aiterm` | `uv pip install aiterm` |
+| All | `pip install aiterm` | - |
+
+#### 4. Multi-Version Support (Future)
+- [ ] Versioned installs: `brew install aiterm@0.2`
+- [ ] Pin to specific version
+- [ ] Rollback support via Homebrew
+
+**Timeline:**
+- **Week 1:** Create formula, test in private tap
+- **Week 2:** Automated release workflow, update docs
+- **v0.3.0:** Public tap release
+- **v0.5.0+:** Submit to homebrew-core (official Homebrew)
+
+---
+
+## Phase 3: Gemini & Multi-Tool (v0.3.0)
+
+**Goal:** Support multiple AI tools + Public Homebrew Release
+
+### Features
+
+#### 1. Public Homebrew Distribution ⭐
+- [ ] Make tap repository public
+- [ ] Homebrew formula tested with 10+ users
+- [ ] Installation becomes: `brew tap data-wise/tap && brew install aiterm`
+- [ ] Announce on Twitter/HN
+- [ ] Add Homebrew badge to README
+
+#### 2. Gemini CLI Integration
 - [ ] Gemini-specific profiles
 - [ ] Gemini triggers
 - [ ] `aiterm gemini init`
@@ -401,7 +480,53 @@ aiterm mcp recommend
 
 ---
 
+## Phase 4.5: Official Homebrew Core (v0.5.0+)
+
+**Goal:** Get aiterm into official Homebrew
+**Timeline:** After 100+ GitHub stars, 30+ days history
+
+### Requirements for homebrew-core
+
+#### Prerequisites
+- [ ] 75+ GitHub stars (show community interest)
+- [ ] 30+ days since first release (stability)
+- [ ] Active maintenance (regular commits)
+- [ ] Comprehensive documentation
+- [ ] No reported installation issues
+
+#### Submission Process
+- [ ] Review homebrew-core contribution guidelines
+- [ ] Ensure formula follows all best practices
+- [ ] Create PR to `homebrew/homebrew-core`
+- [ ] Respond to review feedback
+- [ ] Maintain formula in core repo
+
+**Benefits:**
+- Installation becomes just: `brew install aiterm` (no tap needed)
+- Maximum discoverability
+- Homebrew team validates quality
+- Automatic updates for all users
+- Featured in `brew search` results
+
+**Success Metrics:**
+- Merged into homebrew-core
+- No installation issues reported
+- Regular updates via automated PR
+
+---
+
 ## Future Ideas (Post-v1.0)
+
+### Cross-Platform Packaging
+- [ ] Linuxbrew support (use existing formula)
+- [ ] apt PPA for Ubuntu/Debian
+- [ ] chocolatey for Windows
+- [ ] Standalone binary distribution (PyInstaller/Nuitka)
+
+**Benefits:**
+- Windows/Linux users get native installers
+- No Python dependency conflicts
+- Professional multi-platform support
 
 ### AI Workflow Optimizer
 - Analyze usage patterns
