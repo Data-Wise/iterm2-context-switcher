@@ -1,12 +1,21 @@
 project: aiterm
 status: active
 priority: P1
-progress: 15
+progress: 20
 version: 0.2.0-dev
 updated: 2025-12-20
-next: Execute Phase 2 (R-Development MCP) - rename MCP, add 6 tools, consolidate 10 commands
+next: Review planning designs, prioritize implementation (RForge ideation tools vs workflow commands)
 
-## ✅ Just Completed (Phase 1 Cleanup - Dec 20, 2025)
+## ✅ Just Completed (Planning Design - Dec 20, 2025)
+- Created comprehensive workflow and ideation planning designs
+- WORKFLOW-DEVOPS-IDEATION-DESIGN.md (32 KB): 15 workflows + 10 ideation tools
+- RFORGE-IDEATION-TOOLS.md (23 KB): ADHD-friendly R package planning
+- Key innovation: Conversational planning (vague idea → clear spec in 5 min)
+- ADHD optimizations: 2-3 options max, quick wins highlighted, dopamine planning
+- Focused on RForge: 5 ideation tools (plan, quick-fix, new-package, vignette, refactor)
+- 1,995 lines of planning documentation committed
+
+## ✅ Previously Completed (Phase 1 Cleanup - Dec 20, 2025)
 - Phase 1 (Quick Wins) COMPLETE in 20 minutes! ⚡
 - Archived 11 deprecated command files (4 meta + 4 GitHub + 3 Git)
 - Updated git.md and github.md hubs to reference plugins + gh CLI
