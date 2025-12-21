@@ -1,12 +1,21 @@
 project: aiterm
 status: active
 priority: P1
-progress: 10
+progress: 15
 version: 0.2.0-dev
-updated: 2025-12-19
-next: Execute Phase 1 (Quick Wins) - backup commands, archive 13 files, update hubs
+updated: 2025-12-20
+next: Execute Phase 2 (R-Development MCP) - rename MCP, add 6 tools, consolidate 10 commands
 
-## ✅ Just Completed (R-Development MCP Analysis - Dec 19, 2025)
+## ✅ Just Completed (Phase 1 Cleanup - Dec 20, 2025)
+- Phase 1 (Quick Wins) COMPLETE in 20 minutes! ⚡
+- Archived 11 deprecated command files (4 meta + 4 GitHub + 3 Git)
+- Updated git.md and github.md hubs to reference plugins + gh CLI
+- Backed up entire commands directory for safety
+- Commands directory: 60 → 49 files (-18% reduction)
+- All changes documented in PHASE1-CLEANUP-COMPLETE.md
+- 2 commits: settings update + Phase 1 completion
+
+## ✅ Previously Completed (R-Development MCP Analysis - Dec 19, 2025)
 - Standards infrastructure complete (18,000+ lines, earlier in session)
 - **KEY DISCOVERY:** 59% of commands (35/59) are R-ecosystem related!
 - Created comprehensive R-Development MCP consolidation analysis
