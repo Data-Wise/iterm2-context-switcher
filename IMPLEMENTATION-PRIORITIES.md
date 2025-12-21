@@ -1,8 +1,35 @@
 # Implementation Priorities - Planning Tools
 
-**Date:** 2025-12-20
+**Date:** 2025-12-20 (Updated: 2025-12-21)
 **Purpose:** Prioritize which planning/ideation tools to implement first
 **Context:** Two design docs created (WORKFLOW-DEVOPS-IDEATION-DESIGN.md, RFORGE-IDEATION-TOOLS.md)
+
+---
+
+## 🎯 NEW PRIORITY: Documentation First! (Dec 21, 2025)
+
+**Based on RForge Success:**
+After completing comprehensive RForge auto-detection documentation (7 docs, ~80 pages, 15 diagrams), we've validated a critical insight:
+
+> **Comprehensive documentation BEFORE broad feature expansion prevents confusion and accelerates development.**
+
+**NEW PHASE 0 (Before Implementation):**
+- Create complete aiterm documentation suite (API, Architecture, Guides)
+- 20+ Mermaid diagrams for system design
+- 60+ code examples
+- Deploy to GitHub Pages
+
+**Timeline:** 3 weeks for complete docs
+**Benefits:**
+- ✅ Clarifies vision before coding
+- ✅ Prevents scope creep
+- ✅ Guides development (docs as spec)
+- ✅ Accelerates onboarding (users + developers)
+- ✅ Reduces future support burden
+
+**See:** `DOCUMENTATION-PLAN.md` for complete plan
+
+**Then proceed with implementation priorities below...**
 
 ---
 

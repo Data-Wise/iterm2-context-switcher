@@ -27,11 +27,32 @@ This file provides guidance to Claude Code when working with the aiterm project.
 
 ---
 
-## Project Status: v0.1.0-dev COMPLETE ✅
+## Project Status: v0.2.0-dev - Documentation First! 📚
 
-**Current Phase:** Ready for v0.1.0 release!
+**Current Phase:** Phase 0 - Comprehensive Documentation (Before Feature Expansion)
 
-**Completed:**
+**NEW PRIORITY (Dec 21, 2025):**
+After completing RForge MCP auto-detection documentation (7 docs, ~80 pages, 15 diagrams), we've validated a critical insight:
+
+> **Comprehensive documentation BEFORE feature expansion prevents confusion and accelerates development.**
+
+**Phase 0 Plan (3 weeks):**
+- [ ] Complete documentation suite (7 documents, ~100 pages)
+- [ ] 20+ Mermaid architecture diagrams
+- [ ] 60+ code examples (Python + CLI)
+- [ ] Deploy to GitHub Pages
+- [ ] Use docs as specification for Phase 1 implementation
+
+**See:**
+- `DOCUMENTATION-PLAN.md` - Complete documentation roadmap
+- `RFORGE-LEARNINGS.md` - Lessons from RForge success
+- `IMPLEMENTATION-PRIORITIES.md` - Updated with documentation-first approach
+
+---
+
+## v0.1.0 Achievements ✅
+
+**Completed (Dec 2024):**
 - [x] UV build system and virtual environment
 - [x] Python project structure (hatchling, src/ layout)
 - [x] Core CLI commands (doctor, detect, switch)
@@ -39,15 +60,23 @@ This file provides guidance to Claude Code when working with the aiterm project.
 - [x] Claude Code settings management
 - [x] Auto-approval presets (8 presets)
 - [x] Testing & documentation (51 tests, 83% coverage)
-- [x] Comprehensive docs (2,647 lines, deployed to GitHub Pages)
+- [x] Basic docs (2,647 lines, deployed to GitHub Pages)
 - [x] Repository renamed to "aiterm"
 
 **Links:**
 - **Repo:** https://github.com/Data-Wise/aiterm
 - **Docs:** https://Data-Wise.github.io/aiterm/
-- **Status:** Ready for release 🚀
+- **Status:** v0.1.0 released, v0.2.0 in planning
 
-See `TESTING-REPORT.md` for complete test results.
+---
+
+## Next: Phase 1 Implementation (After Docs)
+
+**After Phase 0 documentation complete:**
+- Implement `rforge:plan` (main ideation tool)
+- Implement `rforge:plan:quick-fix` (fast iterations)
+- 2 weeks to working MVP
+- Validate pattern with real usage
 
 ---
 
