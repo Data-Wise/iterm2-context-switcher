@@ -24,11 +24,11 @@
 ## Quick Example
 
 ```bash
-# Install with uv (recommended - 10-100x faster!)
-uv tool install git+https://github.com/Data-Wise/aiterm
+# macOS - Install with Homebrew (recommended)
+brew install data-wise/tap/aiterm
 
-# Or with pipx
-pipx install git+https://github.com/Data-Wise/aiterm
+# All Platforms - Install with UV (fastest)
+uv tool install git+https://github.com/Data-Wise/aiterm
 
 # Check health
 aiterm doctor
@@ -90,13 +90,19 @@ aiterm claude approvals presets
 
 ## Installation
 
-### Requirements
+### macOS (Recommended)
 
-- **Python:** 3.10+
-- **Terminal:** iTerm2 (macOS) - other terminals coming in v0.2.0
-- **Optional:** Claude Code CLI, Gemini CLI
+```bash
+brew install data-wise/tap/aiterm
+```
 
-### Install with UV (Recommended)
+**Why Homebrew?**
+- ✅ One-line installation
+- ✅ Automatic dependency management
+- ✅ Simple updates (`brew upgrade`)
+- ✅ No Python setup needed
+
+### Cross-Platform (UV)
 
 ```bash
 # Install uv if you don't have it

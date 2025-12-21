@@ -22,9 +22,57 @@ Complete installation guide for **aiterm** v0.1.0.
 
 ## Installation Methods
 
-### Method 1: UV (Recommended ⚡)
+### Method 1: Homebrew (macOS - Recommended 🍺)
 
-**UV** is 10-100x faster than pip and handles everything automatically.
+**Homebrew** is the easiest way to install aiterm on macOS. One command, automatic updates, no Python setup needed.
+
+#### Install Homebrew (if needed)
+
+```bash
+# Install Homebrew if you don't have it
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+
+#### Install aiterm
+
+```bash
+# Install from Data-Wise tap
+brew install data-wise/tap/aiterm
+
+# Verify installation
+aiterm --version
+ait --version  # Short alias also works
+```
+
+#### Update aiterm
+
+```bash
+# Update to latest version
+brew upgrade aiterm
+
+# Or update all Homebrew packages
+brew upgrade
+```
+
+#### Uninstall
+
+```bash
+brew uninstall aiterm
+```
+
+**Why Homebrew?**
+
+- ✅ One-line installation
+- ✅ Automatic dependency management (Python, etc.)
+- ✅ Simple updates with `brew upgrade`
+- ✅ Standard macOS package manager
+- ✅ No virtual environment configuration needed
+
+---
+
+### Method 2: UV (Cross-Platform ⚡)
+
+**UV** is 10-100x faster than pip and works on all platforms.
 
 #### Install UV
 
@@ -56,7 +104,7 @@ uv tool upgrade aiterm
 
 ---
 
-### Method 2: pipx
+### Method 3: pipx
 
 **pipx** installs Python CLI tools in isolated environments.
 
@@ -92,7 +140,7 @@ pipx upgrade aiterm
 
 ---
 
-### Method 3: Development Installation
+### Method 4: Development Installation
 
 For contributing or local development:
 
@@ -234,7 +282,24 @@ echo $TERM_PROGRAM
 
 ---
 
+## Installation Methods Comparison
+
+| Method | Platform | Speed | Updates | Best For |
+|--------|----------|-------|---------|----------|
+| **Homebrew** 🍺 | macOS | Fast | `brew upgrade` | Mac users (recommended) |
+| **UV** ⚡ | All | Fastest | `uv tool upgrade` | Cross-platform, speed |
+| **pipx** | All | Fast | `pipx upgrade` | Python developers |
+| **Source** | All | Slow | `git pull` | Contributors |
+
+---
+
 ## Uninstalling
+
+### Homebrew
+
+```bash
+brew uninstall aiterm
+```
 
 ### UV
 
