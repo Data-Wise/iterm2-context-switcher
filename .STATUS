@@ -1,12 +1,31 @@
 project: aiterm
 status: active
 priority: P1
-progress: 30
+progress: 45
 version: 0.2.0-dev
 updated: 2025-12-21
-next: Apply RForge documentation patterns → Create aiterm comprehensive docs → Start Phase 1 (rforge:plan + quick-fix)
+next: Week 2 - Create User Guide, Integration Guide, Troubleshooting Guide
 
-## ✅ Just Completed (Documentation Validation via RForge - Dec 21, 2025)
+## ✅ Just Completed (Phase 0 Week 1 - Documentation Foundation - Dec 21, 2025)
+- ✅ Created comprehensive API documentation (AITERM-API.md, 520+ lines)
+  - Complete CLI command reference (doctor, detect, profile, claude)
+  - Complete Python API reference (terminal, context, settings)
+  - 30+ code examples (Python + CLI)
+  - Configuration reference + environment variables
+- ✅ Created comprehensive Architecture documentation (AITERM-ARCHITECTURE.md, 680+ lines)
+  - System overview + component architecture
+  - 15 Mermaid diagrams (architecture, flows, states)
+  - 5 design patterns explained
+  - File structure documentation
+- ✅ Applied RForge documentation patterns successfully
+  - ADHD-friendly formatting
+  - Code examples over explanation
+  - Mermaid diagrams for visual understanding
+  - Progressive disclosure
+- ✅ Week 1 deliverables COMPLETE (1,200+ lines of docs)
+- **NEXT:** Week 2 - User-facing guides (User Guide, Integration, Troubleshooting)
+
+## ✅ Previously Completed (Documentation Validation via RForge - Dec 21, 2025)
 - ✅ Completed comprehensive RForge auto-detection documentation (7 docs, ~80 pages)
 - ✅ Validated documentation pattern: API → Architecture → User Guide → Integration → Troubleshooting
 - ✅ Created 15 Mermaid diagrams for system architecture visualization
