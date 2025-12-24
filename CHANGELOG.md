@@ -8,6 +8,17 @@ All notable changes to this project will be documented in this file.
 
 <!-- Auto-generated 2025-12-24 by update-changelog.sh -->
 
+### Added
+
+- **docs**: implement Phase 2 auto-update system ([6289379](https://github.com/Data-Wise/aiterm/commit/6289379))
+
+### Documentation
+
+- Phase 3 quick start guide ([da3acf3](https://github.com/Data-Wise/aiterm/commit/da3acf3))
+- Phase 3 planning - core features vs AI documentation ([25eeeb8](https://github.com/Data-Wise/aiterm/commit/25eeeb8))
+
+<!-- Auto-generated 2025-12-24 by update-changelog.sh -->
+
 ### Documentation
 
 - enhance Phase 0 documentation with diagrams and fixes ([68d92eb](https://github.com/Data-Wise/aiterm/commit/68d92eb))
