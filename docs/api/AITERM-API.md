@@ -1,6 +1,6 @@
 # aiterm API Documentation
 
-**Version:** 0.2.0-dev
+**Version:** 0.1.0-dev
 **Last Updated:** 2025-12-21
 
 ---
@@ -989,7 +989,7 @@ except ProfileNotFoundError:
 
 ## Versioning
 
-**API Version:** 0.2.0-dev
+**API Version:** 0.1.0-dev
 
 **Stability:** Development (breaking changes possible)
 

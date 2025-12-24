@@ -1,6 +1,6 @@
 # aiterm Implementation Summary
 
-**Version:** 0.2.0-dev
+**Version:** 0.1.0-dev
 **Last Updated:** 2025-12-21
 **Status:** Phase 0 Documentation Complete
 
@@ -65,7 +65,7 @@
 
 ---
 
-### v0.2.0-dev - Phase 0 Documentation (Current)
+### v0.1.0-dev - Phase 0 Documentation (Current)
 
 **Comprehensive Documentation Suite:**
 
@@ -714,7 +714,7 @@ YAML                 2      156     142         8          6
 Total               57    6,697   5,719       466        512
 ```
 
-### Documentation Statistics (v0.2.0-dev)
+### Documentation Statistics (v0.1.0-dev)
 
 ```
 Document                          Lines    Examples    Diagrams
@@ -791,4 +791,4 @@ aiterm v0.1.0 successfully achieves its core mission: **zero-configuration conte
 
 **Last Updated:** 2025-12-21
 **Maintained By:** aiterm Development Team
-**Version:** 0.2.0-dev (Phase 0 Documentation Complete)
+**Version:** 0.1.0-dev (Phase 0 Documentation Complete)

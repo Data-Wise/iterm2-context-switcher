@@ -1,6 +1,6 @@
 # aiterm Documentation Index
 
-**Version:** 0.2.0-dev
+**Version:** 0.1.0-dev
 **Last Updated:** 2025-12-21
 
 ---
@@ -420,7 +420,7 @@ docs/
 
 ## Version History
 
-### v0.2.0-dev (2025-12-21) - Phase 0 Documentation
+### v0.1.0-dev (2025-12-21) - Phase 0 Documentation
 
 **Documentation Created:**
 - ✅ API Documentation (520+ lines)

@@ -1,6 +1,6 @@
 # aiterm Troubleshooting Guide
 
-**Version:** 0.2.0-dev
+**Version:** 0.1.0-dev
 **Last Updated:** 2025-12-21
 
 ---
@@ -14,6 +14,93 @@ Answer these questions to find your solution:
 3. **Context not detected?** → [Context Detection Issues](#context-detection-issues)
 4. **Auto-approvals not working?** → [Claude Code Integration Issues](#claude-code-integration-issues)
 5. **Terminal not supported?** → [Terminal Compatibility](#terminal-compatibility)
+
+---
+
+## Diagnostic Flowchart
+
+Use this flowchart to quickly identify and resolve common issues:
+
+```mermaid
+flowchart TD
+    Start([Issue with aiterm?]) --> Doctor[Run: aiterm doctor]
+
+    Doctor --> DoctorOK{All checks<br/>passed?}
+
+    DoctorOK -->|No| CheckFails{Which check<br/>failed?}
+    DoctorOK -->|Yes| IssueType{What's the<br/>issue?}
+
+    CheckFails -->|Python| PyFix[Python version < 3.10<br/>→ Upgrade Python]
+    CheckFails -->|Terminal| TermFix[Unsupported terminal<br/>→ Install iTerm2]
+    CheckFails -->|Claude Code| ClaudeFix[Claude Code not found<br/>→ Install Claude CLI]
+    CheckFails -->|Settings| SettingsFix[Config missing<br/>→ Run: aiterm init]
+
+    PyFix --> Retry[Retry: aiterm doctor]
+    TermFix --> Retry
+    ClaudeFix --> Retry
+    SettingsFix --> Retry
+    Retry --> DoctorOK
+
+    IssueType -->|Profile not switching| ProfileIssue
+    IssueType -->|Context not detected| ContextIssue
+    IssueType -->|Auto-approvals failing| ApprovalIssue
+    IssueType -->|Other| OtherIssue
+
+    ProfileIssue{Manual switch<br/>works?}
+    ProfileIssue -->|Yes| AutoSwitch[Auto-switching disabled<br/>→ Check AITERM_AUTO_SWITCH]
+    ProfileIssue -->|No| ProfileNotFound[Profile doesn't exist<br/>→ Run: aiterm profile list]
+
+    AutoSwitch --> AddHook[Add chpwd hook to .zshrc<br/>See: Shell Integration]
+    ProfileNotFound --> CreateProfile[Create custom profile<br/>See: Profile Management]
+
+    ContextIssue --> DetectCmd[Run: aiterm detect]
+    DetectCmd --> DetectResult{Context<br/>detected?}
+
+    DetectResult -->|No| CheckMarkers[Check for context markers:<br/>- DESCRIPTION (R)<br/>- pyproject.toml (Python)<br/>- package.json (Node)]
+    DetectResult -->|Yes| WrongProfile[Wrong profile selected?<br/>→ Adjust detection priority]
+
+    CheckMarkers --> NoMarkers{Markers<br/>exist?}
+    NoMarkers -->|No| AddMarkers[Add project markers or<br/>use manual profile switch]
+    NoMarkers -->|Yes| CustomDetector[Create custom detector<br/>See: Integration Guide]
+
+    ApprovalIssue --> ListPresets[Run: aiterm claude approvals list]
+    ListPresets --> SetPreset[Run: aiterm claude approvals set PRESET]
+    SetPreset --> VerifySettings[Check: ~/.claude/settings.json<br/>autoApprovals section]
+
+    VerifySettings --> ValidJSON{Valid<br/>JSON?}
+    ValidJSON -->|No| RestoreBackup[Restore from backup:<br/>~/.claude/settings.json.backup.*]
+    ValidJSON -->|Yes| RestartClaude[Restart Claude Code]
+
+    OtherIssue --> Debug[Run with debug logging:<br/>export AITERM_DEBUG=1]
+    Debug --> Logs[Check logs and error messages]
+    Logs --> GithubIssue[Still stuck?<br/>→ GitHub Issue with logs]
+
+    AddHook --> Done([Issue Resolved])
+    CreateProfile --> Done
+    WrongProfile --> Done
+    AddMarkers --> Done
+    CustomDetector --> Done
+    RestartClaude --> Done
+    RestoreBackup --> Done
+
+    style Start fill:#e1f5e1
+    style Done fill:#e1f5e1
+    style DoctorOK fill:#fff4e6
+    style CheckFails fill:#fff4e6
+    style IssueType fill:#fff4e6
+    style ProfileIssue fill:#fff4e6
+    style DetectResult fill:#fff4e6
+    style NoMarkers fill:#fff4e6
+    style ValidJSON fill:#fff4e6
+    style GithubIssue fill:#ffe1e1
+```
+
+**How to Use This Flowchart:**
+
+1. **Start with `aiterm doctor`** - Verifies installation and environment
+2. **Follow your specific issue** - Each path provides targeted solutions
+3. **Check the relevant section** - Links point to detailed documentation
+4. **Still stuck?** - Enable debug logging and file a GitHub issue
 
 ---
 

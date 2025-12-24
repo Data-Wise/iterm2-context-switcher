@@ -1,6 +1,6 @@
 # aiterm Architecture Documentation
 
-**Version:** 0.2.0-dev
+**Version:** 0.1.0-dev
 **Last Updated:** 2025-12-21
 
 ---
@@ -944,6 +944,359 @@ graph TB
 
 ---
 
+## Additional Diagrams
+
+### Installation & Setup Flow
+
+```mermaid
+flowchart TD
+    Start([User installs aiterm]) --> Install{Installation<br/>Method?}
+
+    Install -->|Homebrew| Brew[brew install data-wise/tap/aiterm]
+    Install -->|UV| UV[uv tool install git+...]
+    Install -->|pipx| Pipx[pipx install git+...]
+
+    Brew --> Verify
+    UV --> Verify
+    Pipx --> Verify
+
+    Verify[aiterm doctor] --> Check{All checks<br/>passed?}
+
+    Check -->|No| Fix[Fix issues]
+    Fix --> Verify
+
+    Check -->|Yes| Detect[aiterm detect]
+    Detect --> Context{Context<br/>detected?}
+
+    Context -->|Yes| Auto[Auto-switching enabled]
+    Context -->|No| Manual[Manual profile selection]
+
+    Auto --> ListProfiles[aiterm profile list]
+    Manual --> ListProfiles
+
+    ListProfiles --> SetApprovals[aiterm claude approvals set]
+    SetApprovals --> Done([Setup Complete])
+
+    style Start fill:#e1f5e1
+    style Done fill:#e1f5e1
+    style Check fill:#fff4e6
+    style Context fill:#fff4e6
+```
+
+**User Journey:**
+1. Install via preferred method (Homebrew/UV/pipx)
+2. Run `aiterm doctor` to verify installation
+3. Fix any issues identified
+4. Test context detection with `aiterm detect`
+5. Review available profiles
+6. Set auto-approval presets for Claude Code
+7. Begin using aiterm!
+
+---
+
+### Error Handling & Recovery Flow
+
+```mermaid
+flowchart TD
+    Operation[User Operation] --> Try{Try<br/>Operation}
+
+    Try -->|Success| Log[Log success]
+    Try -->|Error| Catch[Catch Exception]
+
+    Catch --> ErrorType{Error<br/>Type?}
+
+    ErrorType -->|ProfileNotFound| PNF[Profile not found error]
+    ErrorType -->|TerminalUnsupported| TU[Terminal unsupported]
+    ErrorType -->|PermissionDenied| PD[Permission denied]
+    ErrorType -->|ConfigError| CE[Config error]
+    ErrorType -->|Other| OE[General error]
+
+    PNF --> Recover1{Recovery<br/>Available?}
+    TU --> Recover2{Fallback<br/>Available?}
+    PD --> Recover3{Fix<br/>Permissions?}
+    CE --> Recover4{Restore<br/>Backup?}
+    OE --> Recover5{Retry?}
+
+    Recover1 -->|Yes| DefaultProfile[Use default profile]
+    Recover1 -->|No| UserError1[Show error to user]
+
+    Recover2 -->|Yes| ReducedFeatures[Operate with reduced features]
+    Recover2 -->|No| UserError2[Explain limitation]
+
+    Recover3 -->|Yes| FixPerms[chmod 600 config files]
+    Recover3 -->|No| UserError3[Guide user to fix]
+
+    Recover4 -->|Yes| Rollback[Restore from backup]
+    Recover4 -->|No| UserError4[Show validation errors]
+
+    Recover5 -->|Yes| Retry[Retry operation]
+    Recover5 -->|No| UserError5[Show error details]
+
+    DefaultProfile --> Log
+    ReducedFeatures --> Log
+    FixPerms --> Retry
+    Rollback --> Retry
+    Retry --> Try
+
+    UserError1 --> Exit
+    UserError2 --> Exit
+    UserError3 --> Exit
+    UserError4 --> Exit
+    UserError5 --> Exit
+
+    Log --> Success([Operation Complete])
+
+    Exit([Exit with error code])
+
+    style Operation fill:#e1f5e1
+    style Success fill:#e1f5e1
+    style Exit fill:#ffe1e1
+    style ErrorType fill:#fff4e6
+```
+
+**Error Handling Strategy:**
+- **Graceful Degradation** - Fallback to reduced features when possible
+- **Automatic Recovery** - Retry with defaults when sensible
+- **Backup & Rollback** - All settings changes backed up
+- **Clear Messaging** - User-friendly error messages with solutions
+- **Exit Codes** - Consistent error codes for scripting
+
+---
+
+### Hook Management Architecture (Phase 2)
+
+```mermaid
+graph TB
+    subgraph "Hook System"
+        HookMgr[Hook Manager]
+        HookRegistry[Hook Registry]
+        HookExecutor[Hook Executor]
+    end
+
+    subgraph "Hook Types"
+        PreCD[Pre-CD Hook<br/>Before directory change]
+        PostCD[Post-CD Hook<br/>After directory change]
+        PreSwitch[Pre-Switch Hook<br/>Before profile switch]
+        PostSwitch[Post-Switch Hook<br/>After profile switch]
+        PreApproval[Pre-Approval Hook<br/>Before setting approvals]
+        PostApproval[Post-Approval Hook<br/>After setting approvals]
+    end
+
+    subgraph "Hook Templates"
+        T1[Notification Hook]
+        T2[Logging Hook]
+        T3[Validation Hook]
+        T4[Integration Hook]
+    end
+
+    subgraph "User Hooks"
+        U1[~/.claude/hooks/pre-cd.sh]
+        U2[~/.claude/hooks/post-cd.sh]
+        U3[Custom Hook Scripts]
+    end
+
+    HookMgr --> HookRegistry
+    HookMgr --> HookExecutor
+
+    HookRegistry --> PreCD
+    HookRegistry --> PostCD
+    HookRegistry --> PreSwitch
+    HookRegistry --> PostSwitch
+    HookRegistry --> PreApproval
+    HookRegistry --> PostApproval
+
+    HookExecutor --> T1
+    HookExecutor --> T2
+    HookExecutor --> T3
+    HookExecutor --> T4
+
+    PreCD --> U1
+    PostCD --> U2
+    PostSwitch --> U3
+
+    style HookMgr fill:#e3f2fd
+    style HookExecutor fill:#e3f2fd
+```
+
+**Hook Capabilities (Phase 2):**
+- **Event-Driven** - React to context changes
+- **Template Library** - Pre-built common hooks
+- **User Scripts** - Custom bash/python scripts
+- **Validation** - Pre-execution validation
+- **Error Handling** - Graceful failure handling
+
+**Example Hooks:**
+- Send Slack notification on production context
+- Log all profile switches to audit file
+- Validate Claude Code settings before applying
+- Trigger git status on project context switch
+
+---
+
+### Command Template System (Phase 2)
+
+```mermaid
+graph TB
+    subgraph "Template Engine"
+        TEngine[Template Engine]
+        TRegistry[Template Registry]
+        TRenderer[Template Renderer]
+    end
+
+    subgraph "Built-in Templates"
+        Git[Git Commands<br/>commit, status, log]
+        Test[Test Commands<br/>pytest, R CMD check]
+        Build[Build Commands<br/>quarto render, npm build]
+        Deploy[Deploy Commands<br/>gh-pages, vercel]
+        Claude[Claude Commands<br/>/done, /recap, /next]
+    end
+
+    subgraph "Template Variables"
+        V1[{{project_name}}]
+        V2[{{project_type}}]
+        V3[{{git_branch}}]
+        V4[{{current_profile}}]
+        V5[{{context_metadata}}]
+    end
+
+    subgraph "User Templates"
+        UT1[~/.claude/commands/my-workflow.md]
+        UT2[~/.claude/commands/test-all.md]
+        UT3[Custom Command Templates]
+    end
+
+    TEngine --> TRegistry
+    TEngine --> TRenderer
+
+    TRegistry --> Git
+    TRegistry --> Test
+    TRegistry --> Build
+    TRegistry --> Deploy
+    TRegistry --> Claude
+
+    TRenderer --> V1
+    TRenderer --> V2
+    TRenderer --> V3
+    TRenderer --> V4
+    TRenderer --> V5
+
+    Git --> UT1
+    Test --> UT2
+    Deploy --> UT3
+
+    style TEngine fill:#fff3e0
+    style TRenderer fill:#fff3e0
+```
+
+**Template Features (Phase 2):**
+- **Context-Aware** - Auto-fill variables from current context
+- **Composable** - Combine multiple templates
+- **Validation** - Check template syntax before execution
+- **History** - Track template usage
+
+**Example Template:**
+```markdown
+---
+name: test-workflow
+description: Run all tests for {{project_type}} project
+---
+
+# Test Workflow for {{project_name}}
+
+Based on project type: {{project_type}}
+
+{{#if r-package}}
+R CMD check --as-cran .
+{{/if}}
+
+{{#if python}}
+pytest --cov={{project_name}}
+{{/if}}
+
+{{#if nodejs}}
+npm test
+{{/if}}
+```
+
+---
+
+### MCP Server Creation Workflow (Phase 2)
+
+```mermaid
+flowchart TD
+    Start([User: aiterm mcp create]) --> Choose{Choose<br/>Template}
+
+    Choose -->|Server Type| Type[Statistical/Shell/Custom]
+    Type --> Name[Enter server name]
+    Name --> Tools{Include<br/>Tools?}
+
+    Tools -->|Yes| AddTools[Add tool definitions]
+    Tools -->|No| Skills
+
+    AddTools --> Skills{Include<br/>Skills?}
+
+    Skills -->|Yes| AddSkills[Add skill prompts]
+    Skills -->|No| Config
+
+    AddSkills --> Config[Generate config.json]
+    Config --> Structure[Create directory structure]
+
+    Structure --> Files{Generated<br/>Files}
+
+    Files --> F1[mcp-server/config.json]
+    Files --> F2[mcp-server/tools/]
+    Files --> F3[mcp-server/skills/]
+    Files --> F4[mcp-server/README.md]
+    Files --> F5[mcp-server/tests/]
+
+    F1 --> Validate[Validate structure]
+    F2 --> Validate
+    F3 --> Validate
+    F4 --> Validate
+    F5 --> Validate
+
+    Validate --> Test{Run<br/>Tests?}
+
+    Test -->|Yes| TestRun[aiterm mcp test server_name]
+    Test -->|No| Register
+
+    TestRun --> TestPass{Tests<br/>Pass?}
+    TestPass -->|No| Fix[Fix issues]
+    Fix --> TestRun
+    TestPass -->|Yes| Register
+
+    Register[Register in settings.json] --> Done([MCP Server Ready])
+
+    style Start fill:#e1f5e1
+    style Done fill:#e1f5e1
+    style Choose fill:#fff4e6
+    style Tools fill:#fff4e6
+    style Skills fill:#fff4e6
+    style Test fill:#fff4e6
+    style TestPass fill:#fff4e6
+```
+
+**MCP Creation Features (Phase 2):**
+- **Interactive Wizard** - Step-by-step guidance
+- **Template Library** - Pre-built server templates
+- **Tool Generator** - Auto-generate tool definitions
+- **Skill Prompts** - Built-in skill templates
+- **Validation** - Syntax and structure checks
+- **Testing** - Automated testing before activation
+- **Registration** - Auto-add to Claude Code settings
+
+**Wizard Flow:**
+1. Choose server type (statistical, shell, custom)
+2. Enter server name and description
+3. Add tools (interactive or from template)
+4. Add skills (optional)
+5. Generate directory structure
+6. Validate configuration
+7. Run tests
+8. Register in Claude Code settings
+
+---
+
 ## Next Steps
 
 - See [API Documentation](../api/AITERM-API.md) for detailed API reference
@@ -953,5 +1306,5 @@ graph TB
 
 ---
 
-**Last Updated:** 2025-12-21
+**Last Updated:** 2025-12-24
 **Maintained By:** aiterm Development Team

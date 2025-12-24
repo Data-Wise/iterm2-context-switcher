@@ -1,6 +1,6 @@
 # aiterm Integration Guide
 
-**Version:** 0.2.0-dev
+**Version:** 0.1.0-dev
 **Last Updated:** 2025-12-21
 **Audience:** Developers
 **Difficulty:** Intermediate

@@ -1,6 +1,6 @@
 # aiterm User Guide
 
-**Version:** 0.2.0-dev
+**Version:** 0.1.0-dev
 **Last Updated:** 2025-12-21
 **Reading Time:** 15 minutes
 **Difficulty:** Beginner
@@ -154,7 +154,7 @@ pip install -e ".[dev]"
 
 ```bash
 $ aiterm --version
-aiterm version 0.2.0-dev
+aiterm version 0.1.0-dev
 
 $ aiterm doctor
 ╔════════════════════════════════════════════════════╗
