@@ -1698,6 +1698,78 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#additional-diagrams" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Additional Diagrams
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Additional Diagrams">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#installation-setup-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Installation &amp; Setup Flow
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#error-handling-recovery-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Error Handling &amp; Recovery Flow
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hook-management-architecture-phase-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hook Management Architecture (Phase 2)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#command-template-system-phase-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Command Template System (Phase 2)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mcp-server-creation-workflow-phase-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MCP Server Creation Workflow (Phase 2)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#next-steps" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2551,6 +2623,78 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#additional-diagrams" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Additional Diagrams
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Additional Diagrams">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#installation-setup-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Installation &amp; Setup Flow
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#error-handling-recovery-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Error Handling &amp; Recovery Flow
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hook-management-architecture-phase-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hook Management Architecture (Phase 2)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#command-template-system-phase-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Command Template System (Phase 2)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mcp-server-creation-workflow-phase-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MCP Server Creation Workflow (Phase 2)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#next-steps" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2582,7 +2726,7 @@
 
 
 <h1 id="aiterm-architecture-documentation">aiterm Architecture Documentation</h1>
-<p><strong>Version:</strong> 0.2.0-dev
+<p><strong>Version:</strong> 0.1.0-dev
 <strong>Last Updated:</strong> 2025-12-21</p>
 <hr />
 <h2 id="table-of-contents">Table of Contents</h2>
@@ -3427,6 +3571,329 @@
 - Remote terminal support
 - Web UI</p>
 <hr />
+<h2 id="additional-diagrams">Additional Diagrams</h2>
+<h3 id="installation-setup-flow">Installation &amp; Setup Flow</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>flowchart TD
+<a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a>    Start([User installs aiterm]) --&gt; Install{Installation&lt;br/&gt;Method?}
+<a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a>
+<a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a>    Install --&gt;|Homebrew| Brew[brew install data-wise/tap/aiterm]
+<a id="__codelineno-25-5" name="__codelineno-25-5" href="#__codelineno-25-5"></a>    Install --&gt;|UV| UV[uv tool install git+...]
+<a id="__codelineno-25-6" name="__codelineno-25-6" href="#__codelineno-25-6"></a>    Install --&gt;|pipx| Pipx[pipx install git+...]
+<a id="__codelineno-25-7" name="__codelineno-25-7" href="#__codelineno-25-7"></a>
+<a id="__codelineno-25-8" name="__codelineno-25-8" href="#__codelineno-25-8"></a>    Brew --&gt; Verify
+<a id="__codelineno-25-9" name="__codelineno-25-9" href="#__codelineno-25-9"></a>    UV --&gt; Verify
+<a id="__codelineno-25-10" name="__codelineno-25-10" href="#__codelineno-25-10"></a>    Pipx --&gt; Verify
+<a id="__codelineno-25-11" name="__codelineno-25-11" href="#__codelineno-25-11"></a>
+<a id="__codelineno-25-12" name="__codelineno-25-12" href="#__codelineno-25-12"></a>    Verify[aiterm doctor] --&gt; Check{All checks&lt;br/&gt;passed?}
+<a id="__codelineno-25-13" name="__codelineno-25-13" href="#__codelineno-25-13"></a>
+<a id="__codelineno-25-14" name="__codelineno-25-14" href="#__codelineno-25-14"></a>    Check --&gt;|No| Fix[Fix issues]
+<a id="__codelineno-25-15" name="__codelineno-25-15" href="#__codelineno-25-15"></a>    Fix --&gt; Verify
+<a id="__codelineno-25-16" name="__codelineno-25-16" href="#__codelineno-25-16"></a>
+<a id="__codelineno-25-17" name="__codelineno-25-17" href="#__codelineno-25-17"></a>    Check --&gt;|Yes| Detect[aiterm detect]
+<a id="__codelineno-25-18" name="__codelineno-25-18" href="#__codelineno-25-18"></a>    Detect --&gt; Context{Context&lt;br/&gt;detected?}
+<a id="__codelineno-25-19" name="__codelineno-25-19" href="#__codelineno-25-19"></a>
+<a id="__codelineno-25-20" name="__codelineno-25-20" href="#__codelineno-25-20"></a>    Context --&gt;|Yes| Auto[Auto-switching enabled]
+<a id="__codelineno-25-21" name="__codelineno-25-21" href="#__codelineno-25-21"></a>    Context --&gt;|No| Manual[Manual profile selection]
+<a id="__codelineno-25-22" name="__codelineno-25-22" href="#__codelineno-25-22"></a>
+<a id="__codelineno-25-23" name="__codelineno-25-23" href="#__codelineno-25-23"></a>    Auto --&gt; ListProfiles[aiterm profile list]
+<a id="__codelineno-25-24" name="__codelineno-25-24" href="#__codelineno-25-24"></a>    Manual --&gt; ListProfiles
+<a id="__codelineno-25-25" name="__codelineno-25-25" href="#__codelineno-25-25"></a>
+<a id="__codelineno-25-26" name="__codelineno-25-26" href="#__codelineno-25-26"></a>    ListProfiles --&gt; SetApprovals[aiterm claude approvals set]
+<a id="__codelineno-25-27" name="__codelineno-25-27" href="#__codelineno-25-27"></a>    SetApprovals --&gt; Done([Setup Complete])
+<a id="__codelineno-25-28" name="__codelineno-25-28" href="#__codelineno-25-28"></a>
+<a id="__codelineno-25-29" name="__codelineno-25-29" href="#__codelineno-25-29"></a>    style Start fill:#e1f5e1
+<a id="__codelineno-25-30" name="__codelineno-25-30" href="#__codelineno-25-30"></a>    style Done fill:#e1f5e1
+<a id="__codelineno-25-31" name="__codelineno-25-31" href="#__codelineno-25-31"></a>    style Check fill:#fff4e6
+<a id="__codelineno-25-32" name="__codelineno-25-32" href="#__codelineno-25-32"></a>    style Context fill:#fff4e6
+</code></pre></div>
+<p><strong>User Journey:</strong>
+1. Install via preferred method (Homebrew/UV/pipx)
+2. Run <code>aiterm doctor</code> to verify installation
+3. Fix any issues identified
+4. Test context detection with <code>aiterm detect</code>
+5. Review available profiles
+6. Set auto-approval presets for Claude Code
+7. Begin using aiterm!</p>
+<hr />
+<h3 id="error-handling-recovery-flow">Error Handling &amp; Recovery Flow</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>flowchart TD
+<a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a>    Operation[User Operation] --&gt; Try{Try&lt;br/&gt;Operation}
+<a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a>
+<a id="__codelineno-26-4" name="__codelineno-26-4" href="#__codelineno-26-4"></a>    Try --&gt;|Success| Log[Log success]
+<a id="__codelineno-26-5" name="__codelineno-26-5" href="#__codelineno-26-5"></a>    Try --&gt;|Error| Catch[Catch Exception]
+<a id="__codelineno-26-6" name="__codelineno-26-6" href="#__codelineno-26-6"></a>
+<a id="__codelineno-26-7" name="__codelineno-26-7" href="#__codelineno-26-7"></a>    Catch --&gt; ErrorType{Error&lt;br/&gt;Type?}
+<a id="__codelineno-26-8" name="__codelineno-26-8" href="#__codelineno-26-8"></a>
+<a id="__codelineno-26-9" name="__codelineno-26-9" href="#__codelineno-26-9"></a>    ErrorType --&gt;|ProfileNotFound| PNF[Profile not found error]
+<a id="__codelineno-26-10" name="__codelineno-26-10" href="#__codelineno-26-10"></a>    ErrorType --&gt;|TerminalUnsupported| TU[Terminal unsupported]
+<a id="__codelineno-26-11" name="__codelineno-26-11" href="#__codelineno-26-11"></a>    ErrorType --&gt;|PermissionDenied| PD[Permission denied]
+<a id="__codelineno-26-12" name="__codelineno-26-12" href="#__codelineno-26-12"></a>    ErrorType --&gt;|ConfigError| CE[Config error]
+<a id="__codelineno-26-13" name="__codelineno-26-13" href="#__codelineno-26-13"></a>    ErrorType --&gt;|Other| OE[General error]
+<a id="__codelineno-26-14" name="__codelineno-26-14" href="#__codelineno-26-14"></a>
+<a id="__codelineno-26-15" name="__codelineno-26-15" href="#__codelineno-26-15"></a>    PNF --&gt; Recover1{Recovery&lt;br/&gt;Available?}
+<a id="__codelineno-26-16" name="__codelineno-26-16" href="#__codelineno-26-16"></a>    TU --&gt; Recover2{Fallback&lt;br/&gt;Available?}
+<a id="__codelineno-26-17" name="__codelineno-26-17" href="#__codelineno-26-17"></a>    PD --&gt; Recover3{Fix&lt;br/&gt;Permissions?}
+<a id="__codelineno-26-18" name="__codelineno-26-18" href="#__codelineno-26-18"></a>    CE --&gt; Recover4{Restore&lt;br/&gt;Backup?}
+<a id="__codelineno-26-19" name="__codelineno-26-19" href="#__codelineno-26-19"></a>    OE --&gt; Recover5{Retry?}
+<a id="__codelineno-26-20" name="__codelineno-26-20" href="#__codelineno-26-20"></a>
+<a id="__codelineno-26-21" name="__codelineno-26-21" href="#__codelineno-26-21"></a>    Recover1 --&gt;|Yes| DefaultProfile[Use default profile]
+<a id="__codelineno-26-22" name="__codelineno-26-22" href="#__codelineno-26-22"></a>    Recover1 --&gt;|No| UserError1[Show error to user]
+<a id="__codelineno-26-23" name="__codelineno-26-23" href="#__codelineno-26-23"></a>
+<a id="__codelineno-26-24" name="__codelineno-26-24" href="#__codelineno-26-24"></a>    Recover2 --&gt;|Yes| ReducedFeatures[Operate with reduced features]
+<a id="__codelineno-26-25" name="__codelineno-26-25" href="#__codelineno-26-25"></a>    Recover2 --&gt;|No| UserError2[Explain limitation]
+<a id="__codelineno-26-26" name="__codelineno-26-26" href="#__codelineno-26-26"></a>
+<a id="__codelineno-26-27" name="__codelineno-26-27" href="#__codelineno-26-27"></a>    Recover3 --&gt;|Yes| FixPerms[chmod 600 config files]
+<a id="__codelineno-26-28" name="__codelineno-26-28" href="#__codelineno-26-28"></a>    Recover3 --&gt;|No| UserError3[Guide user to fix]
+<a id="__codelineno-26-29" name="__codelineno-26-29" href="#__codelineno-26-29"></a>
+<a id="__codelineno-26-30" name="__codelineno-26-30" href="#__codelineno-26-30"></a>    Recover4 --&gt;|Yes| Rollback[Restore from backup]
+<a id="__codelineno-26-31" name="__codelineno-26-31" href="#__codelineno-26-31"></a>    Recover4 --&gt;|No| UserError4[Show validation errors]
+<a id="__codelineno-26-32" name="__codelineno-26-32" href="#__codelineno-26-32"></a>
+<a id="__codelineno-26-33" name="__codelineno-26-33" href="#__codelineno-26-33"></a>    Recover5 --&gt;|Yes| Retry[Retry operation]
+<a id="__codelineno-26-34" name="__codelineno-26-34" href="#__codelineno-26-34"></a>    Recover5 --&gt;|No| UserError5[Show error details]
+<a id="__codelineno-26-35" name="__codelineno-26-35" href="#__codelineno-26-35"></a>
+<a id="__codelineno-26-36" name="__codelineno-26-36" href="#__codelineno-26-36"></a>    DefaultProfile --&gt; Log
+<a id="__codelineno-26-37" name="__codelineno-26-37" href="#__codelineno-26-37"></a>    ReducedFeatures --&gt; Log
+<a id="__codelineno-26-38" name="__codelineno-26-38" href="#__codelineno-26-38"></a>    FixPerms --&gt; Retry
+<a id="__codelineno-26-39" name="__codelineno-26-39" href="#__codelineno-26-39"></a>    Rollback --&gt; Retry
+<a id="__codelineno-26-40" name="__codelineno-26-40" href="#__codelineno-26-40"></a>    Retry --&gt; Try
+<a id="__codelineno-26-41" name="__codelineno-26-41" href="#__codelineno-26-41"></a>
+<a id="__codelineno-26-42" name="__codelineno-26-42" href="#__codelineno-26-42"></a>    UserError1 --&gt; Exit
+<a id="__codelineno-26-43" name="__codelineno-26-43" href="#__codelineno-26-43"></a>    UserError2 --&gt; Exit
+<a id="__codelineno-26-44" name="__codelineno-26-44" href="#__codelineno-26-44"></a>    UserError3 --&gt; Exit
+<a id="__codelineno-26-45" name="__codelineno-26-45" href="#__codelineno-26-45"></a>    UserError4 --&gt; Exit
+<a id="__codelineno-26-46" name="__codelineno-26-46" href="#__codelineno-26-46"></a>    UserError5 --&gt; Exit
+<a id="__codelineno-26-47" name="__codelineno-26-47" href="#__codelineno-26-47"></a>
+<a id="__codelineno-26-48" name="__codelineno-26-48" href="#__codelineno-26-48"></a>    Log --&gt; Success([Operation Complete])
+<a id="__codelineno-26-49" name="__codelineno-26-49" href="#__codelineno-26-49"></a>
+<a id="__codelineno-26-50" name="__codelineno-26-50" href="#__codelineno-26-50"></a>    Exit([Exit with error code])
+<a id="__codelineno-26-51" name="__codelineno-26-51" href="#__codelineno-26-51"></a>
+<a id="__codelineno-26-52" name="__codelineno-26-52" href="#__codelineno-26-52"></a>    style Operation fill:#e1f5e1
+<a id="__codelineno-26-53" name="__codelineno-26-53" href="#__codelineno-26-53"></a>    style Success fill:#e1f5e1
+<a id="__codelineno-26-54" name="__codelineno-26-54" href="#__codelineno-26-54"></a>    style Exit fill:#ffe1e1
+<a id="__codelineno-26-55" name="__codelineno-26-55" href="#__codelineno-26-55"></a>    style ErrorType fill:#fff4e6
+</code></pre></div>
+<p><strong>Error Handling Strategy:</strong>
+- <strong>Graceful Degradation</strong> - Fallback to reduced features when possible
+- <strong>Automatic Recovery</strong> - Retry with defaults when sensible
+- <strong>Backup &amp; Rollback</strong> - All settings changes backed up
+- <strong>Clear Messaging</strong> - User-friendly error messages with solutions
+- <strong>Exit Codes</strong> - Consistent error codes for scripting</p>
+<hr />
+<h3 id="hook-management-architecture-phase-2">Hook Management Architecture (Phase 2)</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>graph TB
+<a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a>    subgraph &quot;Hook System&quot;
+<a id="__codelineno-27-3" name="__codelineno-27-3" href="#__codelineno-27-3"></a>        HookMgr[Hook Manager]
+<a id="__codelineno-27-4" name="__codelineno-27-4" href="#__codelineno-27-4"></a>        HookRegistry[Hook Registry]
+<a id="__codelineno-27-5" name="__codelineno-27-5" href="#__codelineno-27-5"></a>        HookExecutor[Hook Executor]
+<a id="__codelineno-27-6" name="__codelineno-27-6" href="#__codelineno-27-6"></a>    end
+<a id="__codelineno-27-7" name="__codelineno-27-7" href="#__codelineno-27-7"></a>
+<a id="__codelineno-27-8" name="__codelineno-27-8" href="#__codelineno-27-8"></a>    subgraph &quot;Hook Types&quot;
+<a id="__codelineno-27-9" name="__codelineno-27-9" href="#__codelineno-27-9"></a>        PreCD[Pre-CD Hook&lt;br/&gt;Before directory change]
+<a id="__codelineno-27-10" name="__codelineno-27-10" href="#__codelineno-27-10"></a>        PostCD[Post-CD Hook&lt;br/&gt;After directory change]
+<a id="__codelineno-27-11" name="__codelineno-27-11" href="#__codelineno-27-11"></a>        PreSwitch[Pre-Switch Hook&lt;br/&gt;Before profile switch]
+<a id="__codelineno-27-12" name="__codelineno-27-12" href="#__codelineno-27-12"></a>        PostSwitch[Post-Switch Hook&lt;br/&gt;After profile switch]
+<a id="__codelineno-27-13" name="__codelineno-27-13" href="#__codelineno-27-13"></a>        PreApproval[Pre-Approval Hook&lt;br/&gt;Before setting approvals]
+<a id="__codelineno-27-14" name="__codelineno-27-14" href="#__codelineno-27-14"></a>        PostApproval[Post-Approval Hook&lt;br/&gt;After setting approvals]
+<a id="__codelineno-27-15" name="__codelineno-27-15" href="#__codelineno-27-15"></a>    end
+<a id="__codelineno-27-16" name="__codelineno-27-16" href="#__codelineno-27-16"></a>
+<a id="__codelineno-27-17" name="__codelineno-27-17" href="#__codelineno-27-17"></a>    subgraph &quot;Hook Templates&quot;
+<a id="__codelineno-27-18" name="__codelineno-27-18" href="#__codelineno-27-18"></a>        T1[Notification Hook]
+<a id="__codelineno-27-19" name="__codelineno-27-19" href="#__codelineno-27-19"></a>        T2[Logging Hook]
+<a id="__codelineno-27-20" name="__codelineno-27-20" href="#__codelineno-27-20"></a>        T3[Validation Hook]
+<a id="__codelineno-27-21" name="__codelineno-27-21" href="#__codelineno-27-21"></a>        T4[Integration Hook]
+<a id="__codelineno-27-22" name="__codelineno-27-22" href="#__codelineno-27-22"></a>    end
+<a id="__codelineno-27-23" name="__codelineno-27-23" href="#__codelineno-27-23"></a>
+<a id="__codelineno-27-24" name="__codelineno-27-24" href="#__codelineno-27-24"></a>    subgraph &quot;User Hooks&quot;
+<a id="__codelineno-27-25" name="__codelineno-27-25" href="#__codelineno-27-25"></a>        U1[~/.claude/hooks/pre-cd.sh]
+<a id="__codelineno-27-26" name="__codelineno-27-26" href="#__codelineno-27-26"></a>        U2[~/.claude/hooks/post-cd.sh]
+<a id="__codelineno-27-27" name="__codelineno-27-27" href="#__codelineno-27-27"></a>        U3[Custom Hook Scripts]
+<a id="__codelineno-27-28" name="__codelineno-27-28" href="#__codelineno-27-28"></a>    end
+<a id="__codelineno-27-29" name="__codelineno-27-29" href="#__codelineno-27-29"></a>
+<a id="__codelineno-27-30" name="__codelineno-27-30" href="#__codelineno-27-30"></a>    HookMgr --&gt; HookRegistry
+<a id="__codelineno-27-31" name="__codelineno-27-31" href="#__codelineno-27-31"></a>    HookMgr --&gt; HookExecutor
+<a id="__codelineno-27-32" name="__codelineno-27-32" href="#__codelineno-27-32"></a>
+<a id="__codelineno-27-33" name="__codelineno-27-33" href="#__codelineno-27-33"></a>    HookRegistry --&gt; PreCD
+<a id="__codelineno-27-34" name="__codelineno-27-34" href="#__codelineno-27-34"></a>    HookRegistry --&gt; PostCD
+<a id="__codelineno-27-35" name="__codelineno-27-35" href="#__codelineno-27-35"></a>    HookRegistry --&gt; PreSwitch
+<a id="__codelineno-27-36" name="__codelineno-27-36" href="#__codelineno-27-36"></a>    HookRegistry --&gt; PostSwitch
+<a id="__codelineno-27-37" name="__codelineno-27-37" href="#__codelineno-27-37"></a>    HookRegistry --&gt; PreApproval
+<a id="__codelineno-27-38" name="__codelineno-27-38" href="#__codelineno-27-38"></a>    HookRegistry --&gt; PostApproval
+<a id="__codelineno-27-39" name="__codelineno-27-39" href="#__codelineno-27-39"></a>
+<a id="__codelineno-27-40" name="__codelineno-27-40" href="#__codelineno-27-40"></a>    HookExecutor --&gt; T1
+<a id="__codelineno-27-41" name="__codelineno-27-41" href="#__codelineno-27-41"></a>    HookExecutor --&gt; T2
+<a id="__codelineno-27-42" name="__codelineno-27-42" href="#__codelineno-27-42"></a>    HookExecutor --&gt; T3
+<a id="__codelineno-27-43" name="__codelineno-27-43" href="#__codelineno-27-43"></a>    HookExecutor --&gt; T4
+<a id="__codelineno-27-44" name="__codelineno-27-44" href="#__codelineno-27-44"></a>
+<a id="__codelineno-27-45" name="__codelineno-27-45" href="#__codelineno-27-45"></a>    PreCD --&gt; U1
+<a id="__codelineno-27-46" name="__codelineno-27-46" href="#__codelineno-27-46"></a>    PostCD --&gt; U2
+<a id="__codelineno-27-47" name="__codelineno-27-47" href="#__codelineno-27-47"></a>    PostSwitch --&gt; U3
+<a id="__codelineno-27-48" name="__codelineno-27-48" href="#__codelineno-27-48"></a>
+<a id="__codelineno-27-49" name="__codelineno-27-49" href="#__codelineno-27-49"></a>    style HookMgr fill:#e3f2fd
+<a id="__codelineno-27-50" name="__codelineno-27-50" href="#__codelineno-27-50"></a>    style HookExecutor fill:#e3f2fd
+</code></pre></div>
+<p><strong>Hook Capabilities (Phase 2):</strong>
+- <strong>Event-Driven</strong> - React to context changes
+- <strong>Template Library</strong> - Pre-built common hooks
+- <strong>User Scripts</strong> - Custom bash/python scripts
+- <strong>Validation</strong> - Pre-execution validation
+- <strong>Error Handling</strong> - Graceful failure handling</p>
+<p><strong>Example Hooks:</strong>
+- Send Slack notification on production context
+- Log all profile switches to audit file
+- Validate Claude Code settings before applying
+- Trigger git status on project context switch</p>
+<hr />
+<h3 id="command-template-system-phase-2">Command Template System (Phase 2)</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>graph TB
+<a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a>    subgraph &quot;Template Engine&quot;
+<a id="__codelineno-28-3" name="__codelineno-28-3" href="#__codelineno-28-3"></a>        TEngine[Template Engine]
+<a id="__codelineno-28-4" name="__codelineno-28-4" href="#__codelineno-28-4"></a>        TRegistry[Template Registry]
+<a id="__codelineno-28-5" name="__codelineno-28-5" href="#__codelineno-28-5"></a>        TRenderer[Template Renderer]
+<a id="__codelineno-28-6" name="__codelineno-28-6" href="#__codelineno-28-6"></a>    end
+<a id="__codelineno-28-7" name="__codelineno-28-7" href="#__codelineno-28-7"></a>
+<a id="__codelineno-28-8" name="__codelineno-28-8" href="#__codelineno-28-8"></a>    subgraph &quot;Built-in Templates&quot;
+<a id="__codelineno-28-9" name="__codelineno-28-9" href="#__codelineno-28-9"></a>        Git[Git Commands&lt;br/&gt;commit, status, log]
+<a id="__codelineno-28-10" name="__codelineno-28-10" href="#__codelineno-28-10"></a>        Test[Test Commands&lt;br/&gt;pytest, R CMD check]
+<a id="__codelineno-28-11" name="__codelineno-28-11" href="#__codelineno-28-11"></a>        Build[Build Commands&lt;br/&gt;quarto render, npm build]
+<a id="__codelineno-28-12" name="__codelineno-28-12" href="#__codelineno-28-12"></a>        Deploy[Deploy Commands&lt;br/&gt;gh-pages, vercel]
+<a id="__codelineno-28-13" name="__codelineno-28-13" href="#__codelineno-28-13"></a>        Claude[Claude Commands&lt;br/&gt;/done, /recap, /next]
+<a id="__codelineno-28-14" name="__codelineno-28-14" href="#__codelineno-28-14"></a>    end
+<a id="__codelineno-28-15" name="__codelineno-28-15" href="#__codelineno-28-15"></a>
+<a id="__codelineno-28-16" name="__codelineno-28-16" href="#__codelineno-28-16"></a>    subgraph &quot;Template Variables&quot;
+<a id="__codelineno-28-17" name="__codelineno-28-17" href="#__codelineno-28-17"></a>        V1[{{project_name}}]
+<a id="__codelineno-28-18" name="__codelineno-28-18" href="#__codelineno-28-18"></a>        V2[{{project_type}}]
+<a id="__codelineno-28-19" name="__codelineno-28-19" href="#__codelineno-28-19"></a>        V3[{{git_branch}}]
+<a id="__codelineno-28-20" name="__codelineno-28-20" href="#__codelineno-28-20"></a>        V4[{{current_profile}}]
+<a id="__codelineno-28-21" name="__codelineno-28-21" href="#__codelineno-28-21"></a>        V5[{{context_metadata}}]
+<a id="__codelineno-28-22" name="__codelineno-28-22" href="#__codelineno-28-22"></a>    end
+<a id="__codelineno-28-23" name="__codelineno-28-23" href="#__codelineno-28-23"></a>
+<a id="__codelineno-28-24" name="__codelineno-28-24" href="#__codelineno-28-24"></a>    subgraph &quot;User Templates&quot;
+<a id="__codelineno-28-25" name="__codelineno-28-25" href="#__codelineno-28-25"></a>        UT1[~/.claude/commands/my-workflow.md]
+<a id="__codelineno-28-26" name="__codelineno-28-26" href="#__codelineno-28-26"></a>        UT2[~/.claude/commands/test-all.md]
+<a id="__codelineno-28-27" name="__codelineno-28-27" href="#__codelineno-28-27"></a>        UT3[Custom Command Templates]
+<a id="__codelineno-28-28" name="__codelineno-28-28" href="#__codelineno-28-28"></a>    end
+<a id="__codelineno-28-29" name="__codelineno-28-29" href="#__codelineno-28-29"></a>
+<a id="__codelineno-28-30" name="__codelineno-28-30" href="#__codelineno-28-30"></a>    TEngine --&gt; TRegistry
+<a id="__codelineno-28-31" name="__codelineno-28-31" href="#__codelineno-28-31"></a>    TEngine --&gt; TRenderer
+<a id="__codelineno-28-32" name="__codelineno-28-32" href="#__codelineno-28-32"></a>
+<a id="__codelineno-28-33" name="__codelineno-28-33" href="#__codelineno-28-33"></a>    TRegistry --&gt; Git
+<a id="__codelineno-28-34" name="__codelineno-28-34" href="#__codelineno-28-34"></a>    TRegistry --&gt; Test
+<a id="__codelineno-28-35" name="__codelineno-28-35" href="#__codelineno-28-35"></a>    TRegistry --&gt; Build
+<a id="__codelineno-28-36" name="__codelineno-28-36" href="#__codelineno-28-36"></a>    TRegistry --&gt; Deploy
+<a id="__codelineno-28-37" name="__codelineno-28-37" href="#__codelineno-28-37"></a>    TRegistry --&gt; Claude
+<a id="__codelineno-28-38" name="__codelineno-28-38" href="#__codelineno-28-38"></a>
+<a id="__codelineno-28-39" name="__codelineno-28-39" href="#__codelineno-28-39"></a>    TRenderer --&gt; V1
+<a id="__codelineno-28-40" name="__codelineno-28-40" href="#__codelineno-28-40"></a>    TRenderer --&gt; V2
+<a id="__codelineno-28-41" name="__codelineno-28-41" href="#__codelineno-28-41"></a>    TRenderer --&gt; V3
+<a id="__codelineno-28-42" name="__codelineno-28-42" href="#__codelineno-28-42"></a>    TRenderer --&gt; V4
+<a id="__codelineno-28-43" name="__codelineno-28-43" href="#__codelineno-28-43"></a>    TRenderer --&gt; V5
+<a id="__codelineno-28-44" name="__codelineno-28-44" href="#__codelineno-28-44"></a>
+<a id="__codelineno-28-45" name="__codelineno-28-45" href="#__codelineno-28-45"></a>    Git --&gt; UT1
+<a id="__codelineno-28-46" name="__codelineno-28-46" href="#__codelineno-28-46"></a>    Test --&gt; UT2
+<a id="__codelineno-28-47" name="__codelineno-28-47" href="#__codelineno-28-47"></a>    Deploy --&gt; UT3
+<a id="__codelineno-28-48" name="__codelineno-28-48" href="#__codelineno-28-48"></a>
+<a id="__codelineno-28-49" name="__codelineno-28-49" href="#__codelineno-28-49"></a>    style TEngine fill:#fff3e0
+<a id="__codelineno-28-50" name="__codelineno-28-50" href="#__codelineno-28-50"></a>    style TRenderer fill:#fff3e0
+</code></pre></div>
+<p><strong>Template Features (Phase 2):</strong>
+- <strong>Context-Aware</strong> - Auto-fill variables from current context
+- <strong>Composable</strong> - Combine multiple templates
+- <strong>Validation</strong> - Check template syntax before execution
+- <strong>History</strong> - Track template usage</p>
+<p><strong>Example Template:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>---
+<a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a>name: test-workflow
+<a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a><span class="gu">description: Run all tests for {{project_type}} project</span>
+<a id="__codelineno-29-4" name="__codelineno-29-4" href="#__codelineno-29-4"></a><span class="gu">---</span>
+<a id="__codelineno-29-5" name="__codelineno-29-5" href="#__codelineno-29-5"></a>
+<a id="__codelineno-29-6" name="__codelineno-29-6" href="#__codelineno-29-6"></a><span class="gh"># Test Workflow for {{project_name}}</span>
+<a id="__codelineno-29-7" name="__codelineno-29-7" href="#__codelineno-29-7"></a>
+<a id="__codelineno-29-8" name="__codelineno-29-8" href="#__codelineno-29-8"></a>Based on project type: {{project_type}}
+<a id="__codelineno-29-9" name="__codelineno-29-9" href="#__codelineno-29-9"></a>
+<a id="__codelineno-29-10" name="__codelineno-29-10" href="#__codelineno-29-10"></a>{{#if r-package}}
+<a id="__codelineno-29-11" name="__codelineno-29-11" href="#__codelineno-29-11"></a>R CMD check --as-cran .
+<a id="__codelineno-29-12" name="__codelineno-29-12" href="#__codelineno-29-12"></a>{{/if}}
+<a id="__codelineno-29-13" name="__codelineno-29-13" href="#__codelineno-29-13"></a>
+<a id="__codelineno-29-14" name="__codelineno-29-14" href="#__codelineno-29-14"></a>{{#if python}}
+<a id="__codelineno-29-15" name="__codelineno-29-15" href="#__codelineno-29-15"></a>pytest --cov={{project_name}}
+<a id="__codelineno-29-16" name="__codelineno-29-16" href="#__codelineno-29-16"></a>{{/if}}
+<a id="__codelineno-29-17" name="__codelineno-29-17" href="#__codelineno-29-17"></a>
+<a id="__codelineno-29-18" name="__codelineno-29-18" href="#__codelineno-29-18"></a>{{#if nodejs}}
+<a id="__codelineno-29-19" name="__codelineno-29-19" href="#__codelineno-29-19"></a>npm test
+<a id="__codelineno-29-20" name="__codelineno-29-20" href="#__codelineno-29-20"></a>{{/if}}
+</code></pre></div></p>
+<hr />
+<h3 id="mcp-server-creation-workflow-phase-2">MCP Server Creation Workflow (Phase 2)</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a>flowchart TD
+<a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a>    Start([User: aiterm mcp create]) --&gt; Choose{Choose&lt;br/&gt;Template}
+<a id="__codelineno-30-3" name="__codelineno-30-3" href="#__codelineno-30-3"></a>
+<a id="__codelineno-30-4" name="__codelineno-30-4" href="#__codelineno-30-4"></a>    Choose --&gt;|Server Type| Type[Statistical/Shell/Custom]
+<a id="__codelineno-30-5" name="__codelineno-30-5" href="#__codelineno-30-5"></a>    Type --&gt; Name[Enter server name]
+<a id="__codelineno-30-6" name="__codelineno-30-6" href="#__codelineno-30-6"></a>    Name --&gt; Tools{Include&lt;br/&gt;Tools?}
+<a id="__codelineno-30-7" name="__codelineno-30-7" href="#__codelineno-30-7"></a>
+<a id="__codelineno-30-8" name="__codelineno-30-8" href="#__codelineno-30-8"></a>    Tools --&gt;|Yes| AddTools[Add tool definitions]
+<a id="__codelineno-30-9" name="__codelineno-30-9" href="#__codelineno-30-9"></a>    Tools --&gt;|No| Skills
+<a id="__codelineno-30-10" name="__codelineno-30-10" href="#__codelineno-30-10"></a>
+<a id="__codelineno-30-11" name="__codelineno-30-11" href="#__codelineno-30-11"></a>    AddTools --&gt; Skills{Include&lt;br/&gt;Skills?}
+<a id="__codelineno-30-12" name="__codelineno-30-12" href="#__codelineno-30-12"></a>
+<a id="__codelineno-30-13" name="__codelineno-30-13" href="#__codelineno-30-13"></a>    Skills --&gt;|Yes| AddSkills[Add skill prompts]
+<a id="__codelineno-30-14" name="__codelineno-30-14" href="#__codelineno-30-14"></a>    Skills --&gt;|No| Config
+<a id="__codelineno-30-15" name="__codelineno-30-15" href="#__codelineno-30-15"></a>
+<a id="__codelineno-30-16" name="__codelineno-30-16" href="#__codelineno-30-16"></a>    AddSkills --&gt; Config[Generate config.json]
+<a id="__codelineno-30-17" name="__codelineno-30-17" href="#__codelineno-30-17"></a>    Config --&gt; Structure[Create directory structure]
+<a id="__codelineno-30-18" name="__codelineno-30-18" href="#__codelineno-30-18"></a>
+<a id="__codelineno-30-19" name="__codelineno-30-19" href="#__codelineno-30-19"></a>    Structure --&gt; Files{Generated&lt;br/&gt;Files}
+<a id="__codelineno-30-20" name="__codelineno-30-20" href="#__codelineno-30-20"></a>
+<a id="__codelineno-30-21" name="__codelineno-30-21" href="#__codelineno-30-21"></a>    Files --&gt; F1[mcp-server/config.json]
+<a id="__codelineno-30-22" name="__codelineno-30-22" href="#__codelineno-30-22"></a>    Files --&gt; F2[mcp-server/tools/]
+<a id="__codelineno-30-23" name="__codelineno-30-23" href="#__codelineno-30-23"></a>    Files --&gt; F3[mcp-server/skills/]
+<a id="__codelineno-30-24" name="__codelineno-30-24" href="#__codelineno-30-24"></a>    Files --&gt; F4[mcp-server/README.md]
+<a id="__codelineno-30-25" name="__codelineno-30-25" href="#__codelineno-30-25"></a>    Files --&gt; F5[mcp-server/tests/]
+<a id="__codelineno-30-26" name="__codelineno-30-26" href="#__codelineno-30-26"></a>
+<a id="__codelineno-30-27" name="__codelineno-30-27" href="#__codelineno-30-27"></a>    F1 --&gt; Validate[Validate structure]
+<a id="__codelineno-30-28" name="__codelineno-30-28" href="#__codelineno-30-28"></a>    F2 --&gt; Validate
+<a id="__codelineno-30-29" name="__codelineno-30-29" href="#__codelineno-30-29"></a>    F3 --&gt; Validate
+<a id="__codelineno-30-30" name="__codelineno-30-30" href="#__codelineno-30-30"></a>    F4 --&gt; Validate
+<a id="__codelineno-30-31" name="__codelineno-30-31" href="#__codelineno-30-31"></a>    F5 --&gt; Validate
+<a id="__codelineno-30-32" name="__codelineno-30-32" href="#__codelineno-30-32"></a>
+<a id="__codelineno-30-33" name="__codelineno-30-33" href="#__codelineno-30-33"></a>    Validate --&gt; Test{Run&lt;br/&gt;Tests?}
+<a id="__codelineno-30-34" name="__codelineno-30-34" href="#__codelineno-30-34"></a>
+<a id="__codelineno-30-35" name="__codelineno-30-35" href="#__codelineno-30-35"></a>    Test --&gt;|Yes| TestRun[aiterm mcp test server_name]
+<a id="__codelineno-30-36" name="__codelineno-30-36" href="#__codelineno-30-36"></a>    Test --&gt;|No| Register
+<a id="__codelineno-30-37" name="__codelineno-30-37" href="#__codelineno-30-37"></a>
+<a id="__codelineno-30-38" name="__codelineno-30-38" href="#__codelineno-30-38"></a>    TestRun --&gt; TestPass{Tests&lt;br/&gt;Pass?}
+<a id="__codelineno-30-39" name="__codelineno-30-39" href="#__codelineno-30-39"></a>    TestPass --&gt;|No| Fix[Fix issues]
+<a id="__codelineno-30-40" name="__codelineno-30-40" href="#__codelineno-30-40"></a>    Fix --&gt; TestRun
+<a id="__codelineno-30-41" name="__codelineno-30-41" href="#__codelineno-30-41"></a>    TestPass --&gt;|Yes| Register
+<a id="__codelineno-30-42" name="__codelineno-30-42" href="#__codelineno-30-42"></a>
+<a id="__codelineno-30-43" name="__codelineno-30-43" href="#__codelineno-30-43"></a>    Register[Register in settings.json] --&gt; Done([MCP Server Ready])
+<a id="__codelineno-30-44" name="__codelineno-30-44" href="#__codelineno-30-44"></a>
+<a id="__codelineno-30-45" name="__codelineno-30-45" href="#__codelineno-30-45"></a>    style Start fill:#e1f5e1
+<a id="__codelineno-30-46" name="__codelineno-30-46" href="#__codelineno-30-46"></a>    style Done fill:#e1f5e1
+<a id="__codelineno-30-47" name="__codelineno-30-47" href="#__codelineno-30-47"></a>    style Choose fill:#fff4e6
+<a id="__codelineno-30-48" name="__codelineno-30-48" href="#__codelineno-30-48"></a>    style Tools fill:#fff4e6
+<a id="__codelineno-30-49" name="__codelineno-30-49" href="#__codelineno-30-49"></a>    style Skills fill:#fff4e6
+<a id="__codelineno-30-50" name="__codelineno-30-50" href="#__codelineno-30-50"></a>    style Test fill:#fff4e6
+<a id="__codelineno-30-51" name="__codelineno-30-51" href="#__codelineno-30-51"></a>    style TestPass fill:#fff4e6
+</code></pre></div>
+<p><strong>MCP Creation Features (Phase 2):</strong>
+- <strong>Interactive Wizard</strong> - Step-by-step guidance
+- <strong>Template Library</strong> - Pre-built server templates
+- <strong>Tool Generator</strong> - Auto-generate tool definitions
+- <strong>Skill Prompts</strong> - Built-in skill templates
+- <strong>Validation</strong> - Syntax and structure checks
+- <strong>Testing</strong> - Automated testing before activation
+- <strong>Registration</strong> - Auto-add to Claude Code settings</p>
+<p><strong>Wizard Flow:</strong>
+1. Choose server type (statistical, shell, custom)
+2. Enter server name and description
+3. Add tools (interactive or from template)
+4. Add skills (optional)
+5. Generate directory structure
+6. Validate configuration
+7. Run tests
+8. Register in Claude Code settings</p>
+<hr />
 <h2 id="next-steps">Next Steps</h2>
 <ul>
 <li>See <a href="../../api/AITERM-API/">API Documentation</a> for detailed API reference</li>
@@ -3435,7 +3902,7 @@
 <li>See <a href="../../troubleshooting/AITERM-TROUBLESHOOTING/">Troubleshooting Guide</a> for common issues</li>
 </ul>
 <hr />
-<p><strong>Last Updated:</strong> 2025-12-21
+<p><strong>Last Updated:</strong> 2025-12-24
 <strong>Maintained By:</strong> aiterm Development Team</p>
 
 
