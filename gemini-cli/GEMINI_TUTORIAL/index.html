@@ -12,25 +12,27 @@
         <meta name="author" content="Data-Wise">
       
       
+        <link rel="canonical" href="https://data-wise.github.io/aiterm/gemini-cli/GEMINI_TUTORIAL/">
+      
       
       
       
         
       
       
-      <link rel="icon" href="/aiterm/assets/images/favicon.png">
+      <link rel="icon" href="../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
     
     
       
-        <title>aiterm</title>
+        <title>Gemini CLI: The Developer's Guide - aiterm</title>
       
     
     
-      <link rel="stylesheet" href="/aiterm/assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
       
         
-        <link rel="stylesheet" href="/aiterm/assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
       
       
 
@@ -49,7 +51,7 @@
       
     
     
-    <script>__md_scope=new URL("/aiterm/",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -73,6 +75,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#gemini-cli-the-developers-guide" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -83,7 +90,7 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="/aiterm/." title="aiterm" class="md-header__button md-logo" aria-label="aiterm" data-md-component="logo">
+    <a href="../.." title="aiterm" class="md-header__button md-logo" aria-label="aiterm" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -103,7 +110,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              
+              Gemini CLI: The Developer's Guide
             
           </span>
         </div>
@@ -216,7 +223,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="/aiterm/." class="md-tabs__link">
+      <a href="../.." class="md-tabs__link">
         
   
   
@@ -235,7 +242,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="/aiterm/AITERM-DOCS-INDEX/" class="md-tabs__link">
+      <a href="../../AITERM-DOCS-INDEX/" class="md-tabs__link">
         
   
   
@@ -256,7 +263,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="/aiterm/getting-started/installation/" class="md-tabs__link">
+        <a href="../../getting-started/installation/" class="md-tabs__link">
           
   
   
@@ -276,7 +283,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="/aiterm/guides/AITERM-USER-GUIDE/" class="md-tabs__link">
+        <a href="../../guides/AITERM-USER-GUIDE/" class="md-tabs__link">
           
   
   
@@ -296,7 +303,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="/aiterm/reference/commands/" class="md-tabs__link">
+        <a href="../../reference/commands/" class="md-tabs__link">
           
   
   
@@ -316,7 +323,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="/aiterm/MCP-INTEGRATION/" class="md-tabs__link">
+        <a href="../../MCP-INTEGRATION/" class="md-tabs__link">
           
   
   
@@ -336,7 +343,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="/aiterm/architecture/AITERM-ARCHITECTURE/" class="md-tabs__link">
+        <a href="../../architecture/AITERM-ARCHITECTURE/" class="md-tabs__link">
           
   
   
@@ -356,7 +363,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="/aiterm/AUTO-UPDATE-INDEX/" class="md-tabs__link">
+        <a href="../../AUTO-UPDATE-INDEX/" class="md-tabs__link">
           
   
   
@@ -390,7 +397,7 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="/aiterm/." title="aiterm" class="md-nav__button md-logo" aria-label="aiterm" data-md-component="logo">
+    <a href="../.." title="aiterm" class="md-nav__button md-logo" aria-label="aiterm" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -420,7 +427,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/aiterm/." class="md-nav__link">
+      <a href="../.." class="md-nav__link">
         
   
   
@@ -447,7 +454,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/aiterm/AITERM-DOCS-INDEX/" class="md-nav__link">
+      <a href="../../AITERM-DOCS-INDEX/" class="md-nav__link">
         
   
   
@@ -526,7 +533,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/aiterm/getting-started/installation/" class="md-nav__link">
+      <a href="../../getting-started/installation/" class="md-nav__link">
         
   
   
@@ -554,7 +561,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/aiterm/getting-started/quickstart/" class="md-nav__link">
+      <a href="../../getting-started/quickstart/" class="md-nav__link">
         
   
   
@@ -641,7 +648,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/aiterm/guides/AITERM-USER-GUIDE/" class="md-nav__link">
+      <a href="../../guides/AITERM-USER-GUIDE/" class="md-nav__link">
         
   
   
@@ -669,7 +676,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/aiterm/guides/AITERM-INTEGRATION/" class="md-nav__link">
+      <a href="../../guides/AITERM-INTEGRATION/" class="md-nav__link">
         
   
   
@@ -697,7 +704,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/aiterm/guide/claude-integration/" class="md-nav__link">
+      <a href="../../guide/claude-integration/" class="md-nav__link">
         
   
   
@@ -725,7 +732,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/aiterm/guide/workflows/" class="md-nav__link">
+      <a href="../../guide/workflows/" class="md-nav__link">
         
   
   
@@ -753,7 +760,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/aiterm/guide/context-detection/" class="md-nav__link">
+      <a href="../../guide/context-detection/" class="md-nav__link">
         
   
   
@@ -781,7 +788,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/aiterm/guide/profiles/" class="md-nav__link">
+      <a href="../../guide/profiles/" class="md-nav__link">
         
   
   
@@ -809,7 +816,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/aiterm/guide/status-bar/" class="md-nav__link">
+      <a href="../../guide/status-bar/" class="md-nav__link">
         
   
   
@@ -837,7 +844,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/aiterm/guide/triggers/" class="md-nav__link">
+      <a href="../../guide/triggers/" class="md-nav__link">
         
   
   
@@ -924,7 +931,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/aiterm/reference/commands/" class="md-nav__link">
+      <a href="../../reference/commands/" class="md-nav__link">
         
   
   
@@ -952,7 +959,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/aiterm/api/AITERM-API/" class="md-nav__link">
+      <a href="../../api/AITERM-API/" class="md-nav__link">
         
   
   
@@ -980,7 +987,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/aiterm/reference/configuration/" class="md-nav__link">
+      <a href="../../reference/configuration/" class="md-nav__link">
         
   
   
@@ -1008,7 +1015,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/aiterm/reference/troubleshooting/" class="md-nav__link">
+      <a href="../../reference/troubleshooting/" class="md-nav__link">
         
   
   
@@ -1036,7 +1043,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/aiterm/troubleshooting/AITERM-TROUBLESHOOTING/" class="md-nav__link">
+      <a href="../../troubleshooting/AITERM-TROUBLESHOOTING/" class="md-nav__link">
         
   
   
@@ -1123,7 +1130,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/aiterm/MCP-INTEGRATION/" class="md-nav__link">
+      <a href="../../MCP-INTEGRATION/" class="md-nav__link">
         
   
   
@@ -1151,7 +1158,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/aiterm/DOCS-HELPERS/" class="md-nav__link">
+      <a href="../../DOCS-HELPERS/" class="md-nav__link">
         
   
   
@@ -1238,7 +1245,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/aiterm/architecture/AITERM-ARCHITECTURE/" class="md-nav__link">
+      <a href="../../architecture/AITERM-ARCHITECTURE/" class="md-nav__link">
         
   
   
@@ -1266,7 +1273,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/aiterm/AITERM-IMPLEMENTATION-SUMMARY/" class="md-nav__link">
+      <a href="../../AITERM-IMPLEMENTATION-SUMMARY/" class="md-nav__link">
         
   
   
@@ -1294,7 +1301,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/aiterm/development/architecture/" class="md-nav__link">
+      <a href="../../development/architecture/" class="md-nav__link">
         
   
   
@@ -1322,7 +1329,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/aiterm/development/contributing/" class="md-nav__link">
+      <a href="../../development/contributing/" class="md-nav__link">
         
   
   
@@ -1409,7 +1416,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/aiterm/AUTO-UPDATE-INDEX/" class="md-nav__link">
+      <a href="../../AUTO-UPDATE-INDEX/" class="md-nav__link">
         
   
   
@@ -1437,7 +1444,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/aiterm/AUTO-UPDATE-TUTORIAL/" class="md-nav__link">
+      <a href="../../AUTO-UPDATE-TUTORIAL/" class="md-nav__link">
         
   
   
@@ -1465,7 +1472,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/aiterm/AUTO-UPDATE-REFCARD/" class="md-nav__link">
+      <a href="../../AUTO-UPDATE-REFCARD/" class="md-nav__link">
         
   
   
@@ -1493,7 +1500,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/aiterm/AUTO-UPDATE-WORKFLOW/" class="md-nav__link">
+      <a href="../../AUTO-UPDATE-WORKFLOW/" class="md-nav__link">
         
   
   
@@ -1521,7 +1528,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/aiterm/AUTO-UPDATE-WORKFLOW-DIAGRAM/" class="md-nav__link">
+      <a href="../../AUTO-UPDATE-WORKFLOW-DIAGRAM/" class="md-nav__link">
         
   
   
@@ -1566,6 +1573,177 @@
   
   
   
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-project-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Project Overview
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Project Overview">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#key-components" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Components:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-core-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Core Workflow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-extension-deep-dive" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Extension Deep Dive
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Extension Deep Dive">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#jules-the-autonomous-engineer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        👩‍💻 Jules: The Autonomous Engineer
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nano-banana-visual-assets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🖼️ Nano Banana: Visual Assets
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#github-integration-via-mcp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔍 GitHub Integration (via MCP)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mediationverse-r-specialists" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📦 Mediationverse (R Specialists)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-configuration-customization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Configuration &amp; Customization
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Configuration &amp; Customization">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#geminigeminimd-context-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        .gemini/GEMINI.md (Context File)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#geminisettingsjson-system-config" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        .gemini/settings.json (System Config)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Best Practices
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Troubleshooting
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
   
 </nav>
                   </div>
@@ -1578,8 +1756,131 @@
               
               <article class="md-content__inner md-typeset">
                 
-  <h1>404 - Not found</h1>
+                  
 
+
+  
+  
+
+
+<h1 id="gemini-cli-the-developers-guide">Gemini CLI: The Developer's Guide</h1>
+<p>Welcome to the Gemini CLI! This tool is an advanced AI agent running directly in your terminal, capable of interacting with your codebase, system, and external services through a powerful ecosystem of extensions and MCP (Model Context Protocol) servers.</p>
+<h2 id="1-project-overview">1. Project Overview</h2>
+<p>The Gemini CLI operates as a <strong>Context-Aware Agent</strong>. It doesn't just chat; it <em>acts</em>.</p>
+<h3 id="key-components">Key Components:</h3>
+<ul>
+<li><strong>The Agent:</strong> Your AI pair programmer.</li>
+<li><strong>Workspace:</strong> The current directory (<code>.</code>) where the agent has file access.</li>
+<li><strong>MCP Servers:</strong> Bridges to external tools (GitHub, SQLite, etc.).</li>
+<li><strong>Extensions:</strong> Specialized capabilities like Image Generation (Nano Banana) or R Development (Mediationverse).</li>
+</ul>
+<h2 id="2-core-workflow">2. Core Workflow</h2>
+<p>The most effective way to work with Gemini CLI is the <strong>Plan -&gt; Act -&gt; Verify</strong> loop.</p>
+<ol>
+<li><strong>Request:</strong> State your goal clearly.
+    &gt; "Refactor <code>src/utils.py</code> to use <code>pathlib</code> instead of <code>os.path</code>."</li>
+<li><strong>Plan:</strong> The agent will analyze the file and propose a plan (often using <code>codebase_investigator</code> for complex tasks).</li>
+<li><strong>Act:</strong> The agent uses tools like <code>replace</code> or <code>write_file</code> to modify code.</li>
+<li><strong>Verify:</strong> The agent runs tests or linters (<code>run_shell_command</code>) to ensure correctness.</li>
+</ol>
+<h2 id="3-extension-deep-dive">3. Extension Deep Dive</h2>
+<h3 id="jules-the-autonomous-engineer">👩‍💻 Jules: The Autonomous Engineer</h3>
+<p><strong>Best for:</strong> Large, complex tasks that require modifying multiple files or deep reasoning.</p>
+<ul>
+<li><strong>Workflow:</strong><ol>
+<li><strong>Trigger:</strong> <code>/jules start "Upgrade all dependencies and fix breaking changes"</code></li>
+<li><strong>Process:</strong> Jules takes over, creating a separate session to plan and execute the changes autonomously.</li>
+<li><strong>Monitor:</strong> Check progress with <code>/jules status</code>.</li>
+</ol>
+</li>
+</ul>
+<h3 id="nano-banana-visual-assets">🖼️ Nano Banana: Visual Assets</h3>
+<p><strong>Best for:</strong> Creating placeholders, documentation assets, or diagrams.</p>
+<ul>
+<li><strong>Example: Create a flow diagram for your docs</strong>
+    <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>/diagram<span class="w"> </span><span class="nv">prompt</span><span class="o">=</span><span class="s2">&quot;User login flow with OAuth2&quot;</span><span class="w"> </span><span class="nv">type</span><span class="o">=</span>flowchart
+</code></pre></div></li>
+<li><strong>Example: Generate an app icon</strong>
+    <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>/icon<span class="w"> </span><span class="nv">prompt</span><span class="o">=</span><span class="s2">&quot;Terminal with a brain&quot;</span><span class="w"> </span><span class="nv">style</span><span class="o">=</span>modern<span class="w"> </span><span class="nv">background</span><span class="o">=</span>transparent
+</code></pre></div></li>
+</ul>
+<h3 id="github-integration-via-mcp">🔍 GitHub Integration (via MCP)</h3>
+<p><strong>Best for:</strong> CI/CD workflows, issue management, and cross-repo research.</p>
+<ul>
+<li><strong>Setup:</strong> Ensure <code>github-mcp-server</code> is configured in <code>.gemini/settings.json</code>.</li>
+<li><strong>Usage:</strong><ul>
+<li>"Search for open issues about 'bugs' in this repo."</li>
+<li>"Fetch the latest <code>main</code> branch version of <code>README.md</code>."</li>
+</ul>
+</li>
+</ul>
+<h3 id="mediationverse-r-specialists">📦 Mediationverse (R Specialists)</h3>
+<p><strong>Best for:</strong> R package developers.</p>
+<ul>
+<li><strong>Workflow:</strong><ol>
+<li><code>/r-init</code> to scaffold a package.</li>
+<li>Write code interactively.</li>
+<li><code>/r-check</code> and <code>/r-test</code> to validate before CRAN submission.</li>
+<li><code>/r-docs</code> to auto-generate <code>roxygen2</code> documentation.</li>
+</ol>
+</li>
+</ul>
+<h2 id="4-configuration-customization">4. Configuration &amp; Customization</h2>
+<h3 id="geminigeminimd-context-file"><code>.gemini/GEMINI.md</code> (Context File)</h3>
+<p>This file defines the agent's "Brain". Use it to:
+*   Set a persona (e.g., "You are a Senior SRE").
+*   Define coding standards ("Always use TypeScript").
+*   Set communication rules ("Be concise, BLUF").</p>
+<p><strong>Example:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="gh"># IDENTITY</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>You are a Python Performance Expert.
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="gh"># RULES</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="k">1.</span> Always profile before optimizing.
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="k">2.</span> Use snake_case.
+</code></pre></div></p>
+<h3 id="geminisettingsjson-system-config"><code>.gemini/settings.json</code> (System Config)</h3>
+<p>Configures the MCP servers that give the agent tools.</p>
+<p><strong>Example (GitHub + Filesystem):</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="p">{</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">  </span><span class="nt">&quot;mcpServers&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="nt">&quot;filesystem&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">      </span><span class="nt">&quot;command&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;node&quot;</span><span class="p">,</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">      </span><span class="nt">&quot;args&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;path/to/server&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;/projects&quot;</span><span class="p">]</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">    </span><span class="p">},</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">    </span><span class="nt">&quot;github&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">      </span><span class="nt">&quot;command&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;github-mcp-server&quot;</span><span class="p">,</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="w">      </span><span class="nt">&quot;env&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;GITHUB_TOKEN&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span><span class="w"> </span><span class="p">}</span>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="p">}</span>
+</code></pre></div></p>
+<h2 id="5-best-practices">5. Best Practices</h2>
+<ol>
+<li><strong>Be Specific:</strong> "Fix the bug" is weak. "Fix the IndexError in <code>parser.py</code> line 42 when input is empty" is strong.</li>
+<li><strong>Use Context:</strong> The agent reads your project files. Refer to them by name.</li>
+<li><strong>Verify:</strong> Always ask the agent to run tests after making changes.</li>
+<li><strong>Chain Commands:</strong> You can combine requests. "Create a file named <code>hello.py</code>, write a main function, and then run it."</li>
+</ol>
+<h2 id="6-troubleshooting">6. Troubleshooting</h2>
+<ul>
+<li><strong>Tools failing?</strong> Check <code>.gemini/settings.json</code>.</li>
+<li><strong>Agent "forgot" something?</strong> Use <code>save_memory</code> for permanent facts or update <code>.gemini/GEMINI.md</code>.</li>
+<li><strong>Need a clean slate?</strong> Use <code>/clear</code> to reset the conversation window (but not the project files).</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
               </article>
             </div>
           
@@ -1638,10 +1939,10 @@
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "/aiterm/", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.sections", "navigation.top", "search.suggest", "search.highlight", "content.code.copy", "content.code.annotate"], "search": "/aiterm/assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.sections", "navigation.top", "search.suggest", "search.highlight", "content.code.copy", "content.code.annotate"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="/aiterm/assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
     
   </body>
