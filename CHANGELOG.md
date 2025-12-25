@@ -8,6 +8,18 @@ All notable changes to this project will be documented in this file.
 
 <!-- Auto-generated 2025-12-24 by update-changelog.sh -->
 
+### Changed
+
+- release: Phase 3A complete - v0.2.0-dev preparation (1d9d2e9)
+
+### Documentation
+
+- update .STATUS - Phase 3A Week 2 Days 3-4 complete ([810b732](https://github.com/Data-Wise/aiterm/commit/810b732))
+- Phase 3A Week 2 Days 3-4 completion summary ([b4ddd8e](https://github.com/Data-Wise/aiterm/commit/b4ddd8e))
+- auto-update CHANGELOG with documentation helpers ([4c9947e](https://github.com/Data-Wise/aiterm/commit/4c9947e))
+
+<!-- Auto-generated 2025-12-24 by update-changelog.sh -->
+
 ### Added
 
 - **docs**: implement documentation validation system ([5ec60ca](https://github.com/Data-Wise/aiterm/commit/5ec60ca))
