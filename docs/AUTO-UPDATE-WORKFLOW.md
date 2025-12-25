@@ -161,10 +161,10 @@ START: update-changelog.sh
   ▼
 ┌─────────────────────────────────────────────────────┐
 │ Format entries:                                     │
-│ - **scope**: subject ([commit](link))               │
+│ - **scope**: subject (`commit`)                     │
 │                                                     │
 │ Example:                                            │
-│ - **hooks**: add wizard ([abc1234](github.com/...)) │
+│ - **hooks**: add wizard (`abc1234`)                 │
 └─────────────────────────────────────────────────────┘
   │
   ▼
