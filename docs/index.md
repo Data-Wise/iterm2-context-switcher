@@ -2,7 +2,7 @@
 
 **Terminal optimizer CLI for AI-assisted development with Claude Code and Gemini CLI.**
 
-![Version](https://img.shields.io/badge/version-0.1.0--dev-blue)
+![Version](https://img.shields.io/badge/version-0.2.0--dev-blue)
 ![Python](https://img.shields.io/badge/python-3.10%2B-blue)
 ![Tests](https://img.shields.io/badge/tests-51%20passing-green)
 ![Coverage](https://img.shields.io/badge/coverage-83%25-green)
