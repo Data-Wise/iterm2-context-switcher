@@ -267,7 +267,7 @@ aiterm claude settings show
 
 | Concept | Description | Document |
 |---------|-------------|----------|
-| Context | Project type detection | [API - Context](api/AITERM-API.md#context-object) |
+| Context | Project type detection | [API - Context](api/AITERM-API.md#context-detection) |
 | Profile | Terminal visual theme | [User Guide - Profiles](guides/AITERM-USER-GUIDE.md#step-3-explore-available-profiles) |
 | Detector | Context detection strategy | [Integration - Detectors](guides/AITERM-INTEGRATION.md#creating-custom-context-detectors) |
 | Backend | Terminal integration | [Integration - Backends](guides/AITERM-INTEGRATION.md#adding-new-terminal-backends) |

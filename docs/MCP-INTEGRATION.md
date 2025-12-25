@@ -587,8 +587,7 @@ else:
 
 - [Claude Code Documentation](https://docs.anthropic.com/claude/docs)
 - [Model Context Protocol](https://modelcontextprotocol.io)
-- [Claude Code Settings](../CLAUDE-CODE-SETTINGS.md)
-- [aiterm Architecture](../ARCHITECTURE.md)
+- [aiterm API Reference](api/AITERM-API.md)
 
 ---
 

@@ -636,9 +636,9 @@ else:
 
 ## See Also
 
-- [aiterm API Reference](./AITERM-API.md)
-- [aiterm User Guide](./AITERM-USER-GUIDE.md)
-- [Contributing Guidelines](../CONTRIBUTING.md)
+- [aiterm API Reference](api/AITERM-API.md)
+- [aiterm User Guide](guides/AITERM-USER-GUIDE.md)
+- [MCP Integration Guide](MCP-INTEGRATION.md)
 
 ---
 
