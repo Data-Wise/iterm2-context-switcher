@@ -12,7 +12,7 @@
    - [Profile Management](#profile-management)
    - [Context Detection](#context-detection)
    - [Claude Code Integration](#claude-code-integration)
-   - [MCP Tools - Phase 2](#mcp-tools---phase-2)
+   - [MCP Tools - Phase 2](#mcp-tools-phase-2)
 2. [Python API](#python-api)
    - [Terminal Backends](#terminal-backends)
    - [Context Detection](#context-detection-api)
