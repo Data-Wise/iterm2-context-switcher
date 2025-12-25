@@ -355,14 +355,16 @@ def approvals_add(
         raise typer.Exit(1)
 
 
-# ─── Register hooks, commands, and MCP CLIs (must be after app is fully defined) ───
+# ─── Register hooks, commands, MCP, and docs CLIs (must be after app is fully defined) ───
 from aiterm.cli import hooks as hooks_cli
 from aiterm.cli import commands as commands_cli
 from aiterm.cli import mcp as mcp_cli
+from aiterm.cli import docs as docs_cli
 
 app.add_typer(hooks_cli.app, name="hooks")
 app.add_typer(commands_cli.app, name="commands")
 app.add_typer(mcp_cli.app, name="mcp")
+app.add_typer(docs_cli.app, name="docs")
 
 
 if __name__ == "__main__":
