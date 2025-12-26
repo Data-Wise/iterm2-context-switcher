@@ -35,7 +35,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: pypi
-      url: https://pypi.org/p/aiterm
+      url: https://pypi.org/p/aiterm-dev
     permissions:
       id-token: write  # Required for trusted publishing
 
