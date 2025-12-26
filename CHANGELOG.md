@@ -8,6 +8,45 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
+- **Phase 2.5: Advanced Claude Features** ✅ COMPLETE (9 new CLI modules)
+  - **Subagent Management** (`ait agents`): Create, list, validate Claude Code subagents
+    - Templates: research, coding, review, quick, statistical
+    - Commands: list, templates, create, show, remove, validate, test
+  - **Memory System** (`ait memory`): Manage CLAUDE.md hierarchy
+    - Commands: hierarchy, validate, create, show, stats, rules
+    - Tracks global/project/rules precedence
+  - **Output Styles** (`ait styles`): Manage Claude response styles
+    - Presets: default, concise, detailed, academic, teaching, code-review
+    - Commands: list, show, set, create, remove, preview
+  - **Plugin Management** (`ait plugins`): Bundle commands/agents/skills/hooks
+    - Commands: list, show, create, validate, remove, package, import
+
+- **Phase 3: Multi-Tool Integration** ✅ COMPLETE
+  - **Gemini CLI Integration** (`ait gemini`): Full Gemini CLI management
+    - Commands: status, settings, init, models, set, mcp, compare, sync-mcp
+    - Model support: gemini-2.0-flash, gemini-1.5-pro, etc.
+  - **Status Bar Builder** (`ait statusbar`): Build custom status bars
+    - Templates: minimal, powerlevel10k, developer, stats
+    - Commands: status, templates, preview, set, list, create, test, components, disable
+
+- **Phase 4: Advanced Features** ✅ COMPLETE
+  - **Multi-Terminal Support** (`ait terminals`): Unified terminal management
+    - Backends: iTerm2, Kitty, Alacritty, WezTerm, Ghostty
+    - Commands: detect, list, features, config, title, profile, compare
+    - Auto-detection via environment variables
+  - **Workflow Templates** (`ait workflows`): Pre-configured workflow profiles
+    - Templates: r-development, python-development, node-development, research, teaching, mcp-development, documentation, adhd-friendly
+    - Commands: list, show, apply, create, remove, detect, export, import
+  - **Session Management** (`ait sessions`): Track development sessions
+    - Commands: start, end, status, list, show, stats, delete, export, cleanup
+    - Auto-tracks: duration, commits, workflow, tags
+
+- **93 New Tests** for Phase 2.5-4 modules
+  - `tests/test_phase2_5_cli.py`: 25 tests for agents/memory/styles/plugins
+  - `tests/test_phase3_4_cli.py`: 34 tests for gemini/statusbar/terminals/workflows/sessions
+  - `tests/test_cli_integration.py`: 34 tests for full CLI integration
+  - All tests include self-diagnostic validation
+
 - **OpenCode Phase 3: Full Configuration System** ✅ COMPLETE
   - `research` agent: Academic research & manuscript writing (Opus 4.5, 7 tools + web search)
   - Keyboard shortcuts: `ctrl+r` (r-dev), `ctrl+q` (quick), `ctrl+s` (research)

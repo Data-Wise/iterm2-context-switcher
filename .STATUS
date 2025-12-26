@@ -2,11 +2,35 @@ project: aiterm
 status: active
 priority: P1
 progress: 100
-version: 0.2.1
+version: 0.3.0-dev
 updated: 2025-12-26
-next: v0.3.0 release (OpenCode Phase 3 complete, workflow automation, enhanced MCP, IDE integrations)
+next: v0.3.0 release (all phases complete, ready for release)
 
-## ✅ Just Completed (OpenCode Phase 3: Full Configuration System - Dec 26, 2025)
+## ✅ Just Completed (Phases 2.5-4: Complete Feature Set - Dec 26, 2025)
+
+- ✅ **Phase 2.5: Advanced Claude Features COMPLETE**
+  - **Phase 2.5.1:** Subagent Management (`ait agents`) - 7 commands, 5 templates
+  - **Phase 2.5.2:** Memory System (`ait memory`) - 6 commands, hierarchy tracking
+  - **Phase 2.5.3:** Output Styles (`ait styles`) - 7 commands, 6 presets
+  - **Phase 2.5.4:** Plugin Management (`ait plugins`) - 7 commands, bundling
+
+- ✅ **Phase 3: Multi-Tool Integration COMPLETE**
+  - **Phase 3.1:** Gemini CLI Integration (`ait gemini`) - 8 commands, full config
+  - **Phase 3.2:** Status Bar Builder (`ait statusbar`) - 9 commands, 4 templates
+
+- ✅ **Phase 4: Advanced Features COMPLETE**
+  - **Phase 4.1:** Multi-Terminal Support (`ait terminals`) - 7 commands, 5 backends
+  - **Phase 4.2:** Workflow Templates (`ait workflows`) - 8 commands, 8 templates
+  - **Phase 4.3:** Session Management (`ait sessions`) - 8 commands, tracking
+
+📊 **Phase 2.5-4 Stats:**
+- **New CLI Modules:** 9
+- **New Commands:** 61 total
+- **New Tests:** 93 (276 total passing)
+- **Templates:** 5 subagents, 6 styles, 4 statusbars, 8 workflows
+- **Terminal Backends:** iTerm2, Kitty, Alacritty, WezTerm, Ghostty
+
+## ✅ Previously Completed (OpenCode Phase 3: Full Configuration System - Dec 26, 2025)
 - ✅ **OpenCode Phase 3 COMPLETE - All Features Implemented**
   - **Phase 3.1:** Research agent (Opus 4.5, 7 tools + websearch/webfetch)
   - **Phase 3.2:** Keyboard shortcuts (`ctrl+r/q/s` for agent switching)
