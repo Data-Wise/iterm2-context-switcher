@@ -1,6 +1,12 @@
 """Session management CLI.
 
 Phase 4.3: Manage Claude Code and development sessions.
+
+Supports two session systems:
+1. Hook-based live sessions (created by ~/.claude/hooks/session-register.sh)
+   - Active sessions in ~/.claude/sessions/active/
+   - Archived sessions in ~/.claude/sessions/history/YYYY-MM-DD/
+2. Manual session tracking (start/end commands with centralized history)
 """
 
 from __future__ import annotations
@@ -20,6 +26,14 @@ from rich.table import Table
 app = typer.Typer(
     help="Manage development sessions.",
     no_args_is_help=True,
+    epilog="""
+Examples:
+  ait sessions live           # Show active Claude Code sessions (hook-based)
+  ait sessions conflicts      # Show projects with multiple sessions
+  ait sessions history        # Browse archived sessions
+  ait sessions start          # Start manual session tracking
+  ait sessions list           # List manual sessions
+""",
 )
 console = Console()
 
@@ -168,7 +182,366 @@ def get_session_by_id(session_id: str) -> Session | None:
 
 
 # =============================================================================
-# CLI Commands
+# Hook-Based Live Sessions (from session-register.sh)
+# =============================================================================
+
+
+@dataclass
+class LiveSession:
+    """Represents an active Claude Code session created by hooks."""
+
+    session_id: str
+    project: str
+    path: str
+    started: datetime
+    git_branch: str = ""
+    git_dirty: bool = False
+    pid: int = 0
+    task: str | None = None
+    ended: datetime | None = None
+    status: str = "active"
+
+    @property
+    def duration(self) -> timedelta:
+        """Get session duration."""
+        end = self.ended or datetime.now().astimezone()
+        # Handle timezone-aware vs naive datetimes
+        started = self.started.replace(tzinfo=None) if self.started.tzinfo else self.started
+        end = end.replace(tzinfo=None) if hasattr(end, 'tzinfo') and end.tzinfo else end
+        return end - started
+
+    @property
+    def duration_str(self) -> str:
+        """Get human-readable duration."""
+        duration = self.duration
+        hours = int(duration.total_seconds() // 3600)
+        minutes = int((duration.total_seconds() % 3600) // 60)
+        if hours > 0:
+            return f"{hours}h {minutes}m"
+        return f"{minutes}m"
+
+    @classmethod
+    def from_file(cls, filepath: Path) -> LiveSession | None:
+        """Load session from JSON file."""
+        try:
+            data = json.loads(filepath.read_text())
+            started = datetime.fromisoformat(data["started"].replace("Z", "+00:00"))
+            ended = None
+            if data.get("ended"):
+                ended = datetime.fromisoformat(data["ended"].replace("Z", "+00:00"))
+            return cls(
+                session_id=data["session_id"],
+                project=data.get("project", "unknown"),
+                path=data.get("path", ""),
+                started=started,
+                git_branch=data.get("git_branch", ""),
+                git_dirty=data.get("git_dirty", False),
+                pid=data.get("pid", 0),
+                task=data.get("task"),
+                ended=ended,
+                status=data.get("status", "active"),
+            )
+        except (json.JSONDecodeError, OSError, KeyError):
+            return None
+
+
+def get_live_sessions_dir() -> Path:
+    """Get hook-based sessions directory."""
+    return Path.home() / ".claude" / "sessions"
+
+
+def load_live_sessions() -> list[LiveSession]:
+    """Load all active sessions from hook-created files."""
+    active_dir = get_live_sessions_dir() / "active"
+    if not active_dir.exists():
+        return []
+
+    sessions = []
+    for session_file in active_dir.glob("*.json"):
+        session = LiveSession.from_file(session_file)
+        if session:
+            sessions.append(session)
+
+    return sorted(sessions, key=lambda s: s.started, reverse=True)
+
+
+def load_archived_sessions(date: str | None = None) -> list[LiveSession]:
+    """Load archived sessions from history directory."""
+    history_dir = get_live_sessions_dir() / "history"
+    if not history_dir.exists():
+        return []
+
+    sessions = []
+    if date:
+        # Load specific date
+        date_dir = history_dir / date
+        if date_dir.exists():
+            for session_file in date_dir.glob("*.json"):
+                session = LiveSession.from_file(session_file)
+                if session:
+                    sessions.append(session)
+    else:
+        # Load all dates
+        for date_dir in sorted(history_dir.iterdir(), reverse=True):
+            if date_dir.is_dir():
+                for session_file in date_dir.glob("*.json"):
+                    session = LiveSession.from_file(session_file)
+                    if session:
+                        sessions.append(session)
+
+    return sorted(sessions, key=lambda s: s.started, reverse=True)
+
+
+def find_conflicts() -> dict[str, list[LiveSession]]:
+    """Find projects with multiple active sessions."""
+    sessions = load_live_sessions()
+    by_path: dict[str, list[LiveSession]] = {}
+
+    for session in sessions:
+        if session.path not in by_path:
+            by_path[session.path] = []
+        by_path[session.path].append(session)
+
+    # Return only conflicts (>1 session per path)
+    return {path: slist for path, slist in by_path.items() if len(slist) > 1}
+
+
+# =============================================================================
+# Hook-Based Session Commands
+# =============================================================================
+
+
+@app.command("live")
+def sessions_live(
+    project: str = typer.Option(None, "--project", "-p", help="Filter by project name."),
+    path: str = typer.Option(None, "--path", help="Filter by path."),
+) -> None:
+    """Show active Claude Code sessions (hook-based).
+
+    Displays sessions registered by the session-register.sh hook.
+    These are live Claude Code sessions currently running.
+    """
+    sessions = load_live_sessions()
+
+    if project:
+        sessions = [s for s in sessions if project.lower() in s.project.lower()]
+    if path:
+        sessions = [s for s in sessions if path in s.path]
+
+    if not sessions:
+        console.print("[dim]No active Claude Code sessions.[/]")
+        console.print("\n[dim]Sessions are auto-registered when Claude Code starts.[/]")
+        return
+
+    table = Table(title="Active Claude Code Sessions", border_style="cyan")
+    table.add_column("Session ID", style="bold")
+    table.add_column("Project")
+    table.add_column("Branch")
+    table.add_column("Duration", justify="right")
+    table.add_column("Task")
+
+    for session in sessions:
+        branch = session.git_branch or "[dim]-[/]"
+        if session.git_dirty:
+            branch = f"{branch} [yellow]●[/]"
+
+        task = session.task[:30] + "..." if session.task and len(session.task) > 30 else session.task or "[dim]-[/]"
+
+        table.add_row(
+            session.session_id[:20],
+            session.project,
+            branch,
+            session.duration_str,
+            task,
+        )
+
+    console.print(table)
+    console.print(f"\n[dim]{len(sessions)} active session(s)[/]")
+
+
+@app.command("conflicts")
+def sessions_conflicts() -> None:
+    """Show projects with multiple active sessions.
+
+    Useful for detecting parallel Claude Code sessions on the same project,
+    which may cause conflicts.
+    """
+    conflicts = find_conflicts()
+
+    if not conflicts:
+        console.print("[green]✓ No conflicts - each project has at most one session.[/]")
+        return
+
+    console.print(f"[yellow]⚠ Found {len(conflicts)} project(s) with multiple sessions:[/]\n")
+
+    for project_path, sessions in conflicts.items():
+        project_name = Path(project_path).name
+        console.print(f"[bold]{project_name}[/] ({len(sessions)} sessions)")
+        console.print(f"  [dim]{project_path}[/]")
+
+        for session in sessions:
+            branch = f" ({session.git_branch})" if session.git_branch else ""
+            console.print(f"  • {session.session_id[:15]} - {session.duration_str}{branch}")
+
+        console.print()
+
+
+@app.command("history")
+def sessions_history(
+    date: str = typer.Option(None, "--date", "-d", help="Show specific date (YYYY-MM-DD)."),
+    limit: int = typer.Option(20, "--limit", "-l", help="Number of sessions to show."),
+    project: str = typer.Option(None, "--project", "-p", help="Filter by project."),
+) -> None:
+    """Browse archived sessions from hook history.
+
+    Shows sessions that have ended, organized by date.
+    """
+    if date is None:
+        # Show available dates
+        history_dir = get_live_sessions_dir() / "history"
+        if not history_dir.exists():
+            console.print("[dim]No archived sessions yet.[/]")
+            return
+
+        dates = sorted([d.name for d in history_dir.iterdir() if d.is_dir()], reverse=True)
+        if not dates:
+            console.print("[dim]No archived sessions yet.[/]")
+            return
+
+        console.print("[bold cyan]Archived Session Dates[/]\n")
+        for d in dates[:10]:
+            date_dir = history_dir / d
+            count = len(list(date_dir.glob("*.json")))
+            console.print(f"  {d}  ({count} sessions)")
+
+        console.print(f"\n[dim]Use --date YYYY-MM-DD to view specific date[/]")
+        return
+
+    sessions = load_archived_sessions(date)
+
+    if project:
+        sessions = [s for s in sessions if project.lower() in s.project.lower()]
+
+    sessions = sessions[:limit]
+
+    if not sessions:
+        console.print(f"[yellow]No sessions found for {date}.[/]")
+        return
+
+    table = Table(title=f"Archived Sessions: {date}", border_style="dim")
+    table.add_column("Session ID", style="bold")
+    table.add_column("Project")
+    table.add_column("Branch")
+    table.add_column("Duration", justify="right")
+    table.add_column("Status")
+
+    for session in sessions:
+        branch = session.git_branch or "[dim]-[/]"
+        status_color = "green" if session.status == "completed" else "dim"
+
+        table.add_row(
+            session.session_id[:20],
+            session.project,
+            branch,
+            session.duration_str,
+            f"[{status_color}]{session.status}[/]",
+        )
+
+    console.print(table)
+
+
+@app.command("task")
+def sessions_task(
+    description: str = typer.Argument(None, help="Task description (omit to clear)."),
+    project: str = typer.Option(None, "--project", "-p", help="Target specific project."),
+) -> None:
+    """Set or clear the current task for a live session.
+
+    Updates the 'task' field in the active session manifest.
+    This helps track what you're working on across sessions.
+    """
+    sessions = load_live_sessions()
+
+    # Find matching session
+    current_path = str(Path.cwd())
+    target_session = None
+    session_file = None
+
+    for session in sessions:
+        if project and project.lower() not in session.project.lower():
+            continue
+        if not project and session.path != current_path:
+            continue
+        target_session = session
+        session_file = get_live_sessions_dir() / "active" / f"{session.session_id}.json"
+        break
+
+    if not target_session:
+        if project:
+            console.print(f"[yellow]No active session found for project matching '{project}'.[/]")
+        else:
+            console.print("[yellow]No active session found for current directory.[/]")
+            console.print(f"[dim]Current: {current_path}[/]")
+        return
+
+    # Update the session file
+    if session_file and session_file.exists():
+        try:
+            data = json.loads(session_file.read_text())
+            old_task = data.get("task")
+            data["task"] = description  # None if no description provided
+
+            session_file.write_text(json.dumps(data, indent=2))
+
+            if description:
+                console.print(f"[green]Task set:[/] {description}")
+            else:
+                console.print("[green]Task cleared.[/]")
+
+            if old_task:
+                console.print(f"[dim]Previous: {old_task}[/]")
+
+            console.print(f"\n[dim]Session: {target_session.session_id} ({target_session.project})[/]")
+        except (json.JSONDecodeError, OSError) as e:
+            console.print(f"[red]Failed to update session: {e}[/]")
+    else:
+        console.print("[red]Session file not found.[/]")
+
+
+@app.command("current")
+def sessions_current() -> None:
+    """Show the current live session for this directory.
+
+    Quick way to see if there's an active Claude Code session
+    for the current project.
+    """
+    sessions = load_live_sessions()
+    current_path = str(Path.cwd())
+
+    for session in sessions:
+        if session.path == current_path:
+            console.print(f"[bold cyan]Active Session[/]\n")
+            console.print(f"  [bold]ID:[/] {session.session_id}")
+            console.print(f"  [bold]Project:[/] {session.project}")
+            console.print(f"  [bold]Duration:[/] {session.duration_str}")
+
+            if session.git_branch:
+                dirty = " [yellow]●[/]" if session.git_dirty else ""
+                console.print(f"  [bold]Branch:[/] {session.git_branch}{dirty}")
+
+            if session.task:
+                console.print(f"  [bold]Task:[/] {session.task}")
+            else:
+                console.print(f"  [bold]Task:[/] [dim]None set (use 'ait sessions task <desc>')[/]")
+
+            return
+
+    console.print("[dim]No active session for this directory.[/]")
+    console.print(f"[dim]Path: {current_path}[/]")
+
+
+# =============================================================================
+# Manual Session Commands (Original)
 # =============================================================================
 
 

@@ -8,6 +8,15 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
+- **Phase 4.2: Session Coordination** (`ait sessions live/conflicts/history/task/current`) - NEW
+  - **Hook-based auto-registration:** Sessions auto-register on Claude Code start
+  - **Conflict detection:** Warns when same project has multiple active sessions
+  - **Session archival:** Auto-archives sessions to `~/.claude/sessions/history/` by date
+  - **Task tracking:** Set/view current task description for active sessions
+  - New hooks: `session-register.sh` (SessionStart), `session-cleanup.sh` (Stop)
+  - New CLI commands: `live`, `conflicts`, `history`, `task`, `current`
+  - Session manifest includes: project, path, git branch, dirty status, start time, task
+
 - **Phase 4.1: IDE Integrations** (`ait ide`) - NEW
   - Multi-IDE support: VS Code, Positron, Zed, Cursor, Windsurf
   - Commands: `list`, `status`, `extensions`, `configure`, `terminal-profile`, `sync-theme`, `open`, `compare`

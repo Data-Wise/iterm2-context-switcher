@@ -6,7 +6,26 @@ version: 0.3.0-dev
 updated: 2025-12-26
 next: v0.3.0 release preparation (test IDE commands, finalize)
 
-## ✅ Just Completed (Phase 4.1: IDE Integrations - Dec 26, 2025)
+## ✅ Just Completed (Phase 4.2: Session Coordination - Dec 26, 2025)
+
+- ✅ **Phase 4.2: Session Coordination COMPLETE** (`ait sessions live/conflicts/history/task/current`)
+  - **Hook-based auto-registration:** Sessions auto-register on Claude Code start
+  - **Conflict detection:** Warns when same project has multiple active sessions
+  - **Session archival:** Auto-archives to `~/.claude/sessions/history/` by date
+  - **Task tracking:** Set/view current task with `ait sessions task`
+  - **New hooks:**
+    - `~/.claude/hooks/session-register.sh` (SessionStart)
+    - `~/.claude/hooks/session-cleanup.sh` (Stop)
+  - **New CLI commands:** `live`, `conflicts`, `history`, `task`, `current`
+  - **Session manifest:** project, path, git branch, dirty status, start time, task
+  - **Integration:** Hooks registered in `~/.claude/settings.json`
+
+📊 **Phase 4.2 Stats:**
+- **New Hooks:** 2 (SessionStart, Stop)
+- **New CLI Commands:** 5 (live, conflicts, history, task, current)
+- **Session Data:** active/ and history/ directories
+
+## ✅ Previously Completed (Phase 4.1: IDE Integrations - Dec 26, 2025)
 
 - ✅ **Phase 4.1: IDE Integrations COMPLETE** (`ait ide`)
   - **Multi-IDE Support:** VS Code, Positron, Zed, Cursor, Windsurf

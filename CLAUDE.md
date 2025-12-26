@@ -124,6 +124,11 @@ ait mcp list                     # List configured servers
 ait mcp test filesystem          # Test specific server
 ait mcp validate                 # Check configuration
 
+# Session Coordination (NEW!)
+ait sessions live                # Show active Claude Code sessions
+ait sessions conflicts           # Detect parallel session conflicts
+ait sessions history             # Browse archived sessions
+
 # Development
 python -m pytest                 # Run tests
 ```
@@ -215,6 +220,90 @@ print(config.has_scroll_acceleration)  # True
 - **Option C (Future):** Keybinds, custom commands, GitHub MCP
 
 **See:** `OPENCODE-OPTIMIZATION-PLAN.md` for full details.
+
+---
+
+## Session Coordination (NEW - Dec 26, 2025)
+
+**Hooks:** `~/.claude/hooks/session-register.sh`, `~/.claude/hooks/session-cleanup.sh`
+**Data:** `~/.claude/sessions/active/`, `~/.claude/sessions/history/`
+
+### How It Works
+
+```
+┌─────────────────┐     SessionStart      ┌─────────────────┐
+│  Claude Code    │────────────────────►  │  session-       │
+│  starts         │                       │  register.sh    │
+└─────────────────┘                       └────────┬────────┘
+                                                   │
+                                                   ▼
+                                          ┌─────────────────┐
+                                          │ active/{id}.json│
+                                          │ - project path  │
+                                          │ - git branch    │
+                                          │ - started time  │
+                                          └─────────────────┘
+                                                   │
+┌─────────────────┐      Stop             ┌────────▼────────┐
+│  Claude Code    │────────────────────►  │  session-       │
+│  exits          │                       │  cleanup.sh     │
+└─────────────────┘                       └────────┬────────┘
+                                                   │
+                                                   ▼
+                                          ┌─────────────────┐
+                                          │ history/        │
+                                          │  2025-12-26/    │
+                                          │   {id}.json     │
+                                          └─────────────────┘
+```
+
+### CLI Commands
+
+```bash
+# Show active sessions across all projects
+ait sessions live
+
+# Show current session for this directory
+ait sessions current
+
+# Set task description for current session
+ait sessions task "Implementing feature X"
+
+# Detect same-project conflicts (parallel sessions)
+ait sessions conflicts
+
+# Browse session history by date
+ait sessions history
+ait sessions history --date 2025-12-26
+```
+
+### Conflict Detection
+
+When you start Claude Code in a project that already has an active session:
+
+```json
+{
+  "status": "warning",
+  "message": "1 other session(s) active in this project",
+  "sessions": ["1766786246-71374"],
+  "hint": "Use 'ait sessions live' to see details"
+}
+```
+
+### Session Manifest Format
+
+```json
+{
+  "session_id": "1766786256-71941",
+  "project": "aiterm",
+  "path": "/Users/dt/projects/dev-tools/aiterm",
+  "started": "2025-12-26T16:57:37-0600",
+  "git_branch": "dev",
+  "git_dirty": true,
+  "pid": 71941,
+  "task": null
+}
+```
 
 ---
 
