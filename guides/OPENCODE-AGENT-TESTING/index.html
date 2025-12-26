@@ -2237,6 +2237,28 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#custom-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Custom Commands
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tool-permissions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tool Permissions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#testing-agents-in-opencode" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2412,7 +2434,8 @@
 <p>Verify setup:
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>ait<span class="w"> </span>opencode<span class="w"> </span>config<span class="w">      </span><span class="c1"># Check agents configured</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>ait<span class="w"> </span>opencode<span class="w"> </span>instructions<span class="w"> </span><span class="c1"># Verify CLAUDE.md sync</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>python<span class="w"> </span>tests/test_opencode_agents.py<span class="w">  </span><span class="c1"># Run 14-test validation</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>ait<span class="w"> </span>opencode<span class="w"> </span>summary<span class="w">     </span><span class="c1"># Complete configuration overview</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>python<span class="w"> </span>-m<span class="w"> </span>pytest<span class="w"> </span>tests/test_opencode*.py<span class="w">  </span><span class="c1"># Run all OpenCode tests (103 tests)</span>
 </code></pre></div></p>
 <h2 id="available-agents">Available Agents</h2>
 <table>
@@ -2421,6 +2444,7 @@
 <th>Agent</th>
 <th>Model</th>
 <th>Tools</th>
+<th>Shortcut</th>
 <th>Use Case</th>
 </tr>
 </thead>
@@ -2429,13 +2453,81 @@
 <td><code>r-dev</code></td>
 <td>Sonnet 4.5</td>
 <td>bash, read, write, edit, glob, grep</td>
+<td><code>ctrl+r</code></td>
 <td>R package development</td>
 </tr>
 <tr>
 <td><code>quick</code></td>
 <td>Haiku 4.5</td>
 <td>read, glob, grep</td>
+<td><code>ctrl+q</code></td>
 <td>Fast answers, simple queries</td>
+</tr>
+<tr>
+<td><code>research</code></td>
+<td>Opus 4.5</td>
+<td>read, write, edit, glob, grep, websearch, webfetch</td>
+<td><code>ctrl+s</code></td>
+<td>Academic research &amp; manuscripts</td>
+</tr>
+</tbody>
+</table>
+<h2 id="custom-commands">Custom Commands</h2>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Description</th>
+<th>Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>rpkg-check</code></td>
+<td>Run R CMD check</td>
+<td>R package validation</td>
+</tr>
+<tr>
+<td><code>rpkg-document</code></td>
+<td>Generate R docs</td>
+<td>roxygen2 documentation</td>
+</tr>
+<tr>
+<td><code>rpkg-test</code></td>
+<td>Run R tests</td>
+<td>testthat execution</td>
+</tr>
+<tr>
+<td><code>sync</code></td>
+<td>Git add, commit, push</td>
+<td>Quick save &amp; sync</td>
+</tr>
+<tr>
+<td><code>status</code></td>
+<td>Git status + log</td>
+<td>Check repo state</td>
+</tr>
+</tbody>
+</table>
+<h2 id="tool-permissions">Tool Permissions</h2>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Permission</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>bash, read, glob, grep</td>
+<td><code>auto</code></td>
+<td>Read-only, always allowed</td>
+</tr>
+<tr>
+<td>write, edit</td>
+<td><code>ask</code></td>
+<td>Modifying files, requires confirmation</td>
 </tr>
 </tbody>
 </table>
