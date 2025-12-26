@@ -8,6 +8,14 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
+- **Phase 4.1: IDE Integrations** (`ait ide`) - NEW
+  - Multi-IDE support: VS Code, Positron, Zed, Cursor, Windsurf
+  - Commands: `list`, `status`, `extensions`, `configure`, `terminal-profile`, `sync-theme`, `open`, `compare`
+  - AI development extension recommendations per IDE
+  - Terminal profile generation for aiterm integration
+  - Theme synchronization across IDEs
+  - 32 unit tests (100% passing)
+
 - **Phase 2.5: Advanced Claude Features** ✅ COMPLETE (9 new CLI modules)
   - **Subagent Management** (`ait agents`): Create, list, validate Claude Code subagents
     - Templates: research, coding, review, quick, statistical

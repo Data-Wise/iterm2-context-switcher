@@ -4,9 +4,30 @@ priority: P1
 progress: 100
 version: 0.3.0-dev
 updated: 2025-12-26
-next: v0.3.0 release (all phases complete, ready for release)
+next: v0.3.0 release preparation (test IDE commands, finalize)
 
-## ✅ Just Completed (Phases 2.5-4: Complete Feature Set - Dec 26, 2025)
+## ✅ Just Completed (Phase 4.1: IDE Integrations - Dec 26, 2025)
+
+- ✅ **Phase 4.1: IDE Integrations COMPLETE** (`ait ide`)
+  - **Multi-IDE Support:** VS Code, Positron, Zed, Cursor, Windsurf
+  - **Commands:** list, status, extensions, configure, terminal-profile, sync-theme, open, compare
+  - **Features:**
+    - AI development extension recommendations per IDE
+    - Terminal profile generation for aiterm integration
+    - Theme synchronization across IDEs
+    - Configuration management (load/save settings)
+    - IDE installation detection
+  - **Code:** 459 lines (`src/aiterm/cli/ide.py`)
+  - **Tests:** 32 unit tests (100% passing)
+  - **Integration:** Registered in main.py, fully functional
+
+📊 **Phase 4.1 Stats:**
+- **New Commands:** 8 IDE management commands
+- **IDEs Supported:** 5 (VS Code, Positron, Zed, Cursor, Windsurf)
+- **New Tests:** 32 (340 total passing)
+- **Code Lines:** 459
+
+## ✅ Previously Completed (Phases 2.5-4: Complete Feature Set - Dec 26, 2025)
 
 - ✅ **Phase 2.5: Advanced Claude Features COMPLETE**
   - **Phase 2.5.1:** Subagent Management (`ait agents`) - 7 commands, 5 templates
