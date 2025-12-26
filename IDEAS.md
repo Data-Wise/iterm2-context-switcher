@@ -17,7 +17,7 @@
 ## Phase 1: MVP (Week 1) - v0.1.0 ✅ COMPLETE
 
 **Goal:** Working CLI that improves on current aiterm
-**Status:** 95% complete - awaiting PR merge (2025-12-16)
+**Status:** ✅ COMPLETE (2025-12-16)
 
 ### Core Features
 
@@ -55,11 +55,25 @@
 
 ---
 
-## Phase 2: Enhanced Claude Integration (v0.2.0)
+## Phase 2: Enhanced Claude Integration (v0.2.0-v0.2.1) ✅ COMPLETE
 
-**Goal:** Deep Claude Code customization + R-Development MCP consolidation
-**Timeline:** 3-4 weeks post v0.1.0 release
-**Priorities:** R-Development MCP refactoring > MCP creation tools > Hook management
+**Goal:** Deep Claude Code customization + Distribution
+**Status:** ✅ COMPLETE (2025-12-26)
+
+### v0.2.0 Delivered (Dec 24, 2025):
+- [x] Hook Management System (580 lines)
+- [x] Command Library System (600 lines)
+- [x] MCP Server Integration (513 lines)
+- [x] Documentation Helpers (715 lines)
+
+### v0.2.1 Delivered (Dec 26, 2025):
+- [x] **PyPI Publishing:** https://pypi.org/project/aiterm-dev/
+- [x] **Homebrew Fixed:** All transitive dependencies
+- [x] **Trusted Publishing:** GitHub Actions OIDC
+- [x] **9 New REFCARDs:** Claude, MCP, Hooks, Context, OpenCode
+- [x] **CLI Improvements:** 19 commands with epilog examples
+
+### Original Planning (Reference)
 
 **NEW: R-Development MCP Consolidation** ⭐
 - **Discovery:** 59% of Claude commands (35/59) are R-ecosystem related!

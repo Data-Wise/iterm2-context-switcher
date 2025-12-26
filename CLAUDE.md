@@ -28,20 +28,21 @@ This file provides guidance to Claude Code when working with the aiterm project.
 
 ---
 
-## Project Status: v0.2.1-dev
+## Project Status: v0.2.1 ✅ RELEASED
 
-**Current Phase:** Feature expansion with comprehensive testing
+**Current Phase:** Distribution complete, planning v0.3.0
 
-**Recent Additions (Dec 25, 2025):**
-- [x] OpenCode configuration module (`src/aiterm/opencode/`)
-- [x] 55 new tests for OpenCode config validation
-- [x] OpenCode performance optimization (Option A applied)
-- [x] v0.2.0 released with 4 major feature systems
+**v0.2.1 Release (Dec 26, 2025):**
+- [x] **PyPI Published:** https://pypi.org/project/aiterm-dev/
+- [x] **Homebrew Fixed:** All transitive dependencies resolved
+- [x] **Trusted Publishing:** GitHub Actions OIDC configured
+- [x] **Documentation:** 9 new REFCARDs and guides
+- [x] **CLI:** 19 commands with epilog examples
 
 **See:**
-- `OPENCODE-OPTIMIZATION-PLAN.md` - OpenCode enhancement roadmap
+- `CHANGELOG.md` - Full release history
 - `.STATUS` - Current progress and session history
-- `RELEASE-NOTES-v0.2.0-dev.md` - Latest release notes
+- `OPENCODE-OPTIMIZATION-PLAN.md` - OpenCode enhancement roadmap
 
 ---
 
@@ -61,21 +62,25 @@ This file provides guidance to Claude Code when working with the aiterm project.
 
 **Installation:**
 ```bash
-# macOS (Recommended - Homebrew)
+# macOS (Homebrew)
 brew install data-wise/tap/aiterm
 
-# All Platforms (UV - fastest)
-uv tool install git+https://github.com/Data-Wise/aiterm
+# Cross-platform (PyPI)
+pip install aiterm-dev
 
-# All Platforms (pipx)
-pipx install git+https://github.com/Data-Wise/aiterm
+# Using uv (fastest)
+uv tool install aiterm-dev
+
+# Using pipx
+pipx install aiterm-dev
 ```
 
 **Links:**
 - **Repo:** https://github.com/Data-Wise/aiterm
 - **Docs:** https://Data-Wise.github.io/aiterm/
+- **PyPI:** https://pypi.org/project/aiterm-dev/
 - **Homebrew Tap:** https://github.com/Data-Wise/homebrew-tap
-- **Status:** v0.1.0 released, v0.2.0 in planning
+- **Status:** v0.2.1 released, v0.3.0 in planning
 
 ---
 

@@ -1,4 +1,27 @@
-# ROADMAP - Week 1 MVP ✅ COMPLETE
+# ROADMAP
+
+## Current Status: v0.2.1 ✅ RELEASED
+
+**Latest Release:** v0.2.1 (Dec 26, 2025)
+**PyPI:** https://pypi.org/project/aiterm-dev/
+**Homebrew:** `brew install data-wise/tap/aiterm`
+**Docs:** https://data-wise.github.io/aiterm/
+
+### Release History
+| Version | Date | Highlights |
+|---------|------|------------|
+| v0.2.1 | 2025-12-26 | PyPI publishing, Homebrew fix, 9 REFCARDs |
+| v0.2.0 | 2025-12-24 | 4 feature systems (hooks, commands, MCP, docs) |
+| v0.1.0 | 2025-12-16 | Initial release, core CLI |
+
+### Next: v0.3.0 (Planned)
+- Gemini CLI support
+- IDE integrations (Positron, Zed, VS Code)
+- Workflow automation enhancements
+
+---
+
+# Historical: Week 1 MVP ✅ COMPLETE
 
 **Goal:** Transform aiterm → aiterm CLI tool
 
@@ -6,8 +29,6 @@
 **Target Version:** v0.1.0-dev
 **User:** DT (primary user testing)
 **Status:** 100% complete ✅ - Tagged and ready for release
-
-**Known Issue:** StatusLine bug in Claude Code v2.0.70 (documented in STATUSLINE-BUG.md) - does not affect aiterm functionality
 
 ---
 

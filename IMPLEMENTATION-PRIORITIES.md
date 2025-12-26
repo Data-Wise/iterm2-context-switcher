@@ -1,12 +1,32 @@
-# Implementation Priorities - Planning Tools
+# Implementation Priorities
 
-**Date:** 2025-12-20 (Updated: 2025-12-21)
-**Purpose:** Prioritize which planning/ideation tools to implement first
-**Context:** Two design docs created (WORKFLOW-DEVOPS-IDEATION-DESIGN.md, RFORGE-IDEATION-TOOLS.md)
+**Date:** 2025-12-20 (Updated: 2025-12-26)
+**Purpose:** Prioritize next features for aiterm
+**Status:** v0.2.1 released, planning v0.3.0
 
 ---
 
-## 🎯 NEW PRIORITY: Documentation First! (Dec 21, 2025)
+## ✅ COMPLETED: Distribution (v0.2.1)
+
+- [x] PyPI publishing (`pip install aiterm-dev`)
+- [x] Homebrew distribution (`brew install data-wise/tap/aiterm`)
+- [x] GitHub Actions trusted publishing
+- [x] Documentation standards (9 REFCARDs)
+- [x] CLI improvements (19 commands with epilogs)
+
+---
+
+## 🎯 CURRENT PRIORITY: v0.3.0 Planning
+
+**Options for v0.3.0:**
+1. **Gemini CLI Support** - Multi-tool integration
+2. **IDE Integrations** - Positron, Zed, VS Code extensions
+3. **Workflow Automation** - Enhanced /workflow commands
+4. **R-Development MCP** - Consolidate R ecosystem tools
+
+---
+
+## Historical: Documentation First! (Dec 21, 2025)
 
 **Based on RForge Success:**
 After completing comprehensive RForge auto-detection documentation (7 docs, ~80 pages, 15 diagrams), we've validated a critical insight:
