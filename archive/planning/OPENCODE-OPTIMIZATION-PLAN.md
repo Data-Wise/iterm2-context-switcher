@@ -148,8 +148,19 @@ fi
 
 ## Phase 3: Option C (Full Ecosystem Integration)
 
-**Status:** Future
-**When:** After Option B validation
+**Status:** Planning
+**When:** After Phase 2 validation complete ✅
+**Estimated:** 2-3 hours
+
+### Phase 3 Features
+
+| Feature | Priority | Effort | Benefit |
+|---------|----------|--------|---------|
+| Research agent (Opus) | High | 10 min | Academic writing |
+| Keyboard shortcuts | Medium | 30 min | Fast agent switching |
+| Custom commands | Medium | 30 min | Workflow automation |
+| Tool permissions | Low | 1 hour | Auto-approve safe tools |
+| Time MCP | Low | 10 min | Deadline tracking |
 
 ### Proposed Additions
 

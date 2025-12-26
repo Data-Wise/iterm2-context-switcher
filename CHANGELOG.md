@@ -16,7 +16,24 @@ All notable changes to this project will be documented in this file.
   - `ait opencode set-model` - Set primary or small model
   - `ait opencode agents list|add|remove` - Manage custom agents
   - `ait opencode servers list|enable|disable` - Manage MCP servers
+  - `ait opencode instructions` - Show CLAUDE.md sync status (NEW)
   - 20 new tests for OpenCode CLI (155 total tests)
+
+- **OpenCode Phase 2: Custom Agents & GitHub Integration**
+  - `r-dev` agent: R package development specialist (Sonnet 4.5, 6 tools)
+  - `quick` agent: Fast responses for simple questions (Haiku 4.5, 3 tools)
+  - GitHub MCP server enabled with automatic GITHUB_TOKEN from gh CLI
+  - CLAUDE.md sync: OpenCode reads same instructions as Claude Code
+  - AGENTS.md symlink: `~/.config/opencode/AGENTS.md` → `~/.claude/CLAUDE.md`
+  - Instructions config: Reads `CLAUDE.md` and `.claude/rules/*.md`
+  - 14-test validation suite for agent configuration
+
+- **OpenCode Agent Test Suite** (`tests/test_opencode_agents.py`)
+  - Config validation (model, small_model, schema)
+  - Agent validation (r-dev, quick, tools)
+  - MCP validation (GitHub, essential, heavy servers)
+  - Sync validation (instructions, AGENTS.md symlink)
+  - Environment validation (GITHUB_TOKEN, opencode CLI)
 
 - **CI/CD Pipeline**
   - Added GitHub Actions test workflow (`test.yml`)
