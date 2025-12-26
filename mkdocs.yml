@@ -95,6 +95,7 @@ nav:
   - Guides:
     - Video Walkthrough: guides/VIDEO-WALKTHROUGH.md
     - Claude Code Tutorial: CLAUDE-CODE-TUTORIAL.md
+    - OpenCode Agent Testing: guides/OPENCODE-AGENT-TESTING.md
   - Gemini CLI:
     - Reference Card: gemini-cli/GEMINI_REFCARD.md
     - Tutorial: gemini-cli/GEMINI_TUTORIAL.md
@@ -105,6 +106,8 @@ nav:
     - Documentation Helpers: DOCS-HELPERS.md
   - Architecture:
     - Overview: architecture/AITERM-ARCHITECTURE.md
+    - Technical Design: reference/ARCHITECTURE.md
+    - Claude Code Capabilities: reference/CLAUDE-CODE-CAPABILITIES.md
     - Implementation: AITERM-IMPLEMENTATION-SUMMARY.md
     - Development: development/architecture.md
     - Contributing: development/contributing.md
