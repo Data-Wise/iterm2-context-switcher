@@ -8,6 +8,73 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+## [0.2.1] - 2025-12-26 - PyPI & Distribution Release 🚀
+
+**Status:** Published to PyPI & Homebrew
+**Tag:** v0.2.1
+**PyPI:** https://pypi.org/project/aiterm-dev/0.2.1/
+**Homebrew:** `brew install data-wise/tap/aiterm`
+**Documentation:** https://Data-Wise.github.io/aiterm/
+
+### 🎉 Distribution Milestone
+
+aiterm is now available on PyPI and Homebrew!
+
+#### Installation Options
+```bash
+# macOS (Homebrew)
+brew install data-wise/tap/aiterm
+
+# Cross-platform (PyPI)
+pip install aiterm-dev
+
+# Using uv (fastest)
+uv tool install aiterm-dev
+
+# Using pipx
+pipx install aiterm-dev
+```
+
+### Added
+
+- **PyPI Publishing**
+  - Published as `aiterm-dev` (name `aiterm` was unavailable)
+  - GitHub Actions workflow for trusted publishing (OIDC)
+  - Automated releases on new tags
+  - Cross-platform installation via pip/uv/pipx
+
+- **Documentation Standards (flow-cli based)**
+  - `docs/REFCARD.md` - One-page ASCII quick reference
+  - `docs/QUICK-START.md` - 30-second setup guide
+  - `docs/GETTING-STARTED.md` - 10-minute hands-on tutorial
+  - `docs/guide/shell-completion.md` - Zsh/Bash/Fish completion setup
+
+- **Domain-Specific Reference Cards**
+  - `REFCARD-CLAUDE.md` - Claude Code commands
+  - `REFCARD-MCP.md` - MCP server management
+  - `REFCARD-HOOKS.md` - Hook management
+  - `REFCARD-CONTEXT.md` - Context detection
+  - `REFCARD-OPENCODE.md` - OpenCode integration
+
+- **CLI Improvements**
+  - Added epilog examples to 19 commands
+  - Rich formatted help with usage examples
+
+### Fixed
+
+- **Homebrew Formula**
+  - Fixed transitive dependency installation
+  - Added all deps explicitly (click, shellingham, typing_extensions, mdurl, markdown-it-py, pygments, wcwidth, prompt_toolkit)
+  - Both `aiterm` and `ait` commands now work correctly
+
+### Changed
+
+- Version sync across pyproject.toml, __init__.py, and .STATUS
+- Updated README with simplified installation section
+- Updated mkdocs.yml navigation with all new pages
+
+---
+
 ## [0.2.0] - 2025-12-24 - PHASE 3A COMPLETE 🎉
 
 **Status:** Production-Ready Stable Release
