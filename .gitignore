@@ -27,3 +27,4 @@ build/
 .ruff_cache/
 htmlcov/
 .coverage
+tests/test_log_ide.txt
