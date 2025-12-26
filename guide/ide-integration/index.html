@@ -12,13 +12,13 @@
         <meta name="author" content="Data-Wise">
       
       
-        <link rel="canonical" href="https://data-wise.github.io/aiterm/guide/profiles/">
+        <link rel="canonical" href="https://data-wise.github.io/aiterm/guide/ide-integration/">
       
       
-        <link rel="prev" href="../context-detection/">
+        <link rel="prev" href="../sessions/">
       
       
-        <link rel="next" href="../status-bar/">
+        <link rel="next" href="../workflows/">
       
       
         
@@ -29,7 +29,7 @@
     
     
       
-        <title>Profiles - aiterm</title>
+        <title>IDE Integration - aiterm</title>
       
     
     
@@ -80,7 +80,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#iterm2-profiles" class="md-skip">
+        <a href="#ide-integration" class="md-skip">
           Skip to content
         </a>
       
@@ -114,7 +114,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Profiles
+              IDE Integration
             
           </span>
         </div>
@@ -974,10 +974,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../ide-integration/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IDE Integration
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -993,6 +1020,286 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#supported-ides" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Supported IDEs
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-start" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick Start
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Commands
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Commands">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ait-ide-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ait ide list
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ait-ide-status-ide" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ait ide status &lt;ide&gt;
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ait-ide-extensions-ide" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ait ide extensions &lt;ide&gt;
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ait-ide-configure-ide" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ait ide configure &lt;ide&gt;
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ait-ide-terminal-profile-ide" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ait ide terminal-profile &lt;ide&gt;
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ait-ide-sync-theme-ide" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ait ide sync-theme &lt;ide&gt;
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ait-ide-open-ide" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ait ide open &lt;ide&gt;
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ait-ide-compare" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ait ide compare
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ide-specific-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        IDE-Specific Setup
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="IDE-Specific Setup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#vs-code-cursor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        VS Code / Cursor
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#zed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zed
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#positron" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Positron
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#windsurf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Windsurf
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#integration-with-claude-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Integration with Claude Code
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Troubleshooting
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ide-not-detected" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        IDE Not Detected
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#settings-not-applied" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Settings Not Applied
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#permission-errors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Permission Errors
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1058,37 +1365,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Profiles
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../profiles/" class="md-nav__link">
         
   
   
@@ -1104,120 +1384,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#auto-installed-profiles" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Auto-Installed Profiles
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#profile-mappings" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Profile Mappings
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#important-title-configuration" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Important: Title Configuration
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#dynamic-profiles-location" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Dynamic Profiles Location
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#creating-custom-profiles" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Creating Custom Profiles
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Creating Custom Profiles">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#custom-dynamic-profiles" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Custom Dynamic Profiles
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#profile-color-reference" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Profile Color Reference
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#troubleshooting" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Troubleshooting
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -2479,10 +2645,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#auto-installed-profiles" class="md-nav__link">
+  <a href="#overview" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Auto-Installed Profiles
+        Overview
       
     </span>
   </a>
@@ -2490,10 +2656,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#profile-mappings" class="md-nav__link">
+  <a href="#supported-ides" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Profile Mappings
+        Supported IDEs
       
     </span>
   </a>
@@ -2501,10 +2667,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#important-title-configuration" class="md-nav__link">
+  <a href="#quick-start" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Important: Title Configuration
+        Quick Start
       
     </span>
   </a>
@@ -2512,33 +2678,99 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#dynamic-profiles-location" class="md-nav__link">
+  <a href="#commands" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Dynamic Profiles Location
+        Commands
       
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#creating-custom-profiles" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Creating Custom Profiles
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Creating Custom Profiles">
+    <nav class="md-nav" aria-label="Commands">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#custom-dynamic-profiles" class="md-nav__link">
+  <a href="#ait-ide-list" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Custom Dynamic Profiles
+        ait ide list
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ait-ide-status-ide" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ait ide status &lt;ide&gt;
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ait-ide-extensions-ide" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ait ide extensions &lt;ide&gt;
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ait-ide-configure-ide" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ait ide configure &lt;ide&gt;
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ait-ide-terminal-profile-ide" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ait ide terminal-profile &lt;ide&gt;
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ait-ide-sync-theme-ide" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ait ide sync-theme &lt;ide&gt;
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ait-ide-open-ide" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ait ide open &lt;ide&gt;
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ait-ide-compare" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ait ide compare
       
     </span>
   </a>
@@ -2551,10 +2783,71 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#profile-color-reference" class="md-nav__link">
+  <a href="#ide-specific-setup" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Profile Color Reference
+        IDE-Specific Setup
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="IDE-Specific Setup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#vs-code-cursor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        VS Code / Cursor
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#zed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zed
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#positron" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Positron
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#windsurf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Windsurf
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#integration-with-claude-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Integration with Claude Code
       
     </span>
   </a>
@@ -2569,6 +2862,45 @@
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ide-not-detected" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        IDE Not Detected
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#settings-not-applied" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Settings Not Applied
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#permission-errors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Permission Errors
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -2592,211 +2924,320 @@
   
 
 
-<h1 id="iterm2-profiles">iTerm2 Profiles</h1>
-<p>Configure iTerm2 profiles for visual context switching.</p>
-<h2 id="auto-installed-profiles">Auto-Installed Profiles</h2>
-<p>Dynamic profiles are automatically installed and ready to use:</p>
+<h1 id="ide-integration">IDE Integration</h1>
+<p>Configure VS Code, Cursor, Zed, and other IDEs for optimal AI-assisted development.</p>
+<h2 id="overview">Overview</h2>
+<p>aiterm provides IDE integration to:</p>
+<ul>
+<li><strong>Configure terminals</strong> with aiterm-optimized profiles</li>
+<li><strong>Install AI extensions</strong> recommended for each IDE</li>
+<li><strong>Sync themes</strong> across your development environment</li>
+<li><strong>Manage settings</strong> programmatically</li>
+</ul>
+<h2 id="supported-ides">Supported IDEs</h2>
 <table>
 <thead>
 <tr>
-<th>Profile</th>
-<th>Icon</th>
-<th>Theme</th>
-<th>Use Case</th>
+<th>IDE</th>
+<th>Terminal</th>
+<th>Extensions</th>
+<th>AI Features</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Dev-Tools</td>
-<td>🔧</td>
-<td>Amber/Orange</td>
-<td>Shell scripts, CLI tools</td>
+<td><strong>VS Code</strong></td>
+<td>Full</td>
+<td>Full</td>
+<td>Copilot, Continue, Claude Dev</td>
 </tr>
 <tr>
-<td>Emacs</td>
-<td>⚡</td>
-<td>Purple/Magenta</td>
-<td>Emacs configurations</td>
+<td><strong>Cursor</strong></td>
+<td>Full</td>
+<td>Full</td>
+<td>Built-in AI</td>
 </tr>
 <tr>
-<td>Python-Dev</td>
-<td>🐍</td>
-<td>Green</td>
-<td>Python projects</td>
+<td><strong>Zed</strong></td>
+<td>Full</td>
+<td>Limited</td>
+<td>Built-in Assistant</td>
 </tr>
 <tr>
-<td>Node-Dev</td>
-<td>📦</td>
-<td>Dark</td>
-<td>Node.js projects</td>
+<td><strong>Positron</strong></td>
+<td>Full</td>
+<td>Full</td>
+<td>R/Python focused</td>
 </tr>
 <tr>
-<td>R-Dev</td>
-<td>📦</td>
-<td>Blue</td>
-<td>R packages, Quarto</td>
-</tr>
-<tr>
-<td>AI-Session</td>
-<td>🤖</td>
-<td>Purple</td>
-<td>Claude/Gemini sessions</td>
-</tr>
-<tr>
-<td>Production</td>
-<td>🚨</td>
-<td>Red</td>
-<td>Production warning</td>
+<td><strong>Windsurf</strong></td>
+<td>Full</td>
+<td>Full</td>
+<td>Built-in AI</td>
 </tr>
 </tbody>
 </table>
-<h2 id="profile-mappings">Profile Mappings</h2>
+<h2 id="quick-start">Quick Start</h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># Check which IDEs are installed</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>ait<span class="w"> </span>ide<span class="w"> </span>list
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="c1"># Get detailed status</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>ait<span class="w"> </span>ide<span class="w"> </span>status<span class="w"> </span>vscode
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="c1"># Add aiterm terminal profile</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>ait<span class="w"> </span>ide<span class="w"> </span>terminal-profile<span class="w"> </span>vscode
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="c1"># See recommended extensions</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>ait<span class="w"> </span>ide<span class="w"> </span>extensions<span class="w"> </span>vscode
+</code></pre></div>
+<h2 id="commands">Commands</h2>
+<h3 id="ait-ide-list"><code>ait ide list</code></h3>
+<p>Show all supported IDEs and their installation status.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>$<span class="w"> </span>ait<span class="w"> </span>ide<span class="w"> </span>list
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>┏━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━┓
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>┃<span class="w"> </span>IDE<span class="w">             </span>┃<span class="w"> </span>Installed<span class="w"> </span>┃<span class="w"> </span>Config<span class="w"> </span>Exists<span class="w"> </span>┃<span class="w"> </span>Features<span class="w">              </span>┃
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>┡━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━┩
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>│<span class="w"> </span>Visual<span class="w"> </span>Studio<span class="w">   </span>│<span class="w">    </span>✓<span class="w">      </span>│<span class="w">      </span>✓<span class="w">        </span>│<span class="w"> </span>terminal,<span class="w"> </span>extensions,<span class="w"> </span>│
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>│<span class="w"> </span>Code<span class="w">            </span>│<span class="w">           </span>│<span class="w">               </span>│<span class="w"> </span>keybindings<span class="w">           </span>│
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>│<span class="w"> </span>Cursor<span class="w">          </span>│<span class="w">    </span>✓<span class="w">      </span>│<span class="w">      </span>✓<span class="w">        </span>│<span class="w"> </span>terminal,<span class="w"> </span>ai-features<span class="w"> </span>│
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>│<span class="w"> </span>Zed<span class="w">             </span>│<span class="w">    </span>✓<span class="w">      </span>│<span class="w">      </span>✗<span class="w">        </span>│<span class="w"> </span>terminal,<span class="w"> </span>themes<span class="w">      </span>│
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>│<span class="w"> </span>Positron<span class="w">        </span>│<span class="w">    </span>✗<span class="w">      </span>│<span class="w">      </span>✗<span class="w">        </span>│<span class="w"> </span>terminal,<span class="w"> </span>r-support<span class="w">   </span>│
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>│<span class="w"> </span>Windsurf<span class="w">        </span>│<span class="w">    </span>✗<span class="w">      </span>│<span class="w">      </span>✗<span class="w">        </span>│<span class="w"> </span>terminal,<span class="w"> </span>ai-features<span class="w"> </span>│
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>└─────────────────┴───────────┴───────────────┴───────────────────────┘
+</code></pre></div>
+<h3 id="ait-ide-status-ide"><code>ait ide status &lt;ide&gt;</code></h3>
+<p>Show detailed configuration for a specific IDE.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>$<span class="w"> </span>ait<span class="w"> </span>ide<span class="w"> </span>status<span class="w"> </span>vscode
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>╭───────────────<span class="w"> </span>Visual<span class="w"> </span>Studio<span class="w"> </span>Code<span class="w"> </span>Status<span class="w"> </span>────────────────╮
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>│<span class="w"> </span>Name:<span class="w"> </span>Visual<span class="w"> </span>Studio<span class="w"> </span>Code<span class="w">                                  </span>│
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>│<span class="w"> </span>Installed:<span class="w"> </span>Yes<span class="w">                                            </span>│
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>│<span class="w"> </span>Config<span class="w"> </span>Path:<span class="w"> </span>~/.vscode/settings.json<span class="w">                      </span>│
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>│<span class="w"> </span>Config<span class="w"> </span>Exists:<span class="w"> </span>Yes<span class="w">                                        </span>│
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>│<span class="w"> </span>Features:<span class="w"> </span>terminal,<span class="w"> </span>extensions,<span class="w"> </span>keybindings,<span class="w"> </span>tasks<span class="w">        </span>│
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>│<span class="w"> </span>Settings<span class="w"> </span>Keys:<span class="w"> </span><span class="m">42</span><span class="w">                                         </span>│
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>╰──────────────────────────────────────────────────────────╯
+</code></pre></div>
+<h3 id="ait-ide-extensions-ide"><code>ait ide extensions &lt;ide&gt;</code></h3>
+<p>List recommended AI development extensions.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>$<span class="w"> </span>ait<span class="w"> </span>ide<span class="w"> </span>extensions<span class="w"> </span>vscode
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>┏━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━┓
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>┃<span class="w"> </span>Extension<span class="w">       </span>┃<span class="w"> </span>ID<span class="w">                       </span>┃<span class="w"> </span>Description<span class="w">           </span>┃
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>┡━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━┩
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>│<span class="w"> </span>Continue<span class="w">        </span>│<span class="w"> </span><span class="k">continue</span>.continue<span class="w">        </span>│<span class="w"> </span>AI<span class="w"> </span>code<span class="w"> </span>assistant<span class="w">     </span>│
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>│<span class="w"> </span>Claude<span class="w"> </span>Dev<span class="w">      </span>│<span class="w"> </span>saoudrizwan.claude-dev<span class="w">   </span>│<span class="w"> </span>Claude<span class="w"> </span>Code<span class="w"> </span><span class="k">in</span><span class="w"> </span>VS<span class="w">     </span>│
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>│<span class="w"> </span>GitHub<span class="w"> </span>Copilot<span class="w">  </span>│<span class="w"> </span>github.copilot<span class="w">           </span>│<span class="w"> </span>AI<span class="w"> </span>pair<span class="w"> </span>programmer<span class="w">    </span>│
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>└─────────────────┴─────────────────────────┴───────────────────────┘
+</code></pre></div>
+<h3 id="ait-ide-configure-ide"><code>ait ide configure &lt;ide&gt;</code></h3>
+<p>Configure IDE settings for AI development.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># Set terminal font and size</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>ait<span class="w"> </span>ide<span class="w"> </span>configure<span class="w"> </span>vscode<span class="w"> </span>--font<span class="w"> </span><span class="s2">&quot;JetBrains Mono&quot;</span><span class="w"> </span>--size<span class="w"> </span><span class="m">14</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="c1"># Enable AI features</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>ait<span class="w"> </span>ide<span class="w"> </span>configure<span class="w"> </span>vscode<span class="w"> </span>--ai
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="c1"># Disable AI inline suggestions</span>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>ait<span class="w"> </span>ide<span class="w"> </span>configure<span class="w"> </span>cursor<span class="w"> </span>--no-ai
+</code></pre></div>
+<p><strong>Options:</strong></p>
 <table>
 <thead>
 <tr>
-<th>Context Type</th>
-<th>Profile Used</th>
-<th>Icon</th>
+<th>Option</th>
+<th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>R packages</td>
-<td>R-Dev</td>
-<td>📦</td>
+<td><code>--font</code></td>
+<td>Terminal font family</td>
 </tr>
 <tr>
-<td>Python projects</td>
-<td>Python-Dev</td>
-<td>🐍</td>
+<td><code>--size</code></td>
+<td>Terminal font size</td>
 </tr>
 <tr>
-<td>Node.js projects</td>
-<td>Node-Dev</td>
-<td>📦</td>
-</tr>
-<tr>
-<td>Quarto projects</td>
-<td>R-Dev</td>
-<td>📊</td>
-</tr>
-<tr>
-<td>MCP servers</td>
-<td>AI-Session</td>
-<td>🔌</td>
-</tr>
-<tr>
-<td>Emacs configs</td>
-<td>Emacs</td>
-<td>⚡</td>
-</tr>
-<tr>
-<td>Dev-tools</td>
-<td>Dev-Tools</td>
-<td>🔧</td>
-</tr>
-<tr>
-<td>AI sessions</td>
-<td>AI-Session</td>
-<td>🤖</td>
-</tr>
-<tr>
-<td>Production</td>
-<td>Production</td>
-<td>🚨</td>
-</tr>
-<tr>
-<td>Default</td>
-<td>Default</td>
-<td>(none)</td>
+<td><code>--ai / --no-ai</code></td>
+<td>Enable/disable AI features</td>
 </tr>
 </tbody>
 </table>
-<h2 id="important-title-configuration">Important: Title Configuration</h2>
-<p>For profile switching to work, each profile must have:</p>
+<h3 id="ait-ide-terminal-profile-ide"><code>ait ide terminal-profile &lt;ide&gt;</code></h3>
+<p>Add an aiterm-optimized terminal profile.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1"># Add default profile</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>ait<span class="w"> </span>ide<span class="w"> </span>terminal-profile<span class="w"> </span>vscode
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="c1"># Custom profile name</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>ait<span class="w"> </span>ide<span class="w"> </span>terminal-profile<span class="w"> </span>vscode<span class="w"> </span>--name<span class="w"> </span><span class="s2">&quot;aiterm-dev&quot;</span>
+</code></pre></div>
+<p>This adds a terminal profile with:</p>
+<ul>
+<li><code>/bin/zsh</code> with login shell</li>
+<li><code>AITERM=1</code> environment variable</li>
+<li>Proper <code>TERM_PROGRAM</code> setting</li>
+</ul>
+<h3 id="ait-ide-sync-theme-ide"><code>ait ide sync-theme &lt;ide&gt;</code></h3>
+<p>Sync terminal theme with aiterm profiles.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1"># Dark theme (default)</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>ait<span class="w"> </span>ide<span class="w"> </span>sync-theme<span class="w"> </span>vscode
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="c1"># Light theme</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>ait<span class="w"> </span>ide<span class="w"> </span>sync-theme<span class="w"> </span>vscode<span class="w"> </span>--theme<span class="w"> </span>light
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="c1"># Solarized</span>
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>ait<span class="w"> </span>ide<span class="w"> </span>sync-theme<span class="w"> </span>zed<span class="w"> </span>--theme<span class="w"> </span>solarized
+</code></pre></div>
+<p><strong>Available themes:</strong></p>
+<ul>
+<li><code>dark</code> - Dark color scheme</li>
+<li><code>light</code> - Light color scheme</li>
+<li><code>solarized</code> - Solarized Dark</li>
+</ul>
+<h3 id="ait-ide-open-ide"><code>ait ide open &lt;ide&gt;</code></h3>
+<p>Open a path in the specified IDE.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1"># Open current directory</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>ait<span class="w"> </span>ide<span class="w"> </span>open<span class="w"> </span>vscode
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="c1"># Open specific path</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>ait<span class="w"> </span>ide<span class="w"> </span>open<span class="w"> </span>zed<span class="w"> </span>~/projects/myapp
+</code></pre></div>
+<h3 id="ait-ide-compare"><code>ait ide compare</code></h3>
+<p>Compare configurations across installed IDEs.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>$<span class="w"> </span>ait<span class="w"> </span>ide<span class="w"> </span>compare
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>IDE<span class="w"> </span>Configuration<span class="w"> </span>Comparison
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>┏━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━┳━━━━━━━━━┓
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>┃<span class="w"> </span>Setting<span class="w">         </span>┃<span class="w"> </span>VS<span class="w"> </span>Code<span class="w">       </span>┃<span class="w"> </span>Cursor<span class="w">  </span>┃
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>┡━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━╇━━━━━━━━━┩
+<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>│<span class="w"> </span>Config<span class="w"> </span>exists<span class="w">   </span>│<span class="w"> </span>Yes<span class="w">           </span>│<span class="w"> </span>Yes<span class="w">     </span>│
+<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>│<span class="w"> </span>Terminal<span class="w"> </span>font<span class="w">   </span>│<span class="w"> </span>JetBrains<span class="w"> </span>Mono│<span class="w"> </span>default<span class="w"> </span>│
+<a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a>│<span class="w"> </span>AI<span class="w"> </span>enabled<span class="w">      </span>│<span class="w"> </span>Yes<span class="w">           </span>│<span class="w"> </span>Yes<span class="w">     </span>│
+<a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a>└─────────────────┴───────────────┴─────────┘
+</code></pre></div>
+<h2 id="ide-specific-setup">IDE-Specific Setup</h2>
+<h3 id="vs-code-cursor">VS Code / Cursor</h3>
+<p>VS Code and Cursor share similar settings formats.</p>
+<p><strong>Recommended Setup:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="c1"># 1. Add terminal profile</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>ait<span class="w"> </span>ide<span class="w"> </span>terminal-profile<span class="w"> </span>vscode
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="c1"># 2. Configure terminal</span>
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>ait<span class="w"> </span>ide<span class="w"> </span>configure<span class="w"> </span>vscode<span class="w"> </span>--font<span class="w"> </span><span class="s2">&quot;JetBrains Mono&quot;</span><span class="w"> </span>--size<span class="w"> </span><span class="m">13</span>
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="c1"># 3. View extensions</span>
+<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>ait<span class="w"> </span>ide<span class="w"> </span>extensions<span class="w"> </span>vscode
+</code></pre></div>
+<p><strong>Config Path:</strong> <code>~/.vscode/settings.json</code> or <code>~/.cursor/settings.json</code></p>
+<p><strong>Key Settings Added:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="p">{</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="w">  </span><span class="nt">&quot;terminal.integrated.profiles.osx&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="w">    </span><span class="nt">&quot;aiterm&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="w">      </span><span class="nt">&quot;path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/bin/zsh&quot;</span><span class="p">,</span>
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="w">      </span><span class="nt">&quot;args&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;-l&quot;</span><span class="p">],</span>
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="w">      </span><span class="nt">&quot;env&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="w">        </span><span class="nt">&quot;AITERM&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
+<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="w">        </span><span class="nt">&quot;TERM_PROGRAM&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;vscode&quot;</span>
+<a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a><span class="w">      </span><span class="p">}</span>
+<a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a><span class="w">  </span><span class="p">},</span>
+<a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a><span class="w">  </span><span class="nt">&quot;terminal.integrated.fontFamily&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;JetBrains Mono&quot;</span><span class="p">,</span>
+<a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a><span class="w">  </span><span class="nt">&quot;terminal.integrated.fontSize&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">13</span>
+<a id="__codelineno-10-14" name="__codelineno-10-14" href="#__codelineno-10-14"></a><span class="p">}</span>
+</code></pre></div>
+<h3 id="zed">Zed</h3>
+<p>Zed uses a different settings format (JSON with different keys).</p>
+<p><strong>Recommended Setup:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="c1"># 1. Configure terminal</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>ait<span class="w"> </span>ide<span class="w"> </span>terminal-profile<span class="w"> </span>zed
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="c1"># 2. Set theme</span>
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>ait<span class="w"> </span>ide<span class="w"> </span>sync-theme<span class="w"> </span>zed<span class="w"> </span>--theme<span class="w"> </span>dark
+</code></pre></div>
+<p><strong>Config Path:</strong> <code>~/.config/zed/settings.json</code></p>
+<p><strong>Key Settings Added:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="p">{</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="w">  </span><span class="nt">&quot;terminal&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="w">    </span><span class="nt">&quot;shell&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="w">      </span><span class="nt">&quot;program&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/bin/zsh&quot;</span><span class="p">,</span>
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="w">      </span><span class="nt">&quot;args&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;-l&quot;</span><span class="p">]</span>
+<a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a><span class="w">    </span><span class="p">},</span>
+<a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="w">    </span><span class="nt">&quot;env&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a><span class="w">      </span><span class="nt">&quot;AITERM&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span>
+<a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a><span class="w">    </span><span class="p">},</span>
+<a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a><span class="w">    </span><span class="nt">&quot;font_family&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;JetBrains Mono&quot;</span><span class="p">,</span>
+<a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a><span class="w">    </span><span class="nt">&quot;font_size&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">13</span>
+<a id="__codelineno-12-12" name="__codelineno-12-12" href="#__codelineno-12-12"></a><span class="w">  </span><span class="p">},</span>
+<a id="__codelineno-12-13" name="__codelineno-12-13" href="#__codelineno-12-13"></a><span class="w">  </span><span class="nt">&quot;assistant&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-12-14" name="__codelineno-12-14" href="#__codelineno-12-14"></a><span class="w">    </span><span class="nt">&quot;enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<a id="__codelineno-12-15" name="__codelineno-12-15" href="#__codelineno-12-15"></a><span class="w">  </span><span class="p">},</span>
+<a id="__codelineno-12-16" name="__codelineno-12-16" href="#__codelineno-12-16"></a><span class="w">  </span><span class="nt">&quot;theme&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;One Dark&quot;</span>
+<a id="__codelineno-12-17" name="__codelineno-12-17" href="#__codelineno-12-17"></a><span class="p">}</span>
+</code></pre></div>
+<h3 id="positron">Positron</h3>
+<p>Positron is an IDE for data science with R and Python support.</p>
+<p><strong>Recommended Setup:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="c1"># 1. Check status</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>ait<span class="w"> </span>ide<span class="w"> </span>status<span class="w"> </span>positron
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="c1"># 2. Add terminal profile</span>
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>ait<span class="w"> </span>ide<span class="w"> </span>terminal-profile<span class="w"> </span>positron
+</code></pre></div>
+<p><strong>Config Path:</strong> <code>~/.positron/settings.json</code></p>
+<h3 id="windsurf">Windsurf</h3>
+<p>Windsurf is an AI-native IDE similar to Cursor.</p>
+<p><strong>Recommended Setup:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>ait<span class="w"> </span>ide<span class="w"> </span>terminal-profile<span class="w"> </span>windsurf
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>ait<span class="w"> </span>ide<span class="w"> </span>configure<span class="w"> </span>windsurf<span class="w"> </span>--ai
+</code></pre></div>
+<p><strong>Config Path:</strong> <code>~/.windsurf/settings.json</code></p>
+<h2 id="integration-with-claude-code">Integration with Claude Code</h2>
+<p>When using Claude Code from within an IDE terminal:</p>
 <ol>
-<li><strong>General → Title</strong>: Set to <strong>"Session Name"</strong></li>
-<li><strong>Check</strong>: "Applications in terminal may change title"</li>
+<li>The <code>AITERM=1</code> env var signals aiterm integration</li>
+<li>Context detection works the same as regular terminal</li>
+<li>Session coordination tracks IDE-based sessions</li>
 </ol>
-<p>Without this, escape sequences won't update the title.</p>
-<h2 id="dynamic-profiles-location">Dynamic Profiles Location</h2>
-<p>Profiles are stored in:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>~/Library/Application Support/iTerm2/DynamicProfiles/context-switcher-profiles.json
+<p><strong>Workflow:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="c1"># Open project in IDE</span>
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>ait<span class="w"> </span>ide<span class="w"> </span>open<span class="w"> </span>vscode<span class="w"> </span>~/projects/myapp
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>
+<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="c1"># Start Claude Code in IDE terminal</span>
+<a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>claude
+<a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>
+<a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a><span class="c1"># aiterm hooks detect the session automatically</span>
+<a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a>ait<span class="w"> </span>sessions<span class="w"> </span>live
 </code></pre></div>
-<h2 id="creating-custom-profiles">Creating Custom Profiles</h2>
-<h3 id="custom-dynamic-profiles">Custom Dynamic Profiles</h3>
-<p>Add to the existing JSON file:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="p">{</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span><span class="nt">&quot;Name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;My-Profile&quot;</span><span class="p">,</span>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">  </span><span class="nt">&quot;Guid&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;unique-id-here&quot;</span><span class="p">,</span>
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">  </span><span class="nt">&quot;Dynamic Profile Parent Name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Default&quot;</span><span class="p">,</span>
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">  </span><span class="nt">&quot;Background Color&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">    </span><span class="nt">&quot;Red Component&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.1</span><span class="p">,</span>
-<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">    </span><span class="nt">&quot;Green Component&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.1</span><span class="p">,</span>
-<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">    </span><span class="nt">&quot;Blue Component&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.1</span><span class="p">,</span>
-<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">    </span><span class="nt">&quot;Alpha Component&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span>
-<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">  </span><span class="p">}</span>
-<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="p">}</span>
-</code></pre></div>
-<h2 id="profile-color-reference">Profile Color Reference</h2>
-<table>
-<thead>
-<tr>
-<th>Profile</th>
-<th>Background</th>
-<th>Foreground</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>R-Dev</td>
-<td>Dark blue (#141f2e)</td>
-<td>Light blue (#cce6ff)</td>
-</tr>
-<tr>
-<td>AI-Session</td>
-<td>Dark purple (#1f1429)</td>
-<td>Light purple (#e6d9ff)</td>
-</tr>
-<tr>
-<td>Production</td>
-<td>Dark red (#330d0d)</td>
-<td>Light red (#ffd9d9)</td>
-</tr>
-<tr>
-<td>Dev-Tools</td>
-<td>Dark brown (#1f1a0f)</td>
-<td>Amber (#ffc259)</td>
-</tr>
-<tr>
-<td>Emacs</td>
-<td>Dark purple (#1a1424)</td>
-<td>Light purple (#d9ccf2)</td>
-</tr>
-<tr>
-<td>Python-Dev</td>
-<td>Green (#137746)</td>
-<td>Yellow (#fff0a5)</td>
-</tr>
-<tr>
-<td>Node-Dev</td>
-<td>Dark (#121212)</td>
-<td>Gray (#bfbfbf)</td>
-</tr>
-</tbody>
-</table>
 <h2 id="troubleshooting">Troubleshooting</h2>
-<p><strong>Profile doesn't switch:</strong></p>
-<ul>
-<li>Ensure <code>$TERM_PROGRAM</code> equals <code>iTerm.app</code></li>
-<li>Check profile name matches exactly (case-sensitive)</li>
-<li>Verify profile exists in iTerm2 Preferences</li>
-</ul>
-<p><strong>Title doesn't update:</strong></p>
-<ul>
-<li>Set Title to "Session Name" in profile settings</li>
-<li>Enable "Applications in terminal may change title"</li>
-</ul>
+<h3 id="ide-not-detected">IDE Not Detected</h3>
+<p>If <code>ait ide list</code> shows an IDE as not installed:</p>
+<ol>
+<li>Ensure the IDE's CLI command is in PATH</li>
+<li>For VS Code: Run "Install 'code' command in PATH" from command palette</li>
+<li>For Zed: Add <code>/Applications/Zed.app/Contents/MacOS</code> to PATH</li>
+</ol>
+<h3 id="settings-not-applied">Settings Not Applied</h3>
+<p>If changes don't appear after running configure commands:</p>
+<ol>
+<li>Restart the IDE</li>
+<li>Check the config file directly</li>
+<li>Verify no syntax errors in settings JSON</li>
+</ol>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="c1"># Check if settings file is valid JSON</span>
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>python<span class="w"> </span>-m<span class="w"> </span>json.tool<span class="w"> </span>~/.vscode/settings.json
+</code></pre></div>
+<h3 id="permission-errors">Permission Errors</h3>
+<p>If settings can't be saved:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="c1"># Ensure directory exists</span>
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>~/.vscode
+<a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>~/.config/zed
+<a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a>
+<a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a><span class="c1"># Check permissions</span>
+<a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a>ls<span class="w"> </span>-la<span class="w"> </span>~/.vscode/settings.json
+</code></pre></div>
 
 
 
