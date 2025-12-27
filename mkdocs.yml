@@ -106,6 +106,7 @@ nav:
     - Documentation Helpers: DOCS-HELPERS.md
   - Architecture:
     - Overview: architecture/AITERM-ARCHITECTURE.md
+    - RForge Universal Backend: architecture/RFORGE-UNIVERSAL-BACKEND.md
     - Technical Design: reference/ARCHITECTURE.md
     - Claude Code Capabilities: reference/CLAUDE-CODE-CAPABILITIES.md
     - Implementation: AITERM-IMPLEMENTATION-SUMMARY.md
