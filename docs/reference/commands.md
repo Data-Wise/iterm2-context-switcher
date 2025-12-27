@@ -8,10 +8,26 @@ Complete reference for all **aiterm** commands with examples.
 
 ```bash
 aiterm --help              # Show help message
-aiterm --version           # Show version info
+aiterm --version           # Show version info (enhanced in v0.3.5)
 aiterm --install-completion  # Install shell completion
 aiterm --show-completion    # Show completion script
 ```
+
+### Enhanced `--version` (v0.3.5+)
+
+```bash
+aiterm --version
+```
+
+**Output:**
+```
+aiterm 0.3.5
+Python: 3.12.0
+Platform: macOS-15.2-arm64
+Path: /Users/dt/.local/bin/aiterm
+```
+
+Shows version, Python runtime, platform, and installation path.
 
 ---
 
@@ -31,8 +47,8 @@ aiterm doctor - Health check
 
 Terminal: iTerm.app
 Shell: /bin/zsh
-Python: 3.14.2
-aiterm: 0.1.0-dev
+Python: 3.12.0
+aiterm: 0.3.5
 
 Basic checks passed!
 ```
@@ -42,6 +58,91 @@ Basic checks passed!
 - Shell environment
 - Python version
 - aiterm installation
+
+---
+
+### `aiterm hello`
+
+Diagnostic greeting command (added in v0.3.5).
+
+```bash
+aiterm hello              # Default greeting
+aiterm hello --name "DT"  # Personalized greeting
+```
+
+**Output:**
+```
+👋 Hello from aiterm!
+Version: 0.3.5
+Terminal: iTerm.app
+```
+
+**With name:**
+```
+👋 Hello, DT!
+Version: 0.3.5
+Terminal: iTerm.app
+```
+
+Useful for verifying aiterm is installed and working correctly.
+
+---
+
+### `aiterm goodbye`
+
+Farewell diagnostic command (added in v0.3.5).
+
+```bash
+aiterm goodbye              # Default farewell
+aiterm goodbye --name "DT"  # Personalized farewell
+```
+
+**Output:**
+```
+👋 Goodbye from aiterm!
+Thanks for using aiterm 0.3.5
+```
+
+Pair with `hello` for quick installation testing.
+
+---
+
+### `aiterm info`
+
+Display detailed system diagnostics (added in v0.3.5).
+
+```bash
+aiterm info              # Full system info
+aiterm info --json       # Output as JSON
+```
+
+**Output:**
+```
+aiterm System Information
+
+Version: 0.3.5
+Python: 3.12.0
+Platform: macOS-15.2-arm64
+Path: /Users/dt/.local/bin/aiterm
+
+Environment:
+  TERM_PROGRAM: iTerm.app
+  SHELL: /bin/zsh
+  CLAUDECODE: 1
+
+Claude Code:
+  Settings: ~/.claude/settings.json
+  Hooks: 3 configured
+  Permissions: 47 allowed
+```
+
+**JSON output:**
+```bash
+aiterm info --json | jq '.version'
+# "0.3.5"
+```
+
+Useful for debugging, issue reports, and scripting.
 
 ---
 

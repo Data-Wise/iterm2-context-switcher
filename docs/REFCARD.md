@@ -2,7 +2,7 @@
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│ AITERM v0.2.1 - Terminal Optimizer for AI Development      │
+│ AITERM v0.3.5 - Terminal Optimizer for AI Development      │
 ├─────────────────────────────────────────────────────────────┤
 │                                                             │
 │ ESSENTIAL                                                   │
@@ -10,7 +10,8 @@
 │ ait doctor              Check installation                  │
 │ ait detect              Show project context                │
 │ ait switch              Apply context to terminal           │
-│ ait init                Interactive setup wizard            │
+│ ait hello               Diagnostic greeting                 │
+│ ait info                System diagnostics (--json)         │
 │                                                             │
 │ CLAUDE CODE                                                 │
 │ ──────────                                                  │
@@ -52,8 +53,11 @@
 │ COMMON WORKFLOWS                                            │
 │ ────────────────                                            │
 │                                                             │
+│ Quick install:                                              │
+│   curl -fsSL .../install.sh | bash                          │
+│                                                             │
 │ First-time setup:                                           │
-│   ait doctor && ait init                                    │
+│   ait doctor && ait hello                                   │
 │                                                             │
 │ Switch context when entering project:                       │
 │   cd ~/my-project && ait switch                             │
