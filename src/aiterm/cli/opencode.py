@@ -566,6 +566,142 @@ def servers_health(
         raise typer.Exit(1)
 
 
+@servers_app.command(
+    "add",
+    epilog="""
+[bold]Examples:[/]
+  ait opencode servers add brave-search --template    # Add from template
+  ait opencode servers add myserver --command "npx -y my-mcp-server"
+""",
+)
+def servers_add(
+    name: str = typer.Argument(..., help="Server name to add."),
+    template: bool = typer.Option(False, "--template", "-t", help="Use predefined template."),
+    command: Optional[str] = typer.Option(None, "--command", "-c", help="Custom command (space-separated)."),
+    enabled: bool = typer.Option(True, "--enabled/--disabled", help="Enable server after adding."),
+) -> None:
+    """Add a new MCP server configuration."""
+    config = load_config()
+    if not config:
+        console.print("[red]No OpenCode configuration found.[/]")
+        raise typer.Exit(1)
+
+    if name in config.mcp_servers:
+        console.print(f"[yellow]Server '{name}' already exists.[/]")
+        console.print("Use 'ait opencode servers enable/disable' to toggle.")
+        return
+
+    # Get server config from template or command
+    if template:
+        if name not in DEFAULT_MCP_SERVERS:
+            console.print(f"[red]No template found for '{name}'.[/]")
+            console.print("\n[bold]Available templates:[/]")
+            for tname, tconfig in DEFAULT_MCP_SERVERS.items():
+                desc = tconfig.get("description", "")
+                console.print(f"  • {tname}: {desc}")
+            raise typer.Exit(1)
+
+        tmpl = DEFAULT_MCP_SERVERS[name]
+        server = MCPServer(
+            name=name,
+            type=tmpl.get("type", "local"),
+            command=tmpl.get("command", []),
+            enabled=enabled,
+        )
+
+        # Check for required environment variables
+        if "requires_env" in tmpl:
+            console.print(f"[yellow]Note:[/] This server requires environment variables:")
+            for env_var in tmpl["requires_env"]:
+                console.print(f"  • {env_var}")
+
+    elif command:
+        # Parse command string into list
+        cmd_parts = command.split()
+        server = MCPServer(
+            name=name,
+            type="local",
+            command=cmd_parts,
+            enabled=enabled,
+        )
+    else:
+        console.print("[red]Specify --template or --command.[/]")
+        raise typer.Exit(1)
+
+    backup_config()
+    config.mcp_servers[name] = server
+
+    if save_config(config):
+        status = "enabled" if enabled else "disabled"
+        console.print(f"[green]✓[/] Added server '{name}' ({status})")
+        console.print(f"[dim]Command: {' '.join(server.command)}[/]")
+    else:
+        console.print("[red]Failed to save configuration.[/]")
+        raise typer.Exit(1)
+
+
+@servers_app.command(
+    "remove",
+    epilog="""
+[bold]Examples:[/]
+  ait opencode servers remove myserver    # Remove server
+""",
+)
+def servers_remove(
+    name: str = typer.Argument(..., help="Server name to remove."),
+    force: bool = typer.Option(False, "--force", "-f", help="Skip confirmation."),
+) -> None:
+    """Remove an MCP server configuration."""
+    config = load_config()
+    if not config:
+        console.print("[red]No OpenCode configuration found.[/]")
+        raise typer.Exit(1)
+
+    if name not in config.mcp_servers:
+        console.print(f"[red]Server '{name}' not found.[/]")
+        raise typer.Exit(1)
+
+    # Check if essential
+    if name in DEFAULT_MCP_SERVERS:
+        tmpl = DEFAULT_MCP_SERVERS[name]
+        if tmpl.get("essential", False) and not force:
+            console.print(f"[yellow]Warning:[/] '{name}' is an essential server.")
+            console.print("Use --force to remove anyway.")
+            raise typer.Exit(1)
+
+    backup_config()
+    del config.mcp_servers[name]
+
+    if save_config(config):
+        console.print(f"[green]✓[/] Removed server '{name}'")
+    else:
+        console.print("[red]Failed to save configuration.[/]")
+        raise typer.Exit(1)
+
+
+@servers_app.command(
+    "templates",
+    epilog="""
+[bold]Examples:[/]
+  ait opencode servers templates    # List available templates
+""",
+)
+def servers_templates() -> None:
+    """List available MCP server templates."""
+    table = Table(title="MCP Server Templates", border_style="cyan")
+    table.add_column("Name", style="bold")
+    table.add_column("Description")
+    table.add_column("Requires")
+
+    for name, config in sorted(DEFAULT_MCP_SERVERS.items()):
+        desc = config.get("description", "")
+        requires = ", ".join(config.get("requires_env", [])) or "-"
+        table.add_row(name, desc, requires)
+
+    console.print(table)
+    console.print("\n[dim]Use: ait opencode servers add <name> --template[/]")
+
+
 # ─── Models sub-commands ──────────────────────────────────────────────────────
 
 

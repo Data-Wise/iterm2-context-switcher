@@ -6,9 +6,21 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+*No unreleased changes*
+
+---
+
+## [0.3.4] - 2025-12-27 - OpenCode MCP Server Tools
+
+**Tag:** v0.3.4
+**PyPI:** https://pypi.org/project/aiterm-dev/0.3.4/
+**Homebrew:** `brew upgrade data-wise/tap/aiterm`
+
 ### Added
 - **MCP server test command:** `ait opencode servers test <name>` - Test individual server startup
 - **MCP server health check:** `ait opencode servers health` - Check all enabled servers at once
+- **MCP server add/remove:** `ait opencode servers add/remove` - Manage server configurations
+- **Server templates:** Pre-configured setups for common MCP servers
 - **MCP server tests:** 23 new tests for server validation, connectivity, and health checks
 - **Integration test marker:** `pytest -m integration` to run actual server tests
 
@@ -19,6 +31,21 @@ All notable changes to this project will be documented in this file.
   - MCP servers use `environment` key (not `env`)
   - Tools are boolean enabled/disabled (not permission objects)
   - Keybinds are not supported (show informational message)
+
+### Usage
+```bash
+# Test individual server
+ait opencode servers test filesystem
+
+# Check all enabled servers
+ait opencode servers health
+
+# Add a new server from template
+ait opencode servers add brave-search --template
+
+# Add custom server
+ait opencode servers add myserver --command "npx -y my-mcp-server"
+```
 
 ---
 
