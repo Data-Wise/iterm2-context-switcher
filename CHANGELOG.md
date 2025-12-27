@@ -10,6 +10,32 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+## [0.3.5] - 2025-12-27 - Diagnostic Commands & Enhanced Version
+
+**Tag:** v0.3.5
+**PyPI:** https://pypi.org/project/aiterm-dev/0.3.5/
+**Homebrew:** `brew upgrade data-wise/tap/aiterm`
+
+### Added
+- **hello command:** `ait hello` - Simple diagnostic greeting
+  - `ait hello --name <name>` for personalized greeting
+- **goodbye command:** `ait goodbye` - Farewell message
+  - `ait goodbye --name <name>` for personalized farewell
+- **info command:** `ait info` - Comprehensive system diagnostics
+  - Shows: aiterm, Python, platform, environment, dependencies, tools, paths
+  - `ait info --json` for scripted output
+- **18 new CLI tests** for diagnostic commands
+
+### Enhanced
+- **--version flag:** Now shows Python version, platform info, and install path
+  - Rich formatted panel output
+
+### Developer Notes
+- Added via Craft Orchestrator v2.1 dogfooding tests
+- Validated: live orchestration, 4-agent stress test, session persistence
+
+---
+
 ## [0.3.4] - 2025-12-27 - OpenCode MCP Server Tools
 
 **Tag:** v0.3.4
