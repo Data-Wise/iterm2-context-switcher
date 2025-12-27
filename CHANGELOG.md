@@ -6,11 +6,53 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+*No unreleased changes*
+
+---
+
+## [0.3.3] - 2025-12-26 - CLI Test Enhancements
+
+**Tag:** v0.3.3
+**PyPI:** https://pypi.org/project/aiterm-dev/0.3.3/
+**Homebrew:** `brew upgrade data-wise/tap/aiterm`
+
 ### Added
-- Session coordination documentation (`docs/guide/sessions.md`)
-- IDE integration documentation (`docs/guide/ide-integration.md`)
-- Session commands reference (`docs/reference/REFCARD-SESSIONS.md`)
-- IDE commands reference (`docs/reference/REFCARD-IDE.md`)
+- **JUnit XML output** for CLI tests (`--junit results.xml`)
+- **Performance benchmarking** for CLI tests (`--benchmark`)
+- **GitHub Actions integration** with test result upload
+- Performance summary showing fast/medium/slow test distribution
+
+### Changed
+- Improved interactive test runner with Ghostty AppleScript support
+- Simplified interactive test flow (run → show → judge)
+- Enhanced terminal detection for Claude Code context
+
+### Usage
+```bash
+# Run with benchmarks
+bash tests/cli/automated-tests.sh --benchmark
+
+# Generate JUnit XML for CI
+bash tests/cli/automated-tests.sh --junit test-results.xml
+```
+
+---
+
+## [0.3.2] - 2025-12-26 - Bug Fixes
+
+**Tag:** v0.3.2
+
+### Fixed
+- Session prune command stability improvements
+
+---
+
+## [0.3.1] - 2025-12-26 - Session Prune Command
+
+**Tag:** v0.3.1
+
+### Added
+- `ait sessions prune` command to clean up stale session files
 
 ---
 
