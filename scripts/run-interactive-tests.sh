@@ -128,8 +128,8 @@ run_ghostty() {
             fi
 
             if [[ -n "$ghostty_bin" ]]; then
-                # Use Ghostty CLI to spawn new window
-                "$ghostty_bin" --working-directory="$PROJECT_DIR" -e "bash" "$PROJECT_DIR/$TEST_SCRIPT" &
+                # Use Ghostty CLI to spawn new window with single command
+                "$ghostty_bin" --working-directory="$PROJECT_DIR" -e "bash $PROJECT_DIR/$TEST_SCRIPT" &
                 disown
             else
                 echo "Error: Ghostty binary not found"

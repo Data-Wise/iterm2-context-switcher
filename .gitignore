@@ -28,3 +28,4 @@ build/
 htmlcov/
 .coverage
 tests/test_log_ide.txt
+tests/cli/logs/

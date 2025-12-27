@@ -16,6 +16,19 @@ PASS=0
 FAIL=0
 SKIP=0
 TOTAL=0
+EXITED=0
+
+# Logging
+LOG_DIR="${LOG_DIR:-tests/cli/logs}"
+mkdir -p "$LOG_DIR" 2>/dev/null || LOG_DIR="/tmp"
+LOG_FILE="$LOG_DIR/interactive-test-$(date +%Y%m%d-%H%M%S).log"
+
+log() {
+    echo "[$(date '+%Y-%m-%d %H:%M:%S')] $*" >> "$LOG_FILE"
+}
+
+log "=== Interactive Test Session Started ==="
+log "Working directory: $(pwd)"
 
 # Colors
 RED='\033[0;31m'
@@ -62,18 +75,38 @@ run_test() {
     echo -e "${BLUE}└─────────────────────────────────────────────────────────────┘${NC}"
     echo ""
 
-    read -p "Run this test? (y/n/skip) " -n 1 -r
+    read -p "Run this test? (y/n/s=skip/q=quit) " -n 1 -r
     echo ""
 
+    # Exit option
+    if [[ $REPLY =~ ^[Qq]$ ]]; then
+        EXITED=1
+        log "User quit at test $test_num"
+        echo ""
+        echo -e "${YELLOW}Exiting test session...${NC}"
+        print_summary
+        log "=== Session ended by user ==="
+        log "Log saved to: $LOG_FILE"
+        echo -e "Log saved to: ${BLUE}$LOG_FILE${NC}"
+        exit 0
+    fi
+
     if [[ $REPLY =~ ^[Yy]$ ]]; then
+        log "TEST $test_num: $test_name - Running"
+        log "  Command: $command"
+        log "  Expected: $expected"
+
         echo ""
         echo -e "${GREEN}┌─────────────────────────────────────────────────────────────┐${NC}"
         echo -e "${GREEN}│${NC} ${BOLD}ACTUAL OUTPUT:${NC}                                              ${GREEN}│${NC}"
         echo -e "${GREEN}├─────────────────────────────────────────────────────────────┤${NC}"
         echo ""
 
-        # Run the command (use bash -c for reliable execution)
-        bash -c "$command" 2>&1 || true
+        # Run the command and capture output for logging
+        local output
+        output=$(bash -c "$command" 2>&1) || true
+        echo "$output"
+        log "  Output: $output"
 
         echo ""
         echo -e "${GREEN}└─────────────────────────────────────────────────────────────┘${NC}"
@@ -84,6 +117,7 @@ run_test() {
 
         if [[ $REPLY =~ ^[Yy]$ ]]; then
             PASS=$((PASS + 1))
+            log "  Result: PASS"
             echo -e "${GREEN}✅ PASS${NC}"
         else
             FAIL=$((FAIL + 1))
@@ -91,13 +125,18 @@ run_test() {
             read -p "Add a note? (or press Enter to skip) " note
             if [[ -n "$note" ]]; then
                 echo "  Note: $note"
+                log "  Result: FAIL - Note: $note"
+            else
+                log "  Result: FAIL"
             fi
         fi
     elif [[ $REPLY =~ ^[Ss]$ ]]; then
         SKIP=$((SKIP + 1))
+        log "TEST $test_num: $test_name - SKIPPED"
         echo -e "${YELLOW}⏭️  SKIPPED${NC}"
     else
         SKIP=$((SKIP + 1))
+        log "TEST $test_num: $test_name - SKIPPED"
         echo -e "${YELLOW}⏭️  SKIPPED${NC}"
     fi
 }
@@ -116,11 +155,18 @@ print_summary() {
 
     if [[ $FAIL -eq 0 && $SKIP -eq 0 ]]; then
         echo -e "${GREEN}${BOLD}🎉 ALL TESTS PASSED!${NC}"
+        log "Final: ALL TESTS PASSED"
     elif [[ $FAIL -eq 0 ]]; then
         echo -e "${GREEN}${BOLD}✅ ALL RUN TESTS PASSED${NC} (some skipped)"
+        log "Final: ALL RUN TESTS PASSED ($SKIP skipped)"
     else
         echo -e "${RED}${BOLD}⚠️  $FAIL TEST(S) FAILED${NC}"
+        log "Final: $FAIL TESTS FAILED"
     fi
+
+    log "Summary: $PASS passed, $FAIL failed, $SKIP skipped"
+    echo ""
+    echo -e "Log saved to: ${BLUE}$LOG_FILE${NC}"
     echo ""
 }
 
@@ -132,6 +178,9 @@ print_header
 
 echo "Starting interactive test session..."
 echo "You'll be prompted to run each test and verify the output."
+echo ""
+echo -e "  ${BLUE}Keys:${NC} y=run, n/s=skip, q=quit"
+echo -e "  ${BLUE}Log:${NC}  $LOG_FILE"
 echo ""
 read -p "Press Enter to begin..."
 
@@ -283,6 +332,7 @@ run_test 27 "Profile Display" \
 # Summary
 # ============================================
 
+log "=== Interactive Test Session Completed ==="
 print_summary
 
 echo "Test session complete!"
