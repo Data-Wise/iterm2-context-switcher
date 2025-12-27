@@ -45,7 +45,15 @@ jobs:
 
       - name: Run CLI integration tests
         run: |
-          bash tests/cli/automated-tests.sh
+          bash tests/cli/automated-tests.sh --junit cli-test-results.xml --benchmark
+
+      - name: Upload CLI Test Results
+        uses: EnricoMi/publish-unit-test-result-action@v2
+        if: always() && matrix.os == 'ubuntu-latest'
+        with:
+          files: cli-test-results.xml
+          check_name: CLI Tests (${{ matrix.python-version }})
+          comment_mode: off
 
       - name: Upload coverage to Codecov
         if: matrix.os == 'ubuntu-latest' && matrix.python-version == '3.12'
