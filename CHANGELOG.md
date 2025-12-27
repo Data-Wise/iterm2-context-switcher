@@ -10,6 +10,29 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+## [0.3.7] - 2025-12-27 - Craft v1.6.0 Integration
+
+**Tag:** v0.3.7
+**PyPI:** https://pypi.org/project/aiterm-dev/0.3.7/
+**Homebrew:** `brew upgrade data-wise/tap/aiterm`
+
+### Documentation
+- Updated CLAUDE.md with Craft v1.6.0-dev integration
+  - 58 commands available for workflow recipes (was 53)
+  - 15 skills for intelligent task routing (was 13)
+  - New docs workflow commands: update, feature, done, site
+- Updated .STATUS with session accomplishments
+- Updated V0.4.0-PLAN.md with current version references
+
+### Integration
+- **Craft plugin v1.6.0-dev** compatibility
+  - New `/craft:docs:update` - Smart universal documentation updater
+  - New `/craft:docs:feature` - Comprehensive feature documentation
+  - New `/craft:docs:done` - End-of-session doc updates
+  - New `/craft:docs:site` - Website-focused updates with deploy
+
+---
+
 ## [0.3.6] - 2025-12-27 - curl Installation Script
 
 **Tag:** v0.3.6

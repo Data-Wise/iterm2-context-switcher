@@ -2,7 +2,7 @@ project: aiterm
 status: active
 priority: P1
 progress: 20
-version: 0.3.6
+version: 0.3.7
 updated: 2025-12-27
 next: Plan v0.4.0 - Workflow Templates (ait recipes)
 
