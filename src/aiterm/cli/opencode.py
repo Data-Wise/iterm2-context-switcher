@@ -3,6 +3,9 @@
 Provides commands for managing OpenCode configuration, agents, and MCP servers.
 """
 
+import shutil
+import subprocess
+import time
 from pathlib import Path
 from typing import Optional
 
@@ -381,6 +384,185 @@ def servers_disable(
         console.print(f"[green]✓[/] Disabled '{name}'")
     else:
         console.print("[red]Failed to save configuration.[/]")
+        raise typer.Exit(1)
+
+
+@servers_app.command(
+    "test",
+    epilog="""
+[bold]Examples:[/]
+  ait opencode servers test filesystem   # Test filesystem server
+  ait opencode servers test time         # Test time server
+""",
+)
+def servers_test(
+    name: str = typer.Argument(..., help="Server name to test."),
+    timeout: float = typer.Option(3.0, "--timeout", "-t", help="Startup timeout in seconds."),
+) -> None:
+    """Test if an MCP server can start successfully."""
+    config = load_config()
+    if not config:
+        console.print("[red]No OpenCode configuration found.[/]")
+        raise typer.Exit(1)
+
+    if name not in config.mcp_servers:
+        console.print(f"[red]Server '{name}' not found.[/]")
+        raise typer.Exit(1)
+
+    server = config.mcp_servers[name]
+
+    # Check if command exists
+    if not server.command:
+        console.print(f"[red]Server '{name}' has no command configured.[/]")
+        raise typer.Exit(1)
+
+    executable = server.command[0]
+    if shutil.which(executable) is None:
+        console.print(f"[red]✗[/] Executable '{executable}' not found in PATH")
+        raise typer.Exit(1)
+
+    console.print(f"[dim]Testing {name}...[/]")
+    console.print(f"[dim]Command: {' '.join(server.command)}[/]")
+
+    try:
+        # Try to start the server
+        process = subprocess.Popen(
+            server.command,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+        )
+
+        # Wait for startup
+        time.sleep(timeout)
+        exit_code = process.poll()
+
+        if exit_code is None:
+            # Still running - success!
+            process.terminate()
+            try:
+                process.wait(timeout=5)
+            except subprocess.TimeoutExpired:
+                process.kill()
+            console.print(f"[green]✓[/] Server '{name}' started successfully")
+        elif exit_code == 0:
+            console.print(f"[green]✓[/] Server '{name}' started and exited cleanly")
+        else:
+            stderr = process.stderr.read().decode() if process.stderr else ""
+            console.print(f"[red]✗[/] Server '{name}' exited with code {exit_code}")
+            if stderr:
+                console.print(f"[dim]{stderr[:500]}[/]")
+            raise typer.Exit(1)
+
+    except FileNotFoundError as e:
+        console.print(f"[red]✗[/] Command not found: {e}")
+        raise typer.Exit(1)
+    except Exception as e:
+        console.print(f"[red]✗[/] Failed to start: {e}")
+        raise typer.Exit(1)
+
+
+@servers_app.command(
+    "health",
+    epilog="""
+[bold]Examples:[/]
+  ait opencode servers health            # Check all enabled servers
+  ait opencode servers health --all      # Check all configured servers
+""",
+)
+def servers_health(
+    all_servers: bool = typer.Option(False, "--all", "-a", help="Check all servers, not just enabled."),
+    timeout: float = typer.Option(2.0, "--timeout", "-t", help="Startup timeout per server."),
+) -> None:
+    """Check health of MCP servers."""
+    config = load_config()
+    if not config:
+        console.print("[red]No OpenCode configuration found.[/]")
+        raise typer.Exit(1)
+
+    # Get servers to check
+    if all_servers:
+        servers_to_check = list(config.mcp_servers.items())
+    else:
+        servers_to_check = [(n, s) for n, s in config.mcp_servers.items() if s.enabled]
+
+    if not servers_to_check:
+        console.print("[yellow]No servers to check.[/]")
+        return
+
+    console.print(f"[bold]Checking {len(servers_to_check)} server(s)...[/]\n")
+
+    results = []
+    for name, server in servers_to_check:
+        status = "unknown"
+        message = ""
+
+        # Check executable
+        if not server.command:
+            status = "error"
+            message = "No command configured"
+        else:
+            executable = server.command[0]
+            if shutil.which(executable) is None:
+                status = "error"
+                message = f"'{executable}' not in PATH"
+            else:
+                # Try to start
+                try:
+                    process = subprocess.Popen(
+                        server.command,
+                        stdout=subprocess.PIPE,
+                        stderr=subprocess.PIPE,
+                    )
+                    time.sleep(timeout)
+                    exit_code = process.poll()
+
+                    if exit_code is None:
+                        process.terminate()
+                        try:
+                            process.wait(timeout=3)
+                        except subprocess.TimeoutExpired:
+                            process.kill()
+                        status = "ok"
+                        message = "Started successfully"
+                    elif exit_code == 0:
+                        status = "ok"
+                        message = "Started and exited cleanly"
+                    else:
+                        status = "error"
+                        message = f"Exited with code {exit_code}"
+                except FileNotFoundError:
+                    status = "error"
+                    message = "Command not found"
+                except Exception as e:
+                    status = "error"
+                    message = str(e)[:50]
+
+        results.append((name, server.enabled, status, message))
+
+    # Display results
+    table = Table(title="MCP Server Health", border_style="cyan")
+    table.add_column("Server", style="bold")
+    table.add_column("Enabled")
+    table.add_column("Status")
+    table.add_column("Details")
+
+    ok_count = 0
+    error_count = 0
+
+    for name, enabled, status, message in results:
+        enabled_str = "[green]yes[/]" if enabled else "[dim]no[/]"
+        if status == "ok":
+            status_str = "[green]✓ OK[/]"
+            ok_count += 1
+        else:
+            status_str = "[red]✗ Error[/]"
+            error_count += 1
+        table.add_row(name, enabled_str, status_str, message)
+
+    console.print(table)
+    console.print(f"\n[bold]Summary:[/] {ok_count} ok, {error_count} errors")
+
+    if error_count > 0:
         raise typer.Exit(1)
 
 

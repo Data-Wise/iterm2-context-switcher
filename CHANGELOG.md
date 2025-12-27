@@ -6,7 +6,19 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
-*No unreleased changes*
+### Added
+- **MCP server test command:** `ait opencode servers test <name>` - Test individual server startup
+- **MCP server health check:** `ait opencode servers health` - Check all enabled servers at once
+- **MCP server tests:** 23 new tests for server validation, connectivity, and health checks
+- **Integration test marker:** `pytest -m integration` to run actual server tests
+
+### Changed
+- **OpenCode schema v1.0.203 compatibility:**
+  - Use singular keys: `agent` (not `agents`), `command` (not `commands`)
+  - Commands require `template` field (not `command`)
+  - MCP servers use `environment` key (not `env`)
+  - Tools are boolean enabled/disabled (not permission objects)
+  - Keybinds are not supported (show informational message)
 
 ---
 
