@@ -205,19 +205,19 @@ run_test 13 "MCP Test All" \
 
 run_test 14 "Sessions Live" \
     "ait sessions live" \
-    "List of active Claude Code sessions (may be empty)"
+    "Session list OR 'No active sessions' (runs outside Claude Code)"
 
 run_test 15 "Sessions Conflicts" \
     "ait sessions conflicts" \
-    "Projects with multiple active sessions (may be none)"
+    "Conflict check OR 'No conflicts' message"
 
 run_test 16 "Sessions History" \
     "ait sessions history" \
-    "Archived session history (grouped by date)"
+    "Archived session dates (grouped by date)"
 
 run_test 17 "Sessions Current" \
     "ait sessions current" \
-    "Current session for this directory (if any)"
+    "'No active session' (tests run outside Claude Code context)"
 
 # ============================================
 # IDE SUBCOMMANDS
@@ -247,9 +247,9 @@ run_test 22 "OpenCode Config" \
     "ait opencode config" \
     "Current OpenCode configuration (model, MCP servers, etc.)"
 
-run_test 23 "OpenCode Status" \
-    "ait opencode status" \
-    "OpenCode installation and configuration status"
+run_test 23 "OpenCode Summary" \
+    "ait opencode summary" \
+    "Complete OpenCode configuration summary"
 
 # ============================================
 # ERROR HANDLING
