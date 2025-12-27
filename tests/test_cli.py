@@ -93,6 +93,28 @@ def test_hello_with_short_option():
     assert "Hello, DT!" in result.output
 
 
+def test_goodbye():
+    """Test goodbye command."""
+    result = runner.invoke(app, ["goodbye"])
+    assert result.exit_code == 0
+    assert "Goodbye, World!" in result.output
+    assert "Until next time!" in result.output
+
+
+def test_goodbye_with_name():
+    """Test goodbye command with --name option."""
+    result = runner.invoke(app, ["goodbye", "--name", "Claude"])
+    assert result.exit_code == 0
+    assert "Goodbye, Claude!" in result.output
+
+
+def test_goodbye_with_short_option():
+    """Test goodbye command with -n short option."""
+    result = runner.invoke(app, ["goodbye", "-n", "DT"])
+    assert result.exit_code == 0
+    assert "Goodbye, DT!" in result.output
+
+
 def test_doctor():
     """Test doctor command."""
     result = runner.invoke(app, ["doctor"])

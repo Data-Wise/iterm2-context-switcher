@@ -99,6 +99,27 @@ def hello(
 @app.command(
     epilog="""
 [bold]Examples:[/]
+  ait goodbye             # Simple farewell
+  ait goodbye --name Bob  # Personalized farewell
+"""
+)
+def goodbye(
+    name: Optional[str] = typer.Option(
+        None,
+        "--name",
+        "-n",
+        help="Name to bid farewell.",
+    ),
+) -> None:
+    """Say goodbye - a simple test command."""
+    farewell = f"Goodbye, {name}!" if name else "Goodbye, World!"
+    console.print(f"[bold magenta]{farewell}[/]")
+    console.print("[dim]Until next time![/]")
+
+
+@app.command(
+    epilog="""
+[bold]Examples:[/]
   ait init              # Run interactive setup
   ait init --skip-test  # Skip verification tests
 """
