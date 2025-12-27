@@ -2,12 +2,45 @@
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│ AITERM - OpenCode Integration                               │
+│ AITERM - OpenCode Integration (v0.3.4+)                     │
 ├─────────────────────────────────────────────────────────────┤
 │                                                             │
 │ SHELL ALIAS                                                 │
 │ ────────────                                                │
 │ oc                      → opencode (OpenCode CLI)           │
+│ ait opencode            → aiterm opencode commands          │
+│                                                             │
+├─────────────────────────────────────────────────────────────┤
+│ CLI COMMANDS                                                │
+│ ────────────                                                │
+│                                                             │
+│ Configuration:                                              │
+│   ait opencode config          Show current config          │
+│   ait opencode config --raw    Output as JSON               │
+│   ait opencode validate        Validate against schema      │
+│   ait opencode backup          Create timestamped backup    │
+│                                                             │
+│ MCP Servers:                                                │
+│   ait opencode servers list         List all servers        │
+│   ait opencode servers enable X     Enable server X         │
+│   ait opencode servers disable X    Disable server X        │
+│   ait opencode servers test X       Test server startup     │
+│   ait opencode servers health       Check all enabled       │
+│   ait opencode servers health --all Check all servers       │
+│   ait opencode servers templates    List server templates   │
+│   ait opencode servers add X -t     Add from template       │
+│   ait opencode servers add X -c "." Add with command        │
+│   ait opencode servers remove X     Remove server           │
+│                                                             │
+│ Agents:                                                     │
+│   ait opencode agents list          List custom agents      │
+│   ait opencode agents add X         Add new agent           │
+│   ait opencode agents remove X      Remove agent            │
+│                                                             │
+│ Models:                                                     │
+│   ait opencode models               List recommended        │
+│   ait opencode set-model X          Set primary model       │
+│   ait opencode set-model X --small  Set small model         │
 │                                                             │
 ├─────────────────────────────────────────────────────────────┤
 │ PYTHON API (aiterm.opencode)                                │
@@ -69,8 +102,8 @@
 │   google/gemini-2.5-flash-lite   (alternative)              │
 │                                                             │
 ├─────────────────────────────────────────────────────────────┤
-│ MCP SERVERS                                                 │
-│ ────────────                                                │
+│ MCP SERVER TEMPLATES (12 available)                         │
+│ ────────────────────────────────────                        │
 │                                                             │
 │ Essential (always enabled):                                 │
 │   filesystem    File read/write access                      │
@@ -79,8 +112,14 @@
 │ Optional (enable when needed):                              │
 │   sequential-thinking   Complex reasoning                   │
 │   playwright            Browser automation                  │
-│   github                PR/issue management                 │
+│   github                PR/issue management  (GITHUB_TOKEN) │
 │   time                  Timezone tracking                   │
+│   brave-search          Web search           (BRAVE_API_KEY)│
+│   slack                 Slack integration    (SLACK_TOKEN)  │
+│   sqlite                SQLite database access              │
+│   puppeteer             Headless browser                    │
+│   fetch                 HTTP fetch for web content          │
+│   everything            Demo server (testing only)          │
 │                                                             │
 ├─────────────────────────────────────────────────────────────┤
 │ OPENCODE CONFIG CLASSES                                     │

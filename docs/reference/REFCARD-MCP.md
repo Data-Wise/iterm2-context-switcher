@@ -2,34 +2,47 @@
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│ AITERM - MCP Server Commands                                │
+│ AITERM - MCP Server Commands (v0.3.4+)                      │
 ├─────────────────────────────────────────────────────────────┤
 │                                                             │
-│ LISTING                                                     │
-│ ────────                                                    │
-│ ait mcp list             List all configured servers        │
-│ ait mcp info <name>      Show server details                │
+│ OPENCODE SERVERS (ait opencode servers)                     │
+│ ──────────────────────────────────────                      │
 │                                                             │
-│ TESTING                                                     │
-│ ────────                                                    │
-│ ait mcp test <name>      Test specific server               │
-│ ait mcp test-all         Test all servers                   │
-│ ait mcp test <n> -t 10   Test with 10s timeout              │
+│ Listing & Status:                                           │
+│   ait opencode servers list      List all servers           │
+│   ait opencode servers templates List available templates   │
+│   ait opencode servers test X    Test server X              │
+│   ait opencode servers health    Check all enabled          │
+│   ait opencode servers health -a Check all servers          │
 │                                                             │
-│ VALIDATION                                                  │
-│ ───────────                                                 │
-│ ait mcp validate         Check configuration syntax         │
+│ Enable/Disable:                                             │
+│   ait opencode servers enable X  Enable server X            │
+│   ait opencode servers disable X Disable server X           │
+│                                                             │
+│ Add/Remove:                                                 │
+│   ait opencode servers add X -t      Add from template      │
+│   ait opencode servers add X -c "."  Add with command       │
+│   ait opencode servers remove X      Remove server          │
 │                                                             │
 ├─────────────────────────────────────────────────────────────┤
-│ COMMON SERVERS                                              │
-│ ──────────────                                              │
+│ SERVER TEMPLATES (12 available)                             │
+│ ──────────────────────────────                              │
 │                                                             │
-│ filesystem     File read/write access                       │
-│ memory         Persistent context memory                    │
-│ github         PR/issue management (needs token)            │
-│ time           Timezone and deadline tracking               │
-│ playwright     Browser automation                           │
-│ sequential-thinking  Complex reasoning chains               │
+│ Essential:                                                  │
+│   filesystem     File read/write access                     │
+│   memory         Persistent context memory                  │
+│                                                             │
+│ Optional:                                                   │
+│   sequential-thinking  Complex reasoning chains             │
+│   playwright           Browser automation                   │
+│   github               PR/issue management  (GITHUB_TOKEN)  │
+│   time                 Timezone tracking                    │
+│   brave-search         Web search           (BRAVE_API_KEY) │
+│   slack                Slack integration    (SLACK_TOKEN)   │
+│   sqlite               SQLite database access               │
+│   puppeteer            Headless browser automation          │
+│   fetch                HTTP fetch for web content           │
+│   everything           Demo server (testing only)           │
 │                                                             │
 ├─────────────────────────────────────────────────────────────┤
 │ CONFIG FILE                                                 │
