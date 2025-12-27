@@ -10,7 +10,7 @@ edit_uri: edit/main/docs/
 theme:
   name: material
   palette:
-    # data-wise preset: blue primary (#1a73e8), orange accent (#ff6b35)
+    # adhd-focus preset: forest green (#2d6a4f), sage accent (#40916c)
     - media: "(prefers-color-scheme: light)"
       scheme: default
       primary: custom
@@ -26,8 +26,8 @@ theme:
         icon: material/brightness-4
         name: Switch to light mode
   font:
-    text: Roboto
-    code: Roboto Mono
+    text: Inter
+    code: JetBrains Mono
   features:
     - navigation.instant
     - navigation.tracking

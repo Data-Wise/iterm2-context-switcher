@@ -1,9 +1,9 @@
 # Site Design Configuration
-# Applied by /craft:site:create
-# Generated: 2025-12-27
+# Preset: adhd-focus
+# Applied: 2025-12-27
 
-preset: "data-wise"
-description: "DT's standard - Material theme with blue/orange accent"
+preset: "adhd-focus"
+description: "ADHD-friendly - Calm colors, minimal distractions, clear hierarchy"
 
 branding:
   name: "aiterm"
@@ -12,16 +12,27 @@ branding:
   favicon: null
 
 colors:
-  primary: "#1a73e8"
-  accent: "#ff6b35"
+  primary: "#2d6a4f"       # Forest green - calming
+  accent: "#40916c"        # Lighter green - subtle
   scheme: "auto"
 
+  # ADHD-friendly extended palette
+  success: "#52b788"
+  warning: "#e9c46a"
+  error: "#e76f51"
+  info: "#457b9d"
+
+  background_light: "#fafafa"
+  background_dark: "#1a1a2e"
+
 typography:
-  font_text: "Roboto"
-  font_code: "Roboto Mono"
+  font_text: "Inter"
+  font_code: "JetBrains Mono"
+  font_size_base: "16px"
+  line_height: "1.7"
 
 navigation:
-  style: "tabs"
+  style: "tabs"            # Keep tabs for aiterm (many sections)
   max_depth: 3
   instant: true
   tracking: true
