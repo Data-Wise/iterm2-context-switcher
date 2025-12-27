@@ -10,6 +10,34 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+## [0.3.6] - 2025-12-27 - curl Installation Script
+
+**Tag:** v0.3.6
+**PyPI:** https://pypi.org/project/aiterm-dev/0.3.6/
+**Homebrew:** `brew upgrade data-wise/tap/aiterm`
+
+### Added
+- **install.sh:** Universal curl-based installer
+  - Auto-detects best method: uv → pipx → brew → pip
+  - `INSTALL_METHOD` env var for method override
+  - `AITERM_VERSION` env var for version pinning
+  - Colored output with verification
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/Data-Wise/aiterm/main/install.sh | bash
+```
+
+### Documentation
+- Updated README with curl install as primary option
+- Updated docs/GETTING-STARTED.md with Quick Install tab
+- Updated docs/index.md with dynamic PyPI badge
+- Updated docs/REFCARD.md with v0.3.6 and new commands
+- Updated docs/reference/commands.md with hello/goodbye/info
+- Added architecture/RFORGE-UNIVERSAL-BACKEND.md to nav
+- Deployed updated documentation to GitHub Pages
+
+---
+
 ## [0.3.5] - 2025-12-27 - Diagnostic Commands & Enhanced Version
 
 **Tag:** v0.3.5
