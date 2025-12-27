@@ -170,20 +170,14 @@ run_ghostty() {
             end tell"
             ;;
         window|*)
-            # New Ghostty window - use CLI directly
-            local ghostty_bin=""
-            if command -v ghostty &> /dev/null; then
-                ghostty_bin="ghostty"
-            elif [[ -x "/Applications/Ghostty.app/Contents/MacOS/ghostty" ]]; then
-                ghostty_bin="/Applications/Ghostty.app/Contents/MacOS/ghostty"
-            fi
-
-            if [[ -n "$ghostty_bin" ]]; then
-                # Use Ghostty CLI to spawn new window with single command
-                "$ghostty_bin" --working-directory="$PROJECT_DIR" -e "bash $PROJECT_DIR/$TEST_SCRIPT" &
-                disown
+            # New Ghostty window - on macOS must use 'open' command
+            # Direct CLI launch not supported per Ghostty docs
+            if [[ -d "/Applications/Ghostty.app" ]]; then
+                open -na "Ghostty.app" --args \
+                    --working-directory="$PROJECT_DIR" \
+                    -e "bash $PROJECT_DIR/$TEST_SCRIPT"
             else
-                echo "Error: Ghostty binary not found"
+                echo "Error: Ghostty.app not found"
                 exit 1
             fi
             ;;
