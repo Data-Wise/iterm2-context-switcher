@@ -1,6 +1,9 @@
 # RForge Learnings Applied to aiterm
 
-**Date:** 2025-12-21
+> **STATUS: APPLIED**
+> **Date:** 2025-12-27
+> These learnings were applied during the development of aiterm v0.1.0 - v0.3.0.
+
 **Source:** RForge MCP Server auto-detection implementation & documentation
 **Purpose:** Apply successful patterns from RForge to aiterm development
 

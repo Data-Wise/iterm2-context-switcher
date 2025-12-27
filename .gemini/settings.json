@@ -20,6 +20,12 @@
         "-e",
         "library(MCPR); mcpr_server()"
       ]
+    },
+    "rforge": {
+      "command": "node",
+      "args": [
+        "/Users/dt/projects/dev-tools/mcp-servers/rforge/dist/index.js"
+      ]
     }
   }
 }
