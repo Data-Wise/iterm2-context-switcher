@@ -1,7 +1,7 @@
 project: aiterm
 status: active
 priority: P1
-progress: 0
+progress: 15
 version: 0.4.0-dev
 updated: 2025-12-26
 next: Implement Phase 1 - Workflow Templates (ait recipes)
@@ -9,27 +9,49 @@ next: Implement Phase 1 - Workflow Templates (ait recipes)
 ## 🎯 v0.4.0 Plan: Workflow Automation & Craft Integration
 
 **See:** `V0.4.0-PLAN.md` for full details
+**See:** `PROPOSAL-craft-enhancements-2025-12-26.md` for craft v1.3.0 specification
 
-### Phase 1: Workflow Templates (Week 1-2) - IN PROGRESS
+### Phase 0: craft v1.3.0 Enhancement - ✅ COMPLETE
+**Status:** craft plugin upgraded to v1.3.0
+
+| Task | Status |
+|------|--------|
+| Port 5 documentation agents | ✅ Complete |
+| Port 3 documentation skills | ✅ Complete |
+| Create `docs:generate` command | ✅ Complete |
+| Create `docs:api` command | ✅ Complete |
+| Create `test:cli-gen` command | ✅ Complete |
+| Create `test:cli-run` command | ✅ Complete |
+| Update craft README for v1.3.0 | ✅ Complete |
+| Validate all components | ✅ Complete |
+
+**craft v1.3.0 Delivered:**
+- 5 agents: docs-architect, tutorial-engineer, api-documenter, reference-builder, mermaid-expert
+- 3 skills: changelog-automation, architecture-decision-records, openapi-spec-generation
+- 4 commands: docs:generate, docs:api, test:cli-gen, test:cli-run
+
+**craft v1.3.0 Stats:**
+| Metric | v1.2.0 | v1.3.0 | Change |
+|--------|--------|--------|--------|
+| Commands | 46 | 50 | +4 |
+| Agents | 1 | 6 | +5 |
+| Skills | 8 | 11 | +3 |
+
+### Phase 1: Workflow Templates (After Phase 0)
 - [ ] Create `workflow_recipes.py` CLI module
 - [ ] Define recipe format (YAML)
 - [ ] Implement 6 built-in recipes (fullstack, release, feature, debug, docs, r-dev)
 - [ ] Add recipe storage in `~/.config/aiterm/recipes/`
 - [ ] Write tests (target: 20+ tests)
 
-### Phase 2: Craft Management (Week 3)
+### Phase 2: Craft Management
 - [ ] Create `craft.py` CLI module
 - [ ] Implement install/update/sync commands
 - [ ] Add craft command passthrough
 
-### Phase 3: Session-Aware Workflows (Week 4)
+### Phase 3: Session-Aware Workflows
 - [ ] Session checks in workflow runner
 - [ ] Task auto-update during workflows
-
-**Integration with craft v1.2.0:**
-- 46 commands available for recipes
-- 8 skills for intelligent routing
-- Mode system (default, debug, optimize, release)
 
 ## ✅ Just Completed (v0.3.1 Release - Dec 26, 2025)
 
