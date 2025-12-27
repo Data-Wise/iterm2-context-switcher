@@ -2386,6 +2386,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../architecture/RFORGE-UNIVERSAL-BACKEND/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RForge Universal Backend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../reference/ARCHITECTURE/" class="md-nav__link">
         
   
@@ -3075,34 +3103,43 @@
 <h2 id="part-1-installation-2-min">Part 1: Installation (2 min)</h2>
 <h3 id="install-aiterm">Install aiterm</h3>
 <p>Choose your preferred method:</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="1:3"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Homebrew (macOS)</label><label for="__tabbed_1_2">UV (All Platforms)</label><label for="__tabbed_1_3">pipx (All Platforms)</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:5"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><input id="__tabbed_1_4" name="__tabbed_1" type="radio" /><input id="__tabbed_1_5" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Quick Install (Recommended)</label><label for="__tabbed_1_2">Homebrew (macOS)</label><label for="__tabbed_1_3">UV (All Platforms)</label><label for="__tabbed_1_4">pipx (All Platforms)</label><label for="__tabbed_1_5">pip</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>brew<span class="w"> </span>install<span class="w"> </span>data-wise/tap/aiterm
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>curl<span class="w"> </span>-fsSL<span class="w"> </span>https://raw.githubusercontent.com/Data-Wise/aiterm/main/install.sh<span class="w"> </span><span class="p">|</span><span class="w"> </span>bash
+</code></pre></div>
+Auto-detects best method: uv → pipx → brew → pip</p>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>brew<span class="w"> </span>install<span class="w"> </span>data-wise/tap/aiterm
 </code></pre></div>
 </div>
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>uv<span class="w"> </span>tool<span class="w"> </span>install<span class="w"> </span>git+https://github.com/Data-Wise/aiterm
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>uv<span class="w"> </span>tool<span class="w"> </span>install<span class="w"> </span>aiterm-dev
 </code></pre></div>
 </div>
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>pipx<span class="w"> </span>install<span class="w"> </span>git+https://github.com/Data-Wise/aiterm
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>pipx<span class="w"> </span>install<span class="w"> </span>aiterm-dev
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>pip<span class="w"> </span>install<span class="w"> </span>aiterm-dev
 </code></pre></div>
 </div>
 </div>
 </div>
 <h3 id="verify-installation">Verify Installation</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>ait<span class="w"> </span>doctor
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>ait<span class="w"> </span>doctor
 </code></pre></div>
 <p>Expected output:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>aiterm doctor - Health check
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>
-<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>Terminal: iTerm.app
-<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>Shell: /bin/zsh
-<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>Python: 3.12.0
-<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>aiterm: 0.2.1
-<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>
-<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>Basic checks passed!
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>aiterm doctor - Health check
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>Terminal: iTerm.app
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>Shell: /bin/zsh
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>Python: 3.12.0
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>aiterm: 0.3.5
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>Basic checks passed!
 </code></pre></div></p>
 <h3 id="checkpoint">Checkpoint</h3>
 <ul class="task-list">
@@ -3114,19 +3151,19 @@
 <p>aiterm automatically detects your project type and applies the right terminal profile.</p>
 <h3 id="try-detection">Try Detection</h3>
 <p>Navigate to any project and run:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nb">cd</span><span class="w"> </span>~/some-project
-<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>ait<span class="w"> </span>detect
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="nb">cd</span><span class="w"> </span>~/some-project
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>ait<span class="w"> </span>detect
 </code></pre></div>
 <p>Example output for a Python project:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>┌────────────────────────────────────┐
-<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>│ Context Detection                  │
-<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>├────────────────────────────────────┤
-<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>│ Directory │ /Users/you/my-project  │
-<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>│ Type      │ 🐍 python              │
-<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>│ Name      │ my-project             │
-<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>│ Profile   │ Python-Dev             │
-<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>│ Git Branch│ main                   │
-<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>└────────────────────────────────────┘
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>┌────────────────────────────────────┐
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>│ Context Detection                  │
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>├────────────────────────────────────┤
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>│ Directory │ /Users/you/my-project  │
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>│ Type      │ 🐍 python              │
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>│ Name      │ my-project             │
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>│ Profile   │ Python-Dev             │
+<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>│ Git Branch│ main                   │
+<a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>└────────────────────────────────────┘
 </code></pre></div></p>
 <h3 id="supported-project-types">Supported Project Types</h3>
 <table>
@@ -3167,7 +3204,7 @@
 </table>
 <h3 id="apply-context">Apply Context</h3>
 <p>To actually switch your terminal profile:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>ait<span class="w"> </span>switch
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>ait<span class="w"> </span>switch
 </code></pre></div>
 <p>This:
 1. Detects project type
@@ -3182,45 +3219,45 @@
 <h2 id="part-3-claude-code-integration-3-min">Part 3: Claude Code Integration (3 min)</h2>
 <p>aiterm helps manage Claude Code settings and auto-approvals.</p>
 <h3 id="view-current-settings">View Current Settings</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>ait<span class="w"> </span>claude<span class="w"> </span>settings
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>ait<span class="w"> </span>claude<span class="w"> </span>settings
 </code></pre></div>
 <p>Example output:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>┌────────────────────────────────────┐
-<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>│ Claude Code Settings               │
-<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>├────────────────────────────────────┤
-<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>│ File        │ ~/.claude/settings.json │
-<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>│ Permissions (allow) │ 15           │
-<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>│ Permissions (deny)  │ 0            │
-<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>│ Hooks       │ 2                    │
-<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>└────────────────────────────────────┘
-<a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a>
-<a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a>Allowed:
-<a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a>  ✓ Bash(git status:*)
-<a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a>  ✓ Bash(npm test:*)
-<a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a>  ... and 13 more
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>┌────────────────────────────────────┐
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>│ Claude Code Settings               │
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>├────────────────────────────────────┤
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>│ File        │ ~/.claude/settings.json │
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>│ Permissions (allow) │ 15           │
+<a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>│ Permissions (deny)  │ 0            │
+<a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a>│ Hooks       │ 2                    │
+<a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a>└────────────────────────────────────┘
+<a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a>
+<a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a>Allowed:
+<a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a>  ✓ Bash(git status:*)
+<a id="__codelineno-12-12" name="__codelineno-12-12" href="#__codelineno-12-12"></a>  ✓ Bash(npm test:*)
+<a id="__codelineno-12-13" name="__codelineno-12-13" href="#__codelineno-12-13"></a>  ... and 13 more
 </code></pre></div></p>
 <h3 id="backup-settings">Backup Settings</h3>
 <p>Before making changes, always backup:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>ait<span class="w"> </span>claude<span class="w"> </span>backup
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>ait<span class="w"> </span>claude<span class="w"> </span>backup
 </code></pre></div>
 <h3 id="manage-auto-approvals">Manage Auto-Approvals</h3>
 <p>View available presets:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>ait<span class="w"> </span>claude<span class="w"> </span>approvals<span class="w"> </span>presets
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>ait<span class="w"> </span>claude<span class="w"> </span>approvals<span class="w"> </span>presets
 </code></pre></div>
 <p>Output:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>┌────────────────────────────────────────────┐
-<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>│ Available Presets                          │
-<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>├──────────┬────────────────────┬────────────┤
-<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>│ Name     │ Description        │ Permissions│
-<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>├──────────┼────────────────────┼────────────┤
-<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>│ safe     │ Read-only commands │ 8          │
-<a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a>│ moderate │ Safe file edits    │ 15         │
-<a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a>│ git      │ Git operations     │ 12         │
-<a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a>│ full     │ All permissions    │ 25         │
-<a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a>└──────────┴────────────────────┴────────────┘
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>┌────────────────────────────────────────────┐
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>│ Available Presets                          │
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>├──────────┬────────────────────┬────────────┤
+<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>│ Name     │ Description        │ Permissions│
+<a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>├──────────┼────────────────────┼────────────┤
+<a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>│ safe     │ Read-only commands │ 8          │
+<a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a>│ moderate │ Safe file edits    │ 15         │
+<a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a>│ git      │ Git operations     │ 12         │
+<a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a>│ full     │ All permissions    │ 25         │
+<a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a>└──────────┴────────────────────┴────────────┘
 </code></pre></div></p>
 <p>Add a preset:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>ait<span class="w"> </span>claude<span class="w"> </span>approvals<span class="w"> </span>add<span class="w"> </span>safe
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>ait<span class="w"> </span>claude<span class="w"> </span>approvals<span class="w"> </span>add<span class="w"> </span>safe
 </code></pre></div>
 <h3 id="checkpoint_2">Checkpoint</h3>
 <ul class="task-list">
@@ -3232,13 +3269,13 @@
 <h2 id="part-4-mcp-servers-2-min">Part 4: MCP Servers (2 min)</h2>
 <p>Manage MCP (Model Context Protocol) servers for Claude Code.</p>
 <h3 id="list-configured-servers">List Configured Servers</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>ait<span class="w"> </span>mcp<span class="w"> </span>list
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>ait<span class="w"> </span>mcp<span class="w"> </span>list
 </code></pre></div>
 <h3 id="test-a-server">Test a Server</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>ait<span class="w"> </span>mcp<span class="w"> </span><span class="nb">test</span><span class="w"> </span>filesystem
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>ait<span class="w"> </span>mcp<span class="w"> </span><span class="nb">test</span><span class="w"> </span>filesystem
 </code></pre></div>
 <h3 id="validate-configuration">Validate Configuration</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>ait<span class="w"> </span>mcp<span class="w"> </span>validate
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>ait<span class="w"> </span>mcp<span class="w"> </span>validate
 </code></pre></div>
 <h3 id="checkpoint_3">Checkpoint</h3>
 <ul class="task-list">
@@ -3287,19 +3324,19 @@
 </tbody>
 </table>
 <h2 id="quick-reference">Quick Reference</h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="c1"># Essential</span>
-<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>ait<span class="w"> </span>doctor<span class="w">                  </span><span class="c1"># Health check</span>
-<a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>ait<span class="w"> </span>detect<span class="w">                  </span><span class="c1"># Show context</span>
-<a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a>ait<span class="w"> </span>switch<span class="w">                  </span><span class="c1"># Apply context</span>
-<a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a>
-<a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a><span class="c1"># Claude Code</span>
-<a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a>ait<span class="w"> </span>claude<span class="w"> </span>settings<span class="w">         </span><span class="c1"># View settings</span>
-<a id="__codelineno-18-8" name="__codelineno-18-8" href="#__codelineno-18-8"></a>ait<span class="w"> </span>claude<span class="w"> </span>backup<span class="w">           </span><span class="c1"># Backup</span>
-<a id="__codelineno-18-9" name="__codelineno-18-9" href="#__codelineno-18-9"></a>ait<span class="w"> </span>claude<span class="w"> </span>approvals<span class="w"> </span>list<span class="w">   </span><span class="c1"># Show approvals</span>
-<a id="__codelineno-18-10" name="__codelineno-18-10" href="#__codelineno-18-10"></a>
-<a id="__codelineno-18-11" name="__codelineno-18-11" href="#__codelineno-18-11"></a><span class="c1"># MCP</span>
-<a id="__codelineno-18-12" name="__codelineno-18-12" href="#__codelineno-18-12"></a>ait<span class="w"> </span>mcp<span class="w"> </span>list<span class="w">               </span><span class="c1"># List servers</span>
-<a id="__codelineno-18-13" name="__codelineno-18-13" href="#__codelineno-18-13"></a>ait<span class="w"> </span>mcp<span class="w"> </span>validate<span class="w">           </span><span class="c1"># Check config</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="c1"># Essential</span>
+<a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>ait<span class="w"> </span>doctor<span class="w">                  </span><span class="c1"># Health check</span>
+<a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a>ait<span class="w"> </span>detect<span class="w">                  </span><span class="c1"># Show context</span>
+<a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a>ait<span class="w"> </span>switch<span class="w">                  </span><span class="c1"># Apply context</span>
+<a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a>
+<a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a><span class="c1"># Claude Code</span>
+<a id="__codelineno-20-7" name="__codelineno-20-7" href="#__codelineno-20-7"></a>ait<span class="w"> </span>claude<span class="w"> </span>settings<span class="w">         </span><span class="c1"># View settings</span>
+<a id="__codelineno-20-8" name="__codelineno-20-8" href="#__codelineno-20-8"></a>ait<span class="w"> </span>claude<span class="w"> </span>backup<span class="w">           </span><span class="c1"># Backup</span>
+<a id="__codelineno-20-9" name="__codelineno-20-9" href="#__codelineno-20-9"></a>ait<span class="w"> </span>claude<span class="w"> </span>approvals<span class="w"> </span>list<span class="w">   </span><span class="c1"># Show approvals</span>
+<a id="__codelineno-20-10" name="__codelineno-20-10" href="#__codelineno-20-10"></a>
+<a id="__codelineno-20-11" name="__codelineno-20-11" href="#__codelineno-20-11"></a><span class="c1"># MCP</span>
+<a id="__codelineno-20-12" name="__codelineno-20-12" href="#__codelineno-20-12"></a>ait<span class="w"> </span>mcp<span class="w"> </span>list<span class="w">               </span><span class="c1"># List servers</span>
+<a id="__codelineno-20-13" name="__codelineno-20-13" href="#__codelineno-20-13"></a>ait<span class="w"> </span>mcp<span class="w"> </span>validate<span class="w">           </span><span class="c1"># Check config</span>
 </code></pre></div>
 <h2 id="next-steps">Next Steps</h2>
 <ol>

@@ -2441,6 +2441,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../architecture/RFORGE-UNIVERSAL-BACKEND/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RForge Universal Backend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../reference/ARCHITECTURE/" class="md-nav__link">
         
   
@@ -3235,20 +3263,15 @@
 <a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>│ Full: bun run src/index.ts                            │
 <a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>╰───────────────────────────────────────────────────────╯
 </code></pre></div></p>
-<p><strong>Output (Failure):</strong>
+<p><strong>Output (Success):</strong>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>Testing MCP server: rforge...
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>✗ Server unreachable
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>✓ Server reachable (142ms)
 <a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>
-<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>Error: Command not found: rforge-mcp
-<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>
-<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>╭───────────── ⚠️  Server Not Reachable ────────────────╮
-<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>│ Troubleshooting:                                      │
-<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>│                                                       │
-<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>│ 1. Check if command exists: which &lt;command&gt;           │
-<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>│ 2. Verify settings.json syntax                        │
-<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>│ 3. Check environment variables                         │
-<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>│ 4. Try running command manually                       │
-<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a>╰───────────────────────────────────────────────────────╯
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>╭────────────────── Server: rforge ─────────────────────╮
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>│ Command: rforge                                       │
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>│ Args: (none)                                          │
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>│ Full: rforge                                          │
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>╰───────────────────────────────────────────────────────╯
 </code></pre></div></p>
 <p><strong>Use Cases:</strong>
 - Verify a server is properly installed
@@ -3263,7 +3286,7 @@
 <div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>aiterm<span class="w"> </span>mcp<span class="w"> </span>test-all<span class="w"> </span>--timeout<span class="w"> </span><span class="m">3</span>
 </code></pre></div></p>
 <p><strong>Output:</strong>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>Testing 5 MCP servers...
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>Testing 3 MCP servers...
 <a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>
 <a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>                    🧪 Server Test Results
 <a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>┏━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━┳━━━━━━┳━━━━━━━━━━━━━━━━┓
@@ -3271,10 +3294,10 @@
 <a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>┡━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━╇━━━━━━╇━━━━━━━━━━━━━━━━┩
 <a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>│ statistical-research │ ✓ Reachable │ 234ms│ -              │
 <a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>│ github               │ ✓ Reachable │ 156ms│ -              │
-<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>│ rforge               │ ✗ Failed    │    - │ Command not... │
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>│ rforge               │ ✓ Reachable │ 142ms│ -              │
 <a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>└──────────────────────┴─────────────┴──────┴────────────────┘
 <a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>
-<a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a>Results: 2 passed, 1 failed
+<a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a>Results: 3 passed, 0 failed
 </code></pre></div></p>
 <p><strong>Use Cases:</strong>
 - Health check for all servers
