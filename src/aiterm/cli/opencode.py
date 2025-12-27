@@ -160,9 +160,11 @@ def agents_list() -> None:
     table.add_column("Tools")
 
     for name, agent in config.agents.items():
-        tools_str = ", ".join(agent.tools[:3]) if agent.tools else "[dim]default[/]"
-        if len(agent.tools) > 3:
-            tools_str += f" (+{len(agent.tools) - 3})"
+        # agent.tools is now a dict[str, bool], not a list
+        enabled_tools = [t for t, v in agent.tools.items() if v] if agent.tools else []
+        tools_str = ", ".join(enabled_tools[:3]) if enabled_tools else "[dim]default[/]"
+        if len(enabled_tools) > 3:
+            tools_str += f" (+{len(enabled_tools) - 3})"
         table.add_row(
             name,
             agent.description or "[dim]no description[/]",
@@ -200,15 +202,15 @@ def agents_add(
         console.print("Model should be in format 'provider/model' (e.g., anthropic/claude-sonnet-4-5)")
         raise typer.Exit(1)
 
-    # Parse tools
-    tool_list = [t.strip() for t in tools.split(",")] if tools else []
+    # Parse tools (now a dict[str, bool])
+    tools_dict = {t.strip(): True for t in tools.split(",")} if tools else {}
 
     # Create agent
     agent = Agent(
         name=name,
         description=description,
         model=model,
-        tools=tool_list,
+        tools=tools_dict,
     )
 
     # Backup first
@@ -221,8 +223,8 @@ def agents_add(
         console.print(f"[green]✓[/] Added agent '{name}'")
         if model:
             console.print(f"  Model: {model}")
-        if tool_list:
-            console.print(f"  Tools: {', '.join(tool_list)}")
+        if tools_dict:
+            console.print(f"  Tools: {', '.join(tools_dict.keys())}")
     else:
         console.print("[red]Failed to save configuration.[/]")
         raise typer.Exit(1)
@@ -503,38 +505,23 @@ def instructions_list() -> None:
 
 
 # ─── Keybinds command ────────────────────────────────────────────────────────
+# NOTE: Keybinds are NOT supported by OpenCode schema (v1.0.203+).
+# This command is kept for documentation purposes.
 
 
 @app.command(
     "keybinds",
     epilog="""
 [bold]Examples:[/]
-  ait opencode keybinds           # List keyboard shortcuts
+  ait opencode keybinds           # Show keybinds status
 """,
 )
 def keybinds_list() -> None:
-    """List configured keyboard shortcuts."""
-    config = load_config()
-    if not config:
-        console.print("[red]No OpenCode configuration found.[/]")
-        return
-
+    """List configured keyboard shortcuts (note: not currently supported by OpenCode)."""
     console.print("[bold cyan]Keyboard Shortcuts[/]\n")
-
-    if not config.keybinds:
-        console.print("[dim]No keybinds configured.[/]")
-        console.print("\nAdd to config.json:")
-        console.print('  "keybinds": { "ctrl+r": "agent:r-dev" }')
-        return
-
-    table = Table(border_style="cyan")
-    table.add_column("Shortcut", style="bold")
-    table.add_column("Action")
-
-    for key, action in config.keybinds.items():
-        table.add_row(key, action)
-
-    console.print(table)
+    console.print("[yellow]Note:[/] Keybinds are not currently supported by OpenCode schema (v1.0.203+).")
+    console.print("\nThis feature may be added in a future OpenCode version.")
+    console.print("Check https://opencode.ai/docs for updates.")
 
 
 # ─── Commands command ────────────────────────────────────────────────────────
@@ -563,10 +550,11 @@ def commands_list() -> None:
     table = Table(border_style="cyan")
     table.add_column("Command", style="bold")
     table.add_column("Description")
-    table.add_column("Shell Command")
+    table.add_column("Template")
 
     for name, cmd in config.commands.items():
-        table.add_row(name, cmd.description or "[dim]no description[/]", cmd.command or "[dim]none[/]")
+        # Use cmd.template (new schema) instead of cmd.command
+        table.add_row(name, cmd.description or "[dim]no description[/]", cmd.template or "[dim]none[/]")
 
     console.print(table)
 
@@ -578,39 +566,35 @@ def commands_list() -> None:
     "tools",
     epilog="""
 [bold]Examples:[/]
-  ait opencode tools              # List tool permissions
+  ait opencode tools              # List tool configuration
 """,
 )
 def tools_list() -> None:
-    """List configured tool permissions."""
+    """List configured tools."""
     config = load_config()
     if not config:
         console.print("[red]No OpenCode configuration found.[/]")
         return
 
-    console.print("[bold cyan]Tool Permissions[/]\n")
+    console.print("[bold cyan]Tool Configuration[/]\n")
 
     if not config.tools:
-        console.print("[dim]No tool permissions configured.[/]")
+        console.print("[dim]No tool configuration found.[/]")
         console.print("\nAdd to config.json:")
-        console.print('  "tools": { "bash": { "permission": "auto" } }')
+        console.print('  "tools": { "bash": true, "read": true }')
         return
 
     table = Table(border_style="cyan")
     table.add_column("Tool", style="bold")
-    table.add_column("Permission")
+    table.add_column("Status")
 
-    for name, tool_config in config.tools.items():
-        perm = tool_config.get("permission", "default")
-        perm_display = {
-            "auto": "[green]auto[/]",
-            "ask": "[yellow]ask[/]",
-            "deny": "[red]deny[/]",
-        }.get(perm, perm)
-        table.add_row(name, perm_display)
+    for name, enabled in config.tools.items():
+        # Tools are now boolean (enabled/disabled)
+        status = "[green]enabled[/]" if enabled else "[red]disabled[/]"
+        table.add_row(name, status)
 
     console.print(table)
-    console.print("\n[dim]Permissions: auto (no prompt), ask (confirm), deny (blocked)[/]")
+    console.print(f"\n[dim]Enabled: {len(config.enabled_tools)}, Disabled: {len(config.disabled_tools)}[/]")
 
 
 # ─── Summary command ─────────────────────────────────────────────────────────
@@ -641,13 +625,9 @@ def config_summary() -> None:
     console.print(f"\n[bold]Agents:[/] ({len(config.agents)} custom)")
     for name, agent in config.agents.items():
         model_short = agent.model.split("/")[-1] if agent.model else "default"
-        console.print(f"  • {name}: {model_short} ({len(agent.tools)} tools)")
-
-    # Keybinds
-    if config.keybinds:
-        console.print(f"\n[bold]Keybinds:[/] ({len(config.keybinds)})")
-        for key, action in config.keybinds.items():
-            console.print(f"  {key} → {action}")
+        # agent.tools is now a dict[str, bool]
+        enabled_tools = [t for t, v in agent.tools.items() if v] if agent.tools else []
+        console.print(f"  • {name}: {model_short} ({len(enabled_tools)} tools)")
 
     # Commands
     if config.commands:
@@ -655,15 +635,12 @@ def config_summary() -> None:
         for name in config.commands:
             console.print(f"  • {name}")
 
-    # Tool Permissions
+    # Tool Configuration (now boolean enabled/disabled)
     if config.tools:
-        auto_tools = [n for n, t in config.tools.items() if t.get("permission") == "auto"]
-        ask_tools = [n for n, t in config.tools.items() if t.get("permission") == "ask"]
-        console.print(f"\n[bold]Tool Permissions:[/]")
-        if auto_tools:
-            console.print(f"  Auto: {', '.join(auto_tools)}")
-        if ask_tools:
-            console.print(f"  Ask: {', '.join(ask_tools)}")
+        console.print(f"\n[bold]Tools:[/]")
+        console.print(f"  Enabled: {', '.join(config.enabled_tools) or '[dim]none[/]'}")
+        if config.disabled_tools:
+            console.print(f"  Disabled: {', '.join(config.disabled_tools)}")
 
     # MCP Servers
     console.print(f"\n[bold]MCP Servers:[/] ({len(config.enabled_servers)} enabled)")

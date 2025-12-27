@@ -189,11 +189,11 @@ class TestOpenCodeAgents:
             json.dumps(
                 {
                     "$schema": "https://opencode.ai/config.json",
-                    "agents": {
+                    "agent": {
                         "r-dev": {
                             "description": "R development",
                             "model": "anthropic/claude-sonnet-4-5",
-                            "tools": ["bash", "read", "write"],
+                            "tools": {"bash": True, "read": True, "write": True},
                         }
                     },
                 }
@@ -232,10 +232,10 @@ class TestOpenCodeAgents:
         assert result.exit_code == 0
         assert "Added agent 'quick'" in result.output
 
-        # Verify saved
+        # Verify saved (uses singular "agent" key in new schema)
         saved = json.loads(config_path.read_text())
-        assert "quick" in saved["agents"]
-        assert saved["agents"]["quick"]["model"] == "anthropic/claude-haiku-4-5"
+        assert "quick" in saved["agent"]
+        assert saved["agent"]["quick"]["model"] == "anthropic/claude-haiku-4-5"
 
     def test_agents_add_invalid_model(self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
         """Should reject invalid model format."""
@@ -259,7 +259,7 @@ class TestOpenCodeAgents:
             json.dumps(
                 {
                     "$schema": "https://opencode.ai/config.json",
-                    "agents": {"r-dev": {"description": "R development"}},
+                    "agent": {"r-dev": {"description": "R development"}},
                 }
             )
         )
@@ -271,9 +271,9 @@ class TestOpenCodeAgents:
         assert result.exit_code == 0
         assert "Removed agent 'r-dev'" in result.output
 
-        # Verify removed
+        # Verify removed (uses singular "agent" key in new schema)
         saved = json.loads(config_path.read_text())
-        assert "agents" not in saved or "r-dev" not in saved.get("agents", {})
+        assert "agent" not in saved or "r-dev" not in saved.get("agent", {})
 
     def test_agents_remove_nonexistent(self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
         """Should error when removing nonexistent agent."""

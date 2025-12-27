@@ -2,6 +2,13 @@
 
 This module provides tools for managing OpenCode CLI configuration,
 including MCP servers, models, agents, and tools.
+
+Schema Reference (OpenCode 1.0.203+):
+- tools: dict[str, bool] (not permission objects)
+- agent: singular key in JSON (not "agents")
+- command: singular key in JSON (not "commands")
+- mcp.*.environment: for env vars (not "env")
+- Agent.tools: dict[str, bool] (not list)
 """
 
 from __future__ import annotations
@@ -76,11 +83,8 @@ DEFAULT_MCP_SERVERS = {
     },
 }
 
-# Valid tool permissions
-VALID_PERMISSIONS = ["auto", "ask", "deny"]
-
-# Valid agent modes
-VALID_AGENT_MODES = ["build", "plan", "review", "debug", "docs"]
+# Valid agent modes (built-in agents)
+VALID_AGENT_MODES = ["build", "plan", "general", "explore", "title", "summary", "compaction"]
 
 
 @dataclass
@@ -91,7 +95,11 @@ class MCPServer:
     type: str = "local"
     command: list[str] = field(default_factory=list)
     enabled: bool = False
-    env: dict[str, str] = field(default_factory=dict)
+    environment: dict[str, str] = field(default_factory=dict)
+    # Remote server fields
+    url: str = ""
+    headers: dict[str, str] = field(default_factory=dict)
+    timeout: int | None = None
 
     def is_valid(self) -> tuple[bool, list[str]]:
         """Validate the MCP server configuration.
@@ -104,11 +112,14 @@ class MCPServer:
         if not self.name:
             errors.append("Server name is required")
 
-        if self.type not in ["local", "remote", "stdio"]:
+        if self.type not in ["local", "remote"]:
             errors.append(f"Invalid server type: {self.type}")
 
         if self.type == "local" and not self.command:
             errors.append("Local servers require a command")
+
+        if self.type == "remote" and not self.url:
+            errors.append("Remote servers require a url")
 
         if self.command and not isinstance(self.command, list):
             errors.append("Command must be a list of strings")
@@ -123,20 +134,36 @@ class MCPServer:
         }
         if self.command:
             result["command"] = self.command
-        if self.env:
-            result["env"] = self.env
+        if self.environment:
+            result["environment"] = self.environment
+        if self.url:
+            result["url"] = self.url
+        if self.headers:
+            result["headers"] = self.headers
+        if self.timeout is not None:
+            result["timeout"] = self.timeout
         return result
 
 
 @dataclass
 class Agent:
-    """Represents an OpenCode agent configuration."""
+    """Represents an OpenCode agent configuration.
+
+    Note: In the OpenCode schema, agent tools are a dict[str, bool],
+    not a list of tool names.
+    """
 
     name: str
     description: str = ""
     model: str = ""
     prompt: str = ""
-    tools: list[str] = field(default_factory=list)
+    tools: dict[str, bool] = field(default_factory=dict)
+    temperature: float | None = None
+    top_p: float | None = None
+    disable: bool = False
+    mode: str = ""  # "subagent", "primary", or "all"
+    color: str = ""  # hex color
+    max_steps: int | None = None
 
     def is_valid(self) -> tuple[bool, list[str]]:
         """Validate the agent configuration.
@@ -152,6 +179,9 @@ class Agent:
         if self.model and "/" not in self.model:
             errors.append(f"Model should be in format 'provider/model': {self.model}")
 
+        if self.mode and self.mode not in ["subagent", "primary", "all"]:
+            errors.append(f"Invalid agent mode: {self.mode}")
+
         return len(errors) == 0, errors
 
     def to_dict(self) -> dict[str, Any]:
@@ -165,30 +195,60 @@ class Agent:
             result["prompt"] = self.prompt
         if self.tools:
             result["tools"] = self.tools
+        if self.temperature is not None:
+            result["temperature"] = self.temperature
+        if self.top_p is not None:
+            result["top_p"] = self.top_p
+        if self.disable:
+            result["disable"] = self.disable
+        if self.mode:
+            result["mode"] = self.mode
+        if self.color:
+            result["color"] = self.color
+        if self.max_steps is not None:
+            result["maxSteps"] = self.max_steps
         return result
 
 
 @dataclass
 class Command:
-    """Represents a custom OpenCode command."""
+    """Represents a custom OpenCode command.
+
+    Note: OpenCode requires 'template' field (not 'command').
+    """
 
     name: str
+    template: str = ""  # Required by OpenCode schema
     description: str = ""
-    command: str = ""
+    agent: str = ""  # Optional: which agent executes this
+    model: str = ""  # Optional: override model for this command
+    subtask: bool = False  # Optional: marks as subtask
 
     def to_dict(self) -> dict[str, Any]:
         """Convert to dictionary for JSON serialization."""
         result: dict[str, Any] = {}
+        if self.template:
+            result["template"] = self.template
         if self.description:
             result["description"] = self.description
-        if self.command:
-            result["command"] = self.command
+        if self.agent:
+            result["agent"] = self.agent
+        if self.model:
+            result["model"] = self.model
+        if self.subtask:
+            result["subtask"] = self.subtask
         return result
 
 
 @dataclass
 class OpenCodeConfig:
-    """Represents a complete OpenCode configuration."""
+    """Represents a complete OpenCode configuration.
+
+    Note: OpenCode uses singular keys in JSON:
+    - "agent" (not "agents")
+    - "command" (not "commands")
+    - tools are dict[str, bool] (not permission objects)
+    """
 
     path: Path
     model: str = ""
@@ -196,9 +256,8 @@ class OpenCodeConfig:
     default_agent: str = ""
     mcp_servers: dict[str, MCPServer] = field(default_factory=dict)
     agents: dict[str, Agent] = field(default_factory=dict)
-    tools: dict[str, dict[str, str]] = field(default_factory=dict)
-    instructions: list[dict[str, str]] = field(default_factory=list)
-    keybinds: dict[str, str] = field(default_factory=dict)
+    tools: dict[str, bool] = field(default_factory=dict)
+    instructions: list[str] = field(default_factory=list)
     commands: dict[str, Command] = field(default_factory=dict)
     tui: dict[str, Any] = field(default_factory=dict)
     raw: dict[str, Any] = field(default_factory=dict)
@@ -217,6 +276,16 @@ class OpenCodeConfig:
     def has_scroll_acceleration(self) -> bool:
         """Check if scroll acceleration is enabled."""
         return self.tui.get("scroll_acceleration", {}).get("enabled", False)
+
+    @property
+    def enabled_tools(self) -> list[str]:
+        """Return list of enabled tool names."""
+        return [name for name, enabled in self.tools.items() if enabled]
+
+    @property
+    def disabled_tools(self) -> list[str]:
+        """Return list of disabled tool names."""
+        return [name for name, enabled in self.tools.items() if not enabled]
 
     def is_valid(self) -> tuple[bool, list[str]]:
         """Validate the complete configuration.
@@ -250,16 +319,18 @@ class OpenCodeConfig:
             if not valid:
                 errors.extend([f"Agent '{name}': {e}" for e in agent_errors])
 
-        # Validate tool permissions
-        for tool_name, tool_config in self.tools.items():
-            permission = tool_config.get("permission", "")
-            if permission and permission not in VALID_PERMISSIONS:
-                errors.append(f"Tool '{tool_name}': Invalid permission '{permission}'")
+        # Validate tools (should be boolean values)
+        for tool_name, tool_value in self.tools.items():
+            if not isinstance(tool_value, bool):
+                errors.append(f"Tool '{tool_name}': expected boolean, got {type(tool_value).__name__}")
 
         return len(errors) == 0, errors
 
     def to_dict(self) -> dict[str, Any]:
-        """Convert to dictionary for JSON serialization."""
+        """Convert to dictionary for JSON serialization.
+
+        Note: Uses OpenCode schema keys (singular: agent, command).
+        """
         result: dict[str, Any] = {"$schema": "https://opencode.ai/config.json"}
 
         if self.model:
@@ -272,14 +343,14 @@ class OpenCodeConfig:
             result["instructions"] = self.instructions
         if self.tui:
             result["tui"] = self.tui
-        if self.keybinds:
-            result["keybinds"] = self.keybinds
         if self.commands:
-            result["commands"] = {name: cmd.to_dict() for name, cmd in self.commands.items()}
+            # Use singular "command" for OpenCode schema
+            result["command"] = {name: cmd.to_dict() for name, cmd in self.commands.items()}
         if self.tools:
             result["tools"] = self.tools
         if self.agents:
-            result["agents"] = {name: agent.to_dict() for name, agent in self.agents.items()}
+            # Use singular "agent" for OpenCode schema
+            result["agent"] = {name: agent.to_dict() for name, agent in self.agents.items()}
         if self.mcp_servers:
             result["mcp"] = {name: server.to_dict() for name, server in self.mcp_servers.items()}
 
@@ -295,6 +366,52 @@ def get_config_path() -> Path:
     return Path.home() / ".config" / "opencode" / "config.json"
 
 
+def _parse_tools(tools_data: Any) -> dict[str, bool]:
+    """Parse tools data, handling both old and new formats.
+
+    Args:
+        tools_data: Raw tools data from config
+
+    Returns:
+        Dictionary of tool_name -> enabled (bool)
+    """
+    if not isinstance(tools_data, dict):
+        return {}
+
+    result = {}
+    for name, value in tools_data.items():
+        if isinstance(value, bool):
+            # New format: {"bash": true}
+            result[name] = value
+        elif isinstance(value, dict):
+            # Old format: {"bash": {"permission": "auto"}}
+            # Treat as enabled unless permission is "deny"
+            permission = value.get("permission", "auto")
+            result[name] = permission != "deny"
+        else:
+            # Unknown format, default to enabled
+            result[name] = True
+    return result
+
+
+def _parse_agent_tools(tools_data: Any) -> dict[str, bool]:
+    """Parse agent tools data, handling both list and dict formats.
+
+    Args:
+        tools_data: Raw tools data from agent config
+
+    Returns:
+        Dictionary of tool_name -> enabled (bool)
+    """
+    if isinstance(tools_data, dict):
+        # New format: {"bash": true, "read": true}
+        return {k: bool(v) for k, v in tools_data.items()}
+    elif isinstance(tools_data, list):
+        # Old format: ["bash", "read", "write"]
+        return {name: True for name in tools_data}
+    return {}
+
+
 def load_config(path: Path | None = None) -> OpenCodeConfig | None:
     """Load OpenCode configuration from file.
 
@@ -303,6 +420,10 @@ def load_config(path: Path | None = None) -> OpenCodeConfig | None:
 
     Returns:
         OpenCodeConfig object or None if file doesn't exist or is invalid
+
+    Note:
+        Handles both old schema (agents, commands, env) and new schema
+        (agent, command, environment) for backward compatibility.
     """
     if path is None:
         path = get_config_path()
@@ -319,35 +440,65 @@ def load_config(path: Path | None = None) -> OpenCodeConfig | None:
     mcp_servers = {}
     for name, server_data in raw.get("mcp", {}).items():
         if isinstance(server_data, dict):
+            # Handle both "environment" (new) and "env" (old) keys
+            environment = server_data.get("environment", server_data.get("env", {}))
             mcp_servers[name] = MCPServer(
                 name=name,
                 type=server_data.get("type", "local"),
                 command=server_data.get("command", []),
                 enabled=server_data.get("enabled", False),
-                env=server_data.get("env", {}),
+                environment=environment,
+                url=server_data.get("url", ""),
+                headers=server_data.get("headers", {}),
+                timeout=server_data.get("timeout"),
             )
 
-    # Parse agents
+    # Parse agents - handle both "agent" (new) and "agents" (old) keys
     agents = {}
-    for name, agent_data in raw.get("agents", {}).items():
+    agents_data = raw.get("agent", raw.get("agents", {}))
+    for name, agent_data in agents_data.items():
         if isinstance(agent_data, dict):
             agents[name] = Agent(
                 name=name,
                 description=agent_data.get("description", ""),
                 model=agent_data.get("model", ""),
                 prompt=agent_data.get("prompt", ""),
-                tools=agent_data.get("tools", []),
+                tools=_parse_agent_tools(agent_data.get("tools", {})),
+                temperature=agent_data.get("temperature"),
+                top_p=agent_data.get("top_p"),
+                disable=agent_data.get("disable", False),
+                mode=agent_data.get("mode", ""),
+                color=agent_data.get("color", ""),
+                max_steps=agent_data.get("maxSteps"),
             )
 
-    # Parse commands
+    # Parse commands - handle both "command" (new) and "commands" (old) keys
     commands = {}
-    for name, cmd_data in raw.get("commands", {}).items():
+    commands_data = raw.get("command", raw.get("commands", {}))
+    for name, cmd_data in commands_data.items():
         if isinstance(cmd_data, dict):
+            # Handle both "template" (new) and "command" (old) keys
+            template = cmd_data.get("template", cmd_data.get("command", ""))
             commands[name] = Command(
                 name=name,
+                template=template,
                 description=cmd_data.get("description", ""),
-                command=cmd_data.get("command", ""),
+                agent=cmd_data.get("agent", ""),
+                model=cmd_data.get("model", ""),
+                subtask=cmd_data.get("subtask", False),
             )
+
+    # Parse tools with format detection
+    tools = _parse_tools(raw.get("tools", {}))
+
+    # Parse instructions - can be list of strings or list of dicts
+    instructions_raw = raw.get("instructions", [])
+    instructions = []
+    for item in instructions_raw:
+        if isinstance(item, str):
+            instructions.append(item)
+        elif isinstance(item, dict) and "path" in item:
+            instructions.append(item["path"])
 
     return OpenCodeConfig(
         path=path,
@@ -356,9 +507,8 @@ def load_config(path: Path | None = None) -> OpenCodeConfig | None:
         default_agent=raw.get("default_agent", ""),
         mcp_servers=mcp_servers,
         agents=agents,
-        tools=raw.get("tools", {}),
-        instructions=raw.get("instructions", []),
-        keybinds=raw.get("keybinds", {}),
+        tools=tools,
+        instructions=instructions,
         commands=commands,
         tui=raw.get("tui", {}),
         raw=raw,
@@ -437,6 +587,25 @@ def validate_config(path: Path | None = None) -> tuple[bool, list[str]]:
     if "$schema" not in raw:
         errors.append("Missing $schema field (recommended: https://opencode.ai/config.json)")
 
+    # Warn about deprecated keys
+    if "agents" in raw:
+        errors.append("Deprecated key 'agents' found - use 'agent' (singular)")
+    if "commands" in raw:
+        errors.append("Deprecated key 'commands' found - use 'command' (singular)")
+    if "keybinds" in raw:
+        errors.append("Key 'keybinds' is not currently supported by OpenCode")
+
+    # Check for old tool format
+    tools_data = raw.get("tools", {})
+    for name, value in tools_data.items():
+        if isinstance(value, dict):
+            errors.append(f"Tool '{name}' uses deprecated format - should be boolean, not object")
+
+    # Check for old env format in MCP servers
+    for server_name, server_data in raw.get("mcp", {}).items():
+        if isinstance(server_data, dict) and "env" in server_data:
+            errors.append(f"MCP server '{server_name}' uses deprecated 'env' key - use 'environment'")
+
     # Load and validate config
     config = load_config(path)
     if config is None:
@@ -457,4 +626,4 @@ def validate_config(path: Path | None = None) -> tuple[bool, list[str]]:
         if server not in config.enabled_servers:
             errors.append(f"Essential server '{server}' not enabled")
 
-    return len([e for e in errors if not e.startswith("No ")]) == 0, errors
+    return len([e for e in errors if not e.startswith("No ") and "Deprecated" not in e and "not currently supported" not in e]) == 0, errors

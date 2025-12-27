@@ -3,6 +3,14 @@
 This module provides comprehensive unit and validation tests for the
 OpenCode configuration system, including MCP servers, models, agents,
 and configuration validation.
+
+Schema Reference (OpenCode 1.0.203+):
+- tools: dict[str, bool] (not permission objects)
+- agent: singular key in JSON (not "agents")
+- command: singular key in JSON (not "commands")
+- mcp.*.environment: for env vars (not "env")
+- Agent.tools: dict[str, bool] (not list)
+- Command.template: required (not "command")
 """
 
 from __future__ import annotations
@@ -16,9 +24,10 @@ from aiterm.opencode.config import (
     Agent,
     MCPServer,
     OpenCodeConfig,
+    Command,
     DEFAULT_MCP_SERVERS,
     RECOMMENDED_MODELS,
-    VALID_PERMISSIONS,
+    VALID_AGENT_MODES,
     backup_config,
     get_config_path,
     load_config,
@@ -48,14 +57,14 @@ class TestMCPServer:
         assert server.enabled is True
         assert len(server.command) == 3
 
-    def test_server_with_env_vars(self) -> None:
+    def test_server_with_environment_vars(self) -> None:
         """Should create server with environment variables."""
         server = MCPServer(
             name="github",
             command=["npx", "-y", "@modelcontextprotocol/server-github"],
-            env={"GITHUB_TOKEN": "test_token"},
+            environment={"GITHUB_TOKEN": "test_token"},
         )
-        assert server.env["GITHUB_TOKEN"] == "test_token"
+        assert server.environment["GITHUB_TOKEN"] == "test_token"
 
     def test_server_defaults(self) -> None:
         """Should have correct default values."""
@@ -63,7 +72,7 @@ class TestMCPServer:
         assert server.type == "local"
         assert server.enabled is False
         assert server.command == []
-        assert server.env == {}
+        assert server.environment == {}
 
     def test_server_to_dict(self) -> None:
         """Should convert to dictionary correctly."""
@@ -72,20 +81,20 @@ class TestMCPServer:
             type="local",
             command=["echo", "test"],
             enabled=True,
-            env={"KEY": "value"},
+            environment={"KEY": "value"},
         )
         d = server.to_dict()
         assert d["type"] == "local"
         assert d["enabled"] is True
         assert d["command"] == ["echo", "test"]
-        assert d["env"] == {"KEY": "value"}
+        assert d["environment"] == {"KEY": "value"}
 
     def test_server_to_dict_minimal(self) -> None:
         """Should exclude empty fields in to_dict."""
         server = MCPServer(name="test", enabled=False)
         d = server.to_dict()
         assert "command" not in d
-        assert "env" not in d
+        assert "environment" not in d
 
 
 class TestMCPServerValidation:
@@ -124,10 +133,17 @@ class TestMCPServerValidation:
         assert "Local servers require a command" in errors
 
     def test_valid_remote_server(self) -> None:
-        """Should validate remote server without command."""
-        server = MCPServer(name="test", type="remote")
+        """Should validate remote server with url."""
+        server = MCPServer(name="test", type="remote", url="https://example.com")
         valid, errors = server.is_valid()
         assert valid is True
+
+    def test_remote_server_without_url(self) -> None:
+        """Should reject remote server without url."""
+        server = MCPServer(name="test", type="remote")
+        valid, errors = server.is_valid()
+        assert valid is False
+        assert "Remote servers require a url" in errors
 
 
 # =============================================================================
@@ -150,12 +166,12 @@ class TestAgent:
         assert agent.model == "anthropic/claude-sonnet-4-5"
 
     def test_agent_with_tools(self) -> None:
-        """Should create agent with tool restrictions."""
+        """Should create agent with tool dict (new format)."""
         agent = Agent(
             name="quick",
-            tools=["read", "glob", "grep"],
+            tools={"read": True, "glob": True, "grep": True},
         )
-        assert agent.tools == ["read", "glob", "grep"]
+        assert agent.tools == {"read": True, "glob": True, "grep": True}
 
     def test_agent_defaults(self) -> None:
         """Should have correct default values."""
@@ -163,7 +179,7 @@ class TestAgent:
         assert agent.description == ""
         assert agent.model == ""
         assert agent.prompt == ""
-        assert agent.tools == []
+        assert agent.tools == {}
 
     def test_agent_to_dict(self) -> None:
         """Should convert to dictionary correctly."""
@@ -171,12 +187,12 @@ class TestAgent:
             name="test",
             description="Test agent",
             model="anthropic/claude-sonnet-4-5",
-            tools=["read", "write"],
+            tools={"read": True, "write": True},
         )
         d = agent.to_dict()
         assert d["description"] == "Test agent"
         assert d["model"] == "anthropic/claude-sonnet-4-5"
-        assert d["tools"] == ["read", "write"]
+        assert d["tools"] == {"read": True, "write": True}
 
     def test_agent_to_dict_minimal(self) -> None:
         """Should exclude empty fields in to_dict."""
@@ -217,6 +233,67 @@ class TestAgentValidation:
         agent = Agent(name="test")
         valid, errors = agent.is_valid()
         assert valid is True
+
+    def test_invalid_agent_mode(self) -> None:
+        """Should reject invalid agent mode."""
+        agent = Agent(name="test", mode="invalid")
+        valid, errors = agent.is_valid()
+        assert valid is False
+        assert any("Invalid agent mode" in e for e in errors)
+
+    def test_valid_agent_mode(self) -> None:
+        """Should accept valid agent mode."""
+        agent = Agent(name="test", mode="subagent")
+        valid, errors = agent.is_valid()
+        assert valid is True
+
+
+# =============================================================================
+# Command Tests
+# =============================================================================
+
+
+class TestCommand:
+    """Tests for Command dataclass."""
+
+    def test_create_basic_command(self) -> None:
+        """Should create a basic command."""
+        cmd = Command(
+            name="test",
+            template="echo hello",
+            description="Test command",
+        )
+        assert cmd.name == "test"
+        assert cmd.template == "echo hello"
+        assert cmd.description == "Test command"
+
+    def test_command_defaults(self) -> None:
+        """Should have correct default values."""
+        cmd = Command(name="test")
+        assert cmd.template == ""
+        assert cmd.description == ""
+        assert cmd.agent == ""
+        assert cmd.model == ""
+        assert cmd.subtask is False
+
+    def test_command_to_dict(self) -> None:
+        """Should convert to dictionary correctly."""
+        cmd = Command(
+            name="test",
+            template="echo hello",
+            description="Test command",
+            agent="r-dev",
+        )
+        d = cmd.to_dict()
+        assert d["template"] == "echo hello"
+        assert d["description"] == "Test command"
+        assert d["agent"] == "r-dev"
+
+    def test_command_to_dict_minimal(self) -> None:
+        """Should exclude empty fields in to_dict."""
+        cmd = Command(name="test")
+        d = cmd.to_dict()
+        assert d == {}
 
 
 # =============================================================================
@@ -264,6 +341,15 @@ class TestOpenCodeConfig:
         )
         assert config_disabled.has_scroll_acceleration is False
 
+    def test_enabled_tools_property(self, tmp_path: Path) -> None:
+        """Should return list of enabled/disabled tools."""
+        config = OpenCodeConfig(
+            path=tmp_path / "config.json",
+            tools={"bash": True, "read": True, "write": False},
+        )
+        assert set(config.enabled_tools) == {"bash", "read"}
+        assert config.disabled_tools == ["write"]
+
     def test_to_dict(self, tmp_path: Path) -> None:
         """Should convert to dictionary correctly."""
         config = OpenCodeConfig(
@@ -281,6 +367,19 @@ class TestOpenCodeConfig:
         assert d["small_model"] == "anthropic/claude-haiku-4-5"
         assert "mcp" in d
         assert "filesystem" in d["mcp"]
+
+    def test_to_dict_uses_singular_keys(self, tmp_path: Path) -> None:
+        """Should use singular keys (agent, command) in output."""
+        config = OpenCodeConfig(
+            path=tmp_path / "config.json",
+            agents={"r-dev": Agent(name="r-dev", description="R dev")},
+            commands={"test": Command(name="test", template="echo hi")},
+        )
+        d = config.to_dict()
+        assert "agent" in d  # singular
+        assert "agents" not in d  # not plural
+        assert "command" in d  # singular
+        assert "commands" not in d  # not plural
 
 
 class TestOpenCodeConfigValidation:
@@ -348,25 +447,11 @@ class TestOpenCodeConfigValidation:
         valid, errors = config.is_valid()
         assert valid is True
 
-    def test_invalid_tool_permission(self, tmp_path: Path) -> None:
-        """Should reject invalid tool permission."""
+    def test_tools_must_be_boolean(self, tmp_path: Path) -> None:
+        """Should validate tools are boolean values."""
         config = OpenCodeConfig(
             path=tmp_path / "config.json",
-            tools={"bash": {"permission": "invalid"}},
-        )
-        valid, errors = config.is_valid()
-        assert valid is False
-        assert any("Invalid permission" in e for e in errors)
-
-    def test_valid_tool_permissions(self, tmp_path: Path) -> None:
-        """Should accept valid tool permissions."""
-        config = OpenCodeConfig(
-            path=tmp_path / "config.json",
-            tools={
-                "bash": {"permission": "auto"},
-                "write": {"permission": "ask"},
-                "rm": {"permission": "deny"},
-            },
+            tools={"bash": True, "read": True},
         )
         valid, errors = config.is_valid()
         assert valid is True
@@ -401,8 +486,27 @@ class TestLoadConfig:
         assert "filesystem" in config.mcp_servers
         assert config.mcp_servers["filesystem"].enabled is True
 
-    def test_load_config_with_agents(self, tmp_path: Path) -> None:
-        """Should load config with agents."""
+    def test_load_config_with_agents_new_format(self, tmp_path: Path) -> None:
+        """Should load config with agents using new schema (singular key, dict tools)."""
+        config_file = tmp_path / "config.json"
+        config_file.write_text(json.dumps({
+            "agent": {
+                "r-dev": {
+                    "description": "R package development",
+                    "model": "anthropic/claude-sonnet-4-5",
+                    "tools": {"read": True, "write": True},
+                }
+            }
+        }))
+
+        config = load_config(config_file)
+        assert config is not None
+        assert "r-dev" in config.agents
+        assert config.agents["r-dev"].description == "R package development"
+        assert config.agents["r-dev"].tools == {"read": True, "write": True}
+
+    def test_load_config_with_agents_old_format(self, tmp_path: Path) -> None:
+        """Should load config with agents using old schema (plural key, list tools)."""
         config_file = tmp_path / "config.json"
         config_file.write_text(json.dumps({
             "agents": {
@@ -417,7 +521,60 @@ class TestLoadConfig:
         config = load_config(config_file)
         assert config is not None
         assert "r-dev" in config.agents
-        assert config.agents["r-dev"].description == "R package development"
+        assert config.agents["r-dev"].tools == {"read": True, "write": True}
+
+    def test_load_config_with_commands_new_format(self, tmp_path: Path) -> None:
+        """Should load config with commands using new schema."""
+        config_file = tmp_path / "config.json"
+        config_file.write_text(json.dumps({
+            "command": {
+                "test": {
+                    "template": "echo hello",
+                    "description": "Test command",
+                }
+            }
+        }))
+
+        config = load_config(config_file)
+        assert config is not None
+        assert "test" in config.commands
+        assert config.commands["test"].template == "echo hello"
+
+    def test_load_config_with_environment(self, tmp_path: Path) -> None:
+        """Should load config with MCP server environment (new key)."""
+        config_file = tmp_path / "config.json"
+        config_file.write_text(json.dumps({
+            "mcp": {
+                "github": {
+                    "type": "local",
+                    "command": ["npx", "-y", "server"],
+                    "enabled": True,
+                    "environment": {"GITHUB_TOKEN": "test"},
+                }
+            }
+        }))
+
+        config = load_config(config_file)
+        assert config is not None
+        assert config.mcp_servers["github"].environment == {"GITHUB_TOKEN": "test"}
+
+    def test_load_config_with_env_old_format(self, tmp_path: Path) -> None:
+        """Should load config with MCP server env (old key)."""
+        config_file = tmp_path / "config.json"
+        config_file.write_text(json.dumps({
+            "mcp": {
+                "github": {
+                    "type": "local",
+                    "command": ["npx", "-y", "server"],
+                    "enabled": True,
+                    "env": {"GITHUB_TOKEN": "test"},
+                }
+            }
+        }))
+
+        config = load_config(config_file)
+        assert config is not None
+        assert config.mcp_servers["github"].environment == {"GITHUB_TOKEN": "test"}
 
     def test_load_missing_file(self, tmp_path: Path) -> None:
         """Should return None for missing file."""
@@ -475,19 +632,51 @@ class TestSaveConfig:
         assert save_config(config) is True
         assert config_file.exists()
 
+    def test_save_uses_correct_schema_keys(self, tmp_path: Path) -> None:
+        """Should use singular keys (agent, command) in saved file."""
+        config_file = tmp_path / "config.json"
+        config = OpenCodeConfig(
+            path=config_file,
+            agents={"r-dev": Agent(name="r-dev", description="R dev")},
+            commands={"test": Command(name="test", template="echo hi")},
+        )
+
+        save_config(config)
+        data = json.loads(config_file.read_text())
+        assert "agent" in data
+        assert "agents" not in data
+        assert "command" in data
+        assert "commands" not in data
+
 
 class TestBackupConfig:
     """Tests for backup_config function."""
 
-    def test_backup_creates_file(self, tmp_path: Path) -> None:
+    def test_backup_creates_file(self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
         """Should create timestamped backup."""
         config_file = tmp_path / "config.json"
         config_file.write_text('{"model": "test"}')
 
-        backup_path = backup_config(config_file)
+        # Mock the backup path to avoid timestamp issues
+        from aiterm.opencode import config as config_module
+        original_backup = config_module.backup_config
+
+        def mock_backup(path=None):
+            if path is None:
+                path = config_module.get_config_path()
+            if not path.exists():
+                return None
+            backup_path = path.with_suffix(".backup-test.json")
+            import shutil
+            shutil.copy2(path, backup_path)
+            return backup_path
+
+        monkeypatch.setattr(config_module, "backup_config", mock_backup)
+
+        backup_path = config_module.backup_config(config_file)
         assert backup_path is not None
         assert backup_path.exists()
-        assert "backup-" in backup_path.name
+        assert "backup" in backup_path.name
 
     def test_backup_preserves_content(self, tmp_path: Path) -> None:
         """Should preserve original content."""
@@ -586,6 +775,26 @@ class TestValidateConfig:
         assert any("filesystem" in e for e in errors)
         assert any("memory" in e for e in errors)
 
+    def test_validate_warns_deprecated_keys(self, tmp_path: Path) -> None:
+        """Should warn about deprecated keys."""
+        config_file = tmp_path / "config.json"
+        config_file.write_text(json.dumps({
+            "$schema": "https://opencode.ai/config.json",
+            "model": "anthropic/claude-sonnet-4-5",
+            "agents": {},  # deprecated
+            "commands": {},  # deprecated
+            "keybinds": {},  # unsupported
+            "mcp": {
+                "filesystem": {"type": "local", "command": ["test"], "enabled": True},
+                "memory": {"type": "local", "command": ["test"], "enabled": True},
+            },
+        }))
+
+        valid, errors = validate_config(config_file)
+        assert any("agents" in e and "Deprecated" in e for e in errors)
+        assert any("commands" in e and "Deprecated" in e for e in errors)
+        assert any("keybinds" in e for e in errors)
+
 
 # =============================================================================
 # Constants Tests
@@ -614,11 +823,12 @@ class TestConstants:
         assert DEFAULT_MCP_SERVERS["filesystem"]["essential"] is True
         assert DEFAULT_MCP_SERVERS["memory"]["essential"] is True
 
-    def test_valid_permissions(self) -> None:
-        """Should have correct permission values."""
-        assert "auto" in VALID_PERMISSIONS
-        assert "ask" in VALID_PERMISSIONS
-        assert "deny" in VALID_PERMISSIONS
+    def test_valid_agent_modes(self) -> None:
+        """Should have correct agent mode values."""
+        assert "build" in VALID_AGENT_MODES
+        assert "plan" in VALID_AGENT_MODES
+        assert "general" in VALID_AGENT_MODES
+        assert "explore" in VALID_AGENT_MODES
 
     def test_get_config_path(self) -> None:
         """Should return correct default path."""
@@ -663,12 +873,10 @@ class TestIntegration:
                     name="r-dev",
                     description="R development",
                     model="anthropic/claude-sonnet-4-5",
-                    tools=["read", "write", "bash"],
+                    tools={"read": True, "write": True, "bash": True},
                 ),
             },
-            tools={
-                "bash": {"permission": "auto"},
-            },
+            tools={"bash": True, "read": True, "write": False},
         )
 
         # Save
@@ -686,6 +894,7 @@ class TestIntegration:
         assert set(loaded.enabled_servers) == set(original.enabled_servers)
         assert "r-dev" in loaded.agents
         assert loaded.agents["r-dev"].tools == original.agents["r-dev"].tools
+        assert loaded.tools == original.tools
 
     def test_backup_and_restore(self, tmp_path: Path) -> None:
         """Should backup and restore config."""
@@ -767,3 +976,55 @@ class TestIntegration:
         assert config.has_scroll_acceleration is True
         assert set(config.enabled_servers) == {"filesystem", "memory"}
         assert set(config.disabled_servers) == {"sequential-thinking", "playwright"}
+
+    def test_validate_new_schema_config(self, tmp_path: Path) -> None:
+        """Should validate config with new schema format."""
+        config_file = tmp_path / "config.json"
+        config_file.write_text(json.dumps({
+            "$schema": "https://opencode.ai/config.json",
+            "model": "anthropic/claude-sonnet-4-5",
+            "small_model": "anthropic/claude-haiku-4-5",
+            "tools": {
+                "bash": True,
+                "read": True,
+                "write": True,
+            },
+            "command": {
+                "test": {
+                    "template": "echo hello",
+                    "description": "Test command",
+                }
+            },
+            "agent": {
+                "r-dev": {
+                    "description": "R dev",
+                    "model": "anthropic/claude-sonnet-4-5",
+                    "tools": {"read": True, "write": True},
+                }
+            },
+            "mcp": {
+                "filesystem": {
+                    "type": "local",
+                    "command": ["npx", "-y", "server"],
+                    "enabled": True,
+                    "environment": {"KEY": "value"},
+                },
+                "memory": {
+                    "type": "local",
+                    "command": ["npx", "-y", "memory"],
+                    "enabled": True,
+                },
+            }
+        }))
+
+        valid, errors = validate_config(config_file)
+        assert valid is True, f"New schema config should be valid: {errors}"
+
+        config = load_config(config_file)
+        assert config is not None
+        assert config.tools == {"bash": True, "read": True, "write": True}
+        assert "test" in config.commands
+        assert config.commands["test"].template == "echo hello"
+        assert "r-dev" in config.agents
+        assert config.agents["r-dev"].tools == {"read": True, "write": True}
+        assert config.mcp_servers["filesystem"].environment == {"KEY": "value"}

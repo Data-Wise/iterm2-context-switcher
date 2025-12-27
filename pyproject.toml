@@ -65,6 +65,9 @@ packages = ["src/aiterm"]
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 pythonpath = ["src"]
+markers = [
+    "integration: marks tests as integration tests (require actual MCP servers)",
+]
 
 [tool.black]
 line-length = 88

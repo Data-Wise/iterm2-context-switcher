@@ -2,10 +2,12 @@
 
 Phase 3 features:
 - Research agent (Opus 4.5)
-- Keyboard shortcuts (keybinds)
-- Custom commands
-- Tool permissions
+- Custom commands (with template field)
+- Tool configuration (boolean enable/disable)
 - Time MCP server
+
+Note: Keybinds are NOT supported by OpenCode schema (v1.0.203+).
+Tests for keybinds have been removed.
 """
 
 from __future__ import annotations
@@ -21,6 +23,7 @@ from aiterm.opencode.config import (
     Command,
     OpenCodeConfig,
     load_config,
+    save_config,
 )
 
 runner = CliRunner()
@@ -32,35 +35,38 @@ runner = CliRunner()
 
 
 class TestCommand:
-    """Tests for Command dataclass."""
+    """Tests for Command dataclass (new schema with template field)."""
 
     def test_create_basic_command(self) -> None:
-        """Should create a basic command."""
+        """Should create a basic command with template."""
         cmd = Command(
             name="test",
+            template="echo test",
             description="Test command",
-            command="echo test",
         )
         assert cmd.name == "test"
+        assert cmd.template == "echo test"
         assert cmd.description == "Test command"
-        assert cmd.command == "echo test"
 
     def test_command_defaults(self) -> None:
         """Should have correct default values."""
         cmd = Command(name="test")
+        assert cmd.template == ""
         assert cmd.description == ""
-        assert cmd.command == ""
+        assert cmd.agent == ""
+        assert cmd.model == ""
+        assert cmd.subtask is False
 
     def test_command_to_dict(self) -> None:
         """Should convert to dictionary correctly."""
         cmd = Command(
             name="sync",
+            template="git add -A && git commit -m 'sync' && git push",
             description="Git sync",
-            command="git add -A && git commit -m 'sync' && git push",
         )
         d = cmd.to_dict()
         assert d["description"] == "Git sync"
-        assert d["command"] == "git add -A && git commit -m 'sync' && git push"
+        assert d["template"] == "git add -A && git commit -m 'sync' && git push"
 
     def test_command_to_dict_minimal(self) -> None:
         """Should exclude empty fields in to_dict."""
@@ -78,15 +84,15 @@ class TestResearchAgent:
     """Tests for research agent configuration."""
 
     def test_research_agent_exists(self, tmp_path: Path) -> None:
-        """Should load config with research agent."""
+        """Should load config with research agent (new schema)."""
         config_file = tmp_path / "config.json"
         config_file.write_text(json.dumps({
             "$schema": "https://opencode.ai/config.json",
-            "agents": {
+            "agent": {
                 "research": {
                     "description": "Academic research and manuscript writing",
                     "model": "anthropic/claude-opus-4-5",
-                    "tools": ["read", "write", "edit", "glob", "grep", "websearch", "webfetch"],
+                    "tools": {"read": True, "write": True, "websearch": True, "webfetch": True},
                 }
             }
         }))
@@ -96,12 +102,13 @@ class TestResearchAgent:
         assert "research" in config.agents
         assert config.agents["research"].model == "anthropic/claude-opus-4-5"
 
-    def test_research_agent_tools(self, tmp_path: Path) -> None:
-        """Should have web tools for research."""
+    def test_research_agent_with_old_format(self, tmp_path: Path) -> None:
+        """Should load config with research agent (old schema with list tools)."""
         config_file = tmp_path / "config.json"
         config_file.write_text(json.dumps({
             "agents": {
                 "research": {
+                    "description": "Academic research",
                     "model": "anthropic/claude-opus-4-5",
                     "tools": ["read", "write", "websearch", "webfetch"],
                 }
@@ -110,15 +117,35 @@ class TestResearchAgent:
 
         config = load_config(config_file)
         assert config is not None
+        assert "research" in config.agents
+        # Old list format should be converted to dict
+        assert config.agents["research"].tools == {
+            "read": True, "write": True, "websearch": True, "webfetch": True
+        }
+
+    def test_research_agent_tools(self, tmp_path: Path) -> None:
+        """Should have web tools for research."""
+        config_file = tmp_path / "config.json"
+        config_file.write_text(json.dumps({
+            "agent": {
+                "research": {
+                    "model": "anthropic/claude-opus-4-5",
+                    "tools": {"read": True, "write": True, "websearch": True, "webfetch": True},
+                }
+            }
+        }))
+
+        config = load_config(config_file)
+        assert config is not None
         tools = config.agents["research"].tools
-        assert "websearch" in tools
-        assert "webfetch" in tools
+        assert tools.get("websearch") is True
+        assert tools.get("webfetch") is True
 
     def test_research_agent_uses_opus(self, tmp_path: Path) -> None:
         """Research agent should use Opus model."""
         config_file = tmp_path / "config.json"
         config_file.write_text(json.dumps({
-            "agents": {
+            "agent": {
                 "research": {"model": "anthropic/claude-opus-4-5"}
             }
         }))
@@ -128,69 +155,25 @@ class TestResearchAgent:
 
 
 # =============================================================================
-# Keybinds Tests
-# =============================================================================
-
-
-class TestKeybinds:
-    """Tests for keyboard shortcuts configuration."""
-
-    def test_load_keybinds(self, tmp_path: Path) -> None:
-        """Should load keybinds from config."""
-        config_file = tmp_path / "config.json"
-        config_file.write_text(json.dumps({
-            "keybinds": {
-                "ctrl+r": "agent:r-dev",
-                "ctrl+q": "agent:quick",
-                "ctrl+s": "agent:research",
-            }
-        }))
-
-        config = load_config(config_file)
-        assert config is not None
-        assert len(config.keybinds) == 3
-        assert config.keybinds["ctrl+r"] == "agent:r-dev"
-
-    def test_keybinds_empty(self, tmp_path: Path) -> None:
-        """Should handle empty keybinds."""
-        config_file = tmp_path / "config.json"
-        config_file.write_text(json.dumps({}))
-
-        config = load_config(config_file)
-        assert config is not None
-        assert config.keybinds == {}
-
-    def test_keybinds_to_dict(self, tmp_path: Path) -> None:
-        """Should serialize keybinds correctly."""
-        config = OpenCodeConfig(
-            path=tmp_path / "config.json",
-            keybinds={"ctrl+r": "agent:r-dev"},
-        )
-        d = config.to_dict()
-        assert "keybinds" in d
-        assert d["keybinds"]["ctrl+r"] == "agent:r-dev"
-
-
-# =============================================================================
-# Commands Tests
+# Commands Tests (New Schema)
 # =============================================================================
 
 
 class TestCommands:
-    """Tests for custom commands configuration."""
+    """Tests for custom commands configuration (new schema with template)."""
 
-    def test_load_commands(self, tmp_path: Path) -> None:
-        """Should load commands from config."""
+    def test_load_commands_new_format(self, tmp_path: Path) -> None:
+        """Should load commands from config (new schema with template)."""
         config_file = tmp_path / "config.json"
         config_file.write_text(json.dumps({
-            "commands": {
+            "command": {
                 "sync": {
+                    "template": "git add -A && git commit -m 'sync' && git push",
                     "description": "Git sync",
-                    "command": "git add -A && git commit -m 'sync' && git push",
                 },
                 "status": {
+                    "template": "git status",
                     "description": "Show status",
-                    "command": "git status",
                 },
             }
         }))
@@ -199,24 +182,42 @@ class TestCommands:
         assert config is not None
         assert len(config.commands) == 2
         assert "sync" in config.commands
-        assert config.commands["sync"].command == "git add -A && git commit -m 'sync' && git push"
+        assert config.commands["sync"].template == "git add -A && git commit -m 'sync' && git push"
+
+    def test_load_commands_old_format(self, tmp_path: Path) -> None:
+        """Should load commands from old schema (with command field)."""
+        config_file = tmp_path / "config.json"
+        config_file.write_text(json.dumps({
+            "commands": {
+                "sync": {
+                    "command": "git push",
+                    "description": "Git sync",
+                },
+            }
+        }))
+
+        config = load_config(config_file)
+        assert config is not None
+        assert "sync" in config.commands
+        # Old "command" field should be parsed into "template"
+        assert config.commands["sync"].template == "git push"
 
     def test_r_package_commands(self, tmp_path: Path) -> None:
         """Should load R package commands."""
         config_file = tmp_path / "config.json"
         config_file.write_text(json.dumps({
-            "commands": {
+            "command": {
                 "rpkg-check": {
+                    "template": "R CMD check --as-cran .",
                     "description": "Run R CMD check",
-                    "command": "R CMD check --as-cran .",
                 },
                 "rpkg-document": {
+                    "template": "Rscript -e 'devtools::document()'",
                     "description": "Generate documentation",
-                    "command": "Rscript -e 'devtools::document()'",
                 },
                 "rpkg-test": {
+                    "template": "Rscript -e 'devtools::test()'",
                     "description": "Run tests",
-                    "command": "Rscript -e 'devtools::test()'",
                 },
             }
         }))
@@ -229,89 +230,98 @@ class TestCommands:
         assert "rpkg-test" in config.commands
 
     def test_commands_to_dict(self, tmp_path: Path) -> None:
-        """Should serialize commands correctly."""
+        """Should serialize commands correctly (new schema)."""
         config = OpenCodeConfig(
             path=tmp_path / "config.json",
             commands={
                 "test": Command(
                     name="test",
+                    template="echo test",
                     description="Test command",
-                    command="echo test",
                 ),
             },
         )
         d = config.to_dict()
-        assert "commands" in d
-        assert d["commands"]["test"]["description"] == "Test command"
+        # Should use singular "command" key
+        assert "command" in d
+        assert "commands" not in d
+        assert d["command"]["test"]["template"] == "echo test"
+        assert d["command"]["test"]["description"] == "Test command"
 
 
 # =============================================================================
-# Tool Permissions Tests
+# Tool Configuration Tests (New Schema)
 # =============================================================================
 
 
-class TestToolPermissions:
-    """Tests for tool permissions configuration."""
+class TestToolConfiguration:
+    """Tests for tool configuration (new schema with boolean values)."""
 
-    def test_load_tool_permissions(self, tmp_path: Path) -> None:
-        """Should load tool permissions from config."""
+    def test_load_tools_new_format(self, tmp_path: Path) -> None:
+        """Should load tools from config (new boolean format)."""
         config_file = tmp_path / "config.json"
         config_file.write_text(json.dumps({
             "tools": {
-                "bash": {"permission": "auto"},
-                "read": {"permission": "auto"},
-                "write": {"permission": "ask"},
-                "edit": {"permission": "ask"},
+                "bash": True,
+                "read": True,
+                "write": True,
+                "edit": True,
             }
         }))
 
         config = load_config(config_file)
         assert config is not None
         assert len(config.tools) == 4
-        assert config.tools["bash"]["permission"] == "auto"
-        assert config.tools["write"]["permission"] == "ask"
+        assert config.tools["bash"] is True
+        assert config.tools["write"] is True
 
-    def test_auto_permissions_for_read_ops(self, tmp_path: Path) -> None:
-        """Read-only tools should have auto permission."""
+    def test_load_tools_old_format(self, tmp_path: Path) -> None:
+        """Should load tools from old schema (with permission objects)."""
         config_file = tmp_path / "config.json"
         config_file.write_text(json.dumps({
             "tools": {
                 "bash": {"permission": "auto"},
                 "read": {"permission": "auto"},
-                "glob": {"permission": "auto"},
-                "grep": {"permission": "auto"},
+                "write": {"permission": "ask"},
+                "edit": {"permission": "deny"},
             }
         }))
 
         config = load_config(config_file)
         assert config is not None
-        for tool in ["bash", "read", "glob", "grep"]:
-            assert config.tools[tool]["permission"] == "auto"
+        # Old format should be converted to boolean (deny = False, others = True)
+        assert config.tools["bash"] is True
+        assert config.tools["read"] is True
+        assert config.tools["write"] is True  # "ask" still means enabled
+        assert config.tools["edit"] is False  # "deny" means disabled
 
-    def test_ask_permissions_for_write_ops(self, tmp_path: Path) -> None:
-        """Write tools should have ask permission."""
+    def test_enabled_disabled_tools(self, tmp_path: Path) -> None:
+        """Should track enabled and disabled tools."""
         config_file = tmp_path / "config.json"
         config_file.write_text(json.dumps({
             "tools": {
-                "write": {"permission": "ask"},
-                "edit": {"permission": "ask"},
+                "bash": True,
+                "read": True,
+                "write": False,
+                "edit": False,
             }
         }))
 
         config = load_config(config_file)
         assert config is not None
-        assert config.tools["write"]["permission"] == "ask"
-        assert config.tools["edit"]["permission"] == "ask"
+        assert set(config.enabled_tools) == {"bash", "read"}
+        assert set(config.disabled_tools) == {"write", "edit"}
 
     def test_tools_to_dict(self, tmp_path: Path) -> None:
-        """Should serialize tools correctly."""
+        """Should serialize tools correctly (new boolean format)."""
         config = OpenCodeConfig(
             path=tmp_path / "config.json",
-            tools={"bash": {"permission": "auto"}},
+            tools={"bash": True, "write": False},
         )
         d = config.to_dict()
         assert "tools" in d
-        assert d["tools"]["bash"]["permission"] == "auto"
+        assert d["tools"]["bash"] is True
+        assert d["tools"]["write"] is False
 
 
 # =============================================================================
@@ -356,46 +366,6 @@ class TestTimeMCPServer:
 
 
 # =============================================================================
-# CLI Keybinds Command Tests
-# =============================================================================
-
-
-class TestKeybindsCommand:
-    """Tests for keybinds CLI command."""
-
-    def test_keybinds_list_empty(self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
-        """Should show message when no keybinds configured."""
-        config_path = tmp_path / "config.json"
-        config_path.write_text(json.dumps({"$schema": "https://opencode.ai/config.json"}))
-        monkeypatch.setattr(
-            "aiterm.opencode.config.get_config_path",
-            lambda: config_path,
-        )
-        result = runner.invoke(app, ["opencode", "keybinds"])
-        assert result.exit_code == 0
-        assert "No keybinds" in result.output
-
-    def test_keybinds_list_with_binds(self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
-        """Should list configured keybinds."""
-        config_path = tmp_path / "config.json"
-        config_path.write_text(json.dumps({
-            "$schema": "https://opencode.ai/config.json",
-            "keybinds": {
-                "ctrl+r": "agent:r-dev",
-                "ctrl+q": "agent:quick",
-            }
-        }))
-        monkeypatch.setattr(
-            "aiterm.opencode.config.get_config_path",
-            lambda: config_path,
-        )
-        result = runner.invoke(app, ["opencode", "keybinds"])
-        assert result.exit_code == 0
-        assert "ctrl+r" in result.output
-        assert "agent:r-dev" in result.output
-
-
-# =============================================================================
 # CLI Commands Command Tests
 # =============================================================================
 
@@ -420,10 +390,10 @@ class TestCommandsCommand:
         config_path = tmp_path / "config.json"
         config_path.write_text(json.dumps({
             "$schema": "https://opencode.ai/config.json",
-            "commands": {
+            "command": {
                 "sync": {
+                    "template": "git add -A && git commit",
                     "description": "Git sync",
-                    "command": "git add -A && git commit",
                 }
             }
         }))
@@ -446,7 +416,7 @@ class TestToolsCommand:
     """Tests for tools CLI command."""
 
     def test_tools_list_empty(self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
-        """Should show message when no tool permissions configured."""
+        """Should show message when no tools configured."""
         config_path = tmp_path / "config.json"
         config_path.write_text(json.dumps({"$schema": "https://opencode.ai/config.json"}))
         monkeypatch.setattr(
@@ -455,16 +425,16 @@ class TestToolsCommand:
         )
         result = runner.invoke(app, ["opencode", "tools"])
         assert result.exit_code == 0
-        assert "No tool" in result.output or "permission" in result.output.lower()
+        assert "No tool" in result.output or "configuration" in result.output.lower()
 
-    def test_tools_list_with_permissions(self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
-        """Should list configured tool permissions."""
+    def test_tools_list_with_config(self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+        """Should list configured tools (new boolean format)."""
         config_path = tmp_path / "config.json"
         config_path.write_text(json.dumps({
             "$schema": "https://opencode.ai/config.json",
             "tools": {
-                "bash": {"permission": "auto"},
-                "write": {"permission": "ask"},
+                "bash": True,
+                "write": False,
             }
         }))
         monkeypatch.setattr(
@@ -474,7 +444,6 @@ class TestToolsCommand:
         result = runner.invoke(app, ["opencode", "tools"])
         assert result.exit_code == 0
         assert "bash" in result.output
-        assert "auto" in result.output
 
 
 # =============================================================================
@@ -495,10 +464,9 @@ class TestSummaryCommand:
             "default_agent": "build",
             "instructions": ["CLAUDE.md"],
             "tui": {"scroll_acceleration": {"enabled": True}},
-            "keybinds": {"ctrl+r": "agent:r-dev"},
-            "commands": {"sync": {"command": "git push"}},
-            "tools": {"bash": {"permission": "auto"}},
-            "agents": {
+            "command": {"sync": {"template": "git push"}},
+            "tools": {"bash": True, "read": True},
+            "agent": {
                 "r-dev": {"model": "anthropic/claude-sonnet-4-5"},
                 "quick": {"model": "anthropic/claude-haiku-4-5"},
             },
@@ -513,14 +481,13 @@ class TestSummaryCommand:
         )
         result = runner.invoke(app, ["opencode", "summary"])
         assert result.exit_code == 0
-        # Check summary includes all sections
+        # Check summary includes key sections
         assert "anthropic/claude-sonnet-4-5" in result.output
         assert "Agents" in result.output or "agent" in result.output.lower()
-        assert "Keybinds" in result.output.lower() or "keybind" in result.output.lower() or "shortcut" in result.output.lower()
 
 
 # =============================================================================
-# Integration Test: Full Phase 3 Config
+# Integration Test: Full Phase 3 Config (New Schema)
 # =============================================================================
 
 
@@ -528,7 +495,7 @@ class TestPhase3Integration:
     """Integration tests for complete Phase 3 configuration."""
 
     def test_full_phase3_config(self, tmp_path: Path) -> None:
-        """Should load and validate complete Phase 3 config."""
+        """Should load and validate complete Phase 3 config (new schema)."""
         config_file = tmp_path / "config.json"
         config_file.write_text(json.dumps({
             "$schema": "https://opencode.ai/config.json",
@@ -537,41 +504,36 @@ class TestPhase3Integration:
             "default_agent": "build",
             "instructions": ["CLAUDE.md", ".claude/rules/*.md"],
             "tui": {"scroll_acceleration": {"enabled": True}},
-            "keybinds": {
-                "ctrl+r": "agent:r-dev",
-                "ctrl+q": "agent:quick",
-                "ctrl+s": "agent:research",
-            },
-            "commands": {
-                "rpkg-check": {"description": "Run R CMD check", "command": "R CMD check --as-cran ."},
-                "rpkg-document": {"description": "Generate docs", "command": "Rscript -e 'devtools::document()'"},
-                "rpkg-test": {"description": "Run tests", "command": "Rscript -e 'devtools::test()'"},
-                "sync": {"description": "Git sync", "command": "git add -A && git commit -m 'sync' && git push"},
-                "status": {"description": "Show status", "command": "git status && git log --oneline -5"},
+            "command": {
+                "rpkg-check": {"template": "R CMD check --as-cran .", "description": "Run R CMD check"},
+                "rpkg-document": {"template": "Rscript -e 'devtools::document()'", "description": "Generate docs"},
+                "rpkg-test": {"template": "Rscript -e 'devtools::test()'", "description": "Run tests"},
+                "sync": {"template": "git add -A && git commit -m 'sync' && git push", "description": "Git sync"},
+                "status": {"template": "git status && git log --oneline -5", "description": "Show status"},
             },
             "tools": {
-                "bash": {"permission": "auto"},
-                "read": {"permission": "auto"},
-                "glob": {"permission": "auto"},
-                "grep": {"permission": "auto"},
-                "write": {"permission": "ask"},
-                "edit": {"permission": "ask"},
+                "bash": True,
+                "read": True,
+                "glob": True,
+                "grep": True,
+                "write": True,
+                "edit": True,
             },
-            "agents": {
+            "agent": {
                 "r-dev": {
                     "description": "R package development specialist",
                     "model": "anthropic/claude-sonnet-4-5",
-                    "tools": ["bash", "read", "write", "edit", "glob", "grep"],
+                    "tools": {"bash": True, "read": True, "write": True, "edit": True, "glob": True, "grep": True},
                 },
                 "quick": {
                     "description": "Fast responses for simple questions",
                     "model": "anthropic/claude-haiku-4-5",
-                    "tools": ["read", "glob", "grep"],
+                    "tools": {"read": True, "glob": True, "grep": True},
                 },
                 "research": {
                     "description": "Academic research and manuscript writing",
                     "model": "anthropic/claude-opus-4-5",
-                    "tools": ["read", "write", "edit", "glob", "grep", "websearch", "webfetch"],
+                    "tools": {"read": True, "write": True, "edit": True, "glob": True, "grep": True, "websearch": True, "webfetch": True},
                 },
             },
             "mcp": {
@@ -589,23 +551,20 @@ class TestPhase3Integration:
         # 3.1: Research agent
         assert "research" in config.agents
         assert "opus" in config.agents["research"].model.lower()
-        assert "websearch" in config.agents["research"].tools
+        assert config.agents["research"].tools.get("websearch") is True
 
-        # 3.2: Keybinds
-        assert len(config.keybinds) == 3
-        assert config.keybinds["ctrl+s"] == "agent:research"
-
-        # 3.3: Commands
+        # 3.2: Commands (new schema)
         assert len(config.commands) == 5
         assert "rpkg-check" in config.commands
         assert "sync" in config.commands
+        assert config.commands["sync"].template == "git add -A && git commit -m 'sync' && git push"
 
-        # 3.4: Tool permissions
+        # 3.3: Tools (new boolean format)
         assert len(config.tools) == 6
-        assert config.tools["bash"]["permission"] == "auto"
-        assert config.tools["write"]["permission"] == "ask"
+        assert config.tools["bash"] is True
+        assert config.tools["write"] is True
 
-        # 3.5: Time MCP
+        # 3.4: Time MCP
         assert "time" in config.mcp_servers
         assert config.mcp_servers["time"].enabled is True
         assert "time" in config.enabled_servers
@@ -616,17 +575,14 @@ class TestPhase3Integration:
 
     def test_roundtrip_phase3_config(self, tmp_path: Path) -> None:
         """Should save and reload Phase 3 config identically."""
-        from aiterm.opencode.config import save_config
-
         config_file = tmp_path / "config.json"
 
-        # Create Phase 3 config
+        # Create Phase 3 config with new schema
         original = OpenCodeConfig(
             path=config_file,
             model="anthropic/claude-sonnet-4-5",
-            keybinds={"ctrl+r": "agent:r-dev"},
-            commands={"sync": Command(name="sync", command="git push")},
-            tools={"bash": {"permission": "auto"}},
+            commands={"sync": Command(name="sync", template="git push")},
+            tools={"bash": True, "read": True, "write": False},
         )
 
         # Save
@@ -637,7 +593,6 @@ class TestPhase3Integration:
         assert loaded is not None
 
         # Compare
-        assert loaded.keybinds == original.keybinds
         assert loaded.tools == original.tools
         assert "sync" in loaded.commands
-        assert loaded.commands["sync"].command == "git push"
+        assert loaded.commands["sync"].template == "git push"
