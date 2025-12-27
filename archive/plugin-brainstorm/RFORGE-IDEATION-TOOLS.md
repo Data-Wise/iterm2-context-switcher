@@ -1,51 +1,9 @@
 # RForge Ideation & Planning Tools - ADHD-Friendly Design
 
-**Date:** 2025-12-20
-**Focus:** R package development planning and ideation
-**Philosophy:** Help clarify ideas BEFORE coding
-
----
-
-## The ADHD Challenge
-
-**Problem:** Starting with vague ideas leads to:
-- Analysis paralysis (too many options)
-- Scope creep (feature keeps growing)
-- Lost context (what was I trying to do?)
-- Abandoned projects (too overwhelming)
-
-**Solution:** Quick, structured ideation that:
-- ✅ Asks few, clear questions
-- ✅ Proposes 2-3 options MAX (not 10!)
-- ✅ Shows time estimates (dopamine planning)
-- ✅ Saves everything to files (no lost thoughts)
-- ✅ Gets you coding fast (< 10 minutes)
-
----
-
-## ADHD-Friendly Ideation Pattern
-
-### The 5-Minute Specification Flow
-
-```
-Raw Idea (vague)
-    ↓
-5 Quick Questions (2 min)
-    ↓
-Context Analysis (30 sec - automated)
-    ↓
-2-3 Clear Options (1 min)
-    ↓
-Pick One (30 sec)
-    ↓
-Spec Document (30 sec - automated)
-    ↓
-Start Coding! (dopamine!)
-```
-
-**Total Time:** 5 minutes from idea to action
-
----
+> **STATUS: IMPLEMENTED**
+> **Date:** 2025-12-27
+> **Version:** v0.1.0
+> The tools `rforge_plan` and `rforge_plan_quick_fix` have been implemented in the RForge MCP server.
 
 ## Core Tool: `rforge:plan`
 

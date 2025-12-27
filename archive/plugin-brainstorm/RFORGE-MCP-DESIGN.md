@@ -1,5 +1,11 @@
 # RForge MCP Server - Design Document
 
+> **STATUS: IMPLEMENTED**
+> **Date:** 2025-12-27
+> **Version:** v0.1.0 (Released)
+> This design document has been implemented in `rforge-mcp`.
+> See `~/projects/dev-tools/mcp-servers/rforge/` for the codebase.
+
 **Name:** `rforge` (R Package Forge - Build, Test, Orchestrate)
 **Alternative names considered:** r-dev, r-development, statistical-research
 **Status:** Design Phase
