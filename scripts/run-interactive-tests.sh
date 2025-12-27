@@ -79,7 +79,20 @@ detect_terminal() {
         return
     fi
 
-    # Detect from TERM_PROGRAM
+    # When running from Claude Code, TERM_PROGRAM is inherited and unreliable
+    # Use fallback detection instead
+    if [[ "${CLAUDECODE:-}" == "1" ]]; then
+        if command -v ghostty &> /dev/null || [[ -d "/Applications/Ghostty.app" ]]; then
+            echo "ghostty"
+        elif [[ -d "/Applications/iTerm.app" ]]; then
+            echo "iterm2"
+        else
+            echo "terminal"
+        fi
+        return
+    fi
+
+    # Detect from TERM_PROGRAM (reliable when in actual terminal)
     case "${TERM_PROGRAM:-}" in
         ghostty)
             echo "ghostty"
@@ -91,8 +104,8 @@ detect_terminal() {
             echo "terminal"
             ;;
         *)
-            # Check if Ghostty is installed (prefer it as default)
-            if command -v ghostty &> /dev/null; then
+            # Fallback: check installed apps
+            if command -v ghostty &> /dev/null || [[ -d "/Applications/Ghostty.app" ]]; then
                 echo "ghostty"
             elif [[ -d "/Applications/iTerm.app" ]]; then
                 echo "iterm2"
