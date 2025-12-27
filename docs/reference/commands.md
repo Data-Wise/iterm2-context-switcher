@@ -371,6 +371,205 @@ aiterm claude approvals add git-ops
 
 ---
 
+## OpenCode Integration
+
+### `aiterm opencode config`
+
+Display current OpenCode configuration.
+
+```bash
+aiterm opencode config
+aiterm opencode config --raw    # Output as JSON
+```
+
+---
+
+### `aiterm opencode validate`
+
+Validate OpenCode configuration against schema.
+
+```bash
+aiterm opencode validate
+```
+
+---
+
+### `aiterm opencode backup`
+
+Backup OpenCode configuration with timestamp.
+
+```bash
+aiterm opencode backup
+```
+
+---
+
+### `aiterm opencode servers`
+
+Manage MCP server configurations.
+
+#### `aiterm opencode servers list`
+
+List all configured MCP servers.
+
+```bash
+aiterm opencode servers list
+```
+
+#### `aiterm opencode servers enable <name>`
+
+Enable a disabled server.
+
+```bash
+aiterm opencode servers enable github
+aiterm opencode servers enable sequential-thinking
+```
+
+#### `aiterm opencode servers disable <name>`
+
+Disable an enabled server.
+
+```bash
+aiterm opencode servers disable playwright
+```
+
+#### `aiterm opencode servers test <name>`
+
+Test if a server can start successfully.
+
+```bash
+aiterm opencode servers test filesystem
+aiterm opencode servers test time --timeout 5
+```
+
+**Output:**
+```
+Testing filesystem...
+Command: npx -y @modelcontextprotocol/server-filesystem /Users/dt
+✓ Server 'filesystem' started successfully
+```
+
+#### `aiterm opencode servers health`
+
+Check health of all enabled servers.
+
+```bash
+aiterm opencode servers health          # Check enabled servers
+aiterm opencode servers health --all    # Check all servers
+```
+
+**Output:**
+```
+                           MCP Server Health
+┏━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━┳━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ Server              ┃ Enabled ┃ Status ┃ Details                    ┃
+┡━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━╇━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
+│ filesystem          │ yes     │ ✓ OK   │ Started successfully       │
+│ memory              │ yes     │ ✓ OK   │ Started successfully       │
+│ github              │ yes     │ ✓ OK   │ Started successfully       │
+└─────────────────────┴─────────┴────────┴────────────────────────────┘
+Summary: 3 ok, 0 errors
+```
+
+#### `aiterm opencode servers templates`
+
+List available MCP server templates.
+
+```bash
+aiterm opencode servers templates
+```
+
+**Available templates:**
+- `filesystem` - File system read/write access
+- `memory` - Persistent context memory
+- `sequential-thinking` - Complex reasoning chains
+- `playwright` - Browser automation
+- `time` - Timezone tracking
+- `github` - PR/issue management (requires GITHUB_TOKEN)
+- `brave-search` - Web search (requires BRAVE_API_KEY)
+- `slack` - Slack integration (requires SLACK_TOKEN)
+- `sqlite` - SQLite database access
+- `puppeteer` - Headless browser
+- `fetch` - HTTP fetch for web content
+- `everything` - Demo server (testing only)
+
+#### `aiterm opencode servers add <name>`
+
+Add a new MCP server configuration.
+
+```bash
+# Add from template
+aiterm opencode servers add brave-search --template
+
+# Add with custom command
+aiterm opencode servers add myserver --command "npx -y my-mcp-server"
+
+# Add disabled
+aiterm opencode servers add sqlite --template --disabled
+```
+
+#### `aiterm opencode servers remove <name>`
+
+Remove an MCP server configuration.
+
+```bash
+aiterm opencode servers remove myserver
+aiterm opencode servers remove filesystem --force  # Force remove essential
+```
+
+---
+
+### `aiterm opencode agents`
+
+Manage custom agent configurations.
+
+#### `aiterm opencode agents list`
+
+List configured agents.
+
+```bash
+aiterm opencode agents list
+```
+
+#### `aiterm opencode agents add <name>`
+
+Add a new custom agent.
+
+```bash
+aiterm opencode agents add quick --desc "Fast responses" --model anthropic/claude-haiku-4-5
+```
+
+#### `aiterm opencode agents remove <name>`
+
+Remove a custom agent.
+
+```bash
+aiterm opencode agents remove quick
+```
+
+---
+
+### `aiterm opencode models`
+
+List recommended models for OpenCode.
+
+```bash
+aiterm opencode models
+```
+
+---
+
+### `aiterm opencode set-model <model>`
+
+Set the primary or small model.
+
+```bash
+aiterm opencode set-model anthropic/claude-opus-4-5           # Set primary
+aiterm opencode set-model anthropic/claude-haiku-4-5 --small  # Set small model
+```
+
+---
+
 ## Examples
 
 ### Quick Setup for Claude Code

@@ -11,14 +11,14 @@
       "command": "/bin/sh",
       "args": [
         "-c",
-        "GITHUB_TOKEN=$(/opt/homebrew/bin/gh auth token) /opt/homebrew/bin/github-mcp-server"
+        "GITHUB_TOKEN=$(/opt/homebrew/bin/gh auth token) /opt/homebrew/bin/github-mcp-server stdio"
       ]
     },
     "r-lang": {
       "command": "Rscript",
       "args": [
         "-e",
-        "library(MCPR); mcpr_session_start()"
+        "library(MCPR); mcpr_server()"
       ]
     }
   }

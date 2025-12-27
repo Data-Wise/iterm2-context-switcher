@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "aiterm-dev"
-version = "0.3.3"
+version = "0.3.4"
 description = "Terminal optimizer CLI for AI-assisted development with Claude Code and Gemini CLI"
 readme = "README.md"
 license = {text = "MIT"}
@@ -65,6 +65,9 @@ packages = ["src/aiterm"]
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 pythonpath = ["src"]
+markers = [
+    "integration: marks tests as integration tests (require actual MCP servers)",
+]
 
 [tool.black]
 line-length = 88

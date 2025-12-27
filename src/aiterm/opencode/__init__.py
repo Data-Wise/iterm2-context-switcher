@@ -1,4 +1,13 @@
-"""OpenCode configuration management module."""
+"""OpenCode configuration management module.
+
+Schema Reference (OpenCode 1.0.203+):
+- tools: dict[str, bool] (not permission objects)
+- agent: singular key in JSON (not "agents")
+- command: singular key in JSON (not "commands")
+- mcp.*.environment: for env vars (not "env")
+- Agent.tools: dict[str, bool] (not list)
+- Command.template: required (not "command")
+"""
 
 from .config import (
     OpenCodeConfig,
@@ -12,6 +21,7 @@ from .config import (
     backup_config,
     RECOMMENDED_MODELS,
     DEFAULT_MCP_SERVERS,
+    VALID_AGENT_MODES,
 )
 
 __all__ = [
@@ -26,4 +36,5 @@ __all__ = [
     "backup_config",
     "RECOMMENDED_MODELS",
     "DEFAULT_MCP_SERVERS",
+    "VALID_AGENT_MODES",
 ]

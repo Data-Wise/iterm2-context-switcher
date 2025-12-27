@@ -3,6 +3,9 @@
 Provides commands for managing OpenCode configuration, agents, and MCP servers.
 """
 
+import shutil
+import subprocess
+import time
 from pathlib import Path
 from typing import Optional
 
@@ -160,9 +163,11 @@ def agents_list() -> None:
     table.add_column("Tools")
 
     for name, agent in config.agents.items():
-        tools_str = ", ".join(agent.tools[:3]) if agent.tools else "[dim]default[/]"
-        if len(agent.tools) > 3:
-            tools_str += f" (+{len(agent.tools) - 3})"
+        # agent.tools is now a dict[str, bool], not a list
+        enabled_tools = [t for t, v in agent.tools.items() if v] if agent.tools else []
+        tools_str = ", ".join(enabled_tools[:3]) if enabled_tools else "[dim]default[/]"
+        if len(enabled_tools) > 3:
+            tools_str += f" (+{len(enabled_tools) - 3})"
         table.add_row(
             name,
             agent.description or "[dim]no description[/]",
@@ -200,15 +205,15 @@ def agents_add(
         console.print("Model should be in format 'provider/model' (e.g., anthropic/claude-sonnet-4-5)")
         raise typer.Exit(1)
 
-    # Parse tools
-    tool_list = [t.strip() for t in tools.split(",")] if tools else []
+    # Parse tools (now a dict[str, bool])
+    tools_dict = {t.strip(): True for t in tools.split(",")} if tools else {}
 
     # Create agent
     agent = Agent(
         name=name,
         description=description,
         model=model,
-        tools=tool_list,
+        tools=tools_dict,
     )
 
     # Backup first
@@ -221,8 +226,8 @@ def agents_add(
         console.print(f"[green]✓[/] Added agent '{name}'")
         if model:
             console.print(f"  Model: {model}")
-        if tool_list:
-            console.print(f"  Tools: {', '.join(tool_list)}")
+        if tools_dict:
+            console.print(f"  Tools: {', '.join(tools_dict.keys())}")
     else:
         console.print("[red]Failed to save configuration.[/]")
         raise typer.Exit(1)
@@ -382,6 +387,321 @@ def servers_disable(
         raise typer.Exit(1)
 
 
+@servers_app.command(
+    "test",
+    epilog="""
+[bold]Examples:[/]
+  ait opencode servers test filesystem   # Test filesystem server
+  ait opencode servers test time         # Test time server
+""",
+)
+def servers_test(
+    name: str = typer.Argument(..., help="Server name to test."),
+    timeout: float = typer.Option(3.0, "--timeout", "-t", help="Startup timeout in seconds."),
+) -> None:
+    """Test if an MCP server can start successfully."""
+    config = load_config()
+    if not config:
+        console.print("[red]No OpenCode configuration found.[/]")
+        raise typer.Exit(1)
+
+    if name not in config.mcp_servers:
+        console.print(f"[red]Server '{name}' not found.[/]")
+        raise typer.Exit(1)
+
+    server = config.mcp_servers[name]
+
+    # Check if command exists
+    if not server.command:
+        console.print(f"[red]Server '{name}' has no command configured.[/]")
+        raise typer.Exit(1)
+
+    executable = server.command[0]
+    if shutil.which(executable) is None:
+        console.print(f"[red]✗[/] Executable '{executable}' not found in PATH")
+        raise typer.Exit(1)
+
+    console.print(f"[dim]Testing {name}...[/]")
+    console.print(f"[dim]Command: {' '.join(server.command)}[/]")
+
+    try:
+        # Try to start the server
+        process = subprocess.Popen(
+            server.command,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+        )
+
+        # Wait for startup
+        time.sleep(timeout)
+        exit_code = process.poll()
+
+        if exit_code is None:
+            # Still running - success!
+            process.terminate()
+            try:
+                process.wait(timeout=5)
+            except subprocess.TimeoutExpired:
+                process.kill()
+            console.print(f"[green]✓[/] Server '{name}' started successfully")
+        elif exit_code == 0:
+            console.print(f"[green]✓[/] Server '{name}' started and exited cleanly")
+        else:
+            stderr = process.stderr.read().decode() if process.stderr else ""
+            console.print(f"[red]✗[/] Server '{name}' exited with code {exit_code}")
+            if stderr:
+                console.print(f"[dim]{stderr[:500]}[/]")
+            raise typer.Exit(1)
+
+    except FileNotFoundError as e:
+        console.print(f"[red]✗[/] Command not found: {e}")
+        raise typer.Exit(1)
+    except Exception as e:
+        console.print(f"[red]✗[/] Failed to start: {e}")
+        raise typer.Exit(1)
+
+
+@servers_app.command(
+    "health",
+    epilog="""
+[bold]Examples:[/]
+  ait opencode servers health            # Check all enabled servers
+  ait opencode servers health --all      # Check all configured servers
+""",
+)
+def servers_health(
+    all_servers: bool = typer.Option(False, "--all", "-a", help="Check all servers, not just enabled."),
+    timeout: float = typer.Option(2.0, "--timeout", "-t", help="Startup timeout per server."),
+) -> None:
+    """Check health of MCP servers."""
+    config = load_config()
+    if not config:
+        console.print("[red]No OpenCode configuration found.[/]")
+        raise typer.Exit(1)
+
+    # Get servers to check
+    if all_servers:
+        servers_to_check = list(config.mcp_servers.items())
+    else:
+        servers_to_check = [(n, s) for n, s in config.mcp_servers.items() if s.enabled]
+
+    if not servers_to_check:
+        console.print("[yellow]No servers to check.[/]")
+        return
+
+    console.print(f"[bold]Checking {len(servers_to_check)} server(s)...[/]\n")
+
+    results = []
+    for name, server in servers_to_check:
+        status = "unknown"
+        message = ""
+
+        # Check executable
+        if not server.command:
+            status = "error"
+            message = "No command configured"
+        else:
+            executable = server.command[0]
+            if shutil.which(executable) is None:
+                status = "error"
+                message = f"'{executable}' not in PATH"
+            else:
+                # Try to start
+                try:
+                    process = subprocess.Popen(
+                        server.command,
+                        stdout=subprocess.PIPE,
+                        stderr=subprocess.PIPE,
+                    )
+                    time.sleep(timeout)
+                    exit_code = process.poll()
+
+                    if exit_code is None:
+                        process.terminate()
+                        try:
+                            process.wait(timeout=3)
+                        except subprocess.TimeoutExpired:
+                            process.kill()
+                        status = "ok"
+                        message = "Started successfully"
+                    elif exit_code == 0:
+                        status = "ok"
+                        message = "Started and exited cleanly"
+                    else:
+                        status = "error"
+                        message = f"Exited with code {exit_code}"
+                except FileNotFoundError:
+                    status = "error"
+                    message = "Command not found"
+                except Exception as e:
+                    status = "error"
+                    message = str(e)[:50]
+
+        results.append((name, server.enabled, status, message))
+
+    # Display results
+    table = Table(title="MCP Server Health", border_style="cyan")
+    table.add_column("Server", style="bold")
+    table.add_column("Enabled")
+    table.add_column("Status")
+    table.add_column("Details")
+
+    ok_count = 0
+    error_count = 0
+
+    for name, enabled, status, message in results:
+        enabled_str = "[green]yes[/]" if enabled else "[dim]no[/]"
+        if status == "ok":
+            status_str = "[green]✓ OK[/]"
+            ok_count += 1
+        else:
+            status_str = "[red]✗ Error[/]"
+            error_count += 1
+        table.add_row(name, enabled_str, status_str, message)
+
+    console.print(table)
+    console.print(f"\n[bold]Summary:[/] {ok_count} ok, {error_count} errors")
+
+    if error_count > 0:
+        raise typer.Exit(1)
+
+
+@servers_app.command(
+    "add",
+    epilog="""
+[bold]Examples:[/]
+  ait opencode servers add brave-search --template    # Add from template
+  ait opencode servers add myserver --command "npx -y my-mcp-server"
+""",
+)
+def servers_add(
+    name: str = typer.Argument(..., help="Server name to add."),
+    template: bool = typer.Option(False, "--template", "-t", help="Use predefined template."),
+    command: Optional[str] = typer.Option(None, "--command", "-c", help="Custom command (space-separated)."),
+    enabled: bool = typer.Option(True, "--enabled/--disabled", help="Enable server after adding."),
+) -> None:
+    """Add a new MCP server configuration."""
+    config = load_config()
+    if not config:
+        console.print("[red]No OpenCode configuration found.[/]")
+        raise typer.Exit(1)
+
+    if name in config.mcp_servers:
+        console.print(f"[yellow]Server '{name}' already exists.[/]")
+        console.print("Use 'ait opencode servers enable/disable' to toggle.")
+        return
+
+    # Get server config from template or command
+    if template:
+        if name not in DEFAULT_MCP_SERVERS:
+            console.print(f"[red]No template found for '{name}'.[/]")
+            console.print("\n[bold]Available templates:[/]")
+            for tname, tconfig in DEFAULT_MCP_SERVERS.items():
+                desc = tconfig.get("description", "")
+                console.print(f"  • {tname}: {desc}")
+            raise typer.Exit(1)
+
+        tmpl = DEFAULT_MCP_SERVERS[name]
+        server = MCPServer(
+            name=name,
+            type=tmpl.get("type", "local"),
+            command=tmpl.get("command", []),
+            enabled=enabled,
+        )
+
+        # Check for required environment variables
+        if "requires_env" in tmpl:
+            console.print(f"[yellow]Note:[/] This server requires environment variables:")
+            for env_var in tmpl["requires_env"]:
+                console.print(f"  • {env_var}")
+
+    elif command:
+        # Parse command string into list
+        cmd_parts = command.split()
+        server = MCPServer(
+            name=name,
+            type="local",
+            command=cmd_parts,
+            enabled=enabled,
+        )
+    else:
+        console.print("[red]Specify --template or --command.[/]")
+        raise typer.Exit(1)
+
+    backup_config()
+    config.mcp_servers[name] = server
+
+    if save_config(config):
+        status = "enabled" if enabled else "disabled"
+        console.print(f"[green]✓[/] Added server '{name}' ({status})")
+        console.print(f"[dim]Command: {' '.join(server.command)}[/]")
+    else:
+        console.print("[red]Failed to save configuration.[/]")
+        raise typer.Exit(1)
+
+
+@servers_app.command(
+    "remove",
+    epilog="""
+[bold]Examples:[/]
+  ait opencode servers remove myserver    # Remove server
+""",
+)
+def servers_remove(
+    name: str = typer.Argument(..., help="Server name to remove."),
+    force: bool = typer.Option(False, "--force", "-f", help="Skip confirmation."),
+) -> None:
+    """Remove an MCP server configuration."""
+    config = load_config()
+    if not config:
+        console.print("[red]No OpenCode configuration found.[/]")
+        raise typer.Exit(1)
+
+    if name not in config.mcp_servers:
+        console.print(f"[red]Server '{name}' not found.[/]")
+        raise typer.Exit(1)
+
+    # Check if essential
+    if name in DEFAULT_MCP_SERVERS:
+        tmpl = DEFAULT_MCP_SERVERS[name]
+        if tmpl.get("essential", False) and not force:
+            console.print(f"[yellow]Warning:[/] '{name}' is an essential server.")
+            console.print("Use --force to remove anyway.")
+            raise typer.Exit(1)
+
+    backup_config()
+    del config.mcp_servers[name]
+
+    if save_config(config):
+        console.print(f"[green]✓[/] Removed server '{name}'")
+    else:
+        console.print("[red]Failed to save configuration.[/]")
+        raise typer.Exit(1)
+
+
+@servers_app.command(
+    "templates",
+    epilog="""
+[bold]Examples:[/]
+  ait opencode servers templates    # List available templates
+""",
+)
+def servers_templates() -> None:
+    """List available MCP server templates."""
+    table = Table(title="MCP Server Templates", border_style="cyan")
+    table.add_column("Name", style="bold")
+    table.add_column("Description")
+    table.add_column("Requires")
+
+    for name, config in sorted(DEFAULT_MCP_SERVERS.items()):
+        desc = config.get("description", "")
+        requires = ", ".join(config.get("requires_env", [])) or "-"
+        table.add_row(name, desc, requires)
+
+    console.print(table)
+    console.print("\n[dim]Use: ait opencode servers add <name> --template[/]")
+
+
 # ─── Models sub-commands ──────────────────────────────────────────────────────
 
 
@@ -503,38 +823,23 @@ def instructions_list() -> None:
 
 
 # ─── Keybinds command ────────────────────────────────────────────────────────
+# NOTE: Keybinds are NOT supported by OpenCode schema (v1.0.203+).
+# This command is kept for documentation purposes.
 
 
 @app.command(
     "keybinds",
     epilog="""
 [bold]Examples:[/]
-  ait opencode keybinds           # List keyboard shortcuts
+  ait opencode keybinds           # Show keybinds status
 """,
 )
 def keybinds_list() -> None:
-    """List configured keyboard shortcuts."""
-    config = load_config()
-    if not config:
-        console.print("[red]No OpenCode configuration found.[/]")
-        return
-
+    """List configured keyboard shortcuts (note: not currently supported by OpenCode)."""
     console.print("[bold cyan]Keyboard Shortcuts[/]\n")
-
-    if not config.keybinds:
-        console.print("[dim]No keybinds configured.[/]")
-        console.print("\nAdd to config.json:")
-        console.print('  "keybinds": { "ctrl+r": "agent:r-dev" }')
-        return
-
-    table = Table(border_style="cyan")
-    table.add_column("Shortcut", style="bold")
-    table.add_column("Action")
-
-    for key, action in config.keybinds.items():
-        table.add_row(key, action)
-
-    console.print(table)
+    console.print("[yellow]Note:[/] Keybinds are not currently supported by OpenCode schema (v1.0.203+).")
+    console.print("\nThis feature may be added in a future OpenCode version.")
+    console.print("Check https://opencode.ai/docs for updates.")
 
 
 # ─── Commands command ────────────────────────────────────────────────────────
@@ -563,10 +868,11 @@ def commands_list() -> None:
     table = Table(border_style="cyan")
     table.add_column("Command", style="bold")
     table.add_column("Description")
-    table.add_column("Shell Command")
+    table.add_column("Template")
 
     for name, cmd in config.commands.items():
-        table.add_row(name, cmd.description or "[dim]no description[/]", cmd.command or "[dim]none[/]")
+        # Use cmd.template (new schema) instead of cmd.command
+        table.add_row(name, cmd.description or "[dim]no description[/]", cmd.template or "[dim]none[/]")
 
     console.print(table)
 
@@ -578,39 +884,35 @@ def commands_list() -> None:
     "tools",
     epilog="""
 [bold]Examples:[/]
-  ait opencode tools              # List tool permissions
+  ait opencode tools              # List tool configuration
 """,
 )
 def tools_list() -> None:
-    """List configured tool permissions."""
+    """List configured tools."""
     config = load_config()
     if not config:
         console.print("[red]No OpenCode configuration found.[/]")
         return
 
-    console.print("[bold cyan]Tool Permissions[/]\n")
+    console.print("[bold cyan]Tool Configuration[/]\n")
 
     if not config.tools:
-        console.print("[dim]No tool permissions configured.[/]")
+        console.print("[dim]No tool configuration found.[/]")
         console.print("\nAdd to config.json:")
-        console.print('  "tools": { "bash": { "permission": "auto" } }')
+        console.print('  "tools": { "bash": true, "read": true }')
         return
 
     table = Table(border_style="cyan")
     table.add_column("Tool", style="bold")
-    table.add_column("Permission")
+    table.add_column("Status")
 
-    for name, tool_config in config.tools.items():
-        perm = tool_config.get("permission", "default")
-        perm_display = {
-            "auto": "[green]auto[/]",
-            "ask": "[yellow]ask[/]",
-            "deny": "[red]deny[/]",
-        }.get(perm, perm)
-        table.add_row(name, perm_display)
+    for name, enabled in config.tools.items():
+        # Tools are now boolean (enabled/disabled)
+        status = "[green]enabled[/]" if enabled else "[red]disabled[/]"
+        table.add_row(name, status)
 
     console.print(table)
-    console.print("\n[dim]Permissions: auto (no prompt), ask (confirm), deny (blocked)[/]")
+    console.print(f"\n[dim]Enabled: {len(config.enabled_tools)}, Disabled: {len(config.disabled_tools)}[/]")
 
 
 # ─── Summary command ─────────────────────────────────────────────────────────
@@ -641,13 +943,9 @@ def config_summary() -> None:
     console.print(f"\n[bold]Agents:[/] ({len(config.agents)} custom)")
     for name, agent in config.agents.items():
         model_short = agent.model.split("/")[-1] if agent.model else "default"
-        console.print(f"  • {name}: {model_short} ({len(agent.tools)} tools)")
-
-    # Keybinds
-    if config.keybinds:
-        console.print(f"\n[bold]Keybinds:[/] ({len(config.keybinds)})")
-        for key, action in config.keybinds.items():
-            console.print(f"  {key} → {action}")
+        # agent.tools is now a dict[str, bool]
+        enabled_tools = [t for t, v in agent.tools.items() if v] if agent.tools else []
+        console.print(f"  • {name}: {model_short} ({len(enabled_tools)} tools)")
 
     # Commands
     if config.commands:
@@ -655,15 +953,12 @@ def config_summary() -> None:
         for name in config.commands:
             console.print(f"  • {name}")
 
-    # Tool Permissions
+    # Tool Configuration (now boolean enabled/disabled)
     if config.tools:
-        auto_tools = [n for n, t in config.tools.items() if t.get("permission") == "auto"]
-        ask_tools = [n for n, t in config.tools.items() if t.get("permission") == "ask"]
-        console.print(f"\n[bold]Tool Permissions:[/]")
-        if auto_tools:
-            console.print(f"  Auto: {', '.join(auto_tools)}")
-        if ask_tools:
-            console.print(f"  Ask: {', '.join(ask_tools)}")
+        console.print(f"\n[bold]Tools:[/]")
+        console.print(f"  Enabled: {', '.join(config.enabled_tools) or '[dim]none[/]'}")
+        if config.disabled_tools:
+            console.print(f"  Disabled: {', '.join(config.disabled_tools)}")
 
     # MCP Servers
     console.print(f"\n[bold]MCP Servers:[/] ({len(config.enabled_servers)} enabled)")
