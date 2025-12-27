@@ -13,6 +13,12 @@ Optimize your terminal (iTerm2+) for AI coding with Claude Code and Gemini CLI. 
 
 ## 🚀 Installation
 
+### Quick Install (Auto-detects best method)
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/Data-Wise/aiterm/main/install.sh | bash
+```
+
 ### macOS (Homebrew - Recommended)
 
 ```bash
@@ -47,10 +53,11 @@ pip install git+https://github.com/Data-Wise/aiterm
 
 | Method | Command | Platform | Best For |
 |--------|---------|----------|----------|
+| **curl** | `curl -fsSL .../install.sh \| bash` | All | One-liner |
 | **Homebrew** | `brew install data-wise/tap/aiterm` | macOS | Mac users |
-| **pip** | `pip install aiterm-dev` | All | Quick install |
 | **uv** | `uv tool install aiterm-dev` | All | Speed |
 | **pipx** | `pipx install aiterm-dev` | All | Isolation |
+| **pip** | `pip install aiterm-dev` | All | Quick install |
 | **Source** | `pip install git+...` | All | Latest dev |
 
 ---
