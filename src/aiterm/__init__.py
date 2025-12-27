@@ -1,4 +1,4 @@
 """aiterm - Terminal optimizer CLI for AI-assisted development."""
 
-__version__ = "0.2.1"
+__version__ = "0.3.2"
 __app_name__ = "aiterm"
