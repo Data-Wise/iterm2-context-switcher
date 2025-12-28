@@ -80,6 +80,12 @@ next: Plan v0.4.0 - Workflow Templates (ait recipes)
   - `scribe-hud` → mission-control-hud worktree
   - `scribe-alt` → wonderful-wilson worktree
 
+- ✅ **Mermaid Diagram Fixes**
+  - Fixed diagrams not rendering (added custom_fences config)
+  - Fixed text overflow in boxes (CSS + shortened labels)
+  - Added mermaid.js CDN and CSS styling
+  - All 15+ diagrams now render correctly
+
 - ✅ **Folder Renamed**
   - `~/.claude-worktrees/` → `~/.git-worktrees/`
   - All worktrees migrated (scribe, medfit, rmediation)
