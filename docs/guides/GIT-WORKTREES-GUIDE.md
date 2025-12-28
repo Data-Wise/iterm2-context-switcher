@@ -1100,48 +1100,102 @@ flowchart TD
 
 ### Installing Dependencies in Worktrees
 
-**Each worktree needs its own dependencies.** They're NOT shared between worktrees.
+**Different project types need different install commands.** Some need per-worktree installs, others share dependencies globally.
 
-| Project Type | Install Command |
-|--------------|-----------------|
-| **Node.js** | `npm install` |
-| **Python** | `pip install -e .` or `uv pip install -e .` |
-| **Rust** | `cargo build` (fetches automatically) |
-| **R** | Usually nothing (packages are global) |
+| Project Type | Install Command | Where Stored | Per-Worktree? |
+|--------------|-----------------|--------------|---------------|
+| **Node.js** | `npm install` | `node_modules/` in project | ✅ Yes |
+| **Python** | `pip install -e .` | venv or global | ✅ Yes (if using venv) |
+| **Python (uv)** | `uv pip install -e .` | venv | ✅ Yes |
+| **Rust** | Nothing (auto) | `~/.cargo/` (global cache) | ❌ No |
+| **Go** | Nothing (auto) | `~/go/pkg/` (global cache) | ❌ No |
+| **R packages** | Nothing | `~/Library/R/` (global) | ❌ No |
+| **R with renv** | `renv::restore()` | `renv/library/` in project | ✅ Yes |
 
-**Why not shared?**
+---
+
+**Why the difference?**
 
 ```mermaid
 graph TD
-    subgraph WT1["Worktree 1: feature-a"]
-        N1["node_modules/<br/>Has package X v1.0"]
+    subgraph LOCAL["📁 Per-Worktree Dependencies"]
+        L1["Node.js → node_modules/"]
+        L2["Python venv → .venv/"]
+        L3["R renv → renv/library/"]
     end
 
-    subgraph WT2["Worktree 2: feature-b"]
-        N2["node_modules/<br/>Has package X v2.0"]
+    subgraph GLOBAL["🌐 Global/Cached Dependencies"]
+        G1["Rust → ~/.cargo/"]
+        G2["Go → ~/go/pkg/"]
+        G3["R → ~/Library/R/"]
     end
 
-    NOTE["Different branches might need<br/>different dependency versions!"]
+    LOCAL --> NEED["Need install per worktree"]
+    GLOBAL --> SHARED["Shared automatically"]
 ```
 
-Each worktree could have different `package.json` changes, so they need separate `node_modules/`.
+---
 
-**After creating a worktree, always install:**
+**Per-worktree installs (Node.js, Python):**
+
+Each worktree could have different `package.json` or `requirements.txt` changes, so they need separate installs:
 
 ```bash
-# Node.js projects
-cd ~/.git-worktrees/project/feature-branch
+# Node.js projects (like scribe)
+cd ~/.git-worktrees/scribe/feature-branch
 npm install
 
-# Python projects
-cd ~/.git-worktrees/project/feature-branch
+# Python projects (like aiterm)
+cd ~/.git-worktrees/aiterm/feature-branch
+python -m venv .venv
+source .venv/bin/activate
 pip install -e .
+
+# Python with uv (faster)
+cd ~/.git-worktrees/aiterm/feature-branch
+uv venv
+source .venv/bin/activate
+uv pip install -e .
 ```
+
+---
+
+**Global dependencies (Rust, Go, R):**
+
+These languages cache dependencies globally, so you don't need to install per worktree:
+
+```bash
+# Rust - just build, deps fetched automatically
+cd ~/.git-worktrees/rust-project/feature-branch
+cargo build
+
+# Go - just build, deps fetched automatically
+cd ~/.git-worktrees/go-project/feature-branch
+go build
+
+# R packages - nothing to install (uses global library)
+cd ~/.git-worktrees/rmediation/feature-branch
+# Ready to use! R packages are in ~/Library/R/
+
+# R with renv (if project uses it)
+cd ~/.git-worktrees/r-project/feature-branch
+R -e "renv::restore()"
+```
+
+---
 
 **Quick check — are dependencies installed?**
 
 ```bash
-ls node_modules  # Should show packages, not "No such file"
+# Node.js
+ls node_modules  # Should show packages
+
+# Python
+ls .venv  # Should show venv folder
+which python  # Should point to .venv/bin/python
+
+# R with renv
+ls renv/library  # Should show packages
 ```
 
 ---
