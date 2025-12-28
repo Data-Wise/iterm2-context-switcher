@@ -2,8 +2,8 @@ project: aiterm
 status: active
 priority: P1
 progress: 20
-version: 0.3.8
-updated: 2025-12-27
+version: 0.3.7
+updated: 2025-12-28
 next: Plan v0.4.0 - Workflow Templates (ait recipes)
 
 ## 🎯 v0.4.0 Plan: Workflow Automation & Craft Integration
@@ -52,6 +52,44 @@ next: Plan v0.4.0 - Workflow Templates (ait recipes)
 ### Phase 3: Session-Aware Workflows
 - [ ] Session checks in workflow runner
 - [ ] Task auto-update during workflows
+
+## ✅ Just Completed (Session Dec 28, 2025 - Docs Workflow & craft v1.9.0)
+
+- ✅ **aiterm Docs Reorganization**
+  - Reduced navigation from 12 to 8 top-level sections
+  - New ADHD-friendly structure: Home, Get Started, Reference Card, Features, Integrations, Reference, Guides, Development
+  - Created "Integrations" hub with Claude Code, MCP, OpenCode, Gemini CLI
+  - Applied Phase 1 of PROPOSAL-DOCS-REORGANIZATION.md
+
+- ✅ **Fixed Outdated v0.2.0 References**
+  - Updated docs/guide/claude-integration.md: Hooks & MCP marked as ✅ available
+  - Updated docs/guide/workflows.md: Removed "Coming in v0.2.0" language
+  - Site deployed to GitHub Pages
+
+- ✅ **craft v1.9.0 Released - 4 New Commands**
+  - `/craft:site:nav` - ADHD-friendly navigation reorganization
+  - `/craft:site:audit` - Content inventory & quality audit
+  - `/craft:site:consolidate` - Merge duplicate documentation files
+  - `/craft:docs:prompt` - Generate reusable maintenance prompts
+
+- ✅ **Sub-command UX Pattern Established**
+  - Standard menu pattern for commands with modes
+  - AskUserQuestion for interactive selection
+  - Argument bypass for power users
+  - Consistent footer with tips and related commands
+
+- ✅ **Created Proposal & Brainstorm Documents**
+  - PROPOSAL-DOCS-REORGANIZATION.md - 5-phase reorganization plan
+  - PROMPT-DOCS-REORGANIZATION.md - Reusable prompts for docs maintenance
+  - PROPOSAL-SITE-COMMANDS.md - 3 proposals for craft integration
+  - BRAINSTORM-SUBCOMMAND-UX.md - 5 approaches for menu UX
+
+📊 **Session Stats:**
+- 5 commits to craft plugin
+- 2 commits to aiterm
+- +4 craft commands (site:nav, site:audit, site:consolidate, docs:prompt)
+- craft v1.9.0: 64 commands, 16 skills, 7 agents
+- aiterm docs: 12→8 sections, deployed
 
 ## ✅ Just Completed (Session Dec 28, 2025 - craft Phase 0.5)
 
