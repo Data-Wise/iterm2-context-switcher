@@ -53,6 +53,44 @@ next: Plan v0.4.0 - Workflow Templates (ait recipes)
 - [ ] Session checks in workflow runner
 - [ ] Task auto-update during workflows
 
+## ✅ Just Completed (Session Dec 28, 2025 - Git Worktrees Guide)
+
+- ✅ **Git Worktrees Guide Created** (1,200+ lines)
+  - Comprehensive beginner-friendly tutorial
+  - 15+ Mermaid diagrams for visual learning
+  - Parts 1-12 covering all worktree concepts
+  - Real-world scribe project example throughout
+
+- ✅ **Part 12: Using Worktrees with Claude Code** (NEW)
+  - Where to start Claude Code (in worktree folder)
+  - Moving existing branch to worktree workflow
+  - Installing dependencies in worktrees
+  - Shell aliases for quick access
+  - Parallel development workflow
+
+- ✅ **Scribe Project Worktrees Setup**
+  - Fixed broken wonderful-wilson worktree
+  - Moved feat/mission-control-hud to worktree
+  - Created organized structure at `~/.git-worktrees/scribe/`
+  - Both worktrees tested and working
+
+- ✅ **Shell Aliases Added**
+  - `wt` → `~/.git-worktrees`
+  - `wtl` → `git worktree list`
+  - `scribe-hud` → mission-control-hud worktree
+  - `scribe-alt` → wonderful-wilson worktree
+
+- ✅ **Folder Renamed**
+  - `~/.claude-worktrees/` → `~/.git-worktrees/`
+  - All worktrees migrated (scribe, medfit, rmediation)
+
+📊 **Session Stats:**
+- 6 commits to aiterm
+- 1,200+ lines documentation
+- 15+ Mermaid diagrams
+- 4 shell aliases added
+- Docs deployed to GitHub Pages
+
 ## ✅ Just Completed (Session Dec 27, 2025 - craft v1.7.0 Site Commands)
 
 - ✅ **craft v1.7.0 RELEASED** - Site Commands Redesign
