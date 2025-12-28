@@ -73,66 +73,81 @@ markdown_extensions:
       emoji_generator: !!python/name:material.extensions.emoji.to_svg
 
 nav:
+  # ============================================
+  # TIER 1: ESSENTIALS (Quick Access)
+  # ============================================
   - Home: index.md
-  - Quick Start: QUICK-START.md
-  - Getting Started: GETTING-STARTED.md
+  - Get Started:
+      - Quick Install: QUICK-START.md
+      - First Steps: GETTING-STARTED.md
+      - Install Guide: getting-started/installation.md
+      - Shell Completion: guide/shell-completion.md
   - Reference Card: REFCARD.md
-  - Documentation Index: AITERM-DOCS-INDEX.md
-  - Installation:
-    - Install Guide: getting-started/installation.md
-    - Quick Tutorial: getting-started/quickstart.md
-    - Shell Completion: guide/shell-completion.md
-  - User Guide:
-    - Complete Guide: guides/AITERM-USER-GUIDE.md
-    - Integration Guide: guides/AITERM-INTEGRATION.md
-    - Claude Integration: guide/claude-integration.md
-    - Session Coordination: guide/sessions.md
-    - IDE Integration: guide/ide-integration.md
-    - Workflows: guide/workflows.md
-    - Context Detection: guide/context-detection.md
-    - Profiles: guide/profiles.md
-    - Status Bar: guide/status-bar.md
-    - Triggers: guide/triggers.md
-  - Reference:
-    - Commands: reference/commands.md
-    - Claude Commands: reference/REFCARD-CLAUDE.md
-    - Session Commands: reference/REFCARD-SESSIONS.md
-    - IDE Commands: reference/REFCARD-IDE.md
-    - MCP Commands: reference/REFCARD-MCP.md
-    - Hooks Commands: reference/REFCARD-HOOKS.md
-    - Context Detection: reference/REFCARD-CONTEXT.md
-    - OpenCode Integration: reference/REFCARD-OPENCODE.md
-    - API Documentation: api/AITERM-API.md
-    - Configuration: reference/configuration.md
-    - Troubleshooting: reference/troubleshooting.md
-    - Advanced Troubleshooting: troubleshooting/AITERM-TROUBLESHOOTING.md
-  - Guides:
-    - Video Walkthrough: guides/VIDEO-WALKTHROUGH.md
-    - Claude Code Tutorial: CLAUDE-CODE-TUTORIAL.md
-    - Git Worktrees Guide: guides/GIT-WORKTREES-GUIDE.md
-    - OpenCode Agent Testing: guides/OPENCODE-AGENT-TESTING.md
-  - Gemini CLI:
-    - Reference Card: gemini-cli/GEMINI_REFCARD.md
-    - Tutorial: gemini-cli/GEMINI_TUTORIAL.md
-    - Prompt Engineering (ADHD): gemini-cli/PROMPT_ENGINEERING_ADHD.md
-    - Workflow Guide: gemini-cli/WORKFLOW_GUIDE.md
+
+  # ============================================
+  # TIER 2: CORE FEATURES
+  # ============================================
   - Features:
-    - MCP Integration: MCP-INTEGRATION.md
-    - Documentation Helpers: DOCS-HELPERS.md
-  - Architecture:
-    - Overview: architecture/AITERM-ARCHITECTURE.md
-    - RForge Universal Backend: architecture/RFORGE-UNIVERSAL-BACKEND.md
-    - Technical Design: reference/ARCHITECTURE.md
-    - Claude Code Capabilities: reference/CLAUDE-CODE-CAPABILITIES.md
-    - Implementation: AITERM-IMPLEMENTATION-SUMMARY.md
-    - Development: development/architecture.md
-    - Contributing: development/contributing.md
-  - Documentation Automation:
-    - Index: AUTO-UPDATE-INDEX.md
-    - Tutorial: AUTO-UPDATE-TUTORIAL.md
-    - Quick Reference: AUTO-UPDATE-REFCARD.md
-    - Workflow: AUTO-UPDATE-WORKFLOW.md
-    - Workflow Diagrams: AUTO-UPDATE-WORKFLOW-DIAGRAM.md
+      - Context Detection: guide/context-detection.md
+      - Profile Switching: guide/profiles.md
+      - Status Bar: guide/status-bar.md
+      - Session Coordination: guide/sessions.md
+      - IDE Integration: guide/ide-integration.md
+      - Workflows: guide/workflows.md
+      - Triggers: guide/triggers.md
+
+  # ============================================
+  # TIER 3: INTEGRATIONS (Separate Menu!)
+  # ============================================
+  - Integrations:
+      - Overview: guides/AITERM-INTEGRATION.md
+      - Claude Code:
+          - Guide: guide/claude-integration.md
+          - Commands: reference/REFCARD-CLAUDE.md
+          - Tutorial: CLAUDE-CODE-TUTORIAL.md
+          - Capabilities: reference/CLAUDE-CODE-CAPABILITIES.md
+      - MCP Servers:
+          - Guide: MCP-INTEGRATION.md
+          - Commands: reference/REFCARD-MCP.md
+      - OpenCode:
+          - Guide: reference/REFCARD-OPENCODE.md
+          - Agent Testing: guides/OPENCODE-AGENT-TESTING.md
+      - Gemini CLI:
+          - Reference: gemini-cli/GEMINI_REFCARD.md
+          - Tutorial: gemini-cli/GEMINI_TUTORIAL.md
+          - ADHD Prompts: gemini-cli/PROMPT_ENGINEERING_ADHD.md
+          - Workflow: gemini-cli/WORKFLOW_GUIDE.md
+
+  # ============================================
+  # TIER 4: REFERENCE (Streamlined)
+  # ============================================
+  - Reference:
+      - All Commands: reference/commands.md
+      - Configuration: reference/configuration.md
+      - Context Types: reference/REFCARD-CONTEXT.md
+      - Hooks: reference/REFCARD-HOOKS.md
+      - Sessions: reference/REFCARD-SESSIONS.md
+      - IDE Reference: reference/REFCARD-IDE.md
+      - Troubleshooting: reference/troubleshooting.md
+
+  # ============================================
+  # TIER 5: GUIDES (Tutorials & Deep Dives)
+  # ============================================
+  - Guides:
+      - Complete User Guide: guides/AITERM-USER-GUIDE.md
+      - Git Worktrees: guides/GIT-WORKTREES-GUIDE.md
+      - Video Walkthrough: guides/VIDEO-WALKTHROUGH.md
+
+  # ============================================
+  # TIER 6: DEVELOPMENT (Developers Only)
+  # ============================================
+  - Development:
+      - Architecture: architecture/AITERM-ARCHITECTURE.md
+      - Technical Design: reference/ARCHITECTURE.md
+      - RForge Backend: architecture/RFORGE-UNIVERSAL-BACKEND.md
+      - API Reference: api/AITERM-API.md
+      - Implementation: AITERM-IMPLEMENTATION-SUMMARY.md
+      - Contributing: development/contributing.md
 
 extra:
   social:
