@@ -834,22 +834,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#whats-new-in-v021" class="md-nav__link">
+  <a href="#whats-new-in-v03x" class="md-nav__link">
     <span class="md-ellipsis">
       
-        What's New in v0.2.1
+        What's New in v0.3.x
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="What&#39;s New in v0.2.1">
+    <nav class="md-nav" aria-label="What&#39;s New in v0.3.x">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#opencode-cli-integration" class="md-nav__link">
+  <a href="#v038-latest" class="md-nav__link">
     <span class="md-ellipsis">
       
-        OpenCode CLI Integration
+        v0.3.8 (Latest)
       
     </span>
   </a>
@@ -857,10 +857,21 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#cicd-pipeline" class="md-nav__link">
+  <a href="#v035-037" class="md-nav__link">
     <span class="md-ellipsis">
       
-        CI/CD Pipeline
+        v0.3.5-0.3.7
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v031-034" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        v0.3.1-0.3.4
       
     </span>
   </a>
@@ -885,10 +896,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#v030" class="md-nav__link">
+  <a href="#v040-next" class="md-nav__link">
     <span class="md-ellipsis">
       
-        v0.3.0
+        v0.4.0 (Next)
       
     </span>
   </a>
@@ -3119,22 +3130,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#whats-new-in-v021" class="md-nav__link">
+  <a href="#whats-new-in-v03x" class="md-nav__link">
     <span class="md-ellipsis">
       
-        What's New in v0.2.1
+        What's New in v0.3.x
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="What&#39;s New in v0.2.1">
+    <nav class="md-nav" aria-label="What&#39;s New in v0.3.x">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#opencode-cli-integration" class="md-nav__link">
+  <a href="#v038-latest" class="md-nav__link">
     <span class="md-ellipsis">
       
-        OpenCode CLI Integration
+        v0.3.8 (Latest)
       
     </span>
   </a>
@@ -3142,10 +3153,21 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#cicd-pipeline" class="md-nav__link">
+  <a href="#v035-037" class="md-nav__link">
     <span class="md-ellipsis">
       
-        CI/CD Pipeline
+        v0.3.5-0.3.7
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v031-034" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        v0.3.1-0.3.4
       
     </span>
   </a>
@@ -3170,10 +3192,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#v030" class="md-nav__link">
+  <a href="#v040-next" class="md-nav__link">
     <span class="md-ellipsis">
       
-        v0.3.0
+        v0.4.0 (Next)
       
     </span>
   </a>
@@ -3477,38 +3499,45 @@
 <a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="c1"># - Profile colors optimized for R work</span>
 </code></pre></div>
 <hr />
-<h2 id="whats-new-in-v021">What's New in v0.2.1</h2>
-<h3 id="opencode-cli-integration">OpenCode CLI Integration</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="c1"># View configuration</span>
-<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>ait<span class="w"> </span>opencode<span class="w"> </span>config
-<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>
-<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="c1"># Manage agents</span>
-<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>ait<span class="w"> </span>opencode<span class="w"> </span>agents<span class="w"> </span>list
-<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>ait<span class="w"> </span>opencode<span class="w"> </span>agents<span class="w"> </span>add<span class="w"> </span>my-agent<span class="w"> </span>--model<span class="w"> </span>anthropic:claude-sonnet-4-20250514
-<a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>
-<a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a><span class="c1"># Manage MCP servers</span>
-<a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a>ait<span class="w"> </span>opencode<span class="w"> </span>servers<span class="w"> </span>list
-<a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a>ait<span class="w"> </span>opencode<span class="w"> </span>servers<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>filesystem
-<a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a>
-<a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a><span class="c1"># Set models</span>
-<a id="__codelineno-11-13" name="__codelineno-11-13" href="#__codelineno-11-13"></a>ait<span class="w"> </span>opencode<span class="w"> </span>set-model<span class="w"> </span>anthropic:claude-sonnet-4-20250514
-</code></pre></div>
-<h3 id="cicd-pipeline">CI/CD Pipeline</h3>
+<h2 id="whats-new-in-v03x">What's New in v0.3.x</h2>
+<h3 id="v038-latest">v0.3.8 (Latest)</h3>
 <ul>
-<li>GitHub Actions test workflow</li>
-<li>Python 3.10, 3.11, 3.12 on Ubuntu and macOS</li>
-<li>155 tests passing</li>
+<li><strong>Git Worktrees Guide</strong> - Comprehensive parallel development documentation</li>
+<li><strong>Mermaid Diagrams</strong> - Fixed rendering with proper CSS</li>
+<li><strong>Enhanced Test Suite</strong> - 41 automated + 33 interactive CLI tests</li>
 </ul>
-<h2 id="roadmap">Roadmap</h2>
-<h3 id="v030">v0.3.0</h3>
+<h3 id="v035-037">v0.3.5-0.3.7</h3>
 <ul>
-<li><strong>Gemini CLI Integration</strong> - Support for Google's Gemini CLI</li>
-<li><strong>Multi-Terminal Support</strong> - Beyond iTerm2 (Kitty, Alacritty, etc.)</li>
-<li><strong>Profile Templates</strong> - Community-contributed themes</li>
+<li><strong>Dogfooding Commands</strong> - <code>ait hello</code>, <code>ait goodbye</code>, <code>ait info</code></li>
+<li><strong>curl Installer</strong> - Smart auto-detection (uv/pipx/brew/pip)</li>
+<li><strong>Documentation Site</strong> - ADHD-focus design theme</li>
+</ul>
+<h3 id="v031-034">v0.3.1-0.3.4</h3>
+<ul>
+<li><strong>Session Coordination</strong> - Hook-based tracking &amp; conflict detection</li>
+<li><strong>IDE Integrations</strong> - VS Code, Cursor, Zed, Positron, Windsurf</li>
+<li><strong>Session Prune</strong> - Clean up stale sessions</li>
+</ul>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="c1"># Session management</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>ait<span class="w"> </span>sessions<span class="w"> </span>live<span class="w">        </span><span class="c1"># Show active Claude Code sessions</span>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>ait<span class="w"> </span>sessions<span class="w"> </span>conflicts<span class="w">   </span><span class="c1"># Detect parallel session issues</span>
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>ait<span class="w"> </span>sessions<span class="w"> </span>prune<span class="w">       </span><span class="c1"># Clean stale sessions</span>
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>
+<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="c1"># New diagnostics</span>
+<a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>ait<span class="w"> </span>hello<span class="w">                </span><span class="c1"># Greeting with project info</span>
+<a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a>ait<span class="w"> </span>info<span class="w">                 </span><span class="c1"># System diagnostics</span>
+</code></pre></div>
+<h2 id="roadmap">Roadmap</h2>
+<h3 id="v040-next">v0.4.0 (Next)</h3>
+<ul>
+<li><strong>Workflow Templates</strong> - <code>ait recipes list/show/apply</code></li>
+<li><strong>Craft Plugin Integration</strong> - <code>ait craft install/sync/run</code></li>
+<li><strong>Session-Aware Workflows</strong> - Context-based automation</li>
 </ul>
 <h3 id="v100">v1.0.0</h3>
 <ul>
 <li><strong>Plugin System</strong> - Extend with custom contexts</li>
+<li><strong>Multi-Terminal Support</strong> - Ghostty, Kitty, Alacritty</li>
 <li><strong>Web UI</strong> - Visual configuration tool</li>
 </ul>
 <hr />
