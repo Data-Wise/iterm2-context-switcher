@@ -194,6 +194,37 @@
 }
 
 /* ============================================
+ * Mermaid Diagram Fixes
+ * ============================================ */
+
+.mermaid {
+  overflow-x: auto;
+  text-align: center;
+}
+
+.mermaid svg {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Smaller font in diagram nodes */
+.mermaid .node rect,
+.mermaid .node circle,
+.mermaid .node ellipse,
+.mermaid .node polygon,
+.mermaid .node path {
+  stroke-width: 1px;
+}
+
+.mermaid .nodeLabel {
+  font-size: 12px !important;
+}
+
+.mermaid .cluster-label {
+  font-size: 13px !important;
+}
+
+/* ============================================
  * Print Styles
  * ============================================ */
 
