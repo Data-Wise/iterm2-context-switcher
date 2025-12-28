@@ -39,11 +39,11 @@ cd ~/.git-worktrees/aiterm/feature-help && npm install
 ```mermaid
 graph TD
     subgraph RESULT["Your Setup After These Commands"]
-        M["📁 ~/projects/dev-tools/aiterm/<br/>Branch: dev (main development)<br/>Your primary workspace"]
+        M["📁 ~/projects/.../aiterm<br/>Branch: dev"]
 
-        A["📁 ~/.git-worktrees/aiterm/feature-mcp/<br/>Branch: feature/mcp<br/>Working on MCP support"]
+        A["📁 ~/.git-worktrees/.../feature-mcp<br/>Branch: feature/mcp"]
 
-        B["📁 ~/.git-worktrees/aiterm/feature-help/<br/>Branch: feature/help<br/>Working on CLI help"]
+        B["📁 ~/.git-worktrees/.../feature-help<br/>Branch: feature/help"]
     end
 
     M --- A
@@ -1028,14 +1028,14 @@ claude  # This sees 'main' branch, not your feature!
 
 ```mermaid
 graph TD
-    subgraph CORRECT["✅ CORRECT: Each Claude in its worktree"]
-        T1["Terminal 1<br/>cd ~/.git-worktrees/scribe/mission-control-hud<br/>claude<br/>→ Works on feat/mission-control-hud"]
-        T2["Terminal 2<br/>cd ~/.git-worktrees/scribe/wonderful-wilson<br/>claude<br/>→ Works on wonderful-wilson"]
+    subgraph CORRECT["✅ CORRECT"]
+        T1["Terminal 1: scribe-hud worktree<br/>→ mission-control-hud branch"]
+        T2["Terminal 2: scribe-alt worktree<br/>→ wonderful-wilson branch"]
     end
 
-    subgraph WRONG["❌ WRONG: Both in main folder"]
-        T3["Terminal 1<br/>cd ~/projects/dev-tools/scribe<br/>claude<br/>→ Both see same files!"]
-        T4["Terminal 2<br/>cd ~/projects/dev-tools/scribe<br/>claude<br/>→ Branches interfere!"]
+    subgraph WRONG["❌ WRONG"]
+        T3["Terminal 1: main folder<br/>→ Same files!"]
+        T4["Terminal 2: main folder<br/>→ Interference!"]
     end
 ```
 
@@ -1117,21 +1117,21 @@ flowchart TD
 **Why the difference?**
 
 ```mermaid
-graph TD
-    subgraph LOCAL["📁 Per-Worktree Dependencies"]
-        L1["Node.js → node_modules/"]
-        L2["Python venv → .venv/"]
-        L3["R renv → renv/library/"]
+graph LR
+    subgraph GLOBAL["🌐 Global Cache"]
+        G1["Rust"]
+        G2["Go"]
+        G3["R"]
     end
 
-    subgraph GLOBAL["🌐 Global/Cached Dependencies"]
-        G1["Rust → ~/.cargo/"]
-        G2["Go → ~/go/pkg/"]
-        G3["R → ~/Library/R/"]
+    subgraph LOCAL["📁 Per-Worktree"]
+        L1["Node.js"]
+        L2["Python"]
+        L3["R renv"]
     end
 
-    LOCAL --> NEED["Need install per worktree"]
-    GLOBAL --> SHARED["Shared automatically"]
+    GLOBAL --> SHARED["Shared<br/>No install needed"]
+    LOCAL --> NEED["Separate<br/>Install required"]
 ```
 
 ---
