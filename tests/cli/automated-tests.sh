@@ -274,6 +274,53 @@ else
 fi
 
 # ============================================
+# DOGFOODING COMMANDS
+# ============================================
+log_section "Dogfooding Commands"
+
+# Test: hello command
+start_test "hello command works"
+if ait hello > /dev/null 2>&1; then
+    log_pass "hello command works"
+else
+    log_fail "hello command failed"
+fi
+
+# Test: hello shows greeting
+start_test "hello shows personalized greeting"
+OUTPUT=$(ait hello 2>&1)
+if echo "$OUTPUT" | grep -qi "hello\|welcome\|greeting"; then
+    log_pass "hello shows personalized greeting"
+else
+    log_fail "hello output unexpected"
+fi
+
+# Test: goodbye command
+start_test "goodbye command works"
+if ait goodbye > /dev/null 2>&1; then
+    log_pass "goodbye command works"
+else
+    log_fail "goodbye command failed"
+fi
+
+# Test: info command
+start_test "info command works"
+if ait info > /dev/null 2>&1; then
+    log_pass "info command works"
+else
+    log_fail "info command failed"
+fi
+
+# Test: info shows system info
+start_test "info shows system diagnostics"
+OUTPUT=$(ait info 2>&1)
+if echo "$OUTPUT" | grep -qi "version\|python\|system\|os\|platform"; then
+    log_pass "info shows system diagnostics"
+else
+    log_fail "info output unexpected"
+fi
+
+# ============================================
 # CORE COMMANDS
 # ============================================
 log_section "Core Commands"
@@ -395,6 +442,22 @@ if ait sessions history > /dev/null 2>&1; then
     log_pass "sessions history works"
 else
     log_fail "sessions history failed"
+fi
+
+# Test: Sessions prune works
+start_test "sessions prune works"
+if ait sessions prune > /dev/null 2>&1; then
+    log_pass "sessions prune works"
+else
+    log_fail "sessions prune failed"
+fi
+
+# Test: Sessions current works
+start_test "sessions current works"
+if ait sessions current > /dev/null 2>&1; then
+    log_pass "sessions current works"
+else
+    log_fail "sessions current failed"
 fi
 
 # Test: Sessions help

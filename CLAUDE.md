@@ -28,9 +28,17 @@ This file provides guidance to Claude Code when working with the aiterm project.
 
 ---
 
-## Project Status: v0.3.6 ✅ RELEASED
+## Project Status: v0.3.8 ✅ RELEASED
 
-**Current Version:** v0.3.6 (Dec 27, 2025)
+**Current Version:** v0.3.8 (Dec 28, 2025)
+
+**v0.3.8 Release (Dec 28, 2025):**
+- [x] **Git Worktrees Guide:** Comprehensive parallel development documentation
+- [x] **Mermaid diagrams:** Fixed rendering with CSS overflow handling
+- [x] **Test suite updates:** 41 automated + 33 interactive CLI tests
+
+**v0.3.7 Release (Dec 27, 2025):**
+- [x] **Documentation site enhancements:** Improved styling and navigation
 
 **v0.3.6 Release (Dec 27, 2025):**
 - [x] **curl installer:** `install.sh` with smart auto-detection (uv/pipx/brew/pip)
@@ -53,12 +61,13 @@ This file provides guidance to Claude Code when working with the aiterm project.
 - [ ] **Phase 2:** Craft Plugin Management (`ait craft install/sync/run`)
 - [ ] **Phase 3:** Session-Aware Workflows
 
-**Integration with Craft plugin v1.6.0-dev:**
-- 58 commands available for workflow recipes
-- 15 skills for intelligent task routing
+**Integration with Craft plugin v1.8.0 (Phase 0.5 complete):**
+- 60 commands available for workflow recipes
+- 16 skills for intelligent task routing
 - Mode system (default, debug, optimize, release)
 - Distribution commands (homebrew, curl-install)
-- **NEW:** Docs workflow commands (update, feature, done, site)
+- **NEW:** Git worktree management (`/craft:git:worktree`)
+- **NEW:** Mermaid diagram templates (`/craft:docs:mermaid`)
 
 **See:**
 - `V0.4.0-PLAN.md` - Full v0.4.0 implementation plan

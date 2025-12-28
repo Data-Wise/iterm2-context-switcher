@@ -61,7 +61,7 @@ aiterm doctor - Health check
 Terminal: iTerm.app
 Shell: /bin/zsh
 Python: 3.12.0
-aiterm: 0.3.5
+aiterm: 0.3.8
 
 Basic checks passed!
 ```

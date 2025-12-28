@@ -53,6 +53,50 @@ next: Plan v0.4.0 - Workflow Templates (ait recipes)
 - [ ] Session checks in workflow runner
 - [ ] Task auto-update during workflows
 
+## ✅ Just Completed (Session Dec 28, 2025 - craft Phase 0.5)
+
+- ✅ **Phase 0.5: craft Mermaid & Worktree Support COMPLETE**
+  - All quick wins and medium effort items done
+  - craft v1.8.0 ready for release
+
+- ✅ **New craft Skill: mermaid-linter**
+  - Validates Mermaid diagram syntax
+  - Checks text length (max 15 chars for nodes)
+  - Configuration validation (custom_fences, mermaid.js, CSS)
+
+- ✅ **New craft Command: git:worktree**
+  - `setup` - First-time worktree folder creation
+  - `create` - Create worktree + auto-install deps
+  - `move` - Move current branch to worktree (stash→checkout→create→pop→install)
+  - `list` - Show all worktrees with status
+  - `clean` - Remove worktrees for merged branches
+  - `install` - Install deps based on project type
+
+- ✅ **New craft Command: docs:mermaid**
+  - 6 diagram templates: dependency, workflow, architecture, comparison, sequence, state
+  - Project-specific examples (R packages, CLI tools, Git worktrees)
+  - Best practices and abbreviation patterns built-in
+
+- ✅ **Enhanced craft Commands**
+  - `site:status` - Now checks Mermaid configuration
+  - `check` - Now detects worktree context
+  - `docs:generate` - Now includes Mermaid guidelines
+
+📊 **Session Stats:**
+- 4 commits to craft plugin
+- 2 commits to aiterm
+- +2 commands (git:worktree, docs:mermaid)
+- +1 skill (mermaid-linter)
+- 3 commands enhanced
+- ~1.25 hours (64% faster than estimate)
+
+**craft v1.8.0 Stats:**
+| Metric | Before | After | Change |
+|--------|--------|-------|--------|
+| Commands | 58 | 60 | +2 |
+| Skills | 15 | 16 | +1 |
+| Agents | 7 | 7 | - |
+
 ## ✅ Just Completed (Session Dec 28, 2025 - Git Worktrees Guide)
 
 - ✅ **Git Worktrees Guide Created** (1,200+ lines)

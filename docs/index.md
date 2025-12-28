@@ -227,43 +227,49 @@ ait detect    # Shows: 📦 r-package → R-Dev profile
 
 ---
 
-## What's New in v0.2.1
+## What's New in v0.3.x
 
-### OpenCode CLI Integration
+### v0.3.8 (Latest)
+
+- **Git Worktrees Guide** - Comprehensive parallel development documentation
+- **Mermaid Diagrams** - Fixed rendering with proper CSS
+- **Enhanced Test Suite** - 41 automated + 33 interactive CLI tests
+
+### v0.3.5-0.3.7
+
+- **Dogfooding Commands** - `ait hello`, `ait goodbye`, `ait info`
+- **curl Installer** - Smart auto-detection (uv/pipx/brew/pip)
+- **Documentation Site** - ADHD-focus design theme
+
+### v0.3.1-0.3.4
+
+- **Session Coordination** - Hook-based tracking & conflict detection
+- **IDE Integrations** - VS Code, Cursor, Zed, Positron, Windsurf
+- **Session Prune** - Clean up stale sessions
 
 ```bash
-# View configuration
-ait opencode config
+# Session management
+ait sessions live        # Show active Claude Code sessions
+ait sessions conflicts   # Detect parallel session issues
+ait sessions prune       # Clean stale sessions
 
-# Manage agents
-ait opencode agents list
-ait opencode agents add my-agent --model anthropic:claude-sonnet-4-20250514
-
-# Manage MCP servers
-ait opencode servers list
-ait opencode servers enable filesystem
-
-# Set models
-ait opencode set-model anthropic:claude-sonnet-4-20250514
+# New diagnostics
+ait hello                # Greeting with project info
+ait info                 # System diagnostics
 ```
-
-### CI/CD Pipeline
-
-- GitHub Actions test workflow
-- Python 3.10, 3.11, 3.12 on Ubuntu and macOS
-- 155 tests passing
 
 ## Roadmap
 
-### v0.3.0
+### v0.4.0 (Next)
 
-- **Gemini CLI Integration** - Support for Google's Gemini CLI
-- **Multi-Terminal Support** - Beyond iTerm2 (Kitty, Alacritty, etc.)
-- **Profile Templates** - Community-contributed themes
+- **Workflow Templates** - `ait recipes list/show/apply`
+- **Craft Plugin Integration** - `ait craft install/sync/run`
+- **Session-Aware Workflows** - Context-based automation
 
 ### v1.0.0
 
 - **Plugin System** - Extend with custom contexts
+- **Multi-Terminal Support** - Ghostty, Kitty, Alacritty
 - **Web UI** - Visual configuration tool
 
 ---

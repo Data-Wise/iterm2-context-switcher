@@ -1,6 +1,7 @@
 # CLI Test Suite for aiterm
 
 Generated: 2025-12-26
+Updated: 2025-12-28
 
 ## Overview
 
@@ -47,6 +48,13 @@ TERMINAL=ghostty ./scripts/run-interactive-tests.sh right
 - Help accessibility
 - Alias (aiterm) works
 
+### Dogfooding Commands (5 tests) ⭐ NEW
+- `hello` - Greeting with project info
+- `hello --name` - Personalized greeting
+- `goodbye` - Farewell message
+- `info` - System diagnostics
+- `info` - Output validation
+
 ### Core Commands (4 tests)
 - `doctor` - System health check
 - `detect` - Context detection
@@ -63,10 +71,12 @@ TERMINAL=ghostty ./scripts/run-interactive-tests.sh right
 - `mcp validate`
 - `mcp --help`
 
-### Sessions Subcommands (4 tests)
+### Sessions Subcommands (6 tests) ⭐ UPDATED
 - `sessions live`
 - `sessions conflicts`
 - `sessions history`
+- `sessions prune` ⭐ NEW
+- `sessions current` ⭐ NEW
 - `sessions --help`
 
 ### IDE Subcommands (3 tests)
@@ -89,7 +99,7 @@ TERMINAL=ghostty ./scripts/run-interactive-tests.sh right
 ### Help Accessibility (7 tests)
 - Help for all major subcommand groups
 
-**Total: 34+ test cases**
+**Total: 41 test cases (automated) / 33 test cases (interactive)**
 
 ## Options
 

@@ -15,7 +15,7 @@ set -euo pipefail
 PASS=0
 FAIL=0
 TOTAL=0
-TOTAL_TESTS=27  # Update when adding tests
+TOTAL_TESTS=33  # Includes: 3 smoke + 5 dogfooding + 4 core + 3 claude + 3 mcp + 5 sessions + 4 ide + 2 opencode + 2 error + 2 visual
 
 # Logging
 LOG_DIR="${LOG_DIR:-tests/cli/logs}"
@@ -148,22 +148,46 @@ run_test 3 "aiterm Alias" \
     "Same version output as 'ait --version'"
 
 # ============================================
+# DOGFOODING COMMANDS
+# ============================================
+
+run_test 4 "Hello Command" \
+    "ait hello" \
+    "Friendly greeting with project info (name, version, diagnostics)"
+
+run_test 5 "Hello with Name" \
+    "ait hello --name 'Test User'" \
+    "Personalized greeting to 'Test User'"
+
+run_test 6 "Goodbye Command" \
+    "ait goodbye" \
+    "Farewell message with session summary"
+
+run_test 7 "Info Command" \
+    "ait info" \
+    "Detailed system info: Python version, platform, terminal, paths"
+
+run_test 8 "Info JSON Output" \
+    "ait info --json 2>/dev/null || ait info" \
+    "JSON formatted output (or standard if --json not supported)"
+
+# ============================================
 # CORE COMMANDS
 # ============================================
 
-run_test 4 "Doctor Check" \
+run_test 9 "Doctor Check" \
     "ait doctor" \
     "System diagnostics with pass/warn status indicators"
 
-run_test 5 "Context Detection" \
+run_test 10 "Context Detection" \
     "ait detect" \
     "Project context showing: type (python/r-package/etc), path, git info"
 
-run_test 6 "Context Switch" \
+run_test 11 "Context Switch" \
     "ait switch" \
     "Terminal profile applied (may show visual change if iTerm2)"
 
-run_test 7 "Detect with Path" \
+run_test 12 "Detect with Path" \
     "ait detect ." \
     "Same context info for current directory"
 
@@ -171,15 +195,15 @@ run_test 7 "Detect with Path" \
 # CLAUDE SUBCOMMANDS
 # ============================================
 
-run_test 8 "Claude Settings" \
+run_test 13 "Claude Settings" \
     "ait claude settings" \
     "Display of ~/.claude/settings.json contents (or message if not found)"
 
-run_test 9 "Claude Approvals List" \
+run_test 14 "Claude Approvals List" \
     "ait claude approvals list" \
     "List of auto-approval patterns (may be empty)"
 
-run_test 10 "Claude Backup" \
+run_test 15 "Claude Backup" \
     "ait claude backup --dry-run 2>/dev/null || ait claude backup" \
     "Backup created or dry-run showing what would be backed up"
 
@@ -187,15 +211,15 @@ run_test 10 "Claude Backup" \
 # MCP SUBCOMMANDS
 # ============================================
 
-run_test 11 "MCP List" \
+run_test 16 "MCP List" \
     "ait mcp list" \
     "List of configured MCP servers (filesystem, statistical-research, etc.)"
 
-run_test 12 "MCP Validate" \
+run_test 17 "MCP Validate" \
     "ait mcp validate" \
     "Validation results for MCP configuration"
 
-run_test 13 "MCP Test All" \
+run_test 18 "MCP Test All" \
     "ait mcp test-all" \
     "Status of each MCP server (reachable/unreachable)"
 
@@ -203,39 +227,43 @@ run_test 13 "MCP Test All" \
 # SESSIONS SUBCOMMANDS
 # ============================================
 
-run_test 14 "Sessions Live" \
+run_test 19 "Sessions Live" \
     "ait sessions live" \
     "Session list OR 'No active sessions' (runs outside Claude Code)"
 
-run_test 15 "Sessions Conflicts" \
+run_test 20 "Sessions Conflicts" \
     "ait sessions conflicts" \
     "Conflict check OR 'No conflicts' message"
 
-run_test 16 "Sessions History" \
+run_test 21 "Sessions History" \
     "ait sessions history" \
     "Archived session dates (grouped by date)"
 
-run_test 17 "Sessions Current" \
+run_test 22 "Sessions Current" \
     "ait sessions current" \
     "'No active session' (tests run outside Claude Code context)"
+
+run_test 23 "Sessions Prune" \
+    "ait sessions prune" \
+    "Prune stale sessions (removes sessions with dead PIDs)"
 
 # ============================================
 # IDE SUBCOMMANDS
 # ============================================
 
-run_test 18 "IDE List" \
+run_test 24 "IDE List" \
     "ait ide list" \
     "Table of supported IDEs with installation status"
 
-run_test 19 "IDE Status (VS Code)" \
+run_test 25 "IDE Status (VS Code)" \
     "ait ide status vscode" \
     "Detailed VS Code status with config paths"
 
-run_test 20 "IDE Compare" \
+run_test 26 "IDE Compare" \
     "ait ide compare" \
     "Comparison of configurations across installed IDEs"
 
-run_test 21 "IDE Extensions" \
+run_test 27 "IDE Extensions" \
     "ait ide extensions vscode" \
     "Recommended AI extensions for VS Code"
 
@@ -243,11 +271,11 @@ run_test 21 "IDE Extensions" \
 # OPENCODE SUBCOMMANDS
 # ============================================
 
-run_test 22 "OpenCode Config" \
+run_test 28 "OpenCode Config" \
     "ait opencode config" \
     "Current OpenCode configuration (model, MCP servers, etc.)"
 
-run_test 23 "OpenCode Summary" \
+run_test 29 "OpenCode Summary" \
     "ait opencode summary" \
     "Complete OpenCode configuration summary"
 
@@ -255,11 +283,11 @@ run_test 23 "OpenCode Summary" \
 # ERROR HANDLING
 # ============================================
 
-run_test 24 "Invalid Command" \
+run_test 30 "Invalid Command" \
     "ait nonexistent-command 2>&1" \
     "Error message or usage info (graceful handling)"
 
-run_test 25 "Invalid Subcommand" \
+run_test 31 "Invalid Subcommand" \
     "ait claude nonexistent 2>&1" \
     "Error message for unknown subcommand"
 
@@ -267,11 +295,11 @@ run_test 25 "Invalid Subcommand" \
 # VISUAL/TERMINAL FEATURES
 # ============================================
 
-run_test 26 "Rich Output Formatting" \
+run_test 32 "Rich Output Formatting" \
     "ait doctor" \
     "Colored output with tables, checkmarks, emoji"
 
-run_test 27 "Profile Display" \
+run_test 33 "Profile Display" \
     "ait profile list 2>/dev/null || echo 'Profile command not implemented'" \
     "List of available terminal profiles"
 
