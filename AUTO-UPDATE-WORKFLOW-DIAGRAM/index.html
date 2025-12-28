@@ -2812,609 +2812,598 @@
 <p>This document contains visual workflow diagrams for the auto-update system.</p>
 <hr />
 <h2 id="high-level-system-overview">High-Level System Overview</h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>graph TB
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    subgraph &quot;Your Workflow&quot;
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>        A[Code &amp; Commit] --&gt; B[Run /workflow:done]
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    end
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    subgraph &quot;Phase 2: Auto-Updates&quot;
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>        B --&gt; C{Detect Issues}
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>        C --&gt; D[CHANGELOG&lt;br/&gt;missing entries?]
-<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>        C --&gt; E[mkdocs.yml&lt;br/&gt;orphaned docs?]
-<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>        C --&gt; F[.STATUS&lt;br/&gt;needs update?]
-<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>
-<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>        D --&gt;|Yes| G[update-changelog.sh]
-<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>        E --&gt;|Yes| H[update-mkdocs-nav.sh]
-<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>        F --&gt;|Yes| I[update-claude-md.sh]
-<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>
-<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>        G --&gt; J[Auto-apply&lt;br/&gt;CHANGELOG]
-<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>        H --&gt; K[Auto-apply&lt;br/&gt;mkdocs.yml]
-<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>        I --&gt; L[Prompt user&lt;br/&gt;.STATUS update]
-<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>
-<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>        J --&gt; M[Validate mkdocs build]
-<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>        K --&gt; M
-<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a>        L --&gt; M
-<a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a>
-<a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a>        M --&gt;|Success| N[Show diff]
-<a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a>        M --&gt;|Fail| O[Auto-rollback]
-<a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a>
-<a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a>        N --&gt; P[Commit changes?]
-<a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a>        O --&gt; Q[Restore backups]
-<a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a>
-<a id="__codelineno-0-30" name="__codelineno-0-30" href="#__codelineno-0-30"></a>        P --&gt;|Yes| R[Documentation&lt;br/&gt;updated!]
-<a id="__codelineno-0-31" name="__codelineno-0-31" href="#__codelineno-0-31"></a>        P --&gt;|No| S[Manual review]
-<a id="__codelineno-0-32" name="__codelineno-0-32" href="#__codelineno-0-32"></a>    end
-<a id="__codelineno-0-33" name="__codelineno-0-33" href="#__codelineno-0-33"></a>
-<a id="__codelineno-0-34" name="__codelineno-0-34" href="#__codelineno-0-34"></a>    R --&gt; T[Done! ✓]
-<a id="__codelineno-0-35" name="__codelineno-0-35" href="#__codelineno-0-35"></a>    S --&gt; T
-<a id="__codelineno-0-36" name="__codelineno-0-36" href="#__codelineno-0-36"></a>    Q --&gt; T
-<a id="__codelineno-0-37" name="__codelineno-0-37" href="#__codelineno-0-37"></a>
-<a id="__codelineno-0-38" name="__codelineno-0-38" href="#__codelineno-0-38"></a>    style A fill:#e1f5ff
-<a id="__codelineno-0-39" name="__codelineno-0-39" href="#__codelineno-0-39"></a>    style B fill:#fff4e6
-<a id="__codelineno-0-40" name="__codelineno-0-40" href="#__codelineno-0-40"></a>    style R fill:#d4edda
-<a id="__codelineno-0-41" name="__codelineno-0-41" href="#__codelineno-0-41"></a>    style T fill:#d4edda
-<a id="__codelineno-0-42" name="__codelineno-0-42" href="#__codelineno-0-42"></a>    style O fill:#f8d7da
-<a id="__codelineno-0-43" name="__codelineno-0-43" href="#__codelineno-0-43"></a>    style Q fill:#f8d7da
-</code></pre></div>
+<pre class="mermaid"><code>graph TB
+    subgraph "Your Workflow"
+        A[Code &amp; Commit] --&gt; B[Run /workflow:done]
+    end
+
+    subgraph "Phase 2: Auto-Updates"
+        B --&gt; C{Detect Issues}
+        C --&gt; D[CHANGELOG&lt;br/&gt;missing entries?]
+        C --&gt; E[mkdocs.yml&lt;br/&gt;orphaned docs?]
+        C --&gt; F[.STATUS&lt;br/&gt;needs update?]
+
+        D --&gt;|Yes| G[update-changelog.sh]
+        E --&gt;|Yes| H[update-mkdocs-nav.sh]
+        F --&gt;|Yes| I[update-claude-md.sh]
+
+        G --&gt; J[Auto-apply&lt;br/&gt;CHANGELOG]
+        H --&gt; K[Auto-apply&lt;br/&gt;mkdocs.yml]
+        I --&gt; L[Prompt user&lt;br/&gt;.STATUS update]
+
+        J --&gt; M[Validate mkdocs build]
+        K --&gt; M
+        L --&gt; M
+
+        M --&gt;|Success| N[Show diff]
+        M --&gt;|Fail| O[Auto-rollback]
+
+        N --&gt; P[Commit changes?]
+        O --&gt; Q[Restore backups]
+
+        P --&gt;|Yes| R[Documentation&lt;br/&gt;updated!]
+        P --&gt;|No| S[Manual review]
+    end
+
+    R --&gt; T[Done! ✓]
+    S --&gt; T
+    Q --&gt; T
+
+    style A fill:#e1f5ff
+    style B fill:#fff4e6
+    style R fill:#d4edda
+    style T fill:#d4edda
+    style O fill:#f8d7da
+    style Q fill:#f8d7da</code></pre>
 <hr />
 <h2 id="detailed-update-flow">Detailed Update Flow</h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>flowchart TD
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>    Start([User runs&lt;br/&gt;/workflow:done]) --&gt; Detect[Step 1.6:&lt;br/&gt;Run all updaters]
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>    Detect --&gt; Phase1[Phase 1: Detection]
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>
-<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>    subgraph &quot;Phase 1: Detect Documentation Issues&quot;
-<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>        Phase1 --&gt; CheckCL{Uncommitted&lt;br/&gt;commits?}
-<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>        Phase1 --&gt; CheckMK{Orphaned&lt;br/&gt;docs?}
-<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>        Phase1 --&gt; CheckST{.STATUS&lt;br/&gt;outdated?}
-<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>
-<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>        CheckCL --&gt;|Yes| FoundCL[Mark: CHANGELOG&lt;br/&gt;needs update]
-<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>        CheckMK --&gt;|Yes| FoundMK[Mark: mkdocs.yml&lt;br/&gt;needs update]
-<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>        CheckST --&gt;|Yes| FoundST[Mark: .STATUS&lt;br/&gt;needs update]
-<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>
-<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>        CheckCL --&gt;|No| SkipCL[Skip CHANGELOG]
-<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>        CheckMK --&gt;|No| SkipMK[Skip mkdocs]
-<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>        CheckST --&gt;|No| SkipST[Skip .STATUS]
-<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>    end
-<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>
-<a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a>    FoundCL --&gt; Phase2
-<a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a>    FoundMK --&gt; Phase2
-<a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a>    FoundST --&gt; Phase2
-<a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a>    SkipCL --&gt; Phase2
-<a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a>    SkipMK --&gt; Phase2
-<a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a>    SkipST --&gt; Phase2
-<a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a>
-<a id="__codelineno-1-27" name="__codelineno-1-27" href="#__codelineno-1-27"></a>    subgraph &quot;Phase 2: Safe Auto-Updates&quot;
-<a id="__codelineno-1-28" name="__codelineno-1-28" href="#__codelineno-1-28"></a>        Phase2[Auto-update&lt;br/&gt;safe files]
-<a id="__codelineno-1-29" name="__codelineno-1-29" href="#__codelineno-1-29"></a>
-<a id="__codelineno-1-30" name="__codelineno-1-30" href="#__codelineno-1-30"></a>        Phase2 --&gt; BackupCL[Backup&lt;br/&gt;CHANGELOG.md]
-<a id="__codelineno-1-31" name="__codelineno-1-31" href="#__codelineno-1-31"></a>        Phase2 --&gt; BackupMK[Backup&lt;br/&gt;mkdocs.yml]
-<a id="__codelineno-1-32" name="__codelineno-1-32" href="#__codelineno-1-32"></a>
-<a id="__codelineno-1-33" name="__codelineno-1-33" href="#__codelineno-1-33"></a>        BackupCL --&gt; UpdateCL[Parse commits&lt;br/&gt;Generate entries]
-<a id="__codelineno-1-34" name="__codelineno-1-34" href="#__codelineno-1-34"></a>        BackupMK --&gt; UpdateMK[Find orphaned docs&lt;br/&gt;Infer sections]
-<a id="__codelineno-1-35" name="__codelineno-1-35" href="#__codelineno-1-35"></a>
-<a id="__codelineno-1-36" name="__codelineno-1-36" href="#__codelineno-1-36"></a>        UpdateCL --&gt; AppendCL[Append to&lt;br/&gt;CHANGELOG]
-<a id="__codelineno-1-37" name="__codelineno-1-37" href="#__codelineno-1-37"></a>        UpdateMK --&gt; AppendMK[Add to&lt;br/&gt;mkdocs.yml nav]
-<a id="__codelineno-1-38" name="__codelineno-1-38" href="#__codelineno-1-38"></a>    end
-<a id="__codelineno-1-39" name="__codelineno-1-39" href="#__codelineno-1-39"></a>
-<a id="__codelineno-1-40" name="__codelineno-1-40" href="#__codelineno-1-40"></a>    AppendCL --&gt; Phase3
-<a id="__codelineno-1-41" name="__codelineno-1-41" href="#__codelineno-1-41"></a>    AppendMK --&gt; Phase3
-<a id="__codelineno-1-42" name="__codelineno-1-42" href="#__codelineno-1-42"></a>
-<a id="__codelineno-1-43" name="__codelineno-1-43" href="#__codelineno-1-43"></a>    subgraph &quot;Phase 3: Interactive Updates&quot;
-<a id="__codelineno-1-44" name="__codelineno-1-44" href="#__codelineno-1-44"></a>        Phase3[Prompt for&lt;br/&gt;.STATUS update]
-<a id="__codelineno-1-45" name="__codelineno-1-45" href="#__codelineno-1-45"></a>
-<a id="__codelineno-1-46" name="__codelineno-1-46" href="#__codelineno-1-46"></a>        Phase3 --&gt; AskUser{User wants&lt;br/&gt;.STATUS update?}
-<a id="__codelineno-1-47" name="__codelineno-1-47" href="#__codelineno-1-47"></a>
-<a id="__codelineno-1-48" name="__codelineno-1-48" href="#__codelineno-1-48"></a>        AskUser --&gt;|Yes| BackupST[Backup .STATUS]
-<a id="__codelineno-1-49" name="__codelineno-1-49" href="#__codelineno-1-49"></a>        AskUser --&gt;|No| SkipSTUpdate[Skip .STATUS]
-<a id="__codelineno-1-50" name="__codelineno-1-50" href="#__codelineno-1-50"></a>
-<a id="__codelineno-1-51" name="__codelineno-1-51" href="#__codelineno-1-51"></a>        BackupST --&gt; GenSummary[Generate summary&lt;br/&gt;from git log]
-<a id="__codelineno-1-52" name="__codelineno-1-52" href="#__codelineno-1-52"></a>        GenSummary --&gt; UpdateST[Prepend to&lt;br/&gt;.STATUS]
-<a id="__codelineno-1-53" name="__codelineno-1-53" href="#__codelineno-1-53"></a>    end
-<a id="__codelineno-1-54" name="__codelineno-1-54" href="#__codelineno-1-54"></a>
-<a id="__codelineno-1-55" name="__codelineno-1-55" href="#__codelineno-1-55"></a>    UpdateST --&gt; Validate
-<a id="__codelineno-1-56" name="__codelineno-1-56" href="#__codelineno-1-56"></a>    SkipSTUpdate --&gt; Validate
-<a id="__codelineno-1-57" name="__codelineno-1-57" href="#__codelineno-1-57"></a>
-<a id="__codelineno-1-58" name="__codelineno-1-58" href="#__codelineno-1-58"></a>    subgraph &quot;Phase 4: Validation&quot;
-<a id="__codelineno-1-59" name="__codelineno-1-59" href="#__codelineno-1-59"></a>        Validate[Validate changes]
-<a id="__codelineno-1-60" name="__codelineno-1-60" href="#__codelineno-1-60"></a>
-<a id="__codelineno-1-61" name="__codelineno-1-61" href="#__codelineno-1-61"></a>        Validate --&gt; BuildTest{mkdocs build&lt;br/&gt;--strict}
-<a id="__codelineno-1-62" name="__codelineno-1-62" href="#__codelineno-1-62"></a>
-<a id="__codelineno-1-63" name="__codelineno-1-63" href="#__codelineno-1-63"></a>        BuildTest --&gt;|Success| ShowDiff[Show git diff]
-<a id="__codelineno-1-64" name="__codelineno-1-64" href="#__codelineno-1-64"></a>        BuildTest --&gt;|Fail| Rollback[Rollback mkdocs.yml]
-<a id="__codelineno-1-65" name="__codelineno-1-65" href="#__codelineno-1-65"></a>
-<a id="__codelineno-1-66" name="__codelineno-1-66" href="#__codelineno-1-66"></a>        Rollback --&gt; RestoreBackup[Restore from&lt;br/&gt;.backup file]
-<a id="__codelineno-1-67" name="__codelineno-1-67" href="#__codelineno-1-67"></a>        RestoreBackup --&gt; Error[Error: Build failed]
-<a id="__codelineno-1-68" name="__codelineno-1-68" href="#__codelineno-1-68"></a>
-<a id="__codelineno-1-69" name="__codelineno-1-69" href="#__codelineno-1-69"></a>        ShowDiff --&gt; CommitPrompt{Commit&lt;br/&gt;changes?}
-<a id="__codelineno-1-70" name="__codelineno-1-70" href="#__codelineno-1-70"></a>
-<a id="__codelineno-1-71" name="__codelineno-1-71" href="#__codelineno-1-71"></a>        CommitPrompt --&gt;|Yes| GitCommit[git commit -m&lt;br/&gt;docs: auto-update]
-<a id="__codelineno-1-72" name="__codelineno-1-72" href="#__codelineno-1-72"></a>        CommitPrompt --&gt;|No| Manual[Manual review]
-<a id="__codelineno-1-73" name="__codelineno-1-73" href="#__codelineno-1-73"></a>    end
-<a id="__codelineno-1-74" name="__codelineno-1-74" href="#__codelineno-1-74"></a>
-<a id="__codelineno-1-75" name="__codelineno-1-75" href="#__codelineno-1-75"></a>    GitCommit --&gt; Success([Success!&lt;br/&gt;Docs updated])
-<a id="__codelineno-1-76" name="__codelineno-1-76" href="#__codelineno-1-76"></a>    Manual --&gt; Success
-<a id="__codelineno-1-77" name="__codelineno-1-77" href="#__codelineno-1-77"></a>    Error --&gt; Success
-<a id="__codelineno-1-78" name="__codelineno-1-78" href="#__codelineno-1-78"></a>
-<a id="__codelineno-1-79" name="__codelineno-1-79" href="#__codelineno-1-79"></a>    style Start fill:#e1f5ff
-<a id="__codelineno-1-80" name="__codelineno-1-80" href="#__codelineno-1-80"></a>    style Success fill:#d4edda
-<a id="__codelineno-1-81" name="__codelineno-1-81" href="#__codelineno-1-81"></a>    style Error fill:#f8d7da
-<a id="__codelineno-1-82" name="__codelineno-1-82" href="#__codelineno-1-82"></a>    style Phase2 fill:#fff4e6
-<a id="__codelineno-1-83" name="__codelineno-1-83" href="#__codelineno-1-83"></a>    style Phase3 fill:#ffe6f0
-<a id="__codelineno-1-84" name="__codelineno-1-84" href="#__codelineno-1-84"></a>    style Validate fill:#f0f0f0
-</code></pre></div>
+<pre class="mermaid"><code>flowchart TD
+    Start([User runs&lt;br/&gt;/workflow:done]) --&gt; Detect[Step 1.6:&lt;br/&gt;Run all updaters]
+
+    Detect --&gt; Phase1[Phase 1: Detection]
+
+    subgraph "Phase 1: Detect Documentation Issues"
+        Phase1 --&gt; CheckCL{Uncommitted&lt;br/&gt;commits?}
+        Phase1 --&gt; CheckMK{Orphaned&lt;br/&gt;docs?}
+        Phase1 --&gt; CheckST{.STATUS&lt;br/&gt;outdated?}
+
+        CheckCL --&gt;|Yes| FoundCL[Mark: CHANGELOG&lt;br/&gt;needs update]
+        CheckMK --&gt;|Yes| FoundMK[Mark: mkdocs.yml&lt;br/&gt;needs update]
+        CheckST --&gt;|Yes| FoundST[Mark: .STATUS&lt;br/&gt;needs update]
+
+        CheckCL --&gt;|No| SkipCL[Skip CHANGELOG]
+        CheckMK --&gt;|No| SkipMK[Skip mkdocs]
+        CheckST --&gt;|No| SkipST[Skip .STATUS]
+    end
+
+    FoundCL --&gt; Phase2
+    FoundMK --&gt; Phase2
+    FoundST --&gt; Phase2
+    SkipCL --&gt; Phase2
+    SkipMK --&gt; Phase2
+    SkipST --&gt; Phase2
+
+    subgraph "Phase 2: Safe Auto-Updates"
+        Phase2[Auto-update&lt;br/&gt;safe files]
+
+        Phase2 --&gt; BackupCL[Backup&lt;br/&gt;CHANGELOG.md]
+        Phase2 --&gt; BackupMK[Backup&lt;br/&gt;mkdocs.yml]
+
+        BackupCL --&gt; UpdateCL[Parse commits&lt;br/&gt;Generate entries]
+        BackupMK --&gt; UpdateMK[Find orphaned docs&lt;br/&gt;Infer sections]
+
+        UpdateCL --&gt; AppendCL[Append to&lt;br/&gt;CHANGELOG]
+        UpdateMK --&gt; AppendMK[Add to&lt;br/&gt;mkdocs.yml nav]
+    end
+
+    AppendCL --&gt; Phase3
+    AppendMK --&gt; Phase3
+
+    subgraph "Phase 3: Interactive Updates"
+        Phase3[Prompt for&lt;br/&gt;.STATUS update]
+
+        Phase3 --&gt; AskUser{User wants&lt;br/&gt;.STATUS update?}
+
+        AskUser --&gt;|Yes| BackupST[Backup .STATUS]
+        AskUser --&gt;|No| SkipSTUpdate[Skip .STATUS]
+
+        BackupST --&gt; GenSummary[Generate summary&lt;br/&gt;from git log]
+        GenSummary --&gt; UpdateST[Prepend to&lt;br/&gt;.STATUS]
+    end
+
+    UpdateST --&gt; Validate
+    SkipSTUpdate --&gt; Validate
+
+    subgraph "Phase 4: Validation"
+        Validate[Validate changes]
+
+        Validate --&gt; BuildTest{mkdocs build&lt;br/&gt;--strict}
+
+        BuildTest --&gt;|Success| ShowDiff[Show git diff]
+        BuildTest --&gt;|Fail| Rollback[Rollback mkdocs.yml]
+
+        Rollback --&gt; RestoreBackup[Restore from&lt;br/&gt;.backup file]
+        RestoreBackup --&gt; Error[Error: Build failed]
+
+        ShowDiff --&gt; CommitPrompt{Commit&lt;br/&gt;changes?}
+
+        CommitPrompt --&gt;|Yes| GitCommit[git commit -m&lt;br/&gt;docs: auto-update]
+        CommitPrompt --&gt;|No| Manual[Manual review]
+    end
+
+    GitCommit --&gt; Success([Success!&lt;br/&gt;Docs updated])
+    Manual --&gt; Success
+    Error --&gt; Success
+
+    style Start fill:#e1f5ff
+    style Success fill:#d4edda
+    style Error fill:#f8d7da
+    style Phase2 fill:#fff4e6
+    style Phase3 fill:#ffe6f0
+    style Validate fill:#f0f0f0</code></pre>
 <hr />
 <h2 id="individual-updater-changelog-flow">Individual Updater: CHANGELOG Flow</h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>flowchart LR
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>    Start([update-changelog.sh]) --&gt; Input[Input:&lt;br/&gt;Git commits]
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>    Input --&gt; LastUpdate[Find last&lt;br/&gt;CHANGELOG commit]
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>
-<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>    LastUpdate --&gt; Range[Get commit range:&lt;br/&gt;last..HEAD]
-<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>
-<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>    Range --&gt; Parse{For each&lt;br/&gt;commit}
-<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>
-<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>    Parse --&gt; ConvCheck{Conventional&lt;br/&gt;format?}
-<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>
-<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>    ConvCheck --&gt;|Yes| Extract[Extract:&lt;br/&gt;type, scope, subject]
-<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>    ConvCheck --&gt;|No| Warn[Mark as&lt;br/&gt;non-conventional]
-<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>
-<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>    Extract --&gt; TypeMap{Map type to&lt;br/&gt;section}
-<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>    Warn --&gt; TypeMap
-<a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a>
-<a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a>    TypeMap --&gt; Added[feat → Added]
-<a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a>    TypeMap --&gt; Fixed[fix → Fixed]
-<a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a>    TypeMap --&gt; Changed[refactor/perf → Changed]
-<a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a>    TypeMap --&gt; Docs[docs → Documentation]
-<a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a>    TypeMap --&gt; Tests[test → Tests]
-<a id="__codelineno-2-23" name="__codelineno-2-23" href="#__codelineno-2-23"></a>    TypeMap --&gt; Build[build → Build System]
-<a id="__codelineno-2-24" name="__codelineno-2-24" href="#__codelineno-2-24"></a>    TypeMap --&gt; CI[ci → CI/CD]
-<a id="__codelineno-2-25" name="__codelineno-2-25" href="#__codelineno-2-25"></a>    TypeMap --&gt; Skip[chore/style → Skip]
-<a id="__codelineno-2-26" name="__codelineno-2-26" href="#__codelineno-2-26"></a>
-<a id="__codelineno-2-27" name="__codelineno-2-27" href="#__codelineno-2-27"></a>    Added --&gt; Format
-<a id="__codelineno-2-28" name="__codelineno-2-28" href="#__codelineno-2-28"></a>    Fixed --&gt; Format
-<a id="__codelineno-2-29" name="__codelineno-2-29" href="#__codelineno-2-29"></a>    Changed --&gt; Format
-<a id="__codelineno-2-30" name="__codelineno-2-30" href="#__codelineno-2-30"></a>    Docs --&gt; Format
-<a id="__codelineno-2-31" name="__codelineno-2-31" href="#__codelineno-2-31"></a>    Tests --&gt; Format
-<a id="__codelineno-2-32" name="__codelineno-2-32" href="#__codelineno-2-32"></a>    Build --&gt; Format
-<a id="__codelineno-2-33" name="__codelineno-2-33" href="#__codelineno-2-33"></a>    CI --&gt; Format
-<a id="__codelineno-2-34" name="__codelineno-2-34" href="#__codelineno-2-34"></a>
-<a id="__codelineno-2-35" name="__codelineno-2-35" href="#__codelineno-2-35"></a>    subgraph &quot;Formatting&quot;
-<a id="__codelineno-2-36" name="__codelineno-2-36" href="#__codelineno-2-36"></a>        Format[Format entry:&lt;br/&gt;- **scope**: subject]
-<a id="__codelineno-2-37" name="__codelineno-2-37" href="#__codelineno-2-37"></a>        Format --&gt; Link[Add GitHub&lt;br/&gt;commit link]
-<a id="__codelineno-2-38" name="__codelineno-2-38" href="#__codelineno-2-38"></a>        Link --&gt; Group[Group by&lt;br/&gt;section]
-<a id="__codelineno-2-39" name="__codelineno-2-39" href="#__codelineno-2-39"></a>    end
-<a id="__codelineno-2-40" name="__codelineno-2-40" href="#__codelineno-2-40"></a>
-<a id="__codelineno-2-41" name="__codelineno-2-41" href="#__codelineno-2-41"></a>    Group --&gt; Check{--apply&lt;br/&gt;flag?}
-<a id="__codelineno-2-42" name="__codelineno-2-42" href="#__codelineno-2-42"></a>
-<a id="__codelineno-2-43" name="__codelineno-2-43" href="#__codelineno-2-43"></a>    Check --&gt;|No| Preview[Show preview&lt;br/&gt;Exit]
-<a id="__codelineno-2-44" name="__codelineno-2-44" href="#__codelineno-2-44"></a>    Check --&gt;|Yes| Backup[Create backup:&lt;br/&gt;.backup-YYYYMMDD]
-<a id="__codelineno-2-45" name="__codelineno-2-45" href="#__codelineno-2-45"></a>
-<a id="__codelineno-2-46" name="__codelineno-2-46" href="#__codelineno-2-46"></a>    Backup --&gt; Insert[Insert after&lt;br/&gt;[Unreleased]]
-<a id="__codelineno-2-47" name="__codelineno-2-47" href="#__codelineno-2-47"></a>
-<a id="__codelineno-2-48" name="__codelineno-2-48" href="#__codelineno-2-48"></a>    Insert --&gt; Save[Save CHANGELOG.md]
-<a id="__codelineno-2-49" name="__codelineno-2-49" href="#__codelineno-2-49"></a>
-<a id="__codelineno-2-50" name="__codelineno-2-50" href="#__codelineno-2-50"></a>    Preview --&gt; End([Done])
-<a id="__codelineno-2-51" name="__codelineno-2-51" href="#__codelineno-2-51"></a>    Save --&gt; End
-<a id="__codelineno-2-52" name="__codelineno-2-52" href="#__codelineno-2-52"></a>
-<a id="__codelineno-2-53" name="__codelineno-2-53" href="#__codelineno-2-53"></a>    style Start fill:#e1f5ff
-<a id="__codelineno-2-54" name="__codelineno-2-54" href="#__codelineno-2-54"></a>    style End fill:#d4edda
-<a id="__codelineno-2-55" name="__codelineno-2-55" href="#__codelineno-2-55"></a>    style Preview fill:#fff4e6
-<a id="__codelineno-2-56" name="__codelineno-2-56" href="#__codelineno-2-56"></a>    style Backup fill:#ffe6f0
-</code></pre></div>
+<pre class="mermaid"><code>flowchart LR
+    Start([update-changelog.sh]) --&gt; Input[Input:&lt;br/&gt;Git commits]
+
+    Input --&gt; LastUpdate[Find last&lt;br/&gt;CHANGELOG commit]
+
+    LastUpdate --&gt; Range[Get commit range:&lt;br/&gt;last..HEAD]
+
+    Range --&gt; Parse{For each&lt;br/&gt;commit}
+
+    Parse --&gt; ConvCheck{Conventional&lt;br/&gt;format?}
+
+    ConvCheck --&gt;|Yes| Extract[Extract:&lt;br/&gt;type, scope, subject]
+    ConvCheck --&gt;|No| Warn[Mark as&lt;br/&gt;non-conventional]
+
+    Extract --&gt; TypeMap{Map type to&lt;br/&gt;section}
+    Warn --&gt; TypeMap
+
+    TypeMap --&gt; Added[feat → Added]
+    TypeMap --&gt; Fixed[fix → Fixed]
+    TypeMap --&gt; Changed[refactor/perf → Changed]
+    TypeMap --&gt; Docs[docs → Documentation]
+    TypeMap --&gt; Tests[test → Tests]
+    TypeMap --&gt; Build[build → Build System]
+    TypeMap --&gt; CI[ci → CI/CD]
+    TypeMap --&gt; Skip[chore/style → Skip]
+
+    Added --&gt; Format
+    Fixed --&gt; Format
+    Changed --&gt; Format
+    Docs --&gt; Format
+    Tests --&gt; Format
+    Build --&gt; Format
+    CI --&gt; Format
+
+    subgraph "Formatting"
+        Format[Format entry:&lt;br/&gt;- **scope**: subject]
+        Format --&gt; Link[Add GitHub&lt;br/&gt;commit link]
+        Link --&gt; Group[Group by&lt;br/&gt;section]
+    end
+
+    Group --&gt; Check{--apply&lt;br/&gt;flag?}
+
+    Check --&gt;|No| Preview[Show preview&lt;br/&gt;Exit]
+    Check --&gt;|Yes| Backup[Create backup:&lt;br/&gt;.backup-YYYYMMDD]
+
+    Backup --&gt; Insert[Insert after&lt;br/&gt;[Unreleased]]
+
+    Insert --&gt; Save[Save CHANGELOG.md]
+
+    Preview --&gt; End([Done])
+    Save --&gt; End
+
+    style Start fill:#e1f5ff
+    style End fill:#d4edda
+    style Preview fill:#fff4e6
+    style Backup fill:#ffe6f0</code></pre>
 <hr />
 <h2 id="individual-updater-mkdocs-navigation-flow">Individual Updater: mkdocs Navigation Flow</h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>flowchart TD
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>    Start([update-mkdocs-nav.sh]) --&gt; FindDocs[Find all .md files&lt;br/&gt;in project]
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>    FindDocs --&gt; Filter{Filter files}
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>
-<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>    Filter --&gt; Exclude[Exclude:&lt;br/&gt;README, BRAINSTORM,&lt;br/&gt;*.backup-*, temp files]
-<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>
-<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>    Exclude --&gt; ReadNav[Read current&lt;br/&gt;mkdocs.yml nav]
-<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>
-<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>    ReadNav --&gt; Compare{For each&lt;br/&gt;doc file}
-<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>
-<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>    Compare --&gt; InNav{Already in&lt;br/&gt;navigation?}
-<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>
-<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>    InNav --&gt;|Yes| Skip[Skip file]
-<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>    InNav --&gt;|No| Orphan[Mark as orphaned]
-<a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a>
-<a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a>    Orphan --&gt; InferSection{Infer section&lt;br/&gt;from filename}
-<a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a>
-<a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a>    InferSection --&gt; API[*API* → Reference]
-<a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a>    InferSection --&gt; ARCH[*ARCHITECTURE* → Reference]
-<a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a>    InferSection --&gt; GUIDE[*GUIDE* → User Guide]
-<a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a>    InferSection --&gt; INTEG[*INTEGRATION* → User Guide]
-<a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a>    InferSection --&gt; TUT[*TUTORIAL* → Tutorials]
-<a id="__codelineno-3-24" name="__codelineno-3-24" href="#__codelineno-3-24"></a>    InferSection --&gt; QUICK[*QUICKSTART* → Getting Started]
-<a id="__codelineno-3-25" name="__codelineno-3-25" href="#__codelineno-3-25"></a>    InferSection --&gt; PHASE[*PHASE* → Development]
-<a id="__codelineno-3-26" name="__codelineno-3-26" href="#__codelineno-3-26"></a>    InferSection --&gt; DESIGN[*DESIGN* → Development]
-<a id="__codelineno-3-27" name="__codelineno-3-27" href="#__codelineno-3-27"></a>    InferSection --&gt; Fallback[Fallback → Miscellaneous]
-<a id="__codelineno-3-28" name="__codelineno-3-28" href="#__codelineno-3-28"></a>
-<a id="__codelineno-3-29" name="__codelineno-3-29" href="#__codelineno-3-29"></a>    API --&gt; Extract
-<a id="__codelineno-3-30" name="__codelineno-3-30" href="#__codelineno-3-30"></a>    ARCH --&gt; Extract
-<a id="__codelineno-3-31" name="__codelineno-3-31" href="#__codelineno-3-31"></a>    GUIDE --&gt; Extract
-<a id="__codelineno-3-32" name="__codelineno-3-32" href="#__codelineno-3-32"></a>    INTEG --&gt; Extract
-<a id="__codelineno-3-33" name="__codelineno-3-33" href="#__codelineno-3-33"></a>    TUT --&gt; Extract
-<a id="__codelineno-3-34" name="__codelineno-3-34" href="#__codelineno-3-34"></a>    QUICK --&gt; Extract
-<a id="__codelineno-3-35" name="__codelineno-3-35" href="#__codelineno-3-35"></a>    PHASE --&gt; Extract
-<a id="__codelineno-3-36" name="__codelineno-3-36" href="#__codelineno-3-36"></a>    DESIGN --&gt; Extract
-<a id="__codelineno-3-37" name="__codelineno-3-37" href="#__codelineno-3-37"></a>    Fallback --&gt; Extract
-<a id="__codelineno-3-38" name="__codelineno-3-38" href="#__codelineno-3-38"></a>
-<a id="__codelineno-3-39" name="__codelineno-3-39" href="#__codelineno-3-39"></a>    subgraph &quot;Extract Title&quot;
-<a id="__codelineno-3-40" name="__codelineno-3-40" href="#__codelineno-3-40"></a>        Extract[Read first 5 lines]
-<a id="__codelineno-3-41" name="__codelineno-3-41" href="#__codelineno-3-41"></a>        Extract --&gt; FindH1{Find # heading}
-<a id="__codelineno-3-42" name="__codelineno-3-42" href="#__codelineno-3-42"></a>        FindH1 --&gt;|Yes| UseH1[Use heading text]
-<a id="__codelineno-3-43" name="__codelineno-3-43" href="#__codelineno-3-43"></a>        FindH1 --&gt;|No| UseFile[Use filename]
-<a id="__codelineno-3-44" name="__codelineno-3-44" href="#__codelineno-3-44"></a>    end
-<a id="__codelineno-3-45" name="__codelineno-3-45" href="#__codelineno-3-45"></a>
-<a id="__codelineno-3-46" name="__codelineno-3-46" href="#__codelineno-3-46"></a>    UseH1 --&gt; Format
-<a id="__codelineno-3-47" name="__codelineno-3-47" href="#__codelineno-3-47"></a>    UseFile --&gt; Format
-<a id="__codelineno-3-48" name="__codelineno-3-48" href="#__codelineno-3-48"></a>
-<a id="__codelineno-3-49" name="__codelineno-3-49" href="#__codelineno-3-49"></a>    subgraph &quot;Format Entry&quot;
-<a id="__codelineno-3-50" name="__codelineno-3-50" href="#__codelineno-3-50"></a>        Format[Format:&lt;br/&gt;- Title: path/file.md]
-<a id="__codelineno-3-51" name="__codelineno-3-51" href="#__codelineno-3-51"></a>    end
-<a id="__codelineno-3-52" name="__codelineno-3-52" href="#__codelineno-3-52"></a>
-<a id="__codelineno-3-53" name="__codelineno-3-53" href="#__codelineno-3-53"></a>    Format --&gt; Collect[Collect all&lt;br/&gt;new entries]
-<a id="__codelineno-3-54" name="__codelineno-3-54" href="#__codelineno-3-54"></a>
-<a id="__codelineno-3-55" name="__codelineno-3-55" href="#__codelineno-3-55"></a>    Collect --&gt; Check{--apply&lt;br/&gt;flag?}
-<a id="__codelineno-3-56" name="__codelineno-3-56" href="#__codelineno-3-56"></a>
-<a id="__codelineno-3-57" name="__codelineno-3-57" href="#__codelineno-3-57"></a>    Check --&gt;|No| Preview[Show preview&lt;br/&gt;Exit]
-<a id="__codelineno-3-58" name="__codelineno-3-58" href="#__codelineno-3-58"></a>    Check --&gt;|Yes| Backup[Create backup:&lt;br/&gt;mkdocs.yml.backup]
-<a id="__codelineno-3-59" name="__codelineno-3-59" href="#__codelineno-3-59"></a>
-<a id="__codelineno-3-60" name="__codelineno-3-60" href="#__codelineno-3-60"></a>    Backup --&gt; AddEntries[Add entries to&lt;br/&gt;appropriate sections]
-<a id="__codelineno-3-61" name="__codelineno-3-61" href="#__codelineno-3-61"></a>
-<a id="__codelineno-3-62" name="__codelineno-3-62" href="#__codelineno-3-62"></a>    AddEntries --&gt; Validate[Validate YAML&lt;br/&gt;syntax]
-<a id="__codelineno-3-63" name="__codelineno-3-63" href="#__codelineno-3-63"></a>
-<a id="__codelineno-3-64" name="__codelineno-3-64" href="#__codelineno-3-64"></a>    Validate --&gt;|Valid| Save[Save mkdocs.yml]
-<a id="__codelineno-3-65" name="__codelineno-3-65" href="#__codelineno-3-65"></a>    Validate --&gt;|Invalid| Restore[Restore backup&lt;br/&gt;Show error]
-<a id="__codelineno-3-66" name="__codelineno-3-66" href="#__codelineno-3-66"></a>
-<a id="__codelineno-3-67" name="__codelineno-3-67" href="#__codelineno-3-67"></a>    Save --&gt; BuildTest[Test: mkdocs build&lt;br/&gt;--strict]
-<a id="__codelineno-3-68" name="__codelineno-3-68" href="#__codelineno-3-68"></a>
-<a id="__codelineno-3-69" name="__codelineno-3-69" href="#__codelineno-3-69"></a>    BuildTest --&gt;|Pass| Success([Success!])
-<a id="__codelineno-3-70" name="__codelineno-3-70" href="#__codelineno-3-70"></a>    BuildTest --&gt;|Fail| Rollback[Rollback to backup&lt;br/&gt;Show error]
-<a id="__codelineno-3-71" name="__codelineno-3-71" href="#__codelineno-3-71"></a>
-<a id="__codelineno-3-72" name="__codelineno-3-72" href="#__codelineno-3-72"></a>    Preview --&gt; End([Done])
-<a id="__codelineno-3-73" name="__codelineno-3-73" href="#__codelineno-3-73"></a>    Restore --&gt; End
-<a id="__codelineno-3-74" name="__codelineno-3-74" href="#__codelineno-3-74"></a>    Rollback --&gt; End
-<a id="__codelineno-3-75" name="__codelineno-3-75" href="#__codelineno-3-75"></a>    Success --&gt; End
-<a id="__codelineno-3-76" name="__codelineno-3-76" href="#__codelineno-3-76"></a>
-<a id="__codelineno-3-77" name="__codelineno-3-77" href="#__codelineno-3-77"></a>    style Start fill:#e1f5ff
-<a id="__codelineno-3-78" name="__codelineno-3-78" href="#__codelineno-3-78"></a>    style Success fill:#d4edda
-<a id="__codelineno-3-79" name="__codelineno-3-79" href="#__codelineno-3-79"></a>    style End fill:#d4edda
-<a id="__codelineno-3-80" name="__codelineno-3-80" href="#__codelineno-3-80"></a>    style Preview fill:#fff4e6
-<a id="__codelineno-3-81" name="__codelineno-3-81" href="#__codelineno-3-81"></a>    style Backup fill:#ffe6f0
-<a id="__codelineno-3-82" name="__codelineno-3-82" href="#__codelineno-3-82"></a>    style Restore fill:#f8d7da
-<a id="__codelineno-3-83" name="__codelineno-3-83" href="#__codelineno-3-83"></a>    style Rollback fill:#f8d7da
-</code></pre></div>
+<pre class="mermaid"><code>flowchart TD
+    Start([update-mkdocs-nav.sh]) --&gt; FindDocs[Find all .md files&lt;br/&gt;in project]
+
+    FindDocs --&gt; Filter{Filter files}
+
+    Filter --&gt; Exclude[Exclude:&lt;br/&gt;README, BRAINSTORM,&lt;br/&gt;*.backup-*, temp files]
+
+    Exclude --&gt; ReadNav[Read current&lt;br/&gt;mkdocs.yml nav]
+
+    ReadNav --&gt; Compare{For each&lt;br/&gt;doc file}
+
+    Compare --&gt; InNav{Already in&lt;br/&gt;navigation?}
+
+    InNav --&gt;|Yes| Skip[Skip file]
+    InNav --&gt;|No| Orphan[Mark as orphaned]
+
+    Orphan --&gt; InferSection{Infer section&lt;br/&gt;from filename}
+
+    InferSection --&gt; API[*API* → Reference]
+    InferSection --&gt; ARCH[*ARCHITECTURE* → Reference]
+    InferSection --&gt; GUIDE[*GUIDE* → User Guide]
+    InferSection --&gt; INTEG[*INTEGRATION* → User Guide]
+    InferSection --&gt; TUT[*TUTORIAL* → Tutorials]
+    InferSection --&gt; QUICK[*QUICKSTART* → Getting Started]
+    InferSection --&gt; PHASE[*PHASE* → Development]
+    InferSection --&gt; DESIGN[*DESIGN* → Development]
+    InferSection --&gt; Fallback[Fallback → Miscellaneous]
+
+    API --&gt; Extract
+    ARCH --&gt; Extract
+    GUIDE --&gt; Extract
+    INTEG --&gt; Extract
+    TUT --&gt; Extract
+    QUICK --&gt; Extract
+    PHASE --&gt; Extract
+    DESIGN --&gt; Extract
+    Fallback --&gt; Extract
+
+    subgraph "Extract Title"
+        Extract[Read first 5 lines]
+        Extract --&gt; FindH1{Find # heading}
+        FindH1 --&gt;|Yes| UseH1[Use heading text]
+        FindH1 --&gt;|No| UseFile[Use filename]
+    end
+
+    UseH1 --&gt; Format
+    UseFile --&gt; Format
+
+    subgraph "Format Entry"
+        Format[Format:&lt;br/&gt;- Title: path/file.md]
+    end
+
+    Format --&gt; Collect[Collect all&lt;br/&gt;new entries]
+
+    Collect --&gt; Check{--apply&lt;br/&gt;flag?}
+
+    Check --&gt;|No| Preview[Show preview&lt;br/&gt;Exit]
+    Check --&gt;|Yes| Backup[Create backup:&lt;br/&gt;mkdocs.yml.backup]
+
+    Backup --&gt; AddEntries[Add entries to&lt;br/&gt;appropriate sections]
+
+    AddEntries --&gt; Validate[Validate YAML&lt;br/&gt;syntax]
+
+    Validate --&gt;|Valid| Save[Save mkdocs.yml]
+    Validate --&gt;|Invalid| Restore[Restore backup&lt;br/&gt;Show error]
+
+    Save --&gt; BuildTest[Test: mkdocs build&lt;br/&gt;--strict]
+
+    BuildTest --&gt;|Pass| Success([Success!])
+    BuildTest --&gt;|Fail| Rollback[Rollback to backup&lt;br/&gt;Show error]
+
+    Preview --&gt; End([Done])
+    Restore --&gt; End
+    Rollback --&gt; End
+    Success --&gt; End
+
+    style Start fill:#e1f5ff
+    style Success fill:#d4edda
+    style End fill:#d4edda
+    style Preview fill:#fff4e6
+    style Backup fill:#ffe6f0
+    style Restore fill:#f8d7da
+    style Rollback fill:#f8d7da</code></pre>
 <hr />
 <h2 id="individual-updater-status-update-flow">Individual Updater: .STATUS Update Flow</h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>flowchart LR
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>    Start([update-claude-md.sh]) --&gt; FindFile{Find status&lt;br/&gt;file}
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>
-<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>    FindFile --&gt; CheckStatus[Check .STATUS]
-<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>    FindFile --&gt; CheckClaude[Check CLAUDE.md]
-<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>
-<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>    CheckStatus --&gt;|Found| UseStatus[Use .STATUS]
-<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>    CheckClaude --&gt;|Found| UseClaude[Use CLAUDE.md]
-<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>    CheckStatus --&gt;|Not found| CheckClaude
-<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>    CheckClaude --&gt;|Not found| Error[Error: No file]
-<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>
-<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>    UseStatus --&gt; Input
-<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a>    UseClaude --&gt; Input
-<a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a>
-<a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a>    subgraph &quot;Gather Input&quot;
-<a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a>        Input[Choose input&lt;br/&gt;method]
-<a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a>
-<a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a>        Input --&gt; CustomCheck{Custom&lt;br/&gt;--session arg?}
-<a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a>
-<a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a>        CustomCheck --&gt;|Yes| Custom[Use custom&lt;br/&gt;summary]
-<a id="__codelineno-4-21" name="__codelineno-4-21" href="#__codelineno-4-21"></a>        CustomCheck --&gt;|No| Auto[Auto-generate&lt;br/&gt;from git]
-<a id="__codelineno-4-22" name="__codelineno-4-22" href="#__codelineno-4-22"></a>
-<a id="__codelineno-4-23" name="__codelineno-4-23" href="#__codelineno-4-23"></a>        Auto --&gt; GitLog[Get recent&lt;br/&gt;commits]
-<a id="__codelineno-4-24" name="__codelineno-4-24" href="#__codelineno-4-24"></a>        GitLog --&gt; Stats[Get changed&lt;br/&gt;files stats]
-<a id="__codelineno-4-25" name="__codelineno-4-25" href="#__codelineno-4-25"></a>        Stats --&gt; GenSummary[Format:&lt;br/&gt;- commits&lt;br/&gt;- files&lt;br/&gt;- messages]
-<a id="__codelineno-4-26" name="__codelineno-4-26" href="#__codelineno-4-26"></a>    end
-<a id="__codelineno-4-27" name="__codelineno-4-27" href="#__codelineno-4-27"></a>
-<a id="__codelineno-4-28" name="__codelineno-4-28" href="#__codelineno-4-28"></a>    Custom --&gt; Format
-<a id="__codelineno-4-29" name="__codelineno-4-29" href="#__codelineno-4-29"></a>    GenSummary --&gt; Format
-<a id="__codelineno-4-30" name="__codelineno-4-30" href="#__codelineno-4-30"></a>
-<a id="__codelineno-4-31" name="__codelineno-4-31" href="#__codelineno-4-31"></a>    subgraph &quot;Format Entry&quot;
-<a id="__codelineno-4-32" name="__codelineno-4-32" href="#__codelineno-4-32"></a>        Format[Format entry:&lt;br/&gt;✅ Session Completion&lt;br/&gt;+ date&lt;br/&gt;+ summary]
-<a id="__codelineno-4-33" name="__codelineno-4-33" href="#__codelineno-4-33"></a>
-<a id="__codelineno-4-34" name="__codelineno-4-34" href="#__codelineno-4-34"></a>        Format --&gt; UpdateFields[Update fields:&lt;br/&gt;updated: date&lt;br/&gt;progress: %]
-<a id="__codelineno-4-35" name="__codelineno-4-35" href="#__codelineno-4-35"></a>    end
-<a id="__codelineno-4-36" name="__codelineno-4-36" href="#__codelineno-4-36"></a>
-<a id="__codelineno-4-37" name="__codelineno-4-37" href="#__codelineno-4-37"></a>    UpdateFields --&gt; Check{--apply&lt;br/&gt;flag?}
-<a id="__codelineno-4-38" name="__codelineno-4-38" href="#__codelineno-4-38"></a>
-<a id="__codelineno-4-39" name="__codelineno-4-39" href="#__codelineno-4-39"></a>    Check --&gt;|No| Preview[Show preview&lt;br/&gt;Exit]
-<a id="__codelineno-4-40" name="__codelineno-4-40" href="#__codelineno-4-40"></a>    Check --&gt;|Yes| Backup[Create backup:&lt;br/&gt;.STATUS.backup]
-<a id="__codelineno-4-41" name="__codelineno-4-41" href="#__codelineno-4-41"></a>
-<a id="__codelineno-4-42" name="__codelineno-4-42" href="#__codelineno-4-42"></a>    Backup --&gt; FindSection{Find section:&lt;br/&gt;## ✅ Just Completed}
-<a id="__codelineno-4-43" name="__codelineno-4-43" href="#__codelineno-4-43"></a>
-<a id="__codelineno-4-44" name="__codelineno-4-44" href="#__codelineno-4-44"></a>    FindSection --&gt;|Found| Prepend[Prepend new entry&lt;br/&gt;to section]
-<a id="__codelineno-4-45" name="__codelineno-4-45" href="#__codelineno-4-45"></a>    FindSection --&gt;|Not found| Create[Create section&lt;br/&gt;+ entry]
-<a id="__codelineno-4-46" name="__codelineno-4-46" href="#__codelineno-4-46"></a>
-<a id="__codelineno-4-47" name="__codelineno-4-47" href="#__codelineno-4-47"></a>    Prepend --&gt; Save[Save file]
-<a id="__codelineno-4-48" name="__codelineno-4-48" href="#__codelineno-4-48"></a>    Create --&gt; Save
-<a id="__codelineno-4-49" name="__codelineno-4-49" href="#__codelineno-4-49"></a>
-<a id="__codelineno-4-50" name="__codelineno-4-50" href="#__codelineno-4-50"></a>    Preview --&gt; End([Done])
-<a id="__codelineno-4-51" name="__codelineno-4-51" href="#__codelineno-4-51"></a>    Save --&gt; End
-<a id="__codelineno-4-52" name="__codelineno-4-52" href="#__codelineno-4-52"></a>    Error --&gt; End
-<a id="__codelineno-4-53" name="__codelineno-4-53" href="#__codelineno-4-53"></a>
-<a id="__codelineno-4-54" name="__codelineno-4-54" href="#__codelineno-4-54"></a>    style Start fill:#e1f5ff
-<a id="__codelineno-4-55" name="__codelineno-4-55" href="#__codelineno-4-55"></a>    style End fill:#d4edda
-<a id="__codelineno-4-56" name="__codelineno-4-56" href="#__codelineno-4-56"></a>    style Preview fill:#fff4e6
-<a id="__codelineno-4-57" name="__codelineno-4-57" href="#__codelineno-4-57"></a>    style Backup fill:#ffe6f0
-<a id="__codelineno-4-58" name="__codelineno-4-58" href="#__codelineno-4-58"></a>    style Error fill:#f8d7da
-</code></pre></div>
+<pre class="mermaid"><code>flowchart LR
+    Start([update-claude-md.sh]) --&gt; FindFile{Find status&lt;br/&gt;file}
+
+    FindFile --&gt; CheckStatus[Check .STATUS]
+    FindFile --&gt; CheckClaude[Check CLAUDE.md]
+
+    CheckStatus --&gt;|Found| UseStatus[Use .STATUS]
+    CheckClaude --&gt;|Found| UseClaude[Use CLAUDE.md]
+    CheckStatus --&gt;|Not found| CheckClaude
+    CheckClaude --&gt;|Not found| Error[Error: No file]
+
+    UseStatus --&gt; Input
+    UseClaude --&gt; Input
+
+    subgraph "Gather Input"
+        Input[Choose input&lt;br/&gt;method]
+
+        Input --&gt; CustomCheck{Custom&lt;br/&gt;--session arg?}
+
+        CustomCheck --&gt;|Yes| Custom[Use custom&lt;br/&gt;summary]
+        CustomCheck --&gt;|No| Auto[Auto-generate&lt;br/&gt;from git]
+
+        Auto --&gt; GitLog[Get recent&lt;br/&gt;commits]
+        GitLog --&gt; Stats[Get changed&lt;br/&gt;files stats]
+        Stats --&gt; GenSummary[Format:&lt;br/&gt;- commits&lt;br/&gt;- files&lt;br/&gt;- messages]
+    end
+
+    Custom --&gt; Format
+    GenSummary --&gt; Format
+
+    subgraph "Format Entry"
+        Format[Format entry:&lt;br/&gt;✅ Session Completion&lt;br/&gt;+ date&lt;br/&gt;+ summary]
+
+        Format --&gt; UpdateFields[Update fields:&lt;br/&gt;updated: date&lt;br/&gt;progress: %]
+    end
+
+    UpdateFields --&gt; Check{--apply&lt;br/&gt;flag?}
+
+    Check --&gt;|No| Preview[Show preview&lt;br/&gt;Exit]
+    Check --&gt;|Yes| Backup[Create backup:&lt;br/&gt;.STATUS.backup]
+
+    Backup --&gt; FindSection{Find section:&lt;br/&gt;## ✅ Just Completed}
+
+    FindSection --&gt;|Found| Prepend[Prepend new entry&lt;br/&gt;to section]
+    FindSection --&gt;|Not found| Create[Create section&lt;br/&gt;+ entry]
+
+    Prepend --&gt; Save[Save file]
+    Create --&gt; Save
+
+    Preview --&gt; End([Done])
+    Save --&gt; End
+    Error --&gt; End
+
+    style Start fill:#e1f5ff
+    style End fill:#d4edda
+    style Preview fill:#fff4e6
+    style Backup fill:#ffe6f0
+    style Error fill:#f8d7da</code></pre>
 <hr />
 <h2 id="safety-rollback-flow">Safety &amp; Rollback Flow</h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>flowchart TD
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>    Start([Updater starts]) --&gt; Backup[Create timestamped&lt;br/&gt;backup files]
-<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>
-<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>    Backup --&gt; B1[CHANGELOG.md.backup-&lt;br/&gt;YYYYMMDD-HHMMSS]
-<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>    Backup --&gt; B2[mkdocs.yml.backup-&lt;br/&gt;YYYYMMDD-HHMMSS]
-<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>    Backup --&gt; B3[.STATUS.backup-&lt;br/&gt;YYYYMMDD-HHMMSS]
-<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>
-<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>    B1 --&gt; Update
-<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>    B2 --&gt; Update
-<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>    B3 --&gt; Update
-<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>
-<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>    subgraph &quot;Update Process&quot;
-<a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a>        Update[Make changes&lt;br/&gt;to files]
-<a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a>
-<a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a>        Update --&gt; Validate{Validation}
-<a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a>
-<a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a>        Validate --&gt; YAMLCheck[YAML syntax&lt;br/&gt;valid?]
-<a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a>        Validate --&gt; BuildCheck[mkdocs build&lt;br/&gt;passes?]
-<a id="__codelineno-5-19" name="__codelineno-5-19" href="#__codelineno-5-19"></a>
-<a id="__codelineno-5-20" name="__codelineno-5-20" href="#__codelineno-5-20"></a>        YAMLCheck --&gt;|Pass| BuildCheck
-<a id="__codelineno-5-21" name="__codelineno-5-21" href="#__codelineno-5-21"></a>        YAMLCheck --&gt;|Fail| RollbackYAML
-<a id="__codelineno-5-22" name="__codelineno-5-22" href="#__codelineno-5-22"></a>
-<a id="__codelineno-5-23" name="__codelineno-5-23" href="#__codelineno-5-23"></a>        BuildCheck --&gt;|Pass| Success
-<a id="__codelineno-5-24" name="__codelineno-5-24" href="#__codelineno-5-24"></a>        BuildCheck --&gt;|Fail| RollbackBuild
-<a id="__codelineno-5-25" name="__codelineno-5-25" href="#__codelineno-5-25"></a>    end
-<a id="__codelineno-5-26" name="__codelineno-5-26" href="#__codelineno-5-26"></a>
-<a id="__codelineno-5-27" name="__codelineno-5-27" href="#__codelineno-5-27"></a>    subgraph &quot;Rollback&quot;
-<a id="__codelineno-5-28" name="__codelineno-5-28" href="#__codelineno-5-28"></a>        RollbackYAML[Detect: YAML error]
-<a id="__codelineno-5-29" name="__codelineno-5-29" href="#__codelineno-5-29"></a>        RollbackBuild[Detect: Build error]
-<a id="__codelineno-5-30" name="__codelineno-5-30" href="#__codelineno-5-30"></a>
-<a id="__codelineno-5-31" name="__codelineno-5-31" href="#__codelineno-5-31"></a>        RollbackYAML --&gt; Restore1[Restore mkdocs.yml&lt;br/&gt;from backup]
-<a id="__codelineno-5-32" name="__codelineno-5-32" href="#__codelineno-5-32"></a>        RollbackBuild --&gt; Restore2[Restore mkdocs.yml&lt;br/&gt;from backup]
-<a id="__codelineno-5-33" name="__codelineno-5-33" href="#__codelineno-5-33"></a>
-<a id="__codelineno-5-34" name="__codelineno-5-34" href="#__codelineno-5-34"></a>        Restore1 --&gt; ShowError1[Show error:&lt;br/&gt;Invalid YAML]
-<a id="__codelineno-5-35" name="__codelineno-5-35" href="#__codelineno-5-35"></a>        Restore2 --&gt; ShowError2[Show error:&lt;br/&gt;Build failed]
-<a id="__codelineno-5-36" name="__codelineno-5-36" href="#__codelineno-5-36"></a>    end
-<a id="__codelineno-5-37" name="__codelineno-5-37" href="#__codelineno-5-37"></a>
-<a id="__codelineno-5-38" name="__codelineno-5-38" href="#__codelineno-5-38"></a>    Success([Success!&lt;br/&gt;Files updated]) --&gt; Keep{User commits?}
-<a id="__codelineno-5-39" name="__codelineno-5-39" href="#__codelineno-5-39"></a>
-<a id="__codelineno-5-40" name="__codelineno-5-40" href="#__codelineno-5-40"></a>    Keep --&gt;|Yes| DeleteBackups[Keep backups&lt;br/&gt;for safety]
-<a id="__codelineno-5-41" name="__codelineno-5-41" href="#__codelineno-5-41"></a>    Keep --&gt;|No| ManualRollback{User wants&lt;br/&gt;rollback?}
-<a id="__codelineno-5-42" name="__codelineno-5-42" href="#__codelineno-5-42"></a>
-<a id="__codelineno-5-43" name="__codelineno-5-43" href="#__codelineno-5-43"></a>    ManualRollback --&gt;|Yes| RestoreManual[Restore from&lt;br/&gt;backups manually]
-<a id="__codelineno-5-44" name="__codelineno-5-44" href="#__codelineno-5-44"></a>    ManualRollback --&gt;|No| KeepBoth[Keep both&lt;br/&gt;files &amp; backups]
-<a id="__codelineno-5-45" name="__codelineno-5-45" href="#__codelineno-5-45"></a>
-<a id="__codelineno-5-46" name="__codelineno-5-46" href="#__codelineno-5-46"></a>    DeleteBackups --&gt; End([Done])
-<a id="__codelineno-5-47" name="__codelineno-5-47" href="#__codelineno-5-47"></a>    ShowError1 --&gt; End
-<a id="__codelineno-5-48" name="__codelineno-5-48" href="#__codelineno-5-48"></a>    ShowError2 --&gt; End
-<a id="__codelineno-5-49" name="__codelineno-5-49" href="#__codelineno-5-49"></a>    RestoreManual --&gt; End
-<a id="__codelineno-5-50" name="__codelineno-5-50" href="#__codelineno-5-50"></a>    KeepBoth --&gt; End
-<a id="__codelineno-5-51" name="__codelineno-5-51" href="#__codelineno-5-51"></a>
-<a id="__codelineno-5-52" name="__codelineno-5-52" href="#__codelineno-5-52"></a>    style Start fill:#e1f5ff
-<a id="__codelineno-5-53" name="__codelineno-5-53" href="#__codelineno-5-53"></a>    style Success fill:#d4edda
-<a id="__codelineno-5-54" name="__codelineno-5-54" href="#__codelineno-5-54"></a>    style End fill:#d4edda
-<a id="__codelineno-5-55" name="__codelineno-5-55" href="#__codelineno-5-55"></a>    style RollbackYAML fill:#f8d7da
-<a id="__codelineno-5-56" name="__codelineno-5-56" href="#__codelineno-5-56"></a>    style RollbackBuild fill:#f8d7da
-<a id="__codelineno-5-57" name="__codelineno-5-57" href="#__codelineno-5-57"></a>    style ShowError1 fill:#f8d7da
-<a id="__codelineno-5-58" name="__codelineno-5-58" href="#__codelineno-5-58"></a>    style ShowError2 fill:#f8d7da
-</code></pre></div>
+<pre class="mermaid"><code>flowchart TD
+    Start([Updater starts]) --&gt; Backup[Create timestamped&lt;br/&gt;backup files]
+
+    Backup --&gt; B1[CHANGELOG.md.backup-&lt;br/&gt;YYYYMMDD-HHMMSS]
+    Backup --&gt; B2[mkdocs.yml.backup-&lt;br/&gt;YYYYMMDD-HHMMSS]
+    Backup --&gt; B3[.STATUS.backup-&lt;br/&gt;YYYYMMDD-HHMMSS]
+
+    B1 --&gt; Update
+    B2 --&gt; Update
+    B3 --&gt; Update
+
+    subgraph "Update Process"
+        Update[Make changes&lt;br/&gt;to files]
+
+        Update --&gt; Validate{Validation}
+
+        Validate --&gt; YAMLCheck[YAML syntax&lt;br/&gt;valid?]
+        Validate --&gt; BuildCheck[mkdocs build&lt;br/&gt;passes?]
+
+        YAMLCheck --&gt;|Pass| BuildCheck
+        YAMLCheck --&gt;|Fail| RollbackYAML
+
+        BuildCheck --&gt;|Pass| Success
+        BuildCheck --&gt;|Fail| RollbackBuild
+    end
+
+    subgraph "Rollback"
+        RollbackYAML[Detect: YAML error]
+        RollbackBuild[Detect: Build error]
+
+        RollbackYAML --&gt; Restore1[Restore mkdocs.yml&lt;br/&gt;from backup]
+        RollbackBuild --&gt; Restore2[Restore mkdocs.yml&lt;br/&gt;from backup]
+
+        Restore1 --&gt; ShowError1[Show error:&lt;br/&gt;Invalid YAML]
+        Restore2 --&gt; ShowError2[Show error:&lt;br/&gt;Build failed]
+    end
+
+    Success([Success!&lt;br/&gt;Files updated]) --&gt; Keep{User commits?}
+
+    Keep --&gt;|Yes| DeleteBackups[Keep backups&lt;br/&gt;for safety]
+    Keep --&gt;|No| ManualRollback{User wants&lt;br/&gt;rollback?}
+
+    ManualRollback --&gt;|Yes| RestoreManual[Restore from&lt;br/&gt;backups manually]
+    ManualRollback --&gt;|No| KeepBoth[Keep both&lt;br/&gt;files &amp; backups]
+
+    DeleteBackups --&gt; End([Done])
+    ShowError1 --&gt; End
+    ShowError2 --&gt; End
+    RestoreManual --&gt; End
+    KeepBoth --&gt; End
+
+    style Start fill:#e1f5ff
+    style Success fill:#d4edda
+    style End fill:#d4edda
+    style RollbackYAML fill:#f8d7da
+    style RollbackBuild fill:#f8d7da
+    style ShowError1 fill:#f8d7da
+    style ShowError2 fill:#f8d7da</code></pre>
 <hr />
 <h2 id="time-comparison-manual-vs-automatic">Time Comparison: Manual vs. Automatic</h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>gantt
-<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>    title Documentation Update Time Comparison
-<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>    dateFormat X
-<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>    axisFormat %s
-<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>
-<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>    section Manual Process
-<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>    Read git log           :0, 180s
-<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>    Copy commit messages   :180s, 120s
-<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>    Format CHANGELOG       :300s, 180s
-<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>    Find new docs          :480s, 90s
-<a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>    Update mkdocs.yml      :570s, 120s
-<a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a>    Update .STATUS         :690s, 90s
-<a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a>    Review &amp; commit        :780s, 120s
-<a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a>
-<a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a>    section Automatic Process
-<a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a>    Run /workflow:done     :0, 5s
-<a id="__codelineno-6-17" name="__codelineno-6-17" href="#__codelineno-6-17"></a>    Press Enter (3 times)  :5s, 10s
-<a id="__codelineno-6-18" name="__codelineno-6-18" href="#__codelineno-6-18"></a>    Review diff            :15s, 15s
-<a id="__codelineno-6-19" name="__codelineno-6-19" href="#__codelineno-6-19"></a>
-<a id="__codelineno-6-20" name="__codelineno-6-20" href="#__codelineno-6-20"></a>    section Time Saved
-<a id="__codelineno-6-21" name="__codelineno-6-21" href="#__codelineno-6-21"></a>    15 minutes saved!      :30s, 870s
-</code></pre></div>
+<pre class="mermaid"><code>gantt
+    title Documentation Update Time Comparison
+    dateFormat X
+    axisFormat %s
+
+    section Manual Process
+    Read git log           :0, 180s
+    Copy commit messages   :180s, 120s
+    Format CHANGELOG       :300s, 180s
+    Find new docs          :480s, 90s
+    Update mkdocs.yml      :570s, 120s
+    Update .STATUS         :690s, 90s
+    Review &amp; commit        :780s, 120s
+
+    section Automatic Process
+    Run /workflow:done     :0, 5s
+    Press Enter (3 times)  :5s, 10s
+    Review diff            :15s, 15s
+
+    section Time Saved
+    15 minutes saved!      :30s, 870s</code></pre>
 <hr />
 <h2 id="integration-with-workflowdone">Integration with /workflow:done</h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>sequenceDiagram
-<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>    participant U as User
-<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>    participant WF as /workflow:done
-<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>    participant D as Phase 1: Detect
-<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>    participant A as Phase 2: Auto-Update
-<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>    participant V as Validation
-<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>    participant G as Git
-<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>
-<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>    U-&gt;&gt;WF: Run command
-<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>    WF-&gt;&gt;WF: Step 1: Gather git activity
-<a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a>    WF-&gt;&gt;D: Step 1.5: Detect issues
-<a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a>
-<a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a>    D-&gt;&gt;D: Check CHANGELOG
-<a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a>    D-&gt;&gt;D: Check mkdocs.yml
-<a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a>    D-&gt;&gt;D: Check .STATUS
-<a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a>    D--&gt;&gt;WF: Found 3 commits, 2 orphaned docs
-<a id="__codelineno-7-17" name="__codelineno-7-17" href="#__codelineno-7-17"></a>
-<a id="__codelineno-7-18" name="__codelineno-7-18" href="#__codelineno-7-18"></a>    WF-&gt;&gt;A: Step 1.6: Run auto-updaters
-<a id="__codelineno-7-19" name="__codelineno-7-19" href="#__codelineno-7-19"></a>
-<a id="__codelineno-7-20" name="__codelineno-7-20" href="#__codelineno-7-20"></a>    A-&gt;&gt;A: Backup files
-<a id="__codelineno-7-21" name="__codelineno-7-21" href="#__codelineno-7-21"></a>    A-&gt;&gt;A: Update CHANGELOG
-<a id="__codelineno-7-22" name="__codelineno-7-22" href="#__codelineno-7-22"></a>    A-&gt;&gt;A: Update mkdocs.yml
-<a id="__codelineno-7-23" name="__codelineno-7-23" href="#__codelineno-7-23"></a>    A-&gt;&gt;U: Update .STATUS? [Y/n]
-<a id="__codelineno-7-24" name="__codelineno-7-24" href="#__codelineno-7-24"></a>    U--&gt;&gt;A: Y
-<a id="__codelineno-7-25" name="__codelineno-7-25" href="#__codelineno-7-25"></a>    A-&gt;&gt;A: Update .STATUS
-<a id="__codelineno-7-26" name="__codelineno-7-26" href="#__codelineno-7-26"></a>
-<a id="__codelineno-7-27" name="__codelineno-7-27" href="#__codelineno-7-27"></a>    A-&gt;&gt;V: Validate changes
-<a id="__codelineno-7-28" name="__codelineno-7-28" href="#__codelineno-7-28"></a>    V-&gt;&gt;V: Test mkdocs build --strict
-<a id="__codelineno-7-29" name="__codelineno-7-29" href="#__codelineno-7-29"></a>    V--&gt;&gt;A: ✓ Build passes
-<a id="__codelineno-7-30" name="__codelineno-7-30" href="#__codelineno-7-30"></a>
-<a id="__codelineno-7-31" name="__codelineno-7-31" href="#__codelineno-7-31"></a>    A-&gt;&gt;U: Show diff
-<a id="__codelineno-7-32" name="__codelineno-7-32" href="#__codelineno-7-32"></a>    A-&gt;&gt;U: Commit changes? [Y/n]
-<a id="__codelineno-7-33" name="__codelineno-7-33" href="#__codelineno-7-33"></a>    U--&gt;&gt;A: Y
-<a id="__codelineno-7-34" name="__codelineno-7-34" href="#__codelineno-7-34"></a>
-<a id="__codelineno-7-35" name="__codelineno-7-35" href="#__codelineno-7-35"></a>    A-&gt;&gt;G: git add CHANGELOG.md mkdocs.yml .STATUS
-<a id="__codelineno-7-36" name="__codelineno-7-36" href="#__codelineno-7-36"></a>    A-&gt;&gt;G: git commit -m &quot;docs: auto-update documentation&quot;
-<a id="__codelineno-7-37" name="__codelineno-7-37" href="#__codelineno-7-37"></a>    G--&gt;&gt;A: ✓ Committed
-<a id="__codelineno-7-38" name="__codelineno-7-38" href="#__codelineno-7-38"></a>
-<a id="__codelineno-7-39" name="__codelineno-7-39" href="#__codelineno-7-39"></a>    A--&gt;&gt;WF: ✓ Phase 2 complete
-<a id="__codelineno-7-40" name="__codelineno-7-40" href="#__codelineno-7-40"></a>    WF-&gt;&gt;WF: Step 2: Session summary
-<a id="__codelineno-7-41" name="__codelineno-7-41" href="#__codelineno-7-41"></a>    WF-&gt;&gt;WF: Step 3: Final cleanup
-<a id="__codelineno-7-42" name="__codelineno-7-42" href="#__codelineno-7-42"></a>    WF--&gt;&gt;U: ✓ Done!
-</code></pre></div>
+<pre class="mermaid"><code>sequenceDiagram
+    participant U as User
+    participant WF as /workflow:done
+    participant D as Phase 1: Detect
+    participant A as Phase 2: Auto-Update
+    participant V as Validation
+    participant G as Git
+
+    U-&gt;&gt;WF: Run command
+    WF-&gt;&gt;WF: Step 1: Gather git activity
+    WF-&gt;&gt;D: Step 1.5: Detect issues
+
+    D-&gt;&gt;D: Check CHANGELOG
+    D-&gt;&gt;D: Check mkdocs.yml
+    D-&gt;&gt;D: Check .STATUS
+    D--&gt;&gt;WF: Found 3 commits, 2 orphaned docs
+
+    WF-&gt;&gt;A: Step 1.6: Run auto-updaters
+
+    A-&gt;&gt;A: Backup files
+    A-&gt;&gt;A: Update CHANGELOG
+    A-&gt;&gt;A: Update mkdocs.yml
+    A-&gt;&gt;U: Update .STATUS? [Y/n]
+    U--&gt;&gt;A: Y
+    A-&gt;&gt;A: Update .STATUS
+
+    A-&gt;&gt;V: Validate changes
+    V-&gt;&gt;V: Test mkdocs build --strict
+    V--&gt;&gt;A: ✓ Build passes
+
+    A-&gt;&gt;U: Show diff
+    A-&gt;&gt;U: Commit changes? [Y/n]
+    U--&gt;&gt;A: Y
+
+    A-&gt;&gt;G: git add CHANGELOG.md mkdocs.yml .STATUS
+    A-&gt;&gt;G: git commit -m "docs: auto-update documentation"
+    G--&gt;&gt;A: ✓ Committed
+
+    A--&gt;&gt;WF: ✓ Phase 2 complete
+    WF-&gt;&gt;WF: Step 2: Session summary
+    WF-&gt;&gt;WF: Step 3: Final cleanup
+    WF--&gt;&gt;U: ✓ Done!</code></pre>
 <hr />
 <h2 id="decision-tree-which-mode-to-use">Decision Tree: Which Mode to Use?</h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>flowchart TD
-<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>    Start{What&#39;s your&lt;br/&gt;use case?}
-<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>
-<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>    Start --&gt;|Regular dev session| Interactive[Use Interactive Mode&lt;br/&gt;Default behavior]
-<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>    Start --&gt;|CI/CD pipeline| Auto[Use Auto Mode&lt;br/&gt;--auto flag]
-<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>    Start --&gt;|Want to preview| Preview[Use Preview Mode&lt;br/&gt;--dry-run flag]
-<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>    Start --&gt;|Major release| Manual[Manual + Review]
-<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>
-<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>    Interactive --&gt; Q1{Do you trust&lt;br/&gt;the system?}
-<a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a>    Q1 --&gt;|Yes| Fast[Just press Enter&lt;br/&gt;~10 seconds]
-<a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a>    Q1 --&gt;|No| Review1[Review each change&lt;br/&gt;~30 seconds]
-<a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a>
-<a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a>    Auto --&gt; Q2{Safe for&lt;br/&gt;automation?}
-<a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a>    Q2 --&gt;|Yes| Safe[CHANGELOG + mkdocs&lt;br/&gt;auto-applied]
-<a id="__codelineno-8-15" name="__codelineno-8-15" href="#__codelineno-8-15"></a>    Q2 --&gt;|No| Interactive
-<a id="__codelineno-8-16" name="__codelineno-8-16" href="#__codelineno-8-16"></a>
-<a id="__codelineno-8-17" name="__codelineno-8-17" href="#__codelineno-8-17"></a>    Preview --&gt; Q3{What do you&lt;br/&gt;want to check?}
-<a id="__codelineno-8-18" name="__codelineno-8-18" href="#__codelineno-8-18"></a>    Q3 --&gt;|What would change| Show[Shows preview&lt;br/&gt;No changes applied]
-<a id="__codelineno-8-19" name="__codelineno-8-19" href="#__codelineno-8-19"></a>    Q3 --&gt;|Why not updating| Debug[Debug detection&lt;br/&gt;logic]
-<a id="__codelineno-8-20" name="__codelineno-8-20" href="#__codelineno-8-20"></a>
-<a id="__codelineno-8-21" name="__codelineno-8-21" href="#__codelineno-8-21"></a>    Manual --&gt; Q4{Why manual?}
-<a id="__codelineno-8-22" name="__codelineno-8-22" href="#__codelineno-8-22"></a>    Q4 --&gt;|Breaking changes| Detail[Write detailed&lt;br/&gt;migration guide]
-<a id="__codelineno-8-23" name="__codelineno-8-23" href="#__codelineno-8-23"></a>    Q4 --&gt;|Security fix| Specific[Specific wording&lt;br/&gt;for advisory]
-<a id="__codelineno-8-24" name="__codelineno-8-24" href="#__codelineno-8-24"></a>    Q4 --&gt;|Marketing| Polish[Polish for&lt;br/&gt;public release]
-<a id="__codelineno-8-25" name="__codelineno-8-25" href="#__codelineno-8-25"></a>
-<a id="__codelineno-8-26" name="__codelineno-8-26" href="#__codelineno-8-26"></a>    Fast --&gt; Done([Done!])
-<a id="__codelineno-8-27" name="__codelineno-8-27" href="#__codelineno-8-27"></a>    Review1 --&gt; Done
-<a id="__codelineno-8-28" name="__codelineno-8-28" href="#__codelineno-8-28"></a>    Safe --&gt; Done
-<a id="__codelineno-8-29" name="__codelineno-8-29" href="#__codelineno-8-29"></a>    Show --&gt; Done
-<a id="__codelineno-8-30" name="__codelineno-8-30" href="#__codelineno-8-30"></a>    Debug --&gt; Done
-<a id="__codelineno-8-31" name="__codelineno-8-31" href="#__codelineno-8-31"></a>    Detail --&gt; Done
-<a id="__codelineno-8-32" name="__codelineno-8-32" href="#__codelineno-8-32"></a>    Specific --&gt; Done
-<a id="__codelineno-8-33" name="__codelineno-8-33" href="#__codelineno-8-33"></a>    Polish --&gt; Done
-<a id="__codelineno-8-34" name="__codelineno-8-34" href="#__codelineno-8-34"></a>
-<a id="__codelineno-8-35" name="__codelineno-8-35" href="#__codelineno-8-35"></a>    style Start fill:#e1f5ff
-<a id="__codelineno-8-36" name="__codelineno-8-36" href="#__codelineno-8-36"></a>    style Done fill:#d4edda
-<a id="__codelineno-8-37" name="__codelineno-8-37" href="#__codelineno-8-37"></a>    style Interactive fill:#fff4e6
-<a id="__codelineno-8-38" name="__codelineno-8-38" href="#__codelineno-8-38"></a>    style Auto fill:#ffe6f0
-<a id="__codelineno-8-39" name="__codelineno-8-39" href="#__codelineno-8-39"></a>    style Preview fill:#e8f5e9
-<a id="__codelineno-8-40" name="__codelineno-8-40" href="#__codelineno-8-40"></a>    style Manual fill:#fff3e0
-</code></pre></div>
+<pre class="mermaid"><code>flowchart TD
+    Start{What's your&lt;br/&gt;use case?}
+
+    Start --&gt;|Regular dev session| Interactive[Use Interactive Mode&lt;br/&gt;Default behavior]
+    Start --&gt;|CI/CD pipeline| Auto[Use Auto Mode&lt;br/&gt;--auto flag]
+    Start --&gt;|Want to preview| Preview[Use Preview Mode&lt;br/&gt;--dry-run flag]
+    Start --&gt;|Major release| Manual[Manual + Review]
+
+    Interactive --&gt; Q1{Do you trust&lt;br/&gt;the system?}
+    Q1 --&gt;|Yes| Fast[Just press Enter&lt;br/&gt;~10 seconds]
+    Q1 --&gt;|No| Review1[Review each change&lt;br/&gt;~30 seconds]
+
+    Auto --&gt; Q2{Safe for&lt;br/&gt;automation?}
+    Q2 --&gt;|Yes| Safe[CHANGELOG + mkdocs&lt;br/&gt;auto-applied]
+    Q2 --&gt;|No| Interactive
+
+    Preview --&gt; Q3{What do you&lt;br/&gt;want to check?}
+    Q3 --&gt;|What would change| Show[Shows preview&lt;br/&gt;No changes applied]
+    Q3 --&gt;|Why not updating| Debug[Debug detection&lt;br/&gt;logic]
+
+    Manual --&gt; Q4{Why manual?}
+    Q4 --&gt;|Breaking changes| Detail[Write detailed&lt;br/&gt;migration guide]
+    Q4 --&gt;|Security fix| Specific[Specific wording&lt;br/&gt;for advisory]
+    Q4 --&gt;|Marketing| Polish[Polish for&lt;br/&gt;public release]
+
+    Fast --&gt; Done([Done!])
+    Review1 --&gt; Done
+    Safe --&gt; Done
+    Show --&gt; Done
+    Debug --&gt; Done
+    Detail --&gt; Done
+    Specific --&gt; Done
+    Polish --&gt; Done
+
+    style Start fill:#e1f5ff
+    style Done fill:#d4edda
+    style Interactive fill:#fff4e6
+    style Auto fill:#ffe6f0
+    style Preview fill:#e8f5e9
+    style Manual fill:#fff3e0</code></pre>
 <hr />
 <h2 id="key-concepts-summary">Key Concepts Summary</h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>mindmap
-<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>  root((Auto-Update&lt;br/&gt;System))
-<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>    3 Updaters
-<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>      CHANGELOG
-<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>        Parses commits
-<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>        Groups by type
-<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>        Creates links
-<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>      mkdocs.yml
-<a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>        Finds orphaned docs
-<a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a>        Infers sections
-<a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a>        Extracts titles
-<a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a>      .STATUS
-<a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a>        Generates summary
-<a id="__codelineno-9-14" name="__codelineno-9-14" href="#__codelineno-9-14"></a>        Updates fields
-<a id="__codelineno-9-15" name="__codelineno-9-15" href="#__codelineno-9-15"></a>        Prepends entries
-<a id="__codelineno-9-16" name="__codelineno-9-16" href="#__codelineno-9-16"></a>    3 Modes
-<a id="__codelineno-9-17" name="__codelineno-9-17" href="#__codelineno-9-17"></a>      Interactive
-<a id="__codelineno-9-18" name="__codelineno-9-18" href="#__codelineno-9-18"></a>        User confirms .STATUS
-<a id="__codelineno-9-19" name="__codelineno-9-19" href="#__codelineno-9-19"></a>        Shows diffs
-<a id="__codelineno-9-20" name="__codelineno-9-20" href="#__codelineno-9-20"></a>        10-30 seconds
-<a id="__codelineno-9-21" name="__codelineno-9-21" href="#__codelineno-9-21"></a>      Auto
-<a id="__codelineno-9-22" name="__codelineno-9-22" href="#__codelineno-9-22"></a>        No prompts
-<a id="__codelineno-9-23" name="__codelineno-9-23" href="#__codelineno-9-23"></a>        CI/CD ready
-<a id="__codelineno-9-24" name="__codelineno-9-24" href="#__codelineno-9-24"></a>        5-10 seconds
-<a id="__codelineno-9-25" name="__codelineno-9-25" href="#__codelineno-9-25"></a>      Preview
-<a id="__codelineno-9-26" name="__codelineno-9-26" href="#__codelineno-9-26"></a>        No changes
-<a id="__codelineno-9-27" name="__codelineno-9-27" href="#__codelineno-9-27"></a>        Dry run
-<a id="__codelineno-9-28" name="__codelineno-9-28" href="#__codelineno-9-28"></a>        Debug mode
-<a id="__codelineno-9-29" name="__codelineno-9-29" href="#__codelineno-9-29"></a>    Safety Features
-<a id="__codelineno-9-30" name="__codelineno-9-30" href="#__codelineno-9-30"></a>      Backups
-<a id="__codelineno-9-31" name="__codelineno-9-31" href="#__codelineno-9-31"></a>        Timestamped
-<a id="__codelineno-9-32" name="__codelineno-9-32" href="#__codelineno-9-32"></a>        Auto-created
-<a id="__codelineno-9-33" name="__codelineno-9-33" href="#__codelineno-9-33"></a>        Easy rollback
-<a id="__codelineno-9-34" name="__codelineno-9-34" href="#__codelineno-9-34"></a>      Validation
-<a id="__codelineno-9-35" name="__codelineno-9-35" href="#__codelineno-9-35"></a>        YAML syntax
-<a id="__codelineno-9-36" name="__codelineno-9-36" href="#__codelineno-9-36"></a>        mkdocs build
-<a id="__codelineno-9-37" name="__codelineno-9-37" href="#__codelineno-9-37"></a>        Auto-rollback
-<a id="__codelineno-9-38" name="__codelineno-9-38" href="#__codelineno-9-38"></a>      Two-tier
-<a id="__codelineno-9-39" name="__codelineno-9-39" href="#__codelineno-9-39"></a>        Safe: auto-apply
-<a id="__codelineno-9-40" name="__codelineno-9-40" href="#__codelineno-9-40"></a>        Interactive: confirm
-<a id="__codelineno-9-41" name="__codelineno-9-41" href="#__codelineno-9-41"></a>    Integration
-<a id="__codelineno-9-42" name="__codelineno-9-42" href="#__codelineno-9-42"></a>      /workflow:done
-<a id="__codelineno-9-43" name="__codelineno-9-43" href="#__codelineno-9-43"></a>        Step 1.6
-<a id="__codelineno-9-44" name="__codelineno-9-44" href="#__codelineno-9-44"></a>        Automatic
-<a id="__codelineno-9-45" name="__codelineno-9-45" href="#__codelineno-9-45"></a>        Seamless
-<a id="__codelineno-9-46" name="__codelineno-9-46" href="#__codelineno-9-46"></a>      Manual
-<a id="__codelineno-9-47" name="__codelineno-9-47" href="#__codelineno-9-47"></a>        Individual scripts
-<a id="__codelineno-9-48" name="__codelineno-9-48" href="#__codelineno-9-48"></a>        More control
-<a id="__codelineno-9-49" name="__codelineno-9-49" href="#__codelineno-9-49"></a>        Focused updates
-</code></pre></div>
+<pre class="mermaid"><code>mindmap
+  root((Auto-Update&lt;br/&gt;System))
+    3 Updaters
+      CHANGELOG
+        Parses commits
+        Groups by type
+        Creates links
+      mkdocs.yml
+        Finds orphaned docs
+        Infers sections
+        Extracts titles
+      .STATUS
+        Generates summary
+        Updates fields
+        Prepends entries
+    3 Modes
+      Interactive
+        User confirms .STATUS
+        Shows diffs
+        10-30 seconds
+      Auto
+        No prompts
+        CI/CD ready
+        5-10 seconds
+      Preview
+        No changes
+        Dry run
+        Debug mode
+    Safety Features
+      Backups
+        Timestamped
+        Auto-created
+        Easy rollback
+      Validation
+        YAML syntax
+        mkdocs build
+        Auto-rollback
+      Two-tier
+        Safe: auto-apply
+        Interactive: confirm
+    Integration
+      /workflow:done
+        Step 1.6
+        Automatic
+        Seamless
+      Manual
+        Individual scripts
+        More control
+        Focused updates</code></pre>
 <hr />
 <h2 id="usage-examples-by-scenario">Usage Examples by Scenario</h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>flowchart LR
-<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>    subgraph &quot;Scenario 1: Daily Development&quot;
-<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>        S1[Code all day] --&gt; S1C[Make 5 commits]
-<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>        S1C --&gt; S1W[Run /workflow:done]
-<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>        S1W --&gt; S1P[Press Enter 3x]
-<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>        S1P --&gt; S1D[Done! 30 sec]
-<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>    end
-<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>
-<a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a>    subgraph &quot;Scenario 2: Major Release&quot;
-<a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a>        S2[Ready for v2.0] --&gt; S2A[Run auto-updater]
-<a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a>        S2A --&gt; S2R[Review entries]
-<a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a>        S2R --&gt; S2E[Manually edit CHANGELOG]
-<a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a>        S2E --&gt; S2D[Add migration guide]
-<a id="__codelineno-10-14" name="__codelineno-10-14" href="#__codelineno-10-14"></a>        S2D --&gt; S2C[Commit]
-<a id="__codelineno-10-15" name="__codelineno-10-15" href="#__codelineno-10-15"></a>    end
-<a id="__codelineno-10-16" name="__codelineno-10-16" href="#__codelineno-10-16"></a>
-<a id="__codelineno-10-17" name="__codelineno-10-17" href="#__codelineno-10-17"></a>    subgraph &quot;Scenario 3: CI/CD Pipeline&quot;
-<a id="__codelineno-10-18" name="__codelineno-10-18" href="#__codelineno-10-18"></a>        S3[Push to main] --&gt; S3T[CI triggers]
-<a id="__codelineno-10-19" name="__codelineno-10-19" href="#__codelineno-10-19"></a>        S3T --&gt; S3B[Build succeeds]
-<a id="__codelineno-10-20" name="__codelineno-10-20" href="#__codelineno-10-20"></a>        S3B --&gt; S3U[Run updater --auto]
-<a id="__codelineno-10-21" name="__codelineno-10-21" href="#__codelineno-10-21"></a>        S3U --&gt; S3P[Create PR]
-<a id="__codelineno-10-22" name="__codelineno-10-22" href="#__codelineno-10-22"></a>        S3P --&gt; S3M[Merge PR]
-<a id="__codelineno-10-23" name="__codelineno-10-23" href="#__codelineno-10-23"></a>    end
-<a id="__codelineno-10-24" name="__codelineno-10-24" href="#__codelineno-10-24"></a>
-<a id="__codelineno-10-25" name="__codelineno-10-25" href="#__codelineno-10-25"></a>    subgraph &quot;Scenario 4: Debug Why Not Updating&quot;
-<a id="__codelineno-10-26" name="__codelineno-10-26" href="#__codelineno-10-26"></a>        S4[Why no update?] --&gt; S4D[Run --dry-run]
-<a id="__codelineno-10-27" name="__codelineno-10-27" href="#__codelineno-10-27"></a>        S4D --&gt; S4C{What does&lt;br/&gt;it show?}
-<a id="__codelineno-10-28" name="__codelineno-10-28" href="#__codelineno-10-28"></a>        S4C --&gt; S4N[No new commits]
-<a id="__codelineno-10-29" name="__codelineno-10-29" href="#__codelineno-10-29"></a>        S4C --&gt; S4F[Files excluded]
-<a id="__codelineno-10-30" name="__codelineno-10-30" href="#__codelineno-10-30"></a>        S4C --&gt; S4A[Already updated]
-<a id="__codelineno-10-31" name="__codelineno-10-31" href="#__codelineno-10-31"></a>    end
-<a id="__codelineno-10-32" name="__codelineno-10-32" href="#__codelineno-10-32"></a>
-<a id="__codelineno-10-33" name="__codelineno-10-33" href="#__codelineno-10-33"></a>    style S1D fill:#d4edda
-<a id="__codelineno-10-34" name="__codelineno-10-34" href="#__codelineno-10-34"></a>    style S2C fill:#d4edda
-<a id="__codelineno-10-35" name="__codelineno-10-35" href="#__codelineno-10-35"></a>    style S3M fill:#d4edda
-<a id="__codelineno-10-36" name="__codelineno-10-36" href="#__codelineno-10-36"></a>    style S4N fill:#fff4e6
-<a id="__codelineno-10-37" name="__codelineno-10-37" href="#__codelineno-10-37"></a>    style S4F fill:#fff4e6
-<a id="__codelineno-10-38" name="__codelineno-10-38" href="#__codelineno-10-38"></a>    style S4A fill:#fff4e6
-</code></pre></div>
+<pre class="mermaid"><code>flowchart LR
+    subgraph "Scenario 1: Daily Development"
+        S1[Code all day] --&gt; S1C[Make 5 commits]
+        S1C --&gt; S1W[Run /workflow:done]
+        S1W --&gt; S1P[Press Enter 3x]
+        S1P --&gt; S1D[Done! 30 sec]
+    end
+
+    subgraph "Scenario 2: Major Release"
+        S2[Ready for v2.0] --&gt; S2A[Run auto-updater]
+        S2A --&gt; S2R[Review entries]
+        S2R --&gt; S2E[Manually edit CHANGELOG]
+        S2E --&gt; S2D[Add migration guide]
+        S2D --&gt; S2C[Commit]
+    end
+
+    subgraph "Scenario 3: CI/CD Pipeline"
+        S3[Push to main] --&gt; S3T[CI triggers]
+        S3T --&gt; S3B[Build succeeds]
+        S3B --&gt; S3U[Run updater --auto]
+        S3U --&gt; S3P[Create PR]
+        S3P --&gt; S3M[Merge PR]
+    end
+
+    subgraph "Scenario 4: Debug Why Not Updating"
+        S4[Why no update?] --&gt; S4D[Run --dry-run]
+        S4D --&gt; S4C{What does&lt;br/&gt;it show?}
+        S4C --&gt; S4N[No new commits]
+        S4C --&gt; S4F[Files excluded]
+        S4C --&gt; S4A[Already updated]
+    end
+
+    style S1D fill:#d4edda
+    style S2C fill:#d4edda
+    style S3M fill:#d4edda
+    style S4N fill:#fff4e6
+    style S4F fill:#fff4e6
+    style S4A fill:#fff4e6</code></pre>
 <hr />
 <h2 id="conclusion">Conclusion</h2>
 <p>These diagrams illustrate the complete workflow of the Documentation Auto-Update system:</p>
@@ -3508,6 +3497,8 @@
     
     
       <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="https://unpkg.com/mermaid@10/dist/mermaid.min.js"></script>
       
     
   </body>

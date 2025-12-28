@@ -3763,34 +3763,33 @@
 <hr />
 <h2 id="system-overview">System Overview</h2>
 <h3 id="high-level-architecture">High-Level Architecture</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>graph TB
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    subgraph &quot;User Interface&quot;
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>        CLI[CLI Layer&lt;br/&gt;Typer]
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    end
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    subgraph &quot;Core Library&quot;
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>        Terminal[Terminal Backend&lt;br/&gt;Abstraction]
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>        Context[Context Detection&lt;br/&gt;Engine]
-<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>        Settings[Settings Manager]
-<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>    end
-<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>
-<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>    subgraph &quot;Integrations&quot;
-<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>        ITerm2[iTerm2&lt;br/&gt;Integration]
-<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>        Claude[Claude Code&lt;br/&gt;Integration]
-<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>        MCP[MCP Server&lt;br/&gt;Management]
-<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>    end
-<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>
-<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>    CLI --&gt; Terminal
-<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>    CLI --&gt; Context
-<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>    CLI --&gt; Settings
-<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>
-<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a>    Terminal --&gt; ITerm2
-<a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a>    Settings --&gt; Claude
-<a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a>    Settings --&gt; MCP
-<a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a>
-<a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a>    Context --&gt; Terminal
-<a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a>    Context -.-&gt; Claude
-</code></pre></div>
+<pre class="mermaid"><code>graph TB
+    subgraph "User Interface"
+        CLI[CLI Layer&lt;br/&gt;Typer]
+    end
+
+    subgraph "Core Library"
+        Terminal[Terminal Backend&lt;br/&gt;Abstraction]
+        Context[Context Detection&lt;br/&gt;Engine]
+        Settings[Settings Manager]
+    end
+
+    subgraph "Integrations"
+        ITerm2[iTerm2&lt;br/&gt;Integration]
+        Claude[Claude Code&lt;br/&gt;Integration]
+        MCP[MCP Server&lt;br/&gt;Management]
+    end
+
+    CLI --&gt; Terminal
+    CLI --&gt; Context
+    CLI --&gt; Settings
+
+    Terminal --&gt; ITerm2
+    Settings --&gt; Claude
+    Settings --&gt; MCP
+
+    Context --&gt; Terminal
+    Context -.-&gt; Claude</code></pre>
 <p><strong>Key Components:</strong>
 - <strong>CLI Layer</strong> - User-facing commands (Typer framework)
 - <strong>Terminal Backend</strong> - Abstracted terminal operations
@@ -3799,69 +3798,67 @@
 - <strong>Integrations</strong> - iTerm2, Claude Code, MCP servers</p>
 <hr />
 <h3 id="technology-stack">Technology Stack</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>graph LR
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>    subgraph &quot;Runtime&quot;
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>        Python[Python 3.10+]
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>    end
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>
-<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>    subgraph &quot;CLI Framework&quot;
-<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>        Typer[Typer&lt;br/&gt;CLI framework]
-<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>        Rich[Rich&lt;br/&gt;Terminal output]
-<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>        Quest[Questionary&lt;br/&gt;Interactive prompts]
-<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>    end
-<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>
-<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>    subgraph &quot;Build &amp; Distribution&quot;
-<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>        UV[UV&lt;br/&gt;Package manager]
-<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>        Hatchling[Hatchling&lt;br/&gt;Build backend]
-<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>    end
-<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>
-<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>    subgraph &quot;Testing&quot;
-<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>        Pytest[pytest&lt;br/&gt;Test framework]
-<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>        Coverage[pytest-cov&lt;br/&gt;Coverage]
-<a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a>    end
-<a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a>
-<a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a>    Python --&gt; Typer
-<a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a>    Python --&gt; Rich
-<a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a>    Python --&gt; Quest
-<a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a>    Python --&gt; UV
-<a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a>    UV --&gt; Hatchling
-<a id="__codelineno-1-27" name="__codelineno-1-27" href="#__codelineno-1-27"></a>    Python --&gt; Pytest
-</code></pre></div>
+<pre class="mermaid"><code>graph LR
+    subgraph "Runtime"
+        Python[Python 3.10+]
+    end
+
+    subgraph "CLI Framework"
+        Typer[Typer&lt;br/&gt;CLI framework]
+        Rich[Rich&lt;br/&gt;Terminal output]
+        Quest[Questionary&lt;br/&gt;Interactive prompts]
+    end
+
+    subgraph "Build &amp; Distribution"
+        UV[UV&lt;br/&gt;Package manager]
+        Hatchling[Hatchling&lt;br/&gt;Build backend]
+    end
+
+    subgraph "Testing"
+        Pytest[pytest&lt;br/&gt;Test framework]
+        Coverage[pytest-cov&lt;br/&gt;Coverage]
+    end
+
+    Python --&gt; Typer
+    Python --&gt; Rich
+    Python --&gt; Quest
+    Python --&gt; UV
+    UV --&gt; Hatchling
+    Python --&gt; Pytest</code></pre>
 <hr />
 <h2 id="component-architecture">Component Architecture</h2>
 <h3 id="1-terminal-backend-architecture">1. Terminal Backend Architecture</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>graph TB
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>    subgraph &quot;Terminal Backend&quot;
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>        Base[TerminalBackend&lt;br/&gt;Abstract Base Class]
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>        ITerm2[iTerm2Terminal&lt;br/&gt;Implementation]
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>        Wezterm[WeztermTerminal&lt;br/&gt;Future]
-<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>        Alacritty[AlacrittyTerminal&lt;br/&gt;Future]
-<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>
-<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>        Base -.-&gt; ITerm2
-<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>        Base -.-&gt; Wezterm
-<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>        Base -.-&gt; Alacritty
-<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>    end
-<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>
-<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>    subgraph &quot;Operations&quot;
-<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>        Profile[switch_profile]
-<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>        Title[set_title]
-<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>        Status[set_status_var]
-<a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a>        Query[get_current_profile]
-<a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a>    end
-<a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a>
-<a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a>    ITerm2 --&gt; Profile
-<a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a>    ITerm2 --&gt; Title
-<a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a>    ITerm2 --&gt; Status
-<a id="__codelineno-2-23" name="__codelineno-2-23" href="#__codelineno-2-23"></a>    ITerm2 --&gt; Query
-<a id="__codelineno-2-24" name="__codelineno-2-24" href="#__codelineno-2-24"></a>
-<a id="__codelineno-2-25" name="__codelineno-2-25" href="#__codelineno-2-25"></a>    subgraph &quot;iTerm2 Integration&quot;
-<a id="__codelineno-2-26" name="__codelineno-2-26" href="#__codelineno-2-26"></a>        Escape[Escape Sequences]
-<a id="__codelineno-2-27" name="__codelineno-2-27" href="#__codelineno-2-27"></a>        API[Python API&lt;br/&gt;Future]
-<a id="__codelineno-2-28" name="__codelineno-2-28" href="#__codelineno-2-28"></a>    end
-<a id="__codelineno-2-29" name="__codelineno-2-29" href="#__codelineno-2-29"></a>
-<a id="__codelineno-2-30" name="__codelineno-2-30" href="#__codelineno-2-30"></a>    ITerm2 --&gt; Escape
-<a id="__codelineno-2-31" name="__codelineno-2-31" href="#__codelineno-2-31"></a>    ITerm2 -.-&gt; API
-</code></pre></div>
+<pre class="mermaid"><code>graph TB
+    subgraph "Terminal Backend"
+        Base[TerminalBackend&lt;br/&gt;Abstract Base Class]
+        ITerm2[iTerm2Terminal&lt;br/&gt;Implementation]
+        Wezterm[WeztermTerminal&lt;br/&gt;Future]
+        Alacritty[AlacrittyTerminal&lt;br/&gt;Future]
+
+        Base -.-&gt; ITerm2
+        Base -.-&gt; Wezterm
+        Base -.-&gt; Alacritty
+    end
+
+    subgraph "Operations"
+        Profile[switch_profile]
+        Title[set_title]
+        Status[set_status_var]
+        Query[get_current_profile]
+    end
+
+    ITerm2 --&gt; Profile
+    ITerm2 --&gt; Title
+    ITerm2 --&gt; Status
+    ITerm2 --&gt; Query
+
+    subgraph "iTerm2 Integration"
+        Escape[Escape Sequences]
+        API[Python API&lt;br/&gt;Future]
+    end
+
+    ITerm2 --&gt; Escape
+    ITerm2 -.-&gt; API</code></pre>
 <p><strong>Design Pattern:</strong> Abstract Factory + Strategy</p>
 <p><strong>Key Abstractions:</strong>
 - <code>TerminalBackend</code> - Base interface for all terminals
@@ -3869,44 +3866,43 @@
 - Future: Wezterm, Alacritty, Kitty support</p>
 <hr />
 <h3 id="2-context-detection-architecture">2. Context Detection Architecture</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>graph TB
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>    subgraph &quot;Context Detection Engine&quot;
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>        Detector[ContextDetector&lt;br/&gt;Base Class]
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>        Registry[DetectorRegistry&lt;br/&gt;Singleton]
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>    end
-<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>
-<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>    subgraph &quot;Built-in Detectors&quot;
-<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>        Prod[ProductionDetector&lt;br/&gt;Priority: 1]
-<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>        AI[AISessionDetector&lt;br/&gt;Priority: 2]
-<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>        R[RPackageDetector&lt;br/&gt;Priority: 3]
-<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>        Py[PythonDetector&lt;br/&gt;Priority: 4]
-<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>        Node[NodeDetector&lt;br/&gt;Priority: 5]
-<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>        Quarto[QuartoDetector&lt;br/&gt;Priority: 6]
-<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>        MCP[MCPDetector&lt;br/&gt;Priority: 7]
-<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>        Dev[DevToolsDetector&lt;br/&gt;Priority: 8]
-<a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a>        Default[DefaultDetector&lt;br/&gt;Priority: 9]
-<a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a>    end
-<a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a>
-<a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a>    subgraph &quot;Custom Detectors&quot;
-<a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a>        Custom[User-Defined&lt;br/&gt;Detectors]
-<a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a>    end
-<a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a>
-<a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a>    Registry --&gt; Prod
-<a id="__codelineno-3-24" name="__codelineno-3-24" href="#__codelineno-3-24"></a>    Registry --&gt; AI
-<a id="__codelineno-3-25" name="__codelineno-3-25" href="#__codelineno-3-25"></a>    Registry --&gt; R
-<a id="__codelineno-3-26" name="__codelineno-3-26" href="#__codelineno-3-26"></a>    Registry --&gt; Py
-<a id="__codelineno-3-27" name="__codelineno-3-27" href="#__codelineno-3-27"></a>    Registry --&gt; Node
-<a id="__codelineno-3-28" name="__codelineno-3-28" href="#__codelineno-3-28"></a>    Registry --&gt; Quarto
-<a id="__codelineno-3-29" name="__codelineno-3-29" href="#__codelineno-3-29"></a>    Registry --&gt; MCP
-<a id="__codelineno-3-30" name="__codelineno-3-30" href="#__codelineno-3-30"></a>    Registry --&gt; Dev
-<a id="__codelineno-3-31" name="__codelineno-3-31" href="#__codelineno-3-31"></a>    Registry --&gt; Default
-<a id="__codelineno-3-32" name="__codelineno-3-32" href="#__codelineno-3-32"></a>    Registry -.-&gt; Custom
-<a id="__codelineno-3-33" name="__codelineno-3-33" href="#__codelineno-3-33"></a>
-<a id="__codelineno-3-34" name="__codelineno-3-34" href="#__codelineno-3-34"></a>    Detector &lt;.. Prod
-<a id="__codelineno-3-35" name="__codelineno-3-35" href="#__codelineno-3-35"></a>    Detector &lt;.. AI
-<a id="__codelineno-3-36" name="__codelineno-3-36" href="#__codelineno-3-36"></a>    Detector &lt;.. R
-<a id="__codelineno-3-37" name="__codelineno-3-37" href="#__codelineno-3-37"></a>    Detector &lt;.. Custom
-</code></pre></div>
+<pre class="mermaid"><code>graph TB
+    subgraph "Context Detection Engine"
+        Detector[ContextDetector&lt;br/&gt;Base Class]
+        Registry[DetectorRegistry&lt;br/&gt;Singleton]
+    end
+
+    subgraph "Built-in Detectors"
+        Prod[ProductionDetector&lt;br/&gt;Priority: 1]
+        AI[AISessionDetector&lt;br/&gt;Priority: 2]
+        R[RPackageDetector&lt;br/&gt;Priority: 3]
+        Py[PythonDetector&lt;br/&gt;Priority: 4]
+        Node[NodeDetector&lt;br/&gt;Priority: 5]
+        Quarto[QuartoDetector&lt;br/&gt;Priority: 6]
+        MCP[MCPDetector&lt;br/&gt;Priority: 7]
+        Dev[DevToolsDetector&lt;br/&gt;Priority: 8]
+        Default[DefaultDetector&lt;br/&gt;Priority: 9]
+    end
+
+    subgraph "Custom Detectors"
+        Custom[User-Defined&lt;br/&gt;Detectors]
+    end
+
+    Registry --&gt; Prod
+    Registry --&gt; AI
+    Registry --&gt; R
+    Registry --&gt; Py
+    Registry --&gt; Node
+    Registry --&gt; Quarto
+    Registry --&gt; MCP
+    Registry --&gt; Dev
+    Registry --&gt; Default
+    Registry -.-&gt; Custom
+
+    Detector &lt;.. Prod
+    Detector &lt;.. AI
+    Detector &lt;.. R
+    Detector &lt;.. Custom</code></pre>
 <p><strong>Design Pattern:</strong> Chain of Responsibility + Priority Queue</p>
 <p><strong>Detection Flow:</strong>
 1. User calls <code>detect_context(path)</code>
@@ -3915,39 +3911,38 @@
 4. Return <code>Context</code> object with profile, title, metadata</p>
 <hr />
 <h3 id="3-settings-management-architecture">3. Settings Management Architecture</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>graph TB
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>    subgraph &quot;Settings Manager&quot;
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>        Manager[SettingsManager&lt;br/&gt;Singleton]
-<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>        Validator[ConfigValidator]
-<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>        Backup[BackupManager]
-<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>    end
-<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>
-<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>    subgraph &quot;Configuration Files&quot;
-<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>        Aiterm[~/.aiterm/config.json]
-<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>        Claude[~/.claude/settings.json]
-<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>    end
-<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>
-<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a>    subgraph &quot;Operations&quot;
-<a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a>        Read[read_settings]
-<a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a>        Write[write_settings]
-<a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a>        Validate[validate_config]
-<a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a>        Apply[apply_preset]
-<a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a>    end
-<a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a>
-<a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a>    Manager --&gt; Read
-<a id="__codelineno-4-21" name="__codelineno-4-21" href="#__codelineno-4-21"></a>    Manager --&gt; Write
-<a id="__codelineno-4-22" name="__codelineno-4-22" href="#__codelineno-4-22"></a>    Manager --&gt; Validate
-<a id="__codelineno-4-23" name="__codelineno-4-23" href="#__codelineno-4-23"></a>    Manager --&gt; Apply
-<a id="__codelineno-4-24" name="__codelineno-4-24" href="#__codelineno-4-24"></a>
-<a id="__codelineno-4-25" name="__codelineno-4-25" href="#__codelineno-4-25"></a>    Read --&gt; Aiterm
-<a id="__codelineno-4-26" name="__codelineno-4-26" href="#__codelineno-4-26"></a>    Read --&gt; Claude
-<a id="__codelineno-4-27" name="__codelineno-4-27" href="#__codelineno-4-27"></a>    Write --&gt; Aiterm
-<a id="__codelineno-4-28" name="__codelineno-4-28" href="#__codelineno-4-28"></a>    Write --&gt; Claude
-<a id="__codelineno-4-29" name="__codelineno-4-29" href="#__codelineno-4-29"></a>    Validate --&gt; Validator
-<a id="__codelineno-4-30" name="__codelineno-4-30" href="#__codelineno-4-30"></a>    Write --&gt; Backup
-<a id="__codelineno-4-31" name="__codelineno-4-31" href="#__codelineno-4-31"></a>
-<a id="__codelineno-4-32" name="__codelineno-4-32" href="#__codelineno-4-32"></a>    Backup -.-&gt; Claude
-</code></pre></div>
+<pre class="mermaid"><code>graph TB
+    subgraph "Settings Manager"
+        Manager[SettingsManager&lt;br/&gt;Singleton]
+        Validator[ConfigValidator]
+        Backup[BackupManager]
+    end
+
+    subgraph "Configuration Files"
+        Aiterm[~/.aiterm/config.json]
+        Claude[~/.claude/settings.json]
+    end
+
+    subgraph "Operations"
+        Read[read_settings]
+        Write[write_settings]
+        Validate[validate_config]
+        Apply[apply_preset]
+    end
+
+    Manager --&gt; Read
+    Manager --&gt; Write
+    Manager --&gt; Validate
+    Manager --&gt; Apply
+
+    Read --&gt; Aiterm
+    Read --&gt; Claude
+    Write --&gt; Aiterm
+    Write --&gt; Claude
+    Validate --&gt; Validator
+    Write --&gt; Backup
+
+    Backup -.-&gt; Claude</code></pre>
 <p><strong>Design Pattern:</strong> Singleton + Template Method</p>
 <p><strong>Key Features:</strong>
 - Automatic backups before writes
@@ -3956,137 +3951,134 @@
 - Merge strategies (replace vs merge)</p>
 <hr />
 <h3 id="4-cli-command-architecture">4. CLI Command Architecture</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>graph TB
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>    subgraph &quot;CLI Entry Point&quot;
-<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>        Main[aiterm&lt;br/&gt;Main Command]
-<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>    end
-<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>
-<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>    subgraph &quot;Command Groups&quot;
-<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>        Core[Core Commands&lt;br/&gt;doctor, detect]
-<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>        Profile[Profile Commands&lt;br/&gt;list, switch]
-<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>        Claude[Claude Commands&lt;br/&gt;approvals, settings]
-<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>        MCP[MCP Commands&lt;br/&gt;list, test, validate]
-<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>    end
-<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>
-<a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a>    subgraph &quot;Command Implementation&quot;
-<a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a>        Handler[Command Handler]
-<a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a>        Validator[Input Validator]
-<a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a>        Output[Output Formatter&lt;br/&gt;Rich]
-<a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a>    end
-<a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a>
-<a id="__codelineno-5-19" name="__codelineno-5-19" href="#__codelineno-5-19"></a>    Main --&gt; Core
-<a id="__codelineno-5-20" name="__codelineno-5-20" href="#__codelineno-5-20"></a>    Main --&gt; Profile
-<a id="__codelineno-5-21" name="__codelineno-5-21" href="#__codelineno-5-21"></a>    Main --&gt; Claude
-<a id="__codelineno-5-22" name="__codelineno-5-22" href="#__codelineno-5-22"></a>    Main -.-&gt; MCP
-<a id="__codelineno-5-23" name="__codelineno-5-23" href="#__codelineno-5-23"></a>
-<a id="__codelineno-5-24" name="__codelineno-5-24" href="#__codelineno-5-24"></a>    Core --&gt; Handler
-<a id="__codelineno-5-25" name="__codelineno-5-25" href="#__codelineno-5-25"></a>    Profile --&gt; Handler
-<a id="__codelineno-5-26" name="__codelineno-5-26" href="#__codelineno-5-26"></a>    Claude --&gt; Handler
-<a id="__codelineno-5-27" name="__codelineno-5-27" href="#__codelineno-5-27"></a>
-<a id="__codelineno-5-28" name="__codelineno-5-28" href="#__codelineno-5-28"></a>    Handler --&gt; Validator
-<a id="__codelineno-5-29" name="__codelineno-5-29" href="#__codelineno-5-29"></a>    Handler --&gt; Output
-</code></pre></div>
+<pre class="mermaid"><code>graph TB
+    subgraph "CLI Entry Point"
+        Main[aiterm&lt;br/&gt;Main Command]
+    end
+
+    subgraph "Command Groups"
+        Core[Core Commands&lt;br/&gt;doctor, detect]
+        Profile[Profile Commands&lt;br/&gt;list, switch]
+        Claude[Claude Commands&lt;br/&gt;approvals, settings]
+        MCP[MCP Commands&lt;br/&gt;list, test, validate]
+    end
+
+    subgraph "Command Implementation"
+        Handler[Command Handler]
+        Validator[Input Validator]
+        Output[Output Formatter&lt;br/&gt;Rich]
+    end
+
+    Main --&gt; Core
+    Main --&gt; Profile
+    Main --&gt; Claude
+    Main -.-&gt; MCP
+
+    Core --&gt; Handler
+    Profile --&gt; Handler
+    Claude --&gt; Handler
+
+    Handler --&gt; Validator
+    Handler --&gt; Output</code></pre>
 <p><strong>Design Pattern:</strong> Command Pattern + Decorator</p>
 <p><strong>Command Structure:</strong>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nd">@app</span><span class="o">.</span><span class="n">command</span><span class="p">()</span>
-<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="k">def</span><span class="w"> </span><span class="nf">doctor</span><span class="p">():</span>
-<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Check aiterm installation&quot;&quot;&quot;</span>
-<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>    <span class="c1"># 1. Validate environment</span>
-<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>    <span class="c1"># 2. Check dependencies</span>
-<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>    <span class="c1"># 3. Format output (Rich)</span>
-<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>    <span class="c1"># 4. Return exit code</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nd">@app</span><span class="o">.</span><span class="n">command</span><span class="p">()</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="k">def</span><span class="w"> </span><span class="nf">doctor</span><span class="p">():</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Check aiterm installation&quot;&quot;&quot;</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    <span class="c1"># 1. Validate environment</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    <span class="c1"># 2. Check dependencies</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    <span class="c1"># 3. Format output (Rich)</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    <span class="c1"># 4. Return exit code</span>
 </code></pre></div></p>
 <hr />
 <h2 id="data-flows">Data Flows</h2>
 <h3 id="1-context-detection-flow">1. Context Detection Flow</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>sequenceDiagram
-<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>    participant User
-<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>    participant CLI
-<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>    participant Detector
-<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>    participant Terminal
-<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>    participant iTerm2
-<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>
-<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>    User-&gt;&gt;CLI: cd ~/projects/RMediation
-<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>    activate CLI
-<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>
-<a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a>    CLI-&gt;&gt;Detector: detect_context(pwd)
-<a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a>    activate Detector
-<a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a>
-<a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a>    Detector-&gt;&gt;Detector: Check DESCRIPTION file
-<a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a>    Detector-&gt;&gt;Detector: Check R/ directory
-<a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a>    Detector-&gt;&gt;Detector: Parse package name/version
-<a id="__codelineno-7-17" name="__codelineno-7-17" href="#__codelineno-7-17"></a>
-<a id="__codelineno-7-18" name="__codelineno-7-18" href="#__codelineno-7-18"></a>    Detector--&gt;&gt;CLI: Context(type=r-package, profile=R-Dev)
-<a id="__codelineno-7-19" name="__codelineno-7-19" href="#__codelineno-7-19"></a>    deactivate Detector
-<a id="__codelineno-7-20" name="__codelineno-7-20" href="#__codelineno-7-20"></a>
-<a id="__codelineno-7-21" name="__codelineno-7-21" href="#__codelineno-7-21"></a>    CLI-&gt;&gt;Terminal: switch_profile(&quot;R-Dev&quot;)
-<a id="__codelineno-7-22" name="__codelineno-7-22" href="#__codelineno-7-22"></a>    activate Terminal
-<a id="__codelineno-7-23" name="__codelineno-7-23" href="#__codelineno-7-23"></a>    Terminal-&gt;&gt;iTerm2: ESC]1337;SetProfile=R-Dev
-<a id="__codelineno-7-24" name="__codelineno-7-24" href="#__codelineno-7-24"></a>    iTerm2--&gt;&gt;Terminal: Profile switched
-<a id="__codelineno-7-25" name="__codelineno-7-25" href="#__codelineno-7-25"></a>    deactivate Terminal
-<a id="__codelineno-7-26" name="__codelineno-7-26" href="#__codelineno-7-26"></a>
-<a id="__codelineno-7-27" name="__codelineno-7-27" href="#__codelineno-7-27"></a>    CLI-&gt;&gt;Terminal: set_title(&quot;RMediation v1.0.0&quot;)
-<a id="__codelineno-7-28" name="__codelineno-7-28" href="#__codelineno-7-28"></a>    activate Terminal
-<a id="__codelineno-7-29" name="__codelineno-7-29" href="#__codelineno-7-29"></a>    Terminal-&gt;&gt;iTerm2: ESC]0;RMediation v1.0.0
-<a id="__codelineno-7-30" name="__codelineno-7-30" href="#__codelineno-7-30"></a>    iTerm2--&gt;&gt;Terminal: Title set
-<a id="__codelineno-7-31" name="__codelineno-7-31" href="#__codelineno-7-31"></a>    deactivate Terminal
-<a id="__codelineno-7-32" name="__codelineno-7-32" href="#__codelineno-7-32"></a>
-<a id="__codelineno-7-33" name="__codelineno-7-33" href="#__codelineno-7-33"></a>    CLI-&gt;&gt;Terminal: set_status_var(&quot;project_type&quot;, &quot;R PKG&quot;)
-<a id="__codelineno-7-34" name="__codelineno-7-34" href="#__codelineno-7-34"></a>    activate Terminal
-<a id="__codelineno-7-35" name="__codelineno-7-35" href="#__codelineno-7-35"></a>    Terminal-&gt;&gt;iTerm2: ESC]1337;SetUserVar=...
-<a id="__codelineno-7-36" name="__codelineno-7-36" href="#__codelineno-7-36"></a>    iTerm2--&gt;&gt;Terminal: Variable set
-<a id="__codelineno-7-37" name="__codelineno-7-37" href="#__codelineno-7-37"></a>    deactivate Terminal
-<a id="__codelineno-7-38" name="__codelineno-7-38" href="#__codelineno-7-38"></a>
-<a id="__codelineno-7-39" name="__codelineno-7-39" href="#__codelineno-7-39"></a>    CLI--&gt;&gt;User: Context switched ✅
-<a id="__codelineno-7-40" name="__codelineno-7-40" href="#__codelineno-7-40"></a>    deactivate CLI
-</code></pre></div>
+<pre class="mermaid"><code>sequenceDiagram
+    participant User
+    participant CLI
+    participant Detector
+    participant Terminal
+    participant iTerm2
+
+    User-&gt;&gt;CLI: cd ~/projects/RMediation
+    activate CLI
+
+    CLI-&gt;&gt;Detector: detect_context(pwd)
+    activate Detector
+
+    Detector-&gt;&gt;Detector: Check DESCRIPTION file
+    Detector-&gt;&gt;Detector: Check R/ directory
+    Detector-&gt;&gt;Detector: Parse package name/version
+
+    Detector--&gt;&gt;CLI: Context(type=r-package, profile=R-Dev)
+    deactivate Detector
+
+    CLI-&gt;&gt;Terminal: switch_profile("R-Dev")
+    activate Terminal
+    Terminal-&gt;&gt;iTerm2: ESC]1337;SetProfile=R-Dev
+    iTerm2--&gt;&gt;Terminal: Profile switched
+    deactivate Terminal
+
+    CLI-&gt;&gt;Terminal: set_title("RMediation v1.0.0")
+    activate Terminal
+    Terminal-&gt;&gt;iTerm2: ESC]0;RMediation v1.0.0
+    iTerm2--&gt;&gt;Terminal: Title set
+    deactivate Terminal
+
+    CLI-&gt;&gt;Terminal: set_status_var("project_type", "R PKG")
+    activate Terminal
+    Terminal-&gt;&gt;iTerm2: ESC]1337;SetUserVar=...
+    iTerm2--&gt;&gt;Terminal: Variable set
+    deactivate Terminal
+
+    CLI--&gt;&gt;User: Context switched ✅
+    deactivate CLI</code></pre>
 <p><strong>Performance:</strong>
 - Detection: &lt; 50ms
 - Profile switch: &lt; 150ms
 - Total: &lt; 200ms</p>
 <hr />
 <h3 id="2-auto-approval-application-flow">2. Auto-Approval Application Flow</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>sequenceDiagram
-<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>    participant User
-<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>    participant CLI
-<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>    participant Settings
-<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>    participant Backup
-<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>    participant Claude
-<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>
-<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>    User-&gt;&gt;CLI: aiterm claude approvals set r-package
-<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>    activate CLI
-<a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a>
-<a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a>    CLI-&gt;&gt;Settings: read_claude_settings()
-<a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a>    activate Settings
-<a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a>    Settings-&gt;&gt;Claude: Read ~/.claude/settings.json
-<a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a>    Claude--&gt;&gt;Settings: Current settings
-<a id="__codelineno-8-15" name="__codelineno-8-15" href="#__codelineno-8-15"></a>    Settings--&gt;&gt;CLI: settings dict
-<a id="__codelineno-8-16" name="__codelineno-8-16" href="#__codelineno-8-16"></a>    deactivate Settings
-<a id="__codelineno-8-17" name="__codelineno-8-17" href="#__codelineno-8-17"></a>
-<a id="__codelineno-8-18" name="__codelineno-8-18" href="#__codelineno-8-18"></a>    CLI-&gt;&gt;Backup: create_backup(settings)
-<a id="__codelineno-8-19" name="__codelineno-8-19" href="#__codelineno-8-19"></a>    activate Backup
-<a id="__codelineno-8-20" name="__codelineno-8-20" href="#__codelineno-8-20"></a>    Backup-&gt;&gt;Claude: Write ~/.claude/settings.json.backup.TIMESTAMP
-<a id="__codelineno-8-21" name="__codelineno-8-21" href="#__codelineno-8-21"></a>    Backup--&gt;&gt;CLI: Backup created
-<a id="__codelineno-8-22" name="__codelineno-8-22" href="#__codelineno-8-22"></a>    deactivate Backup
-<a id="__codelineno-8-23" name="__codelineno-8-23" href="#__codelineno-8-23"></a>
-<a id="__codelineno-8-24" name="__codelineno-8-24" href="#__codelineno-8-24"></a>    CLI-&gt;&gt;Settings: apply_approval_preset(&quot;r-package&quot;)
-<a id="__codelineno-8-25" name="__codelineno-8-25" href="#__codelineno-8-25"></a>    activate Settings
-<a id="__codelineno-8-26" name="__codelineno-8-26" href="#__codelineno-8-26"></a>    Settings-&gt;&gt;Settings: Load r-package preset (35 tools)
-<a id="__codelineno-8-27" name="__codelineno-8-27" href="#__codelineno-8-27"></a>    Settings-&gt;&gt;Settings: Merge with current approvals
-<a id="__codelineno-8-28" name="__codelineno-8-28" href="#__codelineno-8-28"></a>    Settings-&gt;&gt;Settings: Validate JSON structure
-<a id="__codelineno-8-29" name="__codelineno-8-29" href="#__codelineno-8-29"></a>    Settings--&gt;&gt;CLI: Updated settings
-<a id="__codelineno-8-30" name="__codelineno-8-30" href="#__codelineno-8-30"></a>    deactivate Settings
-<a id="__codelineno-8-31" name="__codelineno-8-31" href="#__codelineno-8-31"></a>
-<a id="__codelineno-8-32" name="__codelineno-8-32" href="#__codelineno-8-32"></a>    CLI-&gt;&gt;Settings: write_claude_settings(updated)
-<a id="__codelineno-8-33" name="__codelineno-8-33" href="#__codelineno-8-33"></a>    activate Settings
-<a id="__codelineno-8-34" name="__codelineno-8-34" href="#__codelineno-8-34"></a>    Settings-&gt;&gt;Claude: Write ~/.claude/settings.json
-<a id="__codelineno-8-35" name="__codelineno-8-35" href="#__codelineno-8-35"></a>    Claude--&gt;&gt;Settings: Write complete
-<a id="__codelineno-8-36" name="__codelineno-8-36" href="#__codelineno-8-36"></a>    Settings--&gt;&gt;CLI: Success
-<a id="__codelineno-8-37" name="__codelineno-8-37" href="#__codelineno-8-37"></a>    deactivate Settings
-<a id="__codelineno-8-38" name="__codelineno-8-38" href="#__codelineno-8-38"></a>
-<a id="__codelineno-8-39" name="__codelineno-8-39" href="#__codelineno-8-39"></a>    CLI--&gt;&gt;User: ✅ Applied r-package preset (35 tools)
-<a id="__codelineno-8-40" name="__codelineno-8-40" href="#__codelineno-8-40"></a>    deactivate CLI
-</code></pre></div>
+<pre class="mermaid"><code>sequenceDiagram
+    participant User
+    participant CLI
+    participant Settings
+    participant Backup
+    participant Claude
+
+    User-&gt;&gt;CLI: aiterm claude approvals set r-package
+    activate CLI
+
+    CLI-&gt;&gt;Settings: read_claude_settings()
+    activate Settings
+    Settings-&gt;&gt;Claude: Read ~/.claude/settings.json
+    Claude--&gt;&gt;Settings: Current settings
+    Settings--&gt;&gt;CLI: settings dict
+    deactivate Settings
+
+    CLI-&gt;&gt;Backup: create_backup(settings)
+    activate Backup
+    Backup-&gt;&gt;Claude: Write ~/.claude/settings.json.backup.TIMESTAMP
+    Backup--&gt;&gt;CLI: Backup created
+    deactivate Backup
+
+    CLI-&gt;&gt;Settings: apply_approval_preset("r-package")
+    activate Settings
+    Settings-&gt;&gt;Settings: Load r-package preset (35 tools)
+    Settings-&gt;&gt;Settings: Merge with current approvals
+    Settings-&gt;&gt;Settings: Validate JSON structure
+    Settings--&gt;&gt;CLI: Updated settings
+    deactivate Settings
+
+    CLI-&gt;&gt;Settings: write_claude_settings(updated)
+    activate Settings
+    Settings-&gt;&gt;Claude: Write ~/.claude/settings.json
+    Claude--&gt;&gt;Settings: Write complete
+    Settings--&gt;&gt;CLI: Success
+    deactivate Settings
+
+    CLI--&gt;&gt;User: ✅ Applied r-package preset (35 tools)
+    deactivate CLI</code></pre>
 <p><strong>Safety Features:</strong>
 - Automatic backup before write
 - JSON validation
@@ -4094,136 +4086,132 @@
 - Backup retention (last 5)</p>
 <hr />
 <h3 id="3-profile-switching-flow">3. Profile Switching Flow</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>sequenceDiagram
-<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>    participant User
-<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>    participant CLI
-<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>    participant Terminal
-<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>    participant iTerm2
-<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>    participant Shell
-<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>
-<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>    User-&gt;&gt;CLI: aiterm profile switch R-Dev
-<a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>    activate CLI
-<a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a>
-<a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a>    CLI-&gt;&gt;Terminal: get_terminal()
-<a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a>    activate Terminal
-<a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a>    Terminal-&gt;&gt;Terminal: Detect terminal type
-<a id="__codelineno-9-14" name="__codelineno-9-14" href="#__codelineno-9-14"></a>    Terminal--&gt;&gt;CLI: iTerm2Terminal instance
-<a id="__codelineno-9-15" name="__codelineno-9-15" href="#__codelineno-9-15"></a>    deactivate Terminal
-<a id="__codelineno-9-16" name="__codelineno-9-16" href="#__codelineno-9-16"></a>
-<a id="__codelineno-9-17" name="__codelineno-9-17" href="#__codelineno-9-17"></a>    CLI-&gt;&gt;Terminal: switch_profile(&quot;R-Dev&quot;)
-<a id="__codelineno-9-18" name="__codelineno-9-18" href="#__codelineno-9-18"></a>    activate Terminal
-<a id="__codelineno-9-19" name="__codelineno-9-19" href="#__codelineno-9-19"></a>
-<a id="__codelineno-9-20" name="__codelineno-9-20" href="#__codelineno-9-20"></a>    Terminal-&gt;&gt;Terminal: Validate profile exists
-<a id="__codelineno-9-21" name="__codelineno-9-21" href="#__codelineno-9-21"></a>    Terminal-&gt;&gt;iTerm2: Send escape sequence&lt;br/&gt;ESC]1337;SetProfile=R-Dev BEL
-<a id="__codelineno-9-22" name="__codelineno-9-22" href="#__codelineno-9-22"></a>    iTerm2-&gt;&gt;iTerm2: Switch profile
-<a id="__codelineno-9-23" name="__codelineno-9-23" href="#__codelineno-9-23"></a>    iTerm2-&gt;&gt;Shell: Update environment
-<a id="__codelineno-9-24" name="__codelineno-9-24" href="#__codelineno-9-24"></a>    iTerm2--&gt;&gt;Terminal: Profile switched
-<a id="__codelineno-9-25" name="__codelineno-9-25" href="#__codelineno-9-25"></a>
-<a id="__codelineno-9-26" name="__codelineno-9-26" href="#__codelineno-9-26"></a>    Terminal--&gt;&gt;CLI: Success
-<a id="__codelineno-9-27" name="__codelineno-9-27" href="#__codelineno-9-27"></a>    deactivate Terminal
-<a id="__codelineno-9-28" name="__codelineno-9-28" href="#__codelineno-9-28"></a>
-<a id="__codelineno-9-29" name="__codelineno-9-29" href="#__codelineno-9-29"></a>    CLI-&gt;&gt;Terminal: set_title(&quot;R Development&quot;)
-<a id="__codelineno-9-30" name="__codelineno-9-30" href="#__codelineno-9-30"></a>    activate Terminal
-<a id="__codelineno-9-31" name="__codelineno-9-31" href="#__codelineno-9-31"></a>    Terminal-&gt;&gt;iTerm2: ESC]0;R Development BEL
-<a id="__codelineno-9-32" name="__codelineno-9-32" href="#__codelineno-9-32"></a>    iTerm2--&gt;&gt;Terminal: Title set
-<a id="__codelineno-9-33" name="__codelineno-9-33" href="#__codelineno-9-33"></a>    deactivate Terminal
-<a id="__codelineno-9-34" name="__codelineno-9-34" href="#__codelineno-9-34"></a>
-<a id="__codelineno-9-35" name="__codelineno-9-35" href="#__codelineno-9-35"></a>    CLI--&gt;&gt;User: ✅ Switched to R-Dev
-<a id="__codelineno-9-36" name="__codelineno-9-36" href="#__codelineno-9-36"></a>    deactivate CLI
-</code></pre></div>
+<pre class="mermaid"><code>sequenceDiagram
+    participant User
+    participant CLI
+    participant Terminal
+    participant iTerm2
+    participant Shell
+
+    User-&gt;&gt;CLI: aiterm profile switch R-Dev
+    activate CLI
+
+    CLI-&gt;&gt;Terminal: get_terminal()
+    activate Terminal
+    Terminal-&gt;&gt;Terminal: Detect terminal type
+    Terminal--&gt;&gt;CLI: iTerm2Terminal instance
+    deactivate Terminal
+
+    CLI-&gt;&gt;Terminal: switch_profile("R-Dev")
+    activate Terminal
+
+    Terminal-&gt;&gt;Terminal: Validate profile exists
+    Terminal-&gt;&gt;iTerm2: Send escape sequence&lt;br/&gt;ESC]1337;SetProfile=R-Dev BEL
+    iTerm2-&gt;&gt;iTerm2: Switch profile
+    iTerm2-&gt;&gt;Shell: Update environment
+    iTerm2--&gt;&gt;Terminal: Profile switched
+
+    Terminal--&gt;&gt;CLI: Success
+    deactivate Terminal
+
+    CLI-&gt;&gt;Terminal: set_title("R Development")
+    activate Terminal
+    Terminal-&gt;&gt;iTerm2: ESC]0;R Development BEL
+    iTerm2--&gt;&gt;Terminal: Title set
+    deactivate Terminal
+
+    CLI--&gt;&gt;User: ✅ Switched to R-Dev
+    deactivate CLI</code></pre>
 <hr />
 <h2 id="sequence-diagrams">Sequence Diagrams</h2>
 <h3 id="4-doctor-command-flow">4. Doctor Command Flow</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>sequenceDiagram
-<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>    participant User
-<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>    participant CLI
-<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>    participant Checks
-<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>    participant System
-<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>
-<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>    User-&gt;&gt;CLI: aiterm doctor
-<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>    activate CLI
-<a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a>
-<a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a>    CLI-&gt;&gt;Checks: check_python_version()
-<a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a>    activate Checks
-<a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a>    Checks-&gt;&gt;System: python --version
-<a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a>    System--&gt;&gt;Checks: 3.11.5
-<a id="__codelineno-10-14" name="__codelineno-10-14" href="#__codelineno-10-14"></a>    Checks--&gt;&gt;CLI: ✅ Python 3.11.5
-<a id="__codelineno-10-15" name="__codelineno-10-15" href="#__codelineno-10-15"></a>    deactivate Checks
-<a id="__codelineno-10-16" name="__codelineno-10-16" href="#__codelineno-10-16"></a>
-<a id="__codelineno-10-17" name="__codelineno-10-17" href="#__codelineno-10-17"></a>    CLI-&gt;&gt;Checks: check_terminal()
-<a id="__codelineno-10-18" name="__codelineno-10-18" href="#__codelineno-10-18"></a>    activate Checks
-<a id="__codelineno-10-19" name="__codelineno-10-19" href="#__codelineno-10-19"></a>    Checks-&gt;&gt;System: $TERM_PROGRAM
-<a id="__codelineno-10-20" name="__codelineno-10-20" href="#__codelineno-10-20"></a>    System--&gt;&gt;Checks: iTerm.app
-<a id="__codelineno-10-21" name="__codelineno-10-21" href="#__codelineno-10-21"></a>    Checks-&gt;&gt;System: iTerm2 version
-<a id="__codelineno-10-22" name="__codelineno-10-22" href="#__codelineno-10-22"></a>    System--&gt;&gt;Checks: Build 3.5.0
-<a id="__codelineno-10-23" name="__codelineno-10-23" href="#__codelineno-10-23"></a>    Checks--&gt;&gt;CLI: ✅ iTerm2 (Build 3.5.0)
-<a id="__codelineno-10-24" name="__codelineno-10-24" href="#__codelineno-10-24"></a>    deactivate Checks
-<a id="__codelineno-10-25" name="__codelineno-10-25" href="#__codelineno-10-25"></a>
-<a id="__codelineno-10-26" name="__codelineno-10-26" href="#__codelineno-10-26"></a>    CLI-&gt;&gt;Checks: check_claude_code()
-<a id="__codelineno-10-27" name="__codelineno-10-27" href="#__codelineno-10-27"></a>    activate Checks
-<a id="__codelineno-10-28" name="__codelineno-10-28" href="#__codelineno-10-28"></a>    Checks-&gt;&gt;System: ~/.claude/ exists?
-<a id="__codelineno-10-29" name="__codelineno-10-29" href="#__codelineno-10-29"></a>    System--&gt;&gt;Checks: Yes
-<a id="__codelineno-10-30" name="__codelineno-10-30" href="#__codelineno-10-30"></a>    Checks-&gt;&gt;System: claude --version
-<a id="__codelineno-10-31" name="__codelineno-10-31" href="#__codelineno-10-31"></a>    System--&gt;&gt;Checks: 0.2.0
-<a id="__codelineno-10-32" name="__codelineno-10-32" href="#__codelineno-10-32"></a>    Checks--&gt;&gt;CLI: ✅ Claude Code 0.2.0
-<a id="__codelineno-10-33" name="__codelineno-10-33" href="#__codelineno-10-33"></a>    deactivate Checks
-<a id="__codelineno-10-34" name="__codelineno-10-34" href="#__codelineno-10-34"></a>
-<a id="__codelineno-10-35" name="__codelineno-10-35" href="#__codelineno-10-35"></a>    CLI-&gt;&gt;Checks: check_config()
-<a id="__codelineno-10-36" name="__codelineno-10-36" href="#__codelineno-10-36"></a>    activate Checks
-<a id="__codelineno-10-37" name="__codelineno-10-37" href="#__codelineno-10-37"></a>    Checks-&gt;&gt;System: ~/.aiterm/config.json exists?
-<a id="__codelineno-10-38" name="__codelineno-10-38" href="#__codelineno-10-38"></a>    System--&gt;&gt;Checks: Yes
-<a id="__codelineno-10-39" name="__codelineno-10-39" href="#__codelineno-10-39"></a>    Checks-&gt;&gt;System: Validate JSON
-<a id="__codelineno-10-40" name="__codelineno-10-40" href="#__codelineno-10-40"></a>    System--&gt;&gt;Checks: Valid
-<a id="__codelineno-10-41" name="__codelineno-10-41" href="#__codelineno-10-41"></a>    Checks--&gt;&gt;CLI: ✅ Settings OK
-<a id="__codelineno-10-42" name="__codelineno-10-42" href="#__codelineno-10-42"></a>    deactivate Checks
-<a id="__codelineno-10-43" name="__codelineno-10-43" href="#__codelineno-10-43"></a>
-<a id="__codelineno-10-44" name="__codelineno-10-44" href="#__codelineno-10-44"></a>    CLI--&gt;&gt;User: All checks passed! ✅
-<a id="__codelineno-10-45" name="__codelineno-10-45" href="#__codelineno-10-45"></a>    deactivate CLI
-</code></pre></div>
+<pre class="mermaid"><code>sequenceDiagram
+    participant User
+    participant CLI
+    participant Checks
+    participant System
+
+    User-&gt;&gt;CLI: aiterm doctor
+    activate CLI
+
+    CLI-&gt;&gt;Checks: check_python_version()
+    activate Checks
+    Checks-&gt;&gt;System: python --version
+    System--&gt;&gt;Checks: 3.11.5
+    Checks--&gt;&gt;CLI: ✅ Python 3.11.5
+    deactivate Checks
+
+    CLI-&gt;&gt;Checks: check_terminal()
+    activate Checks
+    Checks-&gt;&gt;System: $TERM_PROGRAM
+    System--&gt;&gt;Checks: iTerm.app
+    Checks-&gt;&gt;System: iTerm2 version
+    System--&gt;&gt;Checks: Build 3.5.0
+    Checks--&gt;&gt;CLI: ✅ iTerm2 (Build 3.5.0)
+    deactivate Checks
+
+    CLI-&gt;&gt;Checks: check_claude_code()
+    activate Checks
+    Checks-&gt;&gt;System: ~/.claude/ exists?
+    System--&gt;&gt;Checks: Yes
+    Checks-&gt;&gt;System: claude --version
+    System--&gt;&gt;Checks: 0.2.0
+    Checks--&gt;&gt;CLI: ✅ Claude Code 0.2.0
+    deactivate Checks
+
+    CLI-&gt;&gt;Checks: check_config()
+    activate Checks
+    Checks-&gt;&gt;System: ~/.aiterm/config.json exists?
+    System--&gt;&gt;Checks: Yes
+    Checks-&gt;&gt;System: Validate JSON
+    System--&gt;&gt;Checks: Valid
+    Checks--&gt;&gt;CLI: ✅ Settings OK
+    deactivate Checks
+
+    CLI--&gt;&gt;User: All checks passed! ✅
+    deactivate CLI</code></pre>
 <hr />
 <h3 id="5-profile-list-flow">5. Profile List Flow</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>sequenceDiagram
-<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>    participant User
-<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>    participant CLI
-<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>    participant Terminal
-<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>    participant Config
-<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>
-<a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>    User-&gt;&gt;CLI: aiterm profile list
-<a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a>    activate CLI
-<a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a>
-<a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a>    CLI-&gt;&gt;Config: read_config()
-<a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a>    activate Config
-<a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a>    Config-&gt;&gt;Config: Load ~/.aiterm/config.json
-<a id="__codelineno-11-13" name="__codelineno-11-13" href="#__codelineno-11-13"></a>    Config--&gt;&gt;CLI: Config dict
-<a id="__codelineno-11-14" name="__codelineno-11-14" href="#__codelineno-11-14"></a>    deactivate Config
-<a id="__codelineno-11-15" name="__codelineno-11-15" href="#__codelineno-11-15"></a>
-<a id="__codelineno-11-16" name="__codelineno-11-16" href="#__codelineno-11-16"></a>    CLI-&gt;&gt;Terminal: get_available_profiles()
-<a id="__codelineno-11-17" name="__codelineno-11-17" href="#__codelineno-11-17"></a>    activate Terminal
-<a id="__codelineno-11-18" name="__codelineno-11-18" href="#__codelineno-11-18"></a>    Terminal-&gt;&gt;Config: profiles section
-<a id="__codelineno-11-19" name="__codelineno-11-19" href="#__codelineno-11-19"></a>    Terminal-&gt;&gt;Terminal: Parse profile definitions
-<a id="__codelineno-11-20" name="__codelineno-11-20" href="#__codelineno-11-20"></a>    Terminal--&gt;&gt;CLI: List of profiles
-<a id="__codelineno-11-21" name="__codelineno-11-21" href="#__codelineno-11-21"></a>    deactivate Terminal
-<a id="__codelineno-11-22" name="__codelineno-11-22" href="#__codelineno-11-22"></a>
-<a id="__codelineno-11-23" name="__codelineno-11-23" href="#__codelineno-11-23"></a>    loop For each profile
-<a id="__codelineno-11-24" name="__codelineno-11-24" href="#__codelineno-11-24"></a>        CLI-&gt;&gt;CLI: Format profile info
-<a id="__codelineno-11-25" name="__codelineno-11-25" href="#__codelineno-11-25"></a>        CLI-&gt;&gt;CLI: Add theme, triggers, description
-<a id="__codelineno-11-26" name="__codelineno-11-26" href="#__codelineno-11-26"></a>    end
-<a id="__codelineno-11-27" name="__codelineno-11-27" href="#__codelineno-11-27"></a>
-<a id="__codelineno-11-28" name="__codelineno-11-28" href="#__codelineno-11-28"></a>    CLI--&gt;&gt;User: Display formatted profile list
-<a id="__codelineno-11-29" name="__codelineno-11-29" href="#__codelineno-11-29"></a>    deactivate CLI
-</code></pre></div>
+<pre class="mermaid"><code>sequenceDiagram
+    participant User
+    participant CLI
+    participant Terminal
+    participant Config
+
+    User-&gt;&gt;CLI: aiterm profile list
+    activate CLI
+
+    CLI-&gt;&gt;Config: read_config()
+    activate Config
+    Config-&gt;&gt;Config: Load ~/.aiterm/config.json
+    Config--&gt;&gt;CLI: Config dict
+    deactivate Config
+
+    CLI-&gt;&gt;Terminal: get_available_profiles()
+    activate Terminal
+    Terminal-&gt;&gt;Config: profiles section
+    Terminal-&gt;&gt;Terminal: Parse profile definitions
+    Terminal--&gt;&gt;CLI: List of profiles
+    deactivate Terminal
+
+    loop For each profile
+        CLI-&gt;&gt;CLI: Format profile info
+        CLI-&gt;&gt;CLI: Add theme, triggers, description
+    end
+
+    CLI--&gt;&gt;User: Display formatted profile list
+    deactivate CLI</code></pre>
 <hr />
 <h2 id="state-machines">State Machines</h2>
 <h3 id="1-context-lifecycle">1. Context Lifecycle</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>stateDiagram-v2
-<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>    [*] --&gt; Unknown: Start
-<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>    Unknown --&gt; Detected: Context found
-<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>    Unknown --&gt; Unknown: No context
-<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>    Detected --&gt; Switched: Apply profile
-<a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>    Switched --&gt; Active: Profile applied
-<a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a>    Active --&gt; Detected: Directory change
-<a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a>    Active --&gt; [*]: Exit terminal
-</code></pre></div>
+<pre class="mermaid"><code>stateDiagram-v2
+    [*] --&gt; Unknown: Start
+    Unknown --&gt; Detected: Context found
+    Unknown --&gt; Unknown: No context
+    Detected --&gt; Switched: Apply profile
+    Switched --&gt; Active: Profile applied
+    Active --&gt; Detected: Directory change
+    Active --&gt; [*]: Exit terminal</code></pre>
 <p><strong>States:</strong>
 - <strong>Unknown</strong> - No context detected
 - <strong>Detected</strong> - Context identified
@@ -4231,21 +4219,20 @@
 - <strong>Active</strong> - Profile active and in use</p>
 <hr />
 <h3 id="2-settings-management-lifecycle">2. Settings Management Lifecycle</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>stateDiagram-v2
-<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>    [*] --&gt; Unloaded
-<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>    Unloaded --&gt; Loading: Read request
-<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>    Loading --&gt; Loaded: Success
-<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>    Loading --&gt; Error: Parse fail
-<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>    Loaded --&gt; Modifying: Update request
-<a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a>    Modifying --&gt; Validating: Changes made
-<a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a>    Validating --&gt; BackingUp: Validation passed
-<a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a>    Validating --&gt; Error: Validation failed
-<a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a>    BackingUp --&gt; Writing: Backup created
-<a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a>    Writing --&gt; Loaded: Write success
-<a id="__codelineno-13-12" name="__codelineno-13-12" href="#__codelineno-13-12"></a>    Writing --&gt; Error: Write fail
-<a id="__codelineno-13-13" name="__codelineno-13-13" href="#__codelineno-13-13"></a>    Error --&gt; Loaded: Rollback
-<a id="__codelineno-13-14" name="__codelineno-13-14" href="#__codelineno-13-14"></a>    Loaded --&gt; [*]: Session end
-</code></pre></div>
+<pre class="mermaid"><code>stateDiagram-v2
+    [*] --&gt; Unloaded
+    Unloaded --&gt; Loading: Read request
+    Loading --&gt; Loaded: Success
+    Loading --&gt; Error: Parse fail
+    Loaded --&gt; Modifying: Update request
+    Modifying --&gt; Validating: Changes made
+    Validating --&gt; BackingUp: Validation passed
+    Validating --&gt; Error: Validation failed
+    BackingUp --&gt; Writing: Backup created
+    Writing --&gt; Loaded: Write success
+    Writing --&gt; Error: Write fail
+    Error --&gt; Loaded: Rollback
+    Loaded --&gt; [*]: Session end</code></pre>
 <p><strong>States:</strong>
 - <strong>Unloaded</strong> - Settings not read
 - <strong>Loading</strong> - Reading from disk
@@ -4257,188 +4244,186 @@
 - <strong>Error</strong> - Error state (with rollback)</p>
 <hr />
 <h3 id="3-profile-switching-state">3. Profile Switching State</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>stateDiagram-v2
-<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>    [*] --&gt; Idle
-<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>    Idle --&gt; Detecting: cd command
-<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>    Detecting --&gt; Matched: Context found
-<a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>    Detecting --&gt; Idle: No match
-<a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a>    Matched --&gt; Switching: Profile selected
-<a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a>    Switching --&gt; Applied: Escape sequence sent
-<a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a>    Switching --&gt; Failed: Terminal error
-<a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a>    Applied --&gt; Updating: Set title/vars
-<a id="__codelineno-14-10" name="__codelineno-14-10" href="#__codelineno-14-10"></a>    Updating --&gt; Idle: Complete
-<a id="__codelineno-14-11" name="__codelineno-14-11" href="#__codelineno-14-11"></a>    Failed --&gt; Idle: Fallback to default
-</code></pre></div>
+<pre class="mermaid"><code>stateDiagram-v2
+    [*] --&gt; Idle
+    Idle --&gt; Detecting: cd command
+    Detecting --&gt; Matched: Context found
+    Detecting --&gt; Idle: No match
+    Matched --&gt; Switching: Profile selected
+    Switching --&gt; Applied: Escape sequence sent
+    Switching --&gt; Failed: Terminal error
+    Applied --&gt; Updating: Set title/vars
+    Updating --&gt; Idle: Complete
+    Failed --&gt; Idle: Fallback to default</code></pre>
 <hr />
 <h2 id="design-patterns">Design Patterns</h2>
 <h3 id="1-singleton-pattern">1. Singleton Pattern</h3>
 <p><strong>Used For:</strong> Settings Manager, Detector Registry</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">SettingsManager</span><span class="p">:</span>
-<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>    <span class="n">_instance</span> <span class="o">=</span> <span class="kc">None</span>
-<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>
-<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__new__</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
-<a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>        <span class="k">if</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_instance</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-<a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>            <span class="bp">cls</span><span class="o">.</span><span class="n">_instance</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__new__</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span>
-<a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a>            <span class="bp">cls</span><span class="o">.</span><span class="n">_instance</span><span class="o">.</span><span class="n">_initialized</span> <span class="o">=</span> <span class="kc">False</span>
-<a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a>        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_instance</span>
-<a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a>
-<a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<a id="__codelineno-15-11" name="__codelineno-15-11" href="#__codelineno-15-11"></a>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_initialized</span><span class="p">:</span>
-<a id="__codelineno-15-12" name="__codelineno-15-12" href="#__codelineno-15-12"></a>            <span class="k">return</span>
-<a id="__codelineno-15-13" name="__codelineno-15-13" href="#__codelineno-15-13"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_load_settings</span><span class="p">()</span>
-<a id="__codelineno-15-14" name="__codelineno-15-14" href="#__codelineno-15-14"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_initialized</span> <span class="o">=</span> <span class="kc">True</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">SettingsManager</span><span class="p">:</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>    <span class="n">_instance</span> <span class="o">=</span> <span class="kc">None</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__new__</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>        <span class="k">if</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_instance</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>            <span class="bp">cls</span><span class="o">.</span><span class="n">_instance</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__new__</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>            <span class="bp">cls</span><span class="o">.</span><span class="n">_instance</span><span class="o">.</span><span class="n">_initialized</span> <span class="o">=</span> <span class="kc">False</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_instance</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_initialized</span><span class="p">:</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>            <span class="k">return</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_load_settings</span><span class="p">()</span>
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_initialized</span> <span class="o">=</span> <span class="kc">True</span>
 </code></pre></div>
 <p><strong>Why:</strong> Single source of truth for settings</p>
 <hr />
 <h3 id="2-factory-pattern">2. Factory Pattern</h3>
 <p><strong>Used For:</strong> Terminal backend creation</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">get_terminal</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">TerminalBackend</span><span class="p">:</span>
-<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Factory function for terminal backends&quot;&quot;&quot;</span>
-<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>    <span class="n">term_program</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;TERM_PROGRAM&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
-<a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a>
-<a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a>    <span class="k">if</span> <span class="s2">&quot;iTerm&quot;</span> <span class="ow">in</span> <span class="n">term_program</span><span class="p">:</span>
-<a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a>        <span class="k">return</span> <span class="n">iTerm2Terminal</span><span class="p">()</span>
-<a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a>    <span class="k">elif</span> <span class="s2">&quot;WezTerm&quot;</span> <span class="ow">in</span> <span class="n">term_program</span><span class="p">:</span>
-<a id="__codelineno-16-8" name="__codelineno-16-8" href="#__codelineno-16-8"></a>        <span class="k">return</span> <span class="n">WeztermTerminal</span><span class="p">()</span>  <span class="c1"># Future</span>
-<a id="__codelineno-16-9" name="__codelineno-16-9" href="#__codelineno-16-9"></a>    <span class="k">else</span><span class="p">:</span>
-<a id="__codelineno-16-10" name="__codelineno-16-10" href="#__codelineno-16-10"></a>        <span class="k">return</span> <span class="n">DefaultTerminal</span><span class="p">()</span>  <span class="c1"># Fallback</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">get_terminal</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">TerminalBackend</span><span class="p">:</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Factory function for terminal backends&quot;&quot;&quot;</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>    <span class="n">term_program</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;TERM_PROGRAM&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>    <span class="k">if</span> <span class="s2">&quot;iTerm&quot;</span> <span class="ow">in</span> <span class="n">term_program</span><span class="p">:</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>        <span class="k">return</span> <span class="n">iTerm2Terminal</span><span class="p">()</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>    <span class="k">elif</span> <span class="s2">&quot;WezTerm&quot;</span> <span class="ow">in</span> <span class="n">term_program</span><span class="p">:</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>        <span class="k">return</span> <span class="n">WeztermTerminal</span><span class="p">()</span>  <span class="c1"># Future</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>    <span class="k">else</span><span class="p">:</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>        <span class="k">return</span> <span class="n">DefaultTerminal</span><span class="p">()</span>  <span class="c1"># Fallback</span>
 </code></pre></div>
 <p><strong>Why:</strong> Abstract terminal selection</p>
 <hr />
 <h3 id="3-strategy-pattern">3. Strategy Pattern</h3>
 <p><strong>Used For:</strong> Context detection</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">ContextDetector</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
-<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>    <span class="nd">@abstractmethod</span>
-<a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">detect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Context</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
-<a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Detect context from path&quot;&quot;&quot;</span>
-<a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a>        <span class="k">pass</span>
-<a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a>
-<a id="__codelineno-17-7" name="__codelineno-17-7" href="#__codelineno-17-7"></a><span class="k">class</span><span class="w"> </span><span class="nc">RPackageDetector</span><span class="p">(</span><span class="n">ContextDetector</span><span class="p">):</span>
-<a id="__codelineno-17-8" name="__codelineno-17-8" href="#__codelineno-17-8"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">detect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Context</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
-<a id="__codelineno-17-9" name="__codelineno-17-9" href="#__codelineno-17-9"></a>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_has_file</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;DESCRIPTION&quot;</span><span class="p">):</span>
-<a id="__codelineno-17-10" name="__codelineno-17-10" href="#__codelineno-17-10"></a>            <span class="c1"># R package logic</span>
-<a id="__codelineno-17-11" name="__codelineno-17-11" href="#__codelineno-17-11"></a>            <span class="k">return</span> <span class="n">Context</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
-<a id="__codelineno-17-12" name="__codelineno-17-12" href="#__codelineno-17-12"></a>        <span class="k">return</span> <span class="kc">None</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">ContextDetector</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>    <span class="nd">@abstractmethod</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">detect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Context</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Detect context from path&quot;&quot;&quot;</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>        <span class="k">pass</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="k">class</span><span class="w"> </span><span class="nc">RPackageDetector</span><span class="p">(</span><span class="n">ContextDetector</span><span class="p">):</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">detect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Context</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_has_file</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;DESCRIPTION&quot;</span><span class="p">):</span>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>            <span class="c1"># R package logic</span>
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>            <span class="k">return</span> <span class="n">Context</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>        <span class="k">return</span> <span class="kc">None</span>
 </code></pre></div>
 <p><strong>Why:</strong> Pluggable detection strategies</p>
 <hr />
 <h3 id="4-chain-of-responsibility">4. Chain of Responsibility</h3>
 <p><strong>Used For:</strong> Detector priority chain</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">DetectorRegistry</span><span class="p">:</span>
-<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">detect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Context</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
-<a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>        <span class="c1"># Try detectors in priority order</span>
-<a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a>        <span class="k">for</span> <span class="n">detector</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">detectors</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">d</span><span class="p">:</span> <span class="n">d</span><span class="o">.</span><span class="n">priority</span><span class="p">):</span>
-<a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a>            <span class="n">context</span> <span class="o">=</span> <span class="n">detector</span><span class="o">.</span><span class="n">detect</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
-<a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a>            <span class="k">if</span> <span class="n">context</span><span class="p">:</span>
-<a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a>                <span class="k">return</span> <span class="n">context</span>  <span class="c1"># First match wins</span>
-<a id="__codelineno-18-8" name="__codelineno-18-8" href="#__codelineno-18-8"></a>        <span class="k">return</span> <span class="kc">None</span>  <span class="c1"># No matches</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">DetectorRegistry</span><span class="p">:</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">detect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Context</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>        <span class="c1"># Try detectors in priority order</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>        <span class="k">for</span> <span class="n">detector</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">detectors</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">d</span><span class="p">:</span> <span class="n">d</span><span class="o">.</span><span class="n">priority</span><span class="p">):</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>            <span class="n">context</span> <span class="o">=</span> <span class="n">detector</span><span class="o">.</span><span class="n">detect</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>            <span class="k">if</span> <span class="n">context</span><span class="p">:</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>                <span class="k">return</span> <span class="n">context</span>  <span class="c1"># First match wins</span>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>        <span class="k">return</span> <span class="kc">None</span>  <span class="c1"># No matches</span>
 </code></pre></div>
 <p><strong>Why:</strong> First-match-wins with priority</p>
 <hr />
 <h3 id="5-template-method">5. Template Method</h3>
 <p><strong>Used For:</strong> Settings operations</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">SettingsManager</span><span class="p">:</span>
-<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">apply_preset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">preset_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-<a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>        <span class="c1"># Template method</span>
-<a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a>        <span class="n">settings</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">read_settings</span><span class="p">()</span>       <span class="c1"># 1. Read</span>
-<a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">backup_settings</span><span class="p">(</span><span class="n">settings</span><span class="p">)</span>        <span class="c1"># 2. Backup</span>
-<a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a>        <span class="n">updated</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_merge_preset</span><span class="p">(</span><span class="n">settings</span><span class="p">,</span> <span class="n">preset_name</span><span class="p">)</span>  <span class="c1"># 3. Merge</span>
-<a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">validate_settings</span><span class="p">(</span><span class="n">updated</span><span class="p">)</span>       <span class="c1"># 4. Validate</span>
-<a id="__codelineno-19-8" name="__codelineno-19-8" href="#__codelineno-19-8"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">write_settings</span><span class="p">(</span><span class="n">updated</span><span class="p">)</span>          <span class="c1"># 5. Write</span>
-<a id="__codelineno-19-9" name="__codelineno-19-9" href="#__codelineno-19-9"></a>
-<a id="__codelineno-19-10" name="__codelineno-19-10" href="#__codelineno-19-10"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">_merge_preset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">settings</span><span class="p">,</span> <span class="n">preset</span><span class="p">):</span>
-<a id="__codelineno-19-11" name="__codelineno-19-11" href="#__codelineno-19-11"></a>        <span class="c1"># Subclass hook (override for custom merge)</span>
-<a id="__codelineno-19-12" name="__codelineno-19-12" href="#__codelineno-19-12"></a>        <span class="k">pass</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">SettingsManager</span><span class="p">:</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">apply_preset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">preset_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>        <span class="c1"># Template method</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>        <span class="n">settings</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">read_settings</span><span class="p">()</span>       <span class="c1"># 1. Read</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">backup_settings</span><span class="p">(</span><span class="n">settings</span><span class="p">)</span>        <span class="c1"># 2. Backup</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>        <span class="n">updated</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_merge_preset</span><span class="p">(</span><span class="n">settings</span><span class="p">,</span> <span class="n">preset_name</span><span class="p">)</span>  <span class="c1"># 3. Merge</span>
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">validate_settings</span><span class="p">(</span><span class="n">updated</span><span class="p">)</span>       <span class="c1"># 4. Validate</span>
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">write_settings</span><span class="p">(</span><span class="n">updated</span><span class="p">)</span>          <span class="c1"># 5. Write</span>
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>
+<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">_merge_preset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">settings</span><span class="p">,</span> <span class="n">preset</span><span class="p">):</span>
+<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>        <span class="c1"># Subclass hook (override for custom merge)</span>
+<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>        <span class="k">pass</span>
 </code></pre></div>
 <p><strong>Why:</strong> Consistent operation flow</p>
 <hr />
 <h2 id="file-structure">File Structure</h2>
 <h3 id="project-layout">Project Layout</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>aiterm/
-<a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>├── src/aiterm/              # Main package
-<a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a>│   ├── __init__.py
-<a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a>│   ├── cli/                 # CLI commands
-<a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a>│   │   ├── __init__.py
-<a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a>│   │   ├── main.py          # Entry point
-<a id="__codelineno-20-7" name="__codelineno-20-7" href="#__codelineno-20-7"></a>│   │   ├── core.py          # doctor, detect
-<a id="__codelineno-20-8" name="__codelineno-20-8" href="#__codelineno-20-8"></a>│   │   ├── profile.py       # profile commands
-<a id="__codelineno-20-9" name="__codelineno-20-9" href="#__codelineno-20-9"></a>│   │   ├── claude.py        # Claude Code commands
-<a id="__codelineno-20-10" name="__codelineno-20-10" href="#__codelineno-20-10"></a>│   │   └── mcp.py           # MCP commands (future)
-<a id="__codelineno-20-11" name="__codelineno-20-11" href="#__codelineno-20-11"></a>│   ├── terminal/            # Terminal backends
-<a id="__codelineno-20-12" name="__codelineno-20-12" href="#__codelineno-20-12"></a>│   │   ├── __init__.py
-<a id="__codelineno-20-13" name="__codelineno-20-13" href="#__codelineno-20-13"></a>│   │   ├── base.py          # Abstract base
-<a id="__codelineno-20-14" name="__codelineno-20-14" href="#__codelineno-20-14"></a>│   │   ├── iterm2.py        # iTerm2 implementation
-<a id="__codelineno-20-15" name="__codelineno-20-15" href="#__codelineno-20-15"></a>│   │   ├── wezterm.py       # Wezterm (future)
-<a id="__codelineno-20-16" name="__codelineno-20-16" href="#__codelineno-20-16"></a>│   │   └── detector.py      # Terminal detection
-<a id="__codelineno-20-17" name="__codelineno-20-17" href="#__codelineno-20-17"></a>│   ├── context/             # Context detection
-<a id="__codelineno-20-18" name="__codelineno-20-18" href="#__codelineno-20-18"></a>│   │   ├── __init__.py
-<a id="__codelineno-20-19" name="__codelineno-20-19" href="#__codelineno-20-19"></a>│   │   ├── base.py          # Abstract detector
-<a id="__codelineno-20-20" name="__codelineno-20-20" href="#__codelineno-20-20"></a>│   │   ├── registry.py      # Detector registry
-<a id="__codelineno-20-21" name="__codelineno-20-21" href="#__codelineno-20-21"></a>│   │   ├── detectors/       # Built-in detectors
-<a id="__codelineno-20-22" name="__codelineno-20-22" href="#__codelineno-20-22"></a>│   │   │   ├── production.py
-<a id="__codelineno-20-23" name="__codelineno-20-23" href="#__codelineno-20-23"></a>│   │   │   ├── ai_session.py
-<a id="__codelineno-20-24" name="__codelineno-20-24" href="#__codelineno-20-24"></a>│   │   │   ├── r_package.py
-<a id="__codelineno-20-25" name="__codelineno-20-25" href="#__codelineno-20-25"></a>│   │   │   ├── python.py
-<a id="__codelineno-20-26" name="__codelineno-20-26" href="#__codelineno-20-26"></a>│   │   │   ├── nodejs.py
-<a id="__codelineno-20-27" name="__codelineno-20-27" href="#__codelineno-20-27"></a>│   │   │   ├── quarto.py
-<a id="__codelineno-20-28" name="__codelineno-20-28" href="#__codelineno-20-28"></a>│   │   │   ├── mcp.py
-<a id="__codelineno-20-29" name="__codelineno-20-29" href="#__codelineno-20-29"></a>│   │   │   └── dev_tools.py
-<a id="__codelineno-20-30" name="__codelineno-20-30" href="#__codelineno-20-30"></a>│   │   └── types.py         # Context type definitions
-<a id="__codelineno-20-31" name="__codelineno-20-31" href="#__codelineno-20-31"></a>│   ├── claude/              # Claude Code integration
-<a id="__codelineno-20-32" name="__codelineno-20-32" href="#__codelineno-20-32"></a>│   │   ├── __init__.py
-<a id="__codelineno-20-33" name="__codelineno-20-33" href="#__codelineno-20-33"></a>│   │   ├── settings.py      # Settings management
-<a id="__codelineno-20-34" name="__codelineno-20-34" href="#__codelineno-20-34"></a>│   │   ├── presets.py       # Auto-approval presets
-<a id="__codelineno-20-35" name="__codelineno-20-35" href="#__codelineno-20-35"></a>│   │   ├── hooks.py         # Hook management (future)
-<a id="__codelineno-20-36" name="__codelineno-20-36" href="#__codelineno-20-36"></a>│   │   └── commands.py      # Command templates (future)
-<a id="__codelineno-20-37" name="__codelineno-20-37" href="#__codelineno-20-37"></a>│   ├── utils/               # Utilities
-<a id="__codelineno-20-38" name="__codelineno-20-38" href="#__codelineno-20-38"></a>│   │   ├── __init__.py
-<a id="__codelineno-20-39" name="__codelineno-20-39" href="#__codelineno-20-39"></a>│   │   ├── config.py        # Config file handling
-<a id="__codelineno-20-40" name="__codelineno-20-40" href="#__codelineno-20-40"></a>│   │   ├── shell.py         # Shell integration
-<a id="__codelineno-20-41" name="__codelineno-20-41" href="#__codelineno-20-41"></a>│   │   └── exceptions.py    # Custom exceptions
-<a id="__codelineno-20-42" name="__codelineno-20-42" href="#__codelineno-20-42"></a>│   └── version.py           # Version info
-<a id="__codelineno-20-43" name="__codelineno-20-43" href="#__codelineno-20-43"></a>├── templates/               # User-facing templates
-<a id="__codelineno-20-44" name="__codelineno-20-44" href="#__codelineno-20-44"></a>│   ├── profiles/            # iTerm2 profile JSON
-<a id="__codelineno-20-45" name="__codelineno-20-45" href="#__codelineno-20-45"></a>│   │   ├── R-Dev.json
-<a id="__codelineno-20-46" name="__codelineno-20-46" href="#__codelineno-20-46"></a>│   │   ├── Python-Dev.json
-<a id="__codelineno-20-47" name="__codelineno-20-47" href="#__codelineno-20-47"></a>│   │   └── ...
-<a id="__codelineno-20-48" name="__codelineno-20-48" href="#__codelineno-20-48"></a>│   ├── hooks/               # Hook templates (future)
-<a id="__codelineno-20-49" name="__codelineno-20-49" href="#__codelineno-20-49"></a>│   └── commands/            # Command templates (future)
-<a id="__codelineno-20-50" name="__codelineno-20-50" href="#__codelineno-20-50"></a>├── tests/                   # Test suite
-<a id="__codelineno-20-51" name="__codelineno-20-51" href="#__codelineno-20-51"></a>│   ├── unit/
-<a id="__codelineno-20-52" name="__codelineno-20-52" href="#__codelineno-20-52"></a>│   ├── integration/
-<a id="__codelineno-20-53" name="__codelineno-20-53" href="#__codelineno-20-53"></a>│   └── fixtures/
-<a id="__codelineno-20-54" name="__codelineno-20-54" href="#__codelineno-20-54"></a>├── docs/                    # Documentation
-<a id="__codelineno-20-55" name="__codelineno-20-55" href="#__codelineno-20-55"></a>│   ├── api/
-<a id="__codelineno-20-56" name="__codelineno-20-56" href="#__codelineno-20-56"></a>│   ├── architecture/
-<a id="__codelineno-20-57" name="__codelineno-20-57" href="#__codelineno-20-57"></a>│   ├── guides/
-<a id="__codelineno-20-58" name="__codelineno-20-58" href="#__codelineno-20-58"></a>│   └── troubleshooting/
-<a id="__codelineno-20-59" name="__codelineno-20-59" href="#__codelineno-20-59"></a>├── pyproject.toml           # Project config
-<a id="__codelineno-20-60" name="__codelineno-20-60" href="#__codelineno-20-60"></a>└── README.md
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>aiterm/
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>├── src/aiterm/              # Main package
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>│   ├── __init__.py
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>│   ├── cli/                 # CLI commands
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>│   │   ├── __init__.py
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>│   │   ├── main.py          # Entry point
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>│   │   ├── core.py          # doctor, detect
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>│   │   ├── profile.py       # profile commands
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>│   │   ├── claude.py        # Claude Code commands
+<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>│   │   └── mcp.py           # MCP commands (future)
+<a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>│   ├── terminal/            # Terminal backends
+<a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a>│   │   ├── __init__.py
+<a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a>│   │   ├── base.py          # Abstract base
+<a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a>│   │   ├── iterm2.py        # iTerm2 implementation
+<a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a>│   │   ├── wezterm.py       # Wezterm (future)
+<a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a>│   │   └── detector.py      # Terminal detection
+<a id="__codelineno-6-17" name="__codelineno-6-17" href="#__codelineno-6-17"></a>│   ├── context/             # Context detection
+<a id="__codelineno-6-18" name="__codelineno-6-18" href="#__codelineno-6-18"></a>│   │   ├── __init__.py
+<a id="__codelineno-6-19" name="__codelineno-6-19" href="#__codelineno-6-19"></a>│   │   ├── base.py          # Abstract detector
+<a id="__codelineno-6-20" name="__codelineno-6-20" href="#__codelineno-6-20"></a>│   │   ├── registry.py      # Detector registry
+<a id="__codelineno-6-21" name="__codelineno-6-21" href="#__codelineno-6-21"></a>│   │   ├── detectors/       # Built-in detectors
+<a id="__codelineno-6-22" name="__codelineno-6-22" href="#__codelineno-6-22"></a>│   │   │   ├── production.py
+<a id="__codelineno-6-23" name="__codelineno-6-23" href="#__codelineno-6-23"></a>│   │   │   ├── ai_session.py
+<a id="__codelineno-6-24" name="__codelineno-6-24" href="#__codelineno-6-24"></a>│   │   │   ├── r_package.py
+<a id="__codelineno-6-25" name="__codelineno-6-25" href="#__codelineno-6-25"></a>│   │   │   ├── python.py
+<a id="__codelineno-6-26" name="__codelineno-6-26" href="#__codelineno-6-26"></a>│   │   │   ├── nodejs.py
+<a id="__codelineno-6-27" name="__codelineno-6-27" href="#__codelineno-6-27"></a>│   │   │   ├── quarto.py
+<a id="__codelineno-6-28" name="__codelineno-6-28" href="#__codelineno-6-28"></a>│   │   │   ├── mcp.py
+<a id="__codelineno-6-29" name="__codelineno-6-29" href="#__codelineno-6-29"></a>│   │   │   └── dev_tools.py
+<a id="__codelineno-6-30" name="__codelineno-6-30" href="#__codelineno-6-30"></a>│   │   └── types.py         # Context type definitions
+<a id="__codelineno-6-31" name="__codelineno-6-31" href="#__codelineno-6-31"></a>│   ├── claude/              # Claude Code integration
+<a id="__codelineno-6-32" name="__codelineno-6-32" href="#__codelineno-6-32"></a>│   │   ├── __init__.py
+<a id="__codelineno-6-33" name="__codelineno-6-33" href="#__codelineno-6-33"></a>│   │   ├── settings.py      # Settings management
+<a id="__codelineno-6-34" name="__codelineno-6-34" href="#__codelineno-6-34"></a>│   │   ├── presets.py       # Auto-approval presets
+<a id="__codelineno-6-35" name="__codelineno-6-35" href="#__codelineno-6-35"></a>│   │   ├── hooks.py         # Hook management (future)
+<a id="__codelineno-6-36" name="__codelineno-6-36" href="#__codelineno-6-36"></a>│   │   └── commands.py      # Command templates (future)
+<a id="__codelineno-6-37" name="__codelineno-6-37" href="#__codelineno-6-37"></a>│   ├── utils/               # Utilities
+<a id="__codelineno-6-38" name="__codelineno-6-38" href="#__codelineno-6-38"></a>│   │   ├── __init__.py
+<a id="__codelineno-6-39" name="__codelineno-6-39" href="#__codelineno-6-39"></a>│   │   ├── config.py        # Config file handling
+<a id="__codelineno-6-40" name="__codelineno-6-40" href="#__codelineno-6-40"></a>│   │   ├── shell.py         # Shell integration
+<a id="__codelineno-6-41" name="__codelineno-6-41" href="#__codelineno-6-41"></a>│   │   └── exceptions.py    # Custom exceptions
+<a id="__codelineno-6-42" name="__codelineno-6-42" href="#__codelineno-6-42"></a>│   └── version.py           # Version info
+<a id="__codelineno-6-43" name="__codelineno-6-43" href="#__codelineno-6-43"></a>├── templates/               # User-facing templates
+<a id="__codelineno-6-44" name="__codelineno-6-44" href="#__codelineno-6-44"></a>│   ├── profiles/            # iTerm2 profile JSON
+<a id="__codelineno-6-45" name="__codelineno-6-45" href="#__codelineno-6-45"></a>│   │   ├── R-Dev.json
+<a id="__codelineno-6-46" name="__codelineno-6-46" href="#__codelineno-6-46"></a>│   │   ├── Python-Dev.json
+<a id="__codelineno-6-47" name="__codelineno-6-47" href="#__codelineno-6-47"></a>│   │   └── ...
+<a id="__codelineno-6-48" name="__codelineno-6-48" href="#__codelineno-6-48"></a>│   ├── hooks/               # Hook templates (future)
+<a id="__codelineno-6-49" name="__codelineno-6-49" href="#__codelineno-6-49"></a>│   └── commands/            # Command templates (future)
+<a id="__codelineno-6-50" name="__codelineno-6-50" href="#__codelineno-6-50"></a>├── tests/                   # Test suite
+<a id="__codelineno-6-51" name="__codelineno-6-51" href="#__codelineno-6-51"></a>│   ├── unit/
+<a id="__codelineno-6-52" name="__codelineno-6-52" href="#__codelineno-6-52"></a>│   ├── integration/
+<a id="__codelineno-6-53" name="__codelineno-6-53" href="#__codelineno-6-53"></a>│   └── fixtures/
+<a id="__codelineno-6-54" name="__codelineno-6-54" href="#__codelineno-6-54"></a>├── docs/                    # Documentation
+<a id="__codelineno-6-55" name="__codelineno-6-55" href="#__codelineno-6-55"></a>│   ├── api/
+<a id="__codelineno-6-56" name="__codelineno-6-56" href="#__codelineno-6-56"></a>│   ├── architecture/
+<a id="__codelineno-6-57" name="__codelineno-6-57" href="#__codelineno-6-57"></a>│   ├── guides/
+<a id="__codelineno-6-58" name="__codelineno-6-58" href="#__codelineno-6-58"></a>│   └── troubleshooting/
+<a id="__codelineno-6-59" name="__codelineno-6-59" href="#__codelineno-6-59"></a>├── pyproject.toml           # Project config
+<a id="__codelineno-6-60" name="__codelineno-6-60" href="#__codelineno-6-60"></a>└── README.md
 </code></pre></div>
 <hr />
 <h3 id="module-dependencies">Module Dependencies</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>graph TB
-<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>    subgraph &quot;Public API&quot;
-<a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>        CLI[cli/]
-<a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a>    end
-<a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a>
-<a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a>    subgraph &quot;Core Library&quot;
-<a id="__codelineno-21-7" name="__codelineno-21-7" href="#__codelineno-21-7"></a>        Terminal[terminal/]
-<a id="__codelineno-21-8" name="__codelineno-21-8" href="#__codelineno-21-8"></a>        Context[context/]
-<a id="__codelineno-21-9" name="__codelineno-21-9" href="#__codelineno-21-9"></a>        Settings[claude/]
-<a id="__codelineno-21-10" name="__codelineno-21-10" href="#__codelineno-21-10"></a>        Utils[utils/]
-<a id="__codelineno-21-11" name="__codelineno-21-11" href="#__codelineno-21-11"></a>    end
-<a id="__codelineno-21-12" name="__codelineno-21-12" href="#__codelineno-21-12"></a>
-<a id="__codelineno-21-13" name="__codelineno-21-13" href="#__codelineno-21-13"></a>    CLI --&gt; Terminal
-<a id="__codelineno-21-14" name="__codelineno-21-14" href="#__codelineno-21-14"></a>    CLI --&gt; Context
-<a id="__codelineno-21-15" name="__codelineno-21-15" href="#__codelineno-21-15"></a>    CLI --&gt; Settings
-<a id="__codelineno-21-16" name="__codelineno-21-16" href="#__codelineno-21-16"></a>
-<a id="__codelineno-21-17" name="__codelineno-21-17" href="#__codelineno-21-17"></a>    Terminal --&gt; Utils
-<a id="__codelineno-21-18" name="__codelineno-21-18" href="#__codelineno-21-18"></a>    Context --&gt; Utils
-<a id="__codelineno-21-19" name="__codelineno-21-19" href="#__codelineno-21-19"></a>    Settings --&gt; Utils
-<a id="__codelineno-21-20" name="__codelineno-21-20" href="#__codelineno-21-20"></a>
-<a id="__codelineno-21-21" name="__codelineno-21-21" href="#__codelineno-21-21"></a>    Context -.-&gt; Terminal
-</code></pre></div>
+<pre class="mermaid"><code>graph TB
+    subgraph "Public API"
+        CLI[cli/]
+    end
+
+    subgraph "Core Library"
+        Terminal[terminal/]
+        Context[context/]
+        Settings[claude/]
+        Utils[utils/]
+    end
+
+    CLI --&gt; Terminal
+    CLI --&gt; Context
+    CLI --&gt; Settings
+
+    Terminal --&gt; Utils
+    Context --&gt; Utils
+    Settings --&gt; Utils
+
+    Context -.-&gt; Terminal</code></pre>
 <p><strong>Dependency Rules:</strong>
 - CLI depends on Core Library
 - Core Library is self-contained
@@ -4538,53 +4523,52 @@
 <hr />
 <h2 id="extension-points">Extension Points</h2>
 <h3 id="adding-new-terminal-backend">Adding New Terminal Backend</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">aiterm.terminal.base</span><span class="w"> </span><span class="kn">import</span> <span class="n">TerminalBackend</span>
-<a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>
-<a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a><span class="k">class</span><span class="w"> </span><span class="nc">MyTerminal</span><span class="p">(</span><span class="n">TerminalBackend</span><span class="p">):</span>
-<a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">switch_profile</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-<a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a>        <span class="c1"># Custom implementation</span>
-<a id="__codelineno-22-6" name="__codelineno-22-6" href="#__codelineno-22-6"></a>        <span class="k">pass</span>
-<a id="__codelineno-22-7" name="__codelineno-22-7" href="#__codelineno-22-7"></a>
-<a id="__codelineno-22-8" name="__codelineno-22-8" href="#__codelineno-22-8"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">set_title</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-<a id="__codelineno-22-9" name="__codelineno-22-9" href="#__codelineno-22-9"></a>        <span class="c1"># Custom implementation</span>
-<a id="__codelineno-22-10" name="__codelineno-22-10" href="#__codelineno-22-10"></a>        <span class="k">pass</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">aiterm.terminal.base</span><span class="w"> </span><span class="kn">import</span> <span class="n">TerminalBackend</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="k">class</span><span class="w"> </span><span class="nc">MyTerminal</span><span class="p">(</span><span class="n">TerminalBackend</span><span class="p">):</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">switch_profile</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>        <span class="c1"># Custom implementation</span>
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>        <span class="k">pass</span>
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">set_title</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>        <span class="c1"># Custom implementation</span>
+<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>        <span class="k">pass</span>
 </code></pre></div>
 <h3 id="adding-custom-detector">Adding Custom Detector</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">aiterm.context.base</span><span class="w"> </span><span class="kn">import</span> <span class="n">ContextDetector</span>
-<a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">aiterm.context</span><span class="w"> </span><span class="kn">import</span> <span class="n">register_detector</span>
-<a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a>
-<a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a><span class="k">class</span><span class="w"> </span><span class="nc">MyDetector</span><span class="p">(</span><span class="n">ContextDetector</span><span class="p">):</span>
-<a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a>    <span class="n">priority</span> <span class="o">=</span> <span class="mi">10</span>
-<a id="__codelineno-23-6" name="__codelineno-23-6" href="#__codelineno-23-6"></a>
-<a id="__codelineno-23-7" name="__codelineno-23-7" href="#__codelineno-23-7"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">detect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Context</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
-<a id="__codelineno-23-8" name="__codelineno-23-8" href="#__codelineno-23-8"></a>        <span class="c1"># Custom logic</span>
-<a id="__codelineno-23-9" name="__codelineno-23-9" href="#__codelineno-23-9"></a>        <span class="k">pass</span>
-<a id="__codelineno-23-10" name="__codelineno-23-10" href="#__codelineno-23-10"></a>
-<a id="__codelineno-23-11" name="__codelineno-23-11" href="#__codelineno-23-11"></a><span class="n">register_detector</span><span class="p">(</span><span class="n">MyDetector</span><span class="p">())</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">aiterm.context.base</span><span class="w"> </span><span class="kn">import</span> <span class="n">ContextDetector</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">aiterm.context</span><span class="w"> </span><span class="kn">import</span> <span class="n">register_detector</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="k">class</span><span class="w"> </span><span class="nc">MyDetector</span><span class="p">(</span><span class="n">ContextDetector</span><span class="p">):</span>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>    <span class="n">priority</span> <span class="o">=</span> <span class="mi">10</span>
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">detect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Context</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>        <span class="c1"># Custom logic</span>
+<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>        <span class="k">pass</span>
+<a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a>
+<a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a><span class="n">register_detector</span><span class="p">(</span><span class="n">MyDetector</span><span class="p">())</span>
 </code></pre></div>
 <hr />
 <h2 id="future-architecture">Future Architecture</h2>
 <h3 id="phase-2-additions">Phase 2 Additions</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>graph TB
-<a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a>    subgraph &quot;Phase 2&quot;
-<a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a>        Hook[Hook Manager]
-<a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a>        MCP[MCP Creator]
-<a id="__codelineno-24-5" name="__codelineno-24-5" href="#__codelineno-24-5"></a>        Plugin[Plugin System]
-<a id="__codelineno-24-6" name="__codelineno-24-6" href="#__codelineno-24-6"></a>    end
-<a id="__codelineno-24-7" name="__codelineno-24-7" href="#__codelineno-24-7"></a>
-<a id="__codelineno-24-8" name="__codelineno-24-8" href="#__codelineno-24-8"></a>    subgraph &quot;Existing&quot;
-<a id="__codelineno-24-9" name="__codelineno-24-9" href="#__codelineno-24-9"></a>        CLI[CLI]
-<a id="__codelineno-24-10" name="__codelineno-24-10" href="#__codelineno-24-10"></a>        Terminal[Terminal]
-<a id="__codelineno-24-11" name="__codelineno-24-11" href="#__codelineno-24-11"></a>        Context[Context]
-<a id="__codelineno-24-12" name="__codelineno-24-12" href="#__codelineno-24-12"></a>    end
-<a id="__codelineno-24-13" name="__codelineno-24-13" href="#__codelineno-24-13"></a>
-<a id="__codelineno-24-14" name="__codelineno-24-14" href="#__codelineno-24-14"></a>    CLI -.-&gt; Hook
-<a id="__codelineno-24-15" name="__codelineno-24-15" href="#__codelineno-24-15"></a>    CLI -.-&gt; MCP
-<a id="__codelineno-24-16" name="__codelineno-24-16" href="#__codelineno-24-16"></a>    CLI -.-&gt; Plugin
-<a id="__codelineno-24-17" name="__codelineno-24-17" href="#__codelineno-24-17"></a>
-<a id="__codelineno-24-18" name="__codelineno-24-18" href="#__codelineno-24-18"></a>    Hook -.-&gt; Terminal
-<a id="__codelineno-24-19" name="__codelineno-24-19" href="#__codelineno-24-19"></a>    MCP -.-&gt; Context
-</code></pre></div>
+<pre class="mermaid"><code>graph TB
+    subgraph "Phase 2"
+        Hook[Hook Manager]
+        MCP[MCP Creator]
+        Plugin[Plugin System]
+    end
+
+    subgraph "Existing"
+        CLI[CLI]
+        Terminal[Terminal]
+        Context[Context]
+    end
+
+    CLI -.-&gt; Hook
+    CLI -.-&gt; MCP
+    CLI -.-&gt; Plugin
+
+    Hook -.-&gt; Terminal
+    MCP -.-&gt; Context</code></pre>
 <p><strong>Planned Features:</strong>
 - Hook management system
 - MCP server creation wizard
@@ -4594,39 +4578,38 @@
 <hr />
 <h2 id="additional-diagrams">Additional Diagrams</h2>
 <h3 id="installation-setup-flow">Installation &amp; Setup Flow</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>flowchart TD
-<a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a>    Start([User installs aiterm]) --&gt; Install{Installation&lt;br/&gt;Method?}
-<a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a>
-<a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a>    Install --&gt;|Homebrew| Brew[brew install data-wise/tap/aiterm]
-<a id="__codelineno-25-5" name="__codelineno-25-5" href="#__codelineno-25-5"></a>    Install --&gt;|UV| UV[uv tool install git+...]
-<a id="__codelineno-25-6" name="__codelineno-25-6" href="#__codelineno-25-6"></a>    Install --&gt;|pipx| Pipx[pipx install git+...]
-<a id="__codelineno-25-7" name="__codelineno-25-7" href="#__codelineno-25-7"></a>
-<a id="__codelineno-25-8" name="__codelineno-25-8" href="#__codelineno-25-8"></a>    Brew --&gt; Verify
-<a id="__codelineno-25-9" name="__codelineno-25-9" href="#__codelineno-25-9"></a>    UV --&gt; Verify
-<a id="__codelineno-25-10" name="__codelineno-25-10" href="#__codelineno-25-10"></a>    Pipx --&gt; Verify
-<a id="__codelineno-25-11" name="__codelineno-25-11" href="#__codelineno-25-11"></a>
-<a id="__codelineno-25-12" name="__codelineno-25-12" href="#__codelineno-25-12"></a>    Verify[aiterm doctor] --&gt; Check{All checks&lt;br/&gt;passed?}
-<a id="__codelineno-25-13" name="__codelineno-25-13" href="#__codelineno-25-13"></a>
-<a id="__codelineno-25-14" name="__codelineno-25-14" href="#__codelineno-25-14"></a>    Check --&gt;|No| Fix[Fix issues]
-<a id="__codelineno-25-15" name="__codelineno-25-15" href="#__codelineno-25-15"></a>    Fix --&gt; Verify
-<a id="__codelineno-25-16" name="__codelineno-25-16" href="#__codelineno-25-16"></a>
-<a id="__codelineno-25-17" name="__codelineno-25-17" href="#__codelineno-25-17"></a>    Check --&gt;|Yes| Detect[aiterm detect]
-<a id="__codelineno-25-18" name="__codelineno-25-18" href="#__codelineno-25-18"></a>    Detect --&gt; Context{Context&lt;br/&gt;detected?}
-<a id="__codelineno-25-19" name="__codelineno-25-19" href="#__codelineno-25-19"></a>
-<a id="__codelineno-25-20" name="__codelineno-25-20" href="#__codelineno-25-20"></a>    Context --&gt;|Yes| Auto[Auto-switching enabled]
-<a id="__codelineno-25-21" name="__codelineno-25-21" href="#__codelineno-25-21"></a>    Context --&gt;|No| Manual[Manual profile selection]
-<a id="__codelineno-25-22" name="__codelineno-25-22" href="#__codelineno-25-22"></a>
-<a id="__codelineno-25-23" name="__codelineno-25-23" href="#__codelineno-25-23"></a>    Auto --&gt; ListProfiles[aiterm profile list]
-<a id="__codelineno-25-24" name="__codelineno-25-24" href="#__codelineno-25-24"></a>    Manual --&gt; ListProfiles
-<a id="__codelineno-25-25" name="__codelineno-25-25" href="#__codelineno-25-25"></a>
-<a id="__codelineno-25-26" name="__codelineno-25-26" href="#__codelineno-25-26"></a>    ListProfiles --&gt; SetApprovals[aiterm claude approvals set]
-<a id="__codelineno-25-27" name="__codelineno-25-27" href="#__codelineno-25-27"></a>    SetApprovals --&gt; Done([Setup Complete])
-<a id="__codelineno-25-28" name="__codelineno-25-28" href="#__codelineno-25-28"></a>
-<a id="__codelineno-25-29" name="__codelineno-25-29" href="#__codelineno-25-29"></a>    style Start fill:#e1f5e1
-<a id="__codelineno-25-30" name="__codelineno-25-30" href="#__codelineno-25-30"></a>    style Done fill:#e1f5e1
-<a id="__codelineno-25-31" name="__codelineno-25-31" href="#__codelineno-25-31"></a>    style Check fill:#fff4e6
-<a id="__codelineno-25-32" name="__codelineno-25-32" href="#__codelineno-25-32"></a>    style Context fill:#fff4e6
-</code></pre></div>
+<pre class="mermaid"><code>flowchart TD
+    Start([User installs aiterm]) --&gt; Install{Installation&lt;br/&gt;Method?}
+
+    Install --&gt;|Homebrew| Brew[brew install data-wise/tap/aiterm]
+    Install --&gt;|UV| UV[uv tool install git+...]
+    Install --&gt;|pipx| Pipx[pipx install git+...]
+
+    Brew --&gt; Verify
+    UV --&gt; Verify
+    Pipx --&gt; Verify
+
+    Verify[aiterm doctor] --&gt; Check{All checks&lt;br/&gt;passed?}
+
+    Check --&gt;|No| Fix[Fix issues]
+    Fix --&gt; Verify
+
+    Check --&gt;|Yes| Detect[aiterm detect]
+    Detect --&gt; Context{Context&lt;br/&gt;detected?}
+
+    Context --&gt;|Yes| Auto[Auto-switching enabled]
+    Context --&gt;|No| Manual[Manual profile selection]
+
+    Auto --&gt; ListProfiles[aiterm profile list]
+    Manual --&gt; ListProfiles
+
+    ListProfiles --&gt; SetApprovals[aiterm claude approvals set]
+    SetApprovals --&gt; Done([Setup Complete])
+
+    style Start fill:#e1f5e1
+    style Done fill:#e1f5e1
+    style Check fill:#fff4e6
+    style Context fill:#fff4e6</code></pre>
 <p><strong>User Journey:</strong>
 1. Install via preferred method (Homebrew/UV/pipx)
 2. Run <code>aiterm doctor</code> to verify installation
@@ -4637,62 +4620,61 @@
 7. Begin using aiterm!</p>
 <hr />
 <h3 id="error-handling-recovery-flow">Error Handling &amp; Recovery Flow</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>flowchart TD
-<a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a>    Operation[User Operation] --&gt; Try{Try&lt;br/&gt;Operation}
-<a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a>
-<a id="__codelineno-26-4" name="__codelineno-26-4" href="#__codelineno-26-4"></a>    Try --&gt;|Success| Log[Log success]
-<a id="__codelineno-26-5" name="__codelineno-26-5" href="#__codelineno-26-5"></a>    Try --&gt;|Error| Catch[Catch Exception]
-<a id="__codelineno-26-6" name="__codelineno-26-6" href="#__codelineno-26-6"></a>
-<a id="__codelineno-26-7" name="__codelineno-26-7" href="#__codelineno-26-7"></a>    Catch --&gt; ErrorType{Error&lt;br/&gt;Type?}
-<a id="__codelineno-26-8" name="__codelineno-26-8" href="#__codelineno-26-8"></a>
-<a id="__codelineno-26-9" name="__codelineno-26-9" href="#__codelineno-26-9"></a>    ErrorType --&gt;|ProfileNotFound| PNF[Profile not found error]
-<a id="__codelineno-26-10" name="__codelineno-26-10" href="#__codelineno-26-10"></a>    ErrorType --&gt;|TerminalUnsupported| TU[Terminal unsupported]
-<a id="__codelineno-26-11" name="__codelineno-26-11" href="#__codelineno-26-11"></a>    ErrorType --&gt;|PermissionDenied| PD[Permission denied]
-<a id="__codelineno-26-12" name="__codelineno-26-12" href="#__codelineno-26-12"></a>    ErrorType --&gt;|ConfigError| CE[Config error]
-<a id="__codelineno-26-13" name="__codelineno-26-13" href="#__codelineno-26-13"></a>    ErrorType --&gt;|Other| OE[General error]
-<a id="__codelineno-26-14" name="__codelineno-26-14" href="#__codelineno-26-14"></a>
-<a id="__codelineno-26-15" name="__codelineno-26-15" href="#__codelineno-26-15"></a>    PNF --&gt; Recover1{Recovery&lt;br/&gt;Available?}
-<a id="__codelineno-26-16" name="__codelineno-26-16" href="#__codelineno-26-16"></a>    TU --&gt; Recover2{Fallback&lt;br/&gt;Available?}
-<a id="__codelineno-26-17" name="__codelineno-26-17" href="#__codelineno-26-17"></a>    PD --&gt; Recover3{Fix&lt;br/&gt;Permissions?}
-<a id="__codelineno-26-18" name="__codelineno-26-18" href="#__codelineno-26-18"></a>    CE --&gt; Recover4{Restore&lt;br/&gt;Backup?}
-<a id="__codelineno-26-19" name="__codelineno-26-19" href="#__codelineno-26-19"></a>    OE --&gt; Recover5{Retry?}
-<a id="__codelineno-26-20" name="__codelineno-26-20" href="#__codelineno-26-20"></a>
-<a id="__codelineno-26-21" name="__codelineno-26-21" href="#__codelineno-26-21"></a>    Recover1 --&gt;|Yes| DefaultProfile[Use default profile]
-<a id="__codelineno-26-22" name="__codelineno-26-22" href="#__codelineno-26-22"></a>    Recover1 --&gt;|No| UserError1[Show error to user]
-<a id="__codelineno-26-23" name="__codelineno-26-23" href="#__codelineno-26-23"></a>
-<a id="__codelineno-26-24" name="__codelineno-26-24" href="#__codelineno-26-24"></a>    Recover2 --&gt;|Yes| ReducedFeatures[Operate with reduced features]
-<a id="__codelineno-26-25" name="__codelineno-26-25" href="#__codelineno-26-25"></a>    Recover2 --&gt;|No| UserError2[Explain limitation]
-<a id="__codelineno-26-26" name="__codelineno-26-26" href="#__codelineno-26-26"></a>
-<a id="__codelineno-26-27" name="__codelineno-26-27" href="#__codelineno-26-27"></a>    Recover3 --&gt;|Yes| FixPerms[chmod 600 config files]
-<a id="__codelineno-26-28" name="__codelineno-26-28" href="#__codelineno-26-28"></a>    Recover3 --&gt;|No| UserError3[Guide user to fix]
-<a id="__codelineno-26-29" name="__codelineno-26-29" href="#__codelineno-26-29"></a>
-<a id="__codelineno-26-30" name="__codelineno-26-30" href="#__codelineno-26-30"></a>    Recover4 --&gt;|Yes| Rollback[Restore from backup]
-<a id="__codelineno-26-31" name="__codelineno-26-31" href="#__codelineno-26-31"></a>    Recover4 --&gt;|No| UserError4[Show validation errors]
-<a id="__codelineno-26-32" name="__codelineno-26-32" href="#__codelineno-26-32"></a>
-<a id="__codelineno-26-33" name="__codelineno-26-33" href="#__codelineno-26-33"></a>    Recover5 --&gt;|Yes| Retry[Retry operation]
-<a id="__codelineno-26-34" name="__codelineno-26-34" href="#__codelineno-26-34"></a>    Recover5 --&gt;|No| UserError5[Show error details]
-<a id="__codelineno-26-35" name="__codelineno-26-35" href="#__codelineno-26-35"></a>
-<a id="__codelineno-26-36" name="__codelineno-26-36" href="#__codelineno-26-36"></a>    DefaultProfile --&gt; Log
-<a id="__codelineno-26-37" name="__codelineno-26-37" href="#__codelineno-26-37"></a>    ReducedFeatures --&gt; Log
-<a id="__codelineno-26-38" name="__codelineno-26-38" href="#__codelineno-26-38"></a>    FixPerms --&gt; Retry
-<a id="__codelineno-26-39" name="__codelineno-26-39" href="#__codelineno-26-39"></a>    Rollback --&gt; Retry
-<a id="__codelineno-26-40" name="__codelineno-26-40" href="#__codelineno-26-40"></a>    Retry --&gt; Try
-<a id="__codelineno-26-41" name="__codelineno-26-41" href="#__codelineno-26-41"></a>
-<a id="__codelineno-26-42" name="__codelineno-26-42" href="#__codelineno-26-42"></a>    UserError1 --&gt; Exit
-<a id="__codelineno-26-43" name="__codelineno-26-43" href="#__codelineno-26-43"></a>    UserError2 --&gt; Exit
-<a id="__codelineno-26-44" name="__codelineno-26-44" href="#__codelineno-26-44"></a>    UserError3 --&gt; Exit
-<a id="__codelineno-26-45" name="__codelineno-26-45" href="#__codelineno-26-45"></a>    UserError4 --&gt; Exit
-<a id="__codelineno-26-46" name="__codelineno-26-46" href="#__codelineno-26-46"></a>    UserError5 --&gt; Exit
-<a id="__codelineno-26-47" name="__codelineno-26-47" href="#__codelineno-26-47"></a>
-<a id="__codelineno-26-48" name="__codelineno-26-48" href="#__codelineno-26-48"></a>    Log --&gt; Success([Operation Complete])
-<a id="__codelineno-26-49" name="__codelineno-26-49" href="#__codelineno-26-49"></a>
-<a id="__codelineno-26-50" name="__codelineno-26-50" href="#__codelineno-26-50"></a>    Exit([Exit with error code])
-<a id="__codelineno-26-51" name="__codelineno-26-51" href="#__codelineno-26-51"></a>
-<a id="__codelineno-26-52" name="__codelineno-26-52" href="#__codelineno-26-52"></a>    style Operation fill:#e1f5e1
-<a id="__codelineno-26-53" name="__codelineno-26-53" href="#__codelineno-26-53"></a>    style Success fill:#e1f5e1
-<a id="__codelineno-26-54" name="__codelineno-26-54" href="#__codelineno-26-54"></a>    style Exit fill:#ffe1e1
-<a id="__codelineno-26-55" name="__codelineno-26-55" href="#__codelineno-26-55"></a>    style ErrorType fill:#fff4e6
-</code></pre></div>
+<pre class="mermaid"><code>flowchart TD
+    Operation[User Operation] --&gt; Try{Try&lt;br/&gt;Operation}
+
+    Try --&gt;|Success| Log[Log success]
+    Try --&gt;|Error| Catch[Catch Exception]
+
+    Catch --&gt; ErrorType{Error&lt;br/&gt;Type?}
+
+    ErrorType --&gt;|ProfileNotFound| PNF[Profile not found error]
+    ErrorType --&gt;|TerminalUnsupported| TU[Terminal unsupported]
+    ErrorType --&gt;|PermissionDenied| PD[Permission denied]
+    ErrorType --&gt;|ConfigError| CE[Config error]
+    ErrorType --&gt;|Other| OE[General error]
+
+    PNF --&gt; Recover1{Recovery&lt;br/&gt;Available?}
+    TU --&gt; Recover2{Fallback&lt;br/&gt;Available?}
+    PD --&gt; Recover3{Fix&lt;br/&gt;Permissions?}
+    CE --&gt; Recover4{Restore&lt;br/&gt;Backup?}
+    OE --&gt; Recover5{Retry?}
+
+    Recover1 --&gt;|Yes| DefaultProfile[Use default profile]
+    Recover1 --&gt;|No| UserError1[Show error to user]
+
+    Recover2 --&gt;|Yes| ReducedFeatures[Operate with reduced features]
+    Recover2 --&gt;|No| UserError2[Explain limitation]
+
+    Recover3 --&gt;|Yes| FixPerms[chmod 600 config files]
+    Recover3 --&gt;|No| UserError3[Guide user to fix]
+
+    Recover4 --&gt;|Yes| Rollback[Restore from backup]
+    Recover4 --&gt;|No| UserError4[Show validation errors]
+
+    Recover5 --&gt;|Yes| Retry[Retry operation]
+    Recover5 --&gt;|No| UserError5[Show error details]
+
+    DefaultProfile --&gt; Log
+    ReducedFeatures --&gt; Log
+    FixPerms --&gt; Retry
+    Rollback --&gt; Retry
+    Retry --&gt; Try
+
+    UserError1 --&gt; Exit
+    UserError2 --&gt; Exit
+    UserError3 --&gt; Exit
+    UserError4 --&gt; Exit
+    UserError5 --&gt; Exit
+
+    Log --&gt; Success([Operation Complete])
+
+    Exit([Exit with error code])
+
+    style Operation fill:#e1f5e1
+    style Success fill:#e1f5e1
+    style Exit fill:#ffe1e1
+    style ErrorType fill:#fff4e6</code></pre>
 <p><strong>Error Handling Strategy:</strong>
 - <strong>Graceful Degradation</strong> - Fallback to reduced features when possible
 - <strong>Automatic Recovery</strong> - Retry with defaults when sensible
@@ -4701,57 +4683,56 @@
 - <strong>Exit Codes</strong> - Consistent error codes for scripting</p>
 <hr />
 <h3 id="hook-management-architecture-phase-2">Hook Management Architecture (Phase 2)</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>graph TB
-<a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a>    subgraph &quot;Hook System&quot;
-<a id="__codelineno-27-3" name="__codelineno-27-3" href="#__codelineno-27-3"></a>        HookMgr[Hook Manager]
-<a id="__codelineno-27-4" name="__codelineno-27-4" href="#__codelineno-27-4"></a>        HookRegistry[Hook Registry]
-<a id="__codelineno-27-5" name="__codelineno-27-5" href="#__codelineno-27-5"></a>        HookExecutor[Hook Executor]
-<a id="__codelineno-27-6" name="__codelineno-27-6" href="#__codelineno-27-6"></a>    end
-<a id="__codelineno-27-7" name="__codelineno-27-7" href="#__codelineno-27-7"></a>
-<a id="__codelineno-27-8" name="__codelineno-27-8" href="#__codelineno-27-8"></a>    subgraph &quot;Hook Types&quot;
-<a id="__codelineno-27-9" name="__codelineno-27-9" href="#__codelineno-27-9"></a>        PreCD[Pre-CD Hook&lt;br/&gt;Before directory change]
-<a id="__codelineno-27-10" name="__codelineno-27-10" href="#__codelineno-27-10"></a>        PostCD[Post-CD Hook&lt;br/&gt;After directory change]
-<a id="__codelineno-27-11" name="__codelineno-27-11" href="#__codelineno-27-11"></a>        PreSwitch[Pre-Switch Hook&lt;br/&gt;Before profile switch]
-<a id="__codelineno-27-12" name="__codelineno-27-12" href="#__codelineno-27-12"></a>        PostSwitch[Post-Switch Hook&lt;br/&gt;After profile switch]
-<a id="__codelineno-27-13" name="__codelineno-27-13" href="#__codelineno-27-13"></a>        PreApproval[Pre-Approval Hook&lt;br/&gt;Before setting approvals]
-<a id="__codelineno-27-14" name="__codelineno-27-14" href="#__codelineno-27-14"></a>        PostApproval[Post-Approval Hook&lt;br/&gt;After setting approvals]
-<a id="__codelineno-27-15" name="__codelineno-27-15" href="#__codelineno-27-15"></a>    end
-<a id="__codelineno-27-16" name="__codelineno-27-16" href="#__codelineno-27-16"></a>
-<a id="__codelineno-27-17" name="__codelineno-27-17" href="#__codelineno-27-17"></a>    subgraph &quot;Hook Templates&quot;
-<a id="__codelineno-27-18" name="__codelineno-27-18" href="#__codelineno-27-18"></a>        T1[Notification Hook]
-<a id="__codelineno-27-19" name="__codelineno-27-19" href="#__codelineno-27-19"></a>        T2[Logging Hook]
-<a id="__codelineno-27-20" name="__codelineno-27-20" href="#__codelineno-27-20"></a>        T3[Validation Hook]
-<a id="__codelineno-27-21" name="__codelineno-27-21" href="#__codelineno-27-21"></a>        T4[Integration Hook]
-<a id="__codelineno-27-22" name="__codelineno-27-22" href="#__codelineno-27-22"></a>    end
-<a id="__codelineno-27-23" name="__codelineno-27-23" href="#__codelineno-27-23"></a>
-<a id="__codelineno-27-24" name="__codelineno-27-24" href="#__codelineno-27-24"></a>    subgraph &quot;User Hooks&quot;
-<a id="__codelineno-27-25" name="__codelineno-27-25" href="#__codelineno-27-25"></a>        U1[~/.claude/hooks/pre-cd.sh]
-<a id="__codelineno-27-26" name="__codelineno-27-26" href="#__codelineno-27-26"></a>        U2[~/.claude/hooks/post-cd.sh]
-<a id="__codelineno-27-27" name="__codelineno-27-27" href="#__codelineno-27-27"></a>        U3[Custom Hook Scripts]
-<a id="__codelineno-27-28" name="__codelineno-27-28" href="#__codelineno-27-28"></a>    end
-<a id="__codelineno-27-29" name="__codelineno-27-29" href="#__codelineno-27-29"></a>
-<a id="__codelineno-27-30" name="__codelineno-27-30" href="#__codelineno-27-30"></a>    HookMgr --&gt; HookRegistry
-<a id="__codelineno-27-31" name="__codelineno-27-31" href="#__codelineno-27-31"></a>    HookMgr --&gt; HookExecutor
-<a id="__codelineno-27-32" name="__codelineno-27-32" href="#__codelineno-27-32"></a>
-<a id="__codelineno-27-33" name="__codelineno-27-33" href="#__codelineno-27-33"></a>    HookRegistry --&gt; PreCD
-<a id="__codelineno-27-34" name="__codelineno-27-34" href="#__codelineno-27-34"></a>    HookRegistry --&gt; PostCD
-<a id="__codelineno-27-35" name="__codelineno-27-35" href="#__codelineno-27-35"></a>    HookRegistry --&gt; PreSwitch
-<a id="__codelineno-27-36" name="__codelineno-27-36" href="#__codelineno-27-36"></a>    HookRegistry --&gt; PostSwitch
-<a id="__codelineno-27-37" name="__codelineno-27-37" href="#__codelineno-27-37"></a>    HookRegistry --&gt; PreApproval
-<a id="__codelineno-27-38" name="__codelineno-27-38" href="#__codelineno-27-38"></a>    HookRegistry --&gt; PostApproval
-<a id="__codelineno-27-39" name="__codelineno-27-39" href="#__codelineno-27-39"></a>
-<a id="__codelineno-27-40" name="__codelineno-27-40" href="#__codelineno-27-40"></a>    HookExecutor --&gt; T1
-<a id="__codelineno-27-41" name="__codelineno-27-41" href="#__codelineno-27-41"></a>    HookExecutor --&gt; T2
-<a id="__codelineno-27-42" name="__codelineno-27-42" href="#__codelineno-27-42"></a>    HookExecutor --&gt; T3
-<a id="__codelineno-27-43" name="__codelineno-27-43" href="#__codelineno-27-43"></a>    HookExecutor --&gt; T4
-<a id="__codelineno-27-44" name="__codelineno-27-44" href="#__codelineno-27-44"></a>
-<a id="__codelineno-27-45" name="__codelineno-27-45" href="#__codelineno-27-45"></a>    PreCD --&gt; U1
-<a id="__codelineno-27-46" name="__codelineno-27-46" href="#__codelineno-27-46"></a>    PostCD --&gt; U2
-<a id="__codelineno-27-47" name="__codelineno-27-47" href="#__codelineno-27-47"></a>    PostSwitch --&gt; U3
-<a id="__codelineno-27-48" name="__codelineno-27-48" href="#__codelineno-27-48"></a>
-<a id="__codelineno-27-49" name="__codelineno-27-49" href="#__codelineno-27-49"></a>    style HookMgr fill:#e3f2fd
-<a id="__codelineno-27-50" name="__codelineno-27-50" href="#__codelineno-27-50"></a>    style HookExecutor fill:#e3f2fd
-</code></pre></div>
+<pre class="mermaid"><code>graph TB
+    subgraph "Hook System"
+        HookMgr[Hook Manager]
+        HookRegistry[Hook Registry]
+        HookExecutor[Hook Executor]
+    end
+
+    subgraph "Hook Types"
+        PreCD[Pre-CD Hook&lt;br/&gt;Before directory change]
+        PostCD[Post-CD Hook&lt;br/&gt;After directory change]
+        PreSwitch[Pre-Switch Hook&lt;br/&gt;Before profile switch]
+        PostSwitch[Post-Switch Hook&lt;br/&gt;After profile switch]
+        PreApproval[Pre-Approval Hook&lt;br/&gt;Before setting approvals]
+        PostApproval[Post-Approval Hook&lt;br/&gt;After setting approvals]
+    end
+
+    subgraph "Hook Templates"
+        T1[Notification Hook]
+        T2[Logging Hook]
+        T3[Validation Hook]
+        T4[Integration Hook]
+    end
+
+    subgraph "User Hooks"
+        U1[~/.claude/hooks/pre-cd.sh]
+        U2[~/.claude/hooks/post-cd.sh]
+        U3[Custom Hook Scripts]
+    end
+
+    HookMgr --&gt; HookRegistry
+    HookMgr --&gt; HookExecutor
+
+    HookRegistry --&gt; PreCD
+    HookRegistry --&gt; PostCD
+    HookRegistry --&gt; PreSwitch
+    HookRegistry --&gt; PostSwitch
+    HookRegistry --&gt; PreApproval
+    HookRegistry --&gt; PostApproval
+
+    HookExecutor --&gt; T1
+    HookExecutor --&gt; T2
+    HookExecutor --&gt; T3
+    HookExecutor --&gt; T4
+
+    PreCD --&gt; U1
+    PostCD --&gt; U2
+    PostSwitch --&gt; U3
+
+    style HookMgr fill:#e3f2fd
+    style HookExecutor fill:#e3f2fd</code></pre>
 <p><strong>Hook Capabilities (Phase 2):</strong>
 - <strong>Event-Driven</strong> - React to context changes
 - <strong>Template Library</strong> - Pre-built common hooks
@@ -4765,138 +4746,136 @@
 - Trigger git status on project context switch</p>
 <hr />
 <h3 id="command-template-system-phase-2">Command Template System (Phase 2)</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>graph TB
-<a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a>    subgraph &quot;Template Engine&quot;
-<a id="__codelineno-28-3" name="__codelineno-28-3" href="#__codelineno-28-3"></a>        TEngine[Template Engine]
-<a id="__codelineno-28-4" name="__codelineno-28-4" href="#__codelineno-28-4"></a>        TRegistry[Template Registry]
-<a id="__codelineno-28-5" name="__codelineno-28-5" href="#__codelineno-28-5"></a>        TRenderer[Template Renderer]
-<a id="__codelineno-28-6" name="__codelineno-28-6" href="#__codelineno-28-6"></a>    end
-<a id="__codelineno-28-7" name="__codelineno-28-7" href="#__codelineno-28-7"></a>
-<a id="__codelineno-28-8" name="__codelineno-28-8" href="#__codelineno-28-8"></a>    subgraph &quot;Built-in Templates&quot;
-<a id="__codelineno-28-9" name="__codelineno-28-9" href="#__codelineno-28-9"></a>        Git[Git Commands&lt;br/&gt;commit, status, log]
-<a id="__codelineno-28-10" name="__codelineno-28-10" href="#__codelineno-28-10"></a>        Test[Test Commands&lt;br/&gt;pytest, R CMD check]
-<a id="__codelineno-28-11" name="__codelineno-28-11" href="#__codelineno-28-11"></a>        Build[Build Commands&lt;br/&gt;quarto render, npm build]
-<a id="__codelineno-28-12" name="__codelineno-28-12" href="#__codelineno-28-12"></a>        Deploy[Deploy Commands&lt;br/&gt;gh-pages, vercel]
-<a id="__codelineno-28-13" name="__codelineno-28-13" href="#__codelineno-28-13"></a>        Claude[Claude Commands&lt;br/&gt;/done, /recap, /next]
-<a id="__codelineno-28-14" name="__codelineno-28-14" href="#__codelineno-28-14"></a>    end
-<a id="__codelineno-28-15" name="__codelineno-28-15" href="#__codelineno-28-15"></a>
-<a id="__codelineno-28-16" name="__codelineno-28-16" href="#__codelineno-28-16"></a>    subgraph &quot;Template Variables&quot;
-<a id="__codelineno-28-17" name="__codelineno-28-17" href="#__codelineno-28-17"></a>        V1[{{project_name}}]
-<a id="__codelineno-28-18" name="__codelineno-28-18" href="#__codelineno-28-18"></a>        V2[{{project_type}}]
-<a id="__codelineno-28-19" name="__codelineno-28-19" href="#__codelineno-28-19"></a>        V3[{{git_branch}}]
-<a id="__codelineno-28-20" name="__codelineno-28-20" href="#__codelineno-28-20"></a>        V4[{{current_profile}}]
-<a id="__codelineno-28-21" name="__codelineno-28-21" href="#__codelineno-28-21"></a>        V5[{{context_metadata}}]
-<a id="__codelineno-28-22" name="__codelineno-28-22" href="#__codelineno-28-22"></a>    end
-<a id="__codelineno-28-23" name="__codelineno-28-23" href="#__codelineno-28-23"></a>
-<a id="__codelineno-28-24" name="__codelineno-28-24" href="#__codelineno-28-24"></a>    subgraph &quot;User Templates&quot;
-<a id="__codelineno-28-25" name="__codelineno-28-25" href="#__codelineno-28-25"></a>        UT1[~/.claude/commands/my-workflow.md]
-<a id="__codelineno-28-26" name="__codelineno-28-26" href="#__codelineno-28-26"></a>        UT2[~/.claude/commands/test-all.md]
-<a id="__codelineno-28-27" name="__codelineno-28-27" href="#__codelineno-28-27"></a>        UT3[Custom Command Templates]
-<a id="__codelineno-28-28" name="__codelineno-28-28" href="#__codelineno-28-28"></a>    end
-<a id="__codelineno-28-29" name="__codelineno-28-29" href="#__codelineno-28-29"></a>
-<a id="__codelineno-28-30" name="__codelineno-28-30" href="#__codelineno-28-30"></a>    TEngine --&gt; TRegistry
-<a id="__codelineno-28-31" name="__codelineno-28-31" href="#__codelineno-28-31"></a>    TEngine --&gt; TRenderer
-<a id="__codelineno-28-32" name="__codelineno-28-32" href="#__codelineno-28-32"></a>
-<a id="__codelineno-28-33" name="__codelineno-28-33" href="#__codelineno-28-33"></a>    TRegistry --&gt; Git
-<a id="__codelineno-28-34" name="__codelineno-28-34" href="#__codelineno-28-34"></a>    TRegistry --&gt; Test
-<a id="__codelineno-28-35" name="__codelineno-28-35" href="#__codelineno-28-35"></a>    TRegistry --&gt; Build
-<a id="__codelineno-28-36" name="__codelineno-28-36" href="#__codelineno-28-36"></a>    TRegistry --&gt; Deploy
-<a id="__codelineno-28-37" name="__codelineno-28-37" href="#__codelineno-28-37"></a>    TRegistry --&gt; Claude
-<a id="__codelineno-28-38" name="__codelineno-28-38" href="#__codelineno-28-38"></a>
-<a id="__codelineno-28-39" name="__codelineno-28-39" href="#__codelineno-28-39"></a>    TRenderer --&gt; V1
-<a id="__codelineno-28-40" name="__codelineno-28-40" href="#__codelineno-28-40"></a>    TRenderer --&gt; V2
-<a id="__codelineno-28-41" name="__codelineno-28-41" href="#__codelineno-28-41"></a>    TRenderer --&gt; V3
-<a id="__codelineno-28-42" name="__codelineno-28-42" href="#__codelineno-28-42"></a>    TRenderer --&gt; V4
-<a id="__codelineno-28-43" name="__codelineno-28-43" href="#__codelineno-28-43"></a>    TRenderer --&gt; V5
-<a id="__codelineno-28-44" name="__codelineno-28-44" href="#__codelineno-28-44"></a>
-<a id="__codelineno-28-45" name="__codelineno-28-45" href="#__codelineno-28-45"></a>    Git --&gt; UT1
-<a id="__codelineno-28-46" name="__codelineno-28-46" href="#__codelineno-28-46"></a>    Test --&gt; UT2
-<a id="__codelineno-28-47" name="__codelineno-28-47" href="#__codelineno-28-47"></a>    Deploy --&gt; UT3
-<a id="__codelineno-28-48" name="__codelineno-28-48" href="#__codelineno-28-48"></a>
-<a id="__codelineno-28-49" name="__codelineno-28-49" href="#__codelineno-28-49"></a>    style TEngine fill:#fff3e0
-<a id="__codelineno-28-50" name="__codelineno-28-50" href="#__codelineno-28-50"></a>    style TRenderer fill:#fff3e0
-</code></pre></div>
+<pre class="mermaid"><code>graph TB
+    subgraph "Template Engine"
+        TEngine[Template Engine]
+        TRegistry[Template Registry]
+        TRenderer[Template Renderer]
+    end
+
+    subgraph "Built-in Templates"
+        Git[Git Commands&lt;br/&gt;commit, status, log]
+        Test[Test Commands&lt;br/&gt;pytest, R CMD check]
+        Build[Build Commands&lt;br/&gt;quarto render, npm build]
+        Deploy[Deploy Commands&lt;br/&gt;gh-pages, vercel]
+        Claude[Claude Commands&lt;br/&gt;/done, /recap, /next]
+    end
+
+    subgraph "Template Variables"
+        V1[{{project_name}}]
+        V2[{{project_type}}]
+        V3[{{git_branch}}]
+        V4[{{current_profile}}]
+        V5[{{context_metadata}}]
+    end
+
+    subgraph "User Templates"
+        UT1[~/.claude/commands/my-workflow.md]
+        UT2[~/.claude/commands/test-all.md]
+        UT3[Custom Command Templates]
+    end
+
+    TEngine --&gt; TRegistry
+    TEngine --&gt; TRenderer
+
+    TRegistry --&gt; Git
+    TRegistry --&gt; Test
+    TRegistry --&gt; Build
+    TRegistry --&gt; Deploy
+    TRegistry --&gt; Claude
+
+    TRenderer --&gt; V1
+    TRenderer --&gt; V2
+    TRenderer --&gt; V3
+    TRenderer --&gt; V4
+    TRenderer --&gt; V5
+
+    Git --&gt; UT1
+    Test --&gt; UT2
+    Deploy --&gt; UT3
+
+    style TEngine fill:#fff3e0
+    style TRenderer fill:#fff3e0</code></pre>
 <p><strong>Template Features (Phase 2):</strong>
 - <strong>Context-Aware</strong> - Auto-fill variables from current context
 - <strong>Composable</strong> - Combine multiple templates
 - <strong>Validation</strong> - Check template syntax before execution
 - <strong>History</strong> - Track template usage</p>
 <p><strong>Example Template:</strong>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>---
-<a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a>name: test-workflow
-<a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a><span class="gu">description: Run all tests for {{project_type}} project</span>
-<a id="__codelineno-29-4" name="__codelineno-29-4" href="#__codelineno-29-4"></a><span class="gu">---</span>
-<a id="__codelineno-29-5" name="__codelineno-29-5" href="#__codelineno-29-5"></a>
-<a id="__codelineno-29-6" name="__codelineno-29-6" href="#__codelineno-29-6"></a><span class="gh"># Test Workflow for {{project_name}}</span>
-<a id="__codelineno-29-7" name="__codelineno-29-7" href="#__codelineno-29-7"></a>
-<a id="__codelineno-29-8" name="__codelineno-29-8" href="#__codelineno-29-8"></a>Based on project type: {{project_type}}
-<a id="__codelineno-29-9" name="__codelineno-29-9" href="#__codelineno-29-9"></a>
-<a id="__codelineno-29-10" name="__codelineno-29-10" href="#__codelineno-29-10"></a>{{#if r-package}}
-<a id="__codelineno-29-11" name="__codelineno-29-11" href="#__codelineno-29-11"></a>R CMD check --as-cran .
-<a id="__codelineno-29-12" name="__codelineno-29-12" href="#__codelineno-29-12"></a>{{/if}}
-<a id="__codelineno-29-13" name="__codelineno-29-13" href="#__codelineno-29-13"></a>
-<a id="__codelineno-29-14" name="__codelineno-29-14" href="#__codelineno-29-14"></a>{{#if python}}
-<a id="__codelineno-29-15" name="__codelineno-29-15" href="#__codelineno-29-15"></a>pytest --cov={{project_name}}
-<a id="__codelineno-29-16" name="__codelineno-29-16" href="#__codelineno-29-16"></a>{{/if}}
-<a id="__codelineno-29-17" name="__codelineno-29-17" href="#__codelineno-29-17"></a>
-<a id="__codelineno-29-18" name="__codelineno-29-18" href="#__codelineno-29-18"></a>{{#if nodejs}}
-<a id="__codelineno-29-19" name="__codelineno-29-19" href="#__codelineno-29-19"></a>npm test
-<a id="__codelineno-29-20" name="__codelineno-29-20" href="#__codelineno-29-20"></a>{{/if}}
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>---
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>name: test-workflow
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="gu">description: Run all tests for {{project_type}} project</span>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="gu">---</span>
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="gh"># Test Workflow for {{project_name}}</span>
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>
+<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>Based on project type: {{project_type}}
+<a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>
+<a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a>{{#if r-package}}
+<a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a>R CMD check --as-cran .
+<a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a>{{/if}}
+<a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a>
+<a id="__codelineno-9-14" name="__codelineno-9-14" href="#__codelineno-9-14"></a>{{#if python}}
+<a id="__codelineno-9-15" name="__codelineno-9-15" href="#__codelineno-9-15"></a>pytest --cov={{project_name}}
+<a id="__codelineno-9-16" name="__codelineno-9-16" href="#__codelineno-9-16"></a>{{/if}}
+<a id="__codelineno-9-17" name="__codelineno-9-17" href="#__codelineno-9-17"></a>
+<a id="__codelineno-9-18" name="__codelineno-9-18" href="#__codelineno-9-18"></a>{{#if nodejs}}
+<a id="__codelineno-9-19" name="__codelineno-9-19" href="#__codelineno-9-19"></a>npm test
+<a id="__codelineno-9-20" name="__codelineno-9-20" href="#__codelineno-9-20"></a>{{/if}}
 </code></pre></div></p>
 <hr />
 <h3 id="mcp-server-creation-workflow-phase-2">MCP Server Creation Workflow (Phase 2)</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a>flowchart TD
-<a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a>    Start([User: aiterm mcp create]) --&gt; Choose{Choose&lt;br/&gt;Template}
-<a id="__codelineno-30-3" name="__codelineno-30-3" href="#__codelineno-30-3"></a>
-<a id="__codelineno-30-4" name="__codelineno-30-4" href="#__codelineno-30-4"></a>    Choose --&gt;|Server Type| Type[Statistical/Shell/Custom]
-<a id="__codelineno-30-5" name="__codelineno-30-5" href="#__codelineno-30-5"></a>    Type --&gt; Name[Enter server name]
-<a id="__codelineno-30-6" name="__codelineno-30-6" href="#__codelineno-30-6"></a>    Name --&gt; Tools{Include&lt;br/&gt;Tools?}
-<a id="__codelineno-30-7" name="__codelineno-30-7" href="#__codelineno-30-7"></a>
-<a id="__codelineno-30-8" name="__codelineno-30-8" href="#__codelineno-30-8"></a>    Tools --&gt;|Yes| AddTools[Add tool definitions]
-<a id="__codelineno-30-9" name="__codelineno-30-9" href="#__codelineno-30-9"></a>    Tools --&gt;|No| Skills
-<a id="__codelineno-30-10" name="__codelineno-30-10" href="#__codelineno-30-10"></a>
-<a id="__codelineno-30-11" name="__codelineno-30-11" href="#__codelineno-30-11"></a>    AddTools --&gt; Skills{Include&lt;br/&gt;Skills?}
-<a id="__codelineno-30-12" name="__codelineno-30-12" href="#__codelineno-30-12"></a>
-<a id="__codelineno-30-13" name="__codelineno-30-13" href="#__codelineno-30-13"></a>    Skills --&gt;|Yes| AddSkills[Add skill prompts]
-<a id="__codelineno-30-14" name="__codelineno-30-14" href="#__codelineno-30-14"></a>    Skills --&gt;|No| Config
-<a id="__codelineno-30-15" name="__codelineno-30-15" href="#__codelineno-30-15"></a>
-<a id="__codelineno-30-16" name="__codelineno-30-16" href="#__codelineno-30-16"></a>    AddSkills --&gt; Config[Generate config.json]
-<a id="__codelineno-30-17" name="__codelineno-30-17" href="#__codelineno-30-17"></a>    Config --&gt; Structure[Create directory structure]
-<a id="__codelineno-30-18" name="__codelineno-30-18" href="#__codelineno-30-18"></a>
-<a id="__codelineno-30-19" name="__codelineno-30-19" href="#__codelineno-30-19"></a>    Structure --&gt; Files{Generated&lt;br/&gt;Files}
-<a id="__codelineno-30-20" name="__codelineno-30-20" href="#__codelineno-30-20"></a>
-<a id="__codelineno-30-21" name="__codelineno-30-21" href="#__codelineno-30-21"></a>    Files --&gt; F1[mcp-server/config.json]
-<a id="__codelineno-30-22" name="__codelineno-30-22" href="#__codelineno-30-22"></a>    Files --&gt; F2[mcp-server/tools/]
-<a id="__codelineno-30-23" name="__codelineno-30-23" href="#__codelineno-30-23"></a>    Files --&gt; F3[mcp-server/skills/]
-<a id="__codelineno-30-24" name="__codelineno-30-24" href="#__codelineno-30-24"></a>    Files --&gt; F4[mcp-server/README.md]
-<a id="__codelineno-30-25" name="__codelineno-30-25" href="#__codelineno-30-25"></a>    Files --&gt; F5[mcp-server/tests/]
-<a id="__codelineno-30-26" name="__codelineno-30-26" href="#__codelineno-30-26"></a>
-<a id="__codelineno-30-27" name="__codelineno-30-27" href="#__codelineno-30-27"></a>    F1 --&gt; Validate[Validate structure]
-<a id="__codelineno-30-28" name="__codelineno-30-28" href="#__codelineno-30-28"></a>    F2 --&gt; Validate
-<a id="__codelineno-30-29" name="__codelineno-30-29" href="#__codelineno-30-29"></a>    F3 --&gt; Validate
-<a id="__codelineno-30-30" name="__codelineno-30-30" href="#__codelineno-30-30"></a>    F4 --&gt; Validate
-<a id="__codelineno-30-31" name="__codelineno-30-31" href="#__codelineno-30-31"></a>    F5 --&gt; Validate
-<a id="__codelineno-30-32" name="__codelineno-30-32" href="#__codelineno-30-32"></a>
-<a id="__codelineno-30-33" name="__codelineno-30-33" href="#__codelineno-30-33"></a>    Validate --&gt; Test{Run&lt;br/&gt;Tests?}
-<a id="__codelineno-30-34" name="__codelineno-30-34" href="#__codelineno-30-34"></a>
-<a id="__codelineno-30-35" name="__codelineno-30-35" href="#__codelineno-30-35"></a>    Test --&gt;|Yes| TestRun[aiterm mcp test server_name]
-<a id="__codelineno-30-36" name="__codelineno-30-36" href="#__codelineno-30-36"></a>    Test --&gt;|No| Register
-<a id="__codelineno-30-37" name="__codelineno-30-37" href="#__codelineno-30-37"></a>
-<a id="__codelineno-30-38" name="__codelineno-30-38" href="#__codelineno-30-38"></a>    TestRun --&gt; TestPass{Tests&lt;br/&gt;Pass?}
-<a id="__codelineno-30-39" name="__codelineno-30-39" href="#__codelineno-30-39"></a>    TestPass --&gt;|No| Fix[Fix issues]
-<a id="__codelineno-30-40" name="__codelineno-30-40" href="#__codelineno-30-40"></a>    Fix --&gt; TestRun
-<a id="__codelineno-30-41" name="__codelineno-30-41" href="#__codelineno-30-41"></a>    TestPass --&gt;|Yes| Register
-<a id="__codelineno-30-42" name="__codelineno-30-42" href="#__codelineno-30-42"></a>
-<a id="__codelineno-30-43" name="__codelineno-30-43" href="#__codelineno-30-43"></a>    Register[Register in settings.json] --&gt; Done([MCP Server Ready])
-<a id="__codelineno-30-44" name="__codelineno-30-44" href="#__codelineno-30-44"></a>
-<a id="__codelineno-30-45" name="__codelineno-30-45" href="#__codelineno-30-45"></a>    style Start fill:#e1f5e1
-<a id="__codelineno-30-46" name="__codelineno-30-46" href="#__codelineno-30-46"></a>    style Done fill:#e1f5e1
-<a id="__codelineno-30-47" name="__codelineno-30-47" href="#__codelineno-30-47"></a>    style Choose fill:#fff4e6
-<a id="__codelineno-30-48" name="__codelineno-30-48" href="#__codelineno-30-48"></a>    style Tools fill:#fff4e6
-<a id="__codelineno-30-49" name="__codelineno-30-49" href="#__codelineno-30-49"></a>    style Skills fill:#fff4e6
-<a id="__codelineno-30-50" name="__codelineno-30-50" href="#__codelineno-30-50"></a>    style Test fill:#fff4e6
-<a id="__codelineno-30-51" name="__codelineno-30-51" href="#__codelineno-30-51"></a>    style TestPass fill:#fff4e6
-</code></pre></div>
+<pre class="mermaid"><code>flowchart TD
+    Start([User: aiterm mcp create]) --&gt; Choose{Choose&lt;br/&gt;Template}
+
+    Choose --&gt;|Server Type| Type[Statistical/Shell/Custom]
+    Type --&gt; Name[Enter server name]
+    Name --&gt; Tools{Include&lt;br/&gt;Tools?}
+
+    Tools --&gt;|Yes| AddTools[Add tool definitions]
+    Tools --&gt;|No| Skills
+
+    AddTools --&gt; Skills{Include&lt;br/&gt;Skills?}
+
+    Skills --&gt;|Yes| AddSkills[Add skill prompts]
+    Skills --&gt;|No| Config
+
+    AddSkills --&gt; Config[Generate config.json]
+    Config --&gt; Structure[Create directory structure]
+
+    Structure --&gt; Files{Generated&lt;br/&gt;Files}
+
+    Files --&gt; F1[mcp-server/config.json]
+    Files --&gt; F2[mcp-server/tools/]
+    Files --&gt; F3[mcp-server/skills/]
+    Files --&gt; F4[mcp-server/README.md]
+    Files --&gt; F5[mcp-server/tests/]
+
+    F1 --&gt; Validate[Validate structure]
+    F2 --&gt; Validate
+    F3 --&gt; Validate
+    F4 --&gt; Validate
+    F5 --&gt; Validate
+
+    Validate --&gt; Test{Run&lt;br/&gt;Tests?}
+
+    Test --&gt;|Yes| TestRun[aiterm mcp test server_name]
+    Test --&gt;|No| Register
+
+    TestRun --&gt; TestPass{Tests&lt;br/&gt;Pass?}
+    TestPass --&gt;|No| Fix[Fix issues]
+    Fix --&gt; TestRun
+    TestPass --&gt;|Yes| Register
+
+    Register[Register in settings.json] --&gt; Done([MCP Server Ready])
+
+    style Start fill:#e1f5e1
+    style Done fill:#e1f5e1
+    style Choose fill:#fff4e6
+    style Tools fill:#fff4e6
+    style Skills fill:#fff4e6
+    style Test fill:#fff4e6
+    style TestPass fill:#fff4e6</code></pre>
 <p><strong>MCP Creation Features (Phase 2):</strong>
 - <strong>Interactive Wizard</strong> - Step-by-step guidance
 - <strong>Template Library</strong> - Pre-built server templates
@@ -5000,6 +4979,8 @@
     
     
       <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="https://unpkg.com/mermaid@10/dist/mermaid.min.js"></script>
       
     
   </body>

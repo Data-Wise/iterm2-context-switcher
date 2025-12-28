@@ -4094,18 +4094,17 @@
 <a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="nb">cd</span><span class="w"> </span>~/.git-worktrees/aiterm/feature-help<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>npm<span class="w"> </span>install
 </code></pre></div>
 <p><strong>Result — Three separate folders:</strong></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>graph TD
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>    subgraph RESULT[&quot;Your Setup After These Commands&quot;]
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>        M[&quot;📁 ~/projects/dev-tools/aiterm/&lt;br/&gt;Branch: dev (main development)&lt;br/&gt;Your primary workspace&quot;]
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>        A[&quot;📁 ~/.git-worktrees/aiterm/feature-mcp/&lt;br/&gt;Branch: feature/mcp&lt;br/&gt;Working on MCP support&quot;]
-<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>
-<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>        B[&quot;📁 ~/.git-worktrees/aiterm/feature-help/&lt;br/&gt;Branch: feature/help&lt;br/&gt;Working on CLI help&quot;]
-<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>    end
-<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>
-<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>    M --- A
-<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>    M --- B
-</code></pre></div>
+<pre class="mermaid"><code>graph TD
+    subgraph RESULT["Your Setup After These Commands"]
+        M["📁 ~/projects/dev-tools/aiterm/&lt;br/&gt;Branch: dev (main development)&lt;br/&gt;Your primary workspace"]
+
+        A["📁 ~/.git-worktrees/aiterm/feature-mcp/&lt;br/&gt;Branch: feature/mcp&lt;br/&gt;Working on MCP support"]
+
+        B["📁 ~/.git-worktrees/aiterm/feature-help/&lt;br/&gt;Branch: feature/help&lt;br/&gt;Working on CLI help"]
+    end
+
+    M --- A
+    M --- B</code></pre>
 <p>Now you can:
 - <strong>Terminal 1:</strong> Work in <code>~/projects/dev-tools/aiterm/</code> on main dev branch
 - <strong>Terminal 2:</strong> Work in <code>~/.git-worktrees/aiterm/feature-mcp/</code> on MCP feature
@@ -4156,27 +4155,26 @@
 </tr>
 </tbody>
 </table>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>flowchart TD
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>    subgraph YOU[&quot;🧑 You Create Manually (NOT automatic)&quot;]
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>        Y1[&quot;~/.git-worktrees/&lt;br/&gt;Create once: mkdir -p ~/.git-worktrees&quot;]
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>        Y2[&quot;~/.git-worktrees/aiterm/&lt;br/&gt;Create once per project: mkdir -p ~/.git-worktrees/aiterm&quot;]
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>    end
-<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>
-<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>    subgraph GIT[&quot;🤖 Git Creates Automatically&quot;]
-<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>        G1[&quot;~/.git-worktrees/aiterm/feature-mcp/&lt;br/&gt;Created by: git worktree add&quot;]
-<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>        G2[&quot;All files inside (src/, docs/, tests/, etc.)&quot;]
-<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>    end
-<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>
-<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>    subgraph NPM[&quot;📦 You Run After&quot;]
-<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>        N1[&quot;node_modules/&lt;br/&gt;Created by: npm install&quot;]
-<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>    end
-<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>
-<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>    Y1 --&gt; Y2
-<a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a>    Y2 --&gt;|&quot;git worktree add&quot;| G1
-<a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a>    G1 --&gt; G2
-<a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a>    G2 --&gt;|&quot;npm install&quot;| N1
-<a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a>    N1 --&gt; DONE[&quot;✅ Ready to work!&quot;]
-</code></pre></div>
+<pre class="mermaid"><code>flowchart TD
+    subgraph YOU["🧑 You Create Manually (NOT automatic)"]
+        Y1["~/.git-worktrees/&lt;br/&gt;Create once: mkdir -p ~/.git-worktrees"]
+        Y2["~/.git-worktrees/aiterm/&lt;br/&gt;Create once per project: mkdir -p ~/.git-worktrees/aiterm"]
+    end
+
+    subgraph GIT["🤖 Git Creates Automatically"]
+        G1["~/.git-worktrees/aiterm/feature-mcp/&lt;br/&gt;Created by: git worktree add"]
+        G2["All files inside (src/, docs/, tests/, etc.)"]
+    end
+
+    subgraph NPM["📦 You Run After"]
+        N1["node_modules/&lt;br/&gt;Created by: npm install"]
+    end
+
+    Y1 --&gt; Y2
+    Y2 --&gt;|"git worktree add"| G1
+    G1 --&gt; G2
+    G2 --&gt;|"npm install"| N1
+    N1 --&gt; DONE["✅ Ready to work!"]</code></pre>
 <p><strong>Why this naming?</strong>
 - <code>~/.git-worktrees/</code> — The <code>.</code> makes it hidden, <code>git-worktrees</code> is descriptive
 - You could use <code>~/.worktrees/</code>, <code>~/.wt/</code>, or any name you prefer
@@ -4184,9 +4182,9 @@
 <hr />
 <h3 id="does-git-worktree-have-a-default-location">Does Git Worktree Have a Default Location?</h3>
 <p><strong>No!</strong> Git worktree has NO default location. You specify the full path every time:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>git<span class="w"> </span>worktree<span class="w"> </span>add<span class="w"> </span>/any/path/you/want<span class="w"> </span>branch-name
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="c1">#                ↑</span>
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="c1">#                YOU decide where it goes</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>git<span class="w"> </span>worktree<span class="w"> </span>add<span class="w"> </span>/any/path/you/want<span class="w"> </span>branch-name
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="c1">#                ↑</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="c1">#                YOU decide where it goes</span>
 </code></pre></div>
 <p>Different tools use different conventions:</p>
 <table>
@@ -4220,24 +4218,23 @@
 <h3 id="avoiding-cross-project-interference">Avoiding Cross-Project Interference</h3>
 <p><strong>Question:</strong> If aiterm and flow-cli both have worktrees, can they interfere?</p>
 <p><strong>Answer:</strong> Only if you put them in the SAME folder without project separation.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>graph TD
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>    subgraph BAD[&quot;❌ BAD: Flat structure (can cause confusion)&quot;]
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>        B1[&quot;~/.worktrees/&quot;]
-<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>        B2[&quot;  ├── feature-mcp/      ← Which project?&quot;]
-<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>        B3[&quot;  ├── feature-help/     ← aiterm or flow-cli?&quot;]
-<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>        B4[&quot;  └── hotfix/           ← No way to tell!&quot;]
-<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>    end
-<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>
-<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>    subgraph GOOD[&quot;✅ GOOD: Project subfolders (isolated)&quot;]
-<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>        G1[&quot;~/.git-worktrees/&quot;]
-<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>        G2[&quot;  ├── aiterm/&quot;]
-<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>        G3[&quot;  │     ├── feature-mcp/&quot;]
-<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a>        G4[&quot;  │     └── feature-help/&quot;]
-<a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a>        G5[&quot;  └── flow-cli/&quot;]
-<a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a>        G6[&quot;        ├── feature-mcp/    ← Same branch name, different project!&quot;]
-<a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a>        G7[&quot;        └── refactor/&quot;]
-<a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a>    end
-</code></pre></div>
+<pre class="mermaid"><code>graph TD
+    subgraph BAD["❌ BAD: Flat structure (can cause confusion)"]
+        B1["~/.worktrees/"]
+        B2["  ├── feature-mcp/      ← Which project?"]
+        B3["  ├── feature-help/     ← aiterm or flow-cli?"]
+        B4["  └── hotfix/           ← No way to tell!"]
+    end
+
+    subgraph GOOD["✅ GOOD: Project subfolders (isolated)"]
+        G1["~/.git-worktrees/"]
+        G2["  ├── aiterm/"]
+        G3["  │     ├── feature-mcp/"]
+        G4["  │     └── feature-help/"]
+        G5["  └── flow-cli/"]
+        G6["        ├── feature-mcp/    ← Same branch name, different project!"]
+        G7["        └── refactor/"]
+    end</code></pre>
 <p><strong>With project subfolders:</strong>
 - <code>aiterm/feature-mcp/</code> and <code>flow-cli/feature-mcp/</code> are completely separate
 - Same branch name in different projects = no conflict
@@ -4245,25 +4242,25 @@
 <p><strong>Rule:</strong> Always use the pattern <code>~/.git-worktrees/PROJECT/BRANCH/</code></p>
 <hr />
 <h3 id="quick-start-commands">Quick Start Commands</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1"># === FIRST TIME EVER ===</span>
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="c1"># Create the top-level worktrees folder (once, ever)</span>
-<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>~/.git-worktrees
-<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>
-<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="c1"># === FIRST TIME FOR A PROJECT ===</span>
-<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="c1"># Create project subfolder (once per project)</span>
-<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>~/.git-worktrees/aiterm
-<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>
-<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="c1"># === EACH NEW WORKTREE ===</span>
-<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="c1"># Create the worktree (git creates the branch folder)</span>
-<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="nb">cd</span><span class="w"> </span>~/projects/dev-tools/aiterm
-<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>git<span class="w"> </span>worktree<span class="w"> </span>add<span class="w"> </span>~/.git-worktrees/aiterm/BRANCH-NAME<span class="w"> </span>BRANCH-NAME
-<a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a>
-<a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a><span class="c1"># Install dependencies</span>
-<a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a><span class="nb">cd</span><span class="w"> </span>~/.git-worktrees/aiterm/BRANCH-NAME
-<a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a>npm<span class="w"> </span>install<span class="w">  </span><span class="c1"># or pip install, etc.</span>
-<a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a>
-<a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a><span class="c1"># === WHEN DONE WITH A WORKTREE ===</span>
-<a id="__codelineno-5-19" name="__codelineno-5-19" href="#__codelineno-5-19"></a>git<span class="w"> </span>worktree<span class="w"> </span>remove<span class="w"> </span>~/.git-worktrees/aiterm/BRANCH-NAME
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># === FIRST TIME EVER ===</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="c1"># Create the top-level worktrees folder (once, ever)</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>~/.git-worktrees
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="c1"># === FIRST TIME FOR A PROJECT ===</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="c1"># Create project subfolder (once per project)</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>~/.git-worktrees/aiterm
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="c1"># === EACH NEW WORKTREE ===</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="c1"># Create the worktree (git creates the branch folder)</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="nb">cd</span><span class="w"> </span>~/projects/dev-tools/aiterm
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>git<span class="w"> </span>worktree<span class="w"> </span>add<span class="w"> </span>~/.git-worktrees/aiterm/BRANCH-NAME<span class="w"> </span>BRANCH-NAME
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="c1"># Install dependencies</span>
+<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a><span class="nb">cd</span><span class="w"> </span>~/.git-worktrees/aiterm/BRANCH-NAME
+<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>npm<span class="w"> </span>install<span class="w">  </span><span class="c1"># or pip install, etc.</span>
+<a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a>
+<a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a><span class="c1"># === WHEN DONE WITH A WORKTREE ===</span>
+<a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a>git<span class="w"> </span>worktree<span class="w"> </span>remove<span class="w"> </span>~/.git-worktrees/aiterm/BRANCH-NAME
 </code></pre></div>
 <hr />
 <p>Now that you've seen the practical example, let's understand <strong>why</strong> this works...</p>
@@ -4271,27 +4268,25 @@
 <h2 id="part-1-understanding-branches-the-basics">Part 1: Understanding Branches (The Basics)</h2>
 <h3 id="what-is-a-branch">What is a Branch?</h3>
 <p>Think of your project like a <strong>book you're writing</strong>. The <code>main</code> branch is the published version. When you want to try a new chapter without messing up the original, you create a branch.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>graph TD
-<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>    subgraph &quot;Your Project&quot;
-<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>        MAIN[&quot;📖 main branch&lt;br/&gt;(the &#39;real&#39; version)&lt;br/&gt;Chapter 1 ✓ Chapter 2 ✓ Chapter 3 ✓&quot;]
-<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>    end
-<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>
-<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>    MAIN --&gt;|&quot;I want to try&lt;br/&gt;a new ending...&quot;| FEATURE[&quot;📝 feature/new-ending&lt;br/&gt;(experimental version)&lt;br/&gt;Chapter 1 ✓ Chapter 2 ✓ Chapter 3...&quot;]
-</code></pre></div>
+<pre class="mermaid"><code>graph TD
+    subgraph "Your Project"
+        MAIN["📖 main branch&lt;br/&gt;(the 'real' version)&lt;br/&gt;Chapter 1 ✓ Chapter 2 ✓ Chapter 3 ✓"]
+    end
+
+    MAIN --&gt;|"I want to try&lt;br/&gt;a new ending..."| FEATURE["📝 feature/new-ending&lt;br/&gt;(experimental version)&lt;br/&gt;Chapter 1 ✓ Chapter 2 ✓ Chapter 3..."]</code></pre>
 <p><strong>Key point:</strong> A branch is just a <strong>different version</strong> of your code. It's like "Save As" for your entire project.</p>
 <hr />
 <h3 id="the-traditional-way-one-folder-many-branches">The Traditional Way: One Folder, Many Branches</h3>
 <p>Normally, you have <strong>one folder</strong> and you <strong>switch between branches</strong>:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>graph TD
-<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>    subgraph FOLDER[&quot;📁 ~/my-project/ (your ONE folder)&quot;]
-<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>        A[&quot;You&#39;re on: main&lt;br/&gt;(working, working...)&quot;]
-<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>        B[&quot;git checkout feature-a&lt;br/&gt;⚡ SWITCH! Files change!&quot;]
-<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>        C[&quot;Now on: feature-a&lt;br/&gt;(working, working...)&quot;]
-<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>        D[&quot;git checkout main&lt;br/&gt;⚡ SWITCH BACK! Files change again!&quot;]
-<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>    end
-<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>
-<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>    A --&gt; B --&gt; C --&gt; D
-</code></pre></div>
+<pre class="mermaid"><code>graph TD
+    subgraph FOLDER["📁 ~/my-project/ (your ONE folder)"]
+        A["You're on: main&lt;br/&gt;(working, working...)"]
+        B["git checkout feature-a&lt;br/&gt;⚡ SWITCH! Files change!"]
+        C["Now on: feature-a&lt;br/&gt;(working, working...)"]
+        D["git checkout main&lt;br/&gt;⚡ SWITCH BACK! Files change again!"]
+    end
+
+    A --&gt; B --&gt; C --&gt; D</code></pre>
 <p><strong>The problem:</strong> When you switch branches, <strong>all your files change</strong>. If you have:
 - Unsaved work → It might get lost or mixed up
 - A dev server running → It gets confused
@@ -4300,27 +4295,26 @@
 <h2 id="part-2-the-problem-with-branch-switching">Part 2: The Problem with Branch Switching</h2>
 <h3 id="a-real-world-disaster">A Real-World Disaster</h3>
 <p>Imagine this scenario:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>graph TB
-<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>    subgraph FOLDER[&quot;📁 ~/my-project/ (ONE folder for everything)&quot;]
-<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>        direction LR
-<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>        subgraph T1[&quot;Terminal 1&quot;]
-<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>            T1A[&quot;&#39;I&#39;m on feature-a&#39;&quot;]
-<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>            T1B[&quot;editing App.js&quot;]
-<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>            T1C[&quot;made some changes&quot;]
-<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>            T1D[&quot;didn&#39;t commit yet&quot;]
-<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>        end
-<a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a>        subgraph T2[&quot;Terminal 2&quot;]
-<a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a>            T2A[&quot;&#39;I&#39;m on feature-b&#39;&quot;]
-<a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a>            T2B[&quot;also editing App.js&quot;]
-<a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a>            T2C[&quot;made different changes&quot;]
-<a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a>            T2D[&quot;didn&#39;t commit yet&quot;]
-<a id="__codelineno-8-15" name="__codelineno-8-15" href="#__codelineno-8-15"></a>        end
-<a id="__codelineno-8-16" name="__codelineno-8-16" href="#__codelineno-8-16"></a>    end
-<a id="__codelineno-8-17" name="__codelineno-8-17" href="#__codelineno-8-17"></a>
-<a id="__codelineno-8-18" name="__codelineno-8-18" href="#__codelineno-8-18"></a>    T1 &lt;--&gt;|&quot;💥 CONFLICT! 💥&lt;br/&gt;Same folder, same files!&quot;| T2
-<a id="__codelineno-8-19" name="__codelineno-8-19" href="#__codelineno-8-19"></a>
-<a id="__codelineno-8-20" name="__codelineno-8-20" href="#__codelineno-8-20"></a>    FOLDER --&gt; PROBLEM[&quot;Both terminals looking at SAME folder!&lt;br/&gt;When one switches branches,&lt;br/&gt;the other&#39;s work disappears!&quot;]
-</code></pre></div>
+<pre class="mermaid"><code>graph TB
+    subgraph FOLDER["📁 ~/my-project/ (ONE folder for everything)"]
+        direction LR
+        subgraph T1["Terminal 1"]
+            T1A["'I'm on feature-a'"]
+            T1B["editing App.js"]
+            T1C["made some changes"]
+            T1D["didn't commit yet"]
+        end
+        subgraph T2["Terminal 2"]
+            T2A["'I'm on feature-b'"]
+            T2B["also editing App.js"]
+            T2C["made different changes"]
+            T2D["didn't commit yet"]
+        end
+    end
+
+    T1 &lt;--&gt;|"💥 CONFLICT! 💥&lt;br/&gt;Same folder, same files!"| T2
+
+    FOLDER --&gt; PROBLEM["Both terminals looking at SAME folder!&lt;br/&gt;When one switches branches,&lt;br/&gt;the other's work disappears!"]</code></pre>
 <p><strong>What goes wrong:</strong>
 - Changes from feature-a appear in feature-b
 - Uncommitted work vanishes when switching
@@ -4331,71 +4325,68 @@
 <h3 id="what-is-a-worktree">What is a Worktree?</h3>
 <p>A worktree is simple: <strong>each branch gets its own folder</strong>.</p>
 <p>Instead of switching branches in one folder, you have multiple folders—each permanently connected to one branch.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>graph TB
-<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>    subgraph W1[&quot;📁 ~/my-project/&quot;]
-<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>        W1A[&quot;Always on: main&quot;]
-<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>        W1B[&quot;Has its own files&quot;]
-<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>    end
-<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>
-<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>    subgraph W2[&quot;📁 ~/worktrees/feature-a/&quot;]
-<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>        W2A[&quot;Always on: feature-a&quot;]
-<a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>        W2B[&quot;Has its own files&quot;]
-<a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a>    end
-<a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a>
-<a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a>    subgraph W3[&quot;📁 ~/worktrees/feature-b/&quot;]
-<a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a>        W3A[&quot;Always on: feature-b&quot;]
-<a id="__codelineno-9-14" name="__codelineno-9-14" href="#__codelineno-9-14"></a>        W3B[&quot;Has its own files&quot;]
-<a id="__codelineno-9-15" name="__codelineno-9-15" href="#__codelineno-9-15"></a>    end
-<a id="__codelineno-9-16" name="__codelineno-9-16" href="#__codelineno-9-16"></a>
-<a id="__codelineno-9-17" name="__codelineno-9-17" href="#__codelineno-9-17"></a>    RESULT[&quot;✅ No switching needed!&lt;br/&gt;Each folder = One branch. Forever.&quot;]
-<a id="__codelineno-9-18" name="__codelineno-9-18" href="#__codelineno-9-18"></a>
-<a id="__codelineno-9-19" name="__codelineno-9-19" href="#__codelineno-9-19"></a>    W1 --&gt; RESULT
-<a id="__codelineno-9-20" name="__codelineno-9-20" href="#__codelineno-9-20"></a>    W2 --&gt; RESULT
-<a id="__codelineno-9-21" name="__codelineno-9-21" href="#__codelineno-9-21"></a>    W3 --&gt; RESULT
-</code></pre></div>
+<pre class="mermaid"><code>graph TB
+    subgraph W1["📁 ~/my-project/"]
+        W1A["Always on: main"]
+        W1B["Has its own files"]
+    end
+
+    subgraph W2["📁 ~/worktrees/feature-a/"]
+        W2A["Always on: feature-a"]
+        W2B["Has its own files"]
+    end
+
+    subgraph W3["📁 ~/worktrees/feature-b/"]
+        W3A["Always on: feature-b"]
+        W3B["Has its own files"]
+    end
+
+    RESULT["✅ No switching needed!&lt;br/&gt;Each folder = One branch. Forever."]
+
+    W1 --&gt; RESULT
+    W2 --&gt; RESULT
+    W3 --&gt; RESULT</code></pre>
 <hr />
 <h3 id="branches-vs-worktrees-the-difference">Branches vs Worktrees: The Difference</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>graph LR
-<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>    subgraph BRANCHES[&quot;🔀 BRANCHES (Traditional)&quot;]
-<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>        B1[&quot;📁 ONE folder&quot;]
-<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>        B2[&quot;Switch between versions&quot;]
-<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>        B3[&quot;Less disk space&quot;]
-<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>        B4[&quot;⚠️ Must commit before switch&quot;]
-<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>        B5[&quot;Good for: solo work&quot;]
-<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>    end
-<a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a>
-<a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a>    subgraph WORKTREES[&quot;🌳 WORKTREES (Parallel)&quot;]
-<a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a>        W1[&quot;📁📁📁 Multiple folders&quot;]
-<a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a>        W2[&quot;Each folder locked to branch&quot;]
-<a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a>        W3[&quot;More disk space&quot;]
-<a id="__codelineno-10-14" name="__codelineno-10-14" href="#__codelineno-10-14"></a>        W4[&quot;✅ Work on many at once&quot;]
-<a id="__codelineno-10-15" name="__codelineno-10-15" href="#__codelineno-10-15"></a>        W5[&quot;Good for: parallel work&quot;]
-<a id="__codelineno-10-16" name="__codelineno-10-16" href="#__codelineno-10-16"></a>    end
-</code></pre></div>
+<pre class="mermaid"><code>graph LR
+    subgraph BRANCHES["🔀 BRANCHES (Traditional)"]
+        B1["📁 ONE folder"]
+        B2["Switch between versions"]
+        B3["Less disk space"]
+        B4["⚠️ Must commit before switch"]
+        B5["Good for: solo work"]
+    end
+
+    subgraph WORKTREES["🌳 WORKTREES (Parallel)"]
+        W1["📁📁📁 Multiple folders"]
+        W2["Each folder locked to branch"]
+        W3["More disk space"]
+        W4["✅ Work on many at once"]
+        W5["Good for: parallel work"]
+    end</code></pre>
 <hr />
 <h3 id="the-magic-they-share-git-history">The Magic: They Share Git History</h3>
 <p>Here's the clever part: worktrees share the same <code>.git</code> database. They're not copies—they're <strong>views</strong> into the same repository.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>graph TB
-<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>    subgraph GIT[&quot;🗄️ Shared Git Database&quot;]
-<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>        DB[&quot;.git repository&lt;br/&gt;(commits, branches, history)&quot;]
-<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>    end
-<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>
-<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>    subgraph WT1[&quot;Worktree 1&quot;]
-<a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>        F1[&quot;📁 ~/my-project/&lt;br/&gt;Branch: main&lt;br/&gt;Own working files&quot;]
-<a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a>    end
-<a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a>
-<a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a>    subgraph WT2[&quot;Worktree 2&quot;]
-<a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a>        F2[&quot;📁 ~/worktrees/feature-a/&lt;br/&gt;Branch: feature-a&lt;br/&gt;Own working files&quot;]
-<a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a>    end
-<a id="__codelineno-11-13" name="__codelineno-11-13" href="#__codelineno-11-13"></a>
-<a id="__codelineno-11-14" name="__codelineno-11-14" href="#__codelineno-11-14"></a>    subgraph WT3[&quot;Worktree 3&quot;]
-<a id="__codelineno-11-15" name="__codelineno-11-15" href="#__codelineno-11-15"></a>        F3[&quot;📁 ~/worktrees/feature-b/&lt;br/&gt;Branch: feature-b&lt;br/&gt;Own working files&quot;]
-<a id="__codelineno-11-16" name="__codelineno-11-16" href="#__codelineno-11-16"></a>    end
-<a id="__codelineno-11-17" name="__codelineno-11-17" href="#__codelineno-11-17"></a>
-<a id="__codelineno-11-18" name="__codelineno-11-18" href="#__codelineno-11-18"></a>    DB &lt;--&gt; F1
-<a id="__codelineno-11-19" name="__codelineno-11-19" href="#__codelineno-11-19"></a>    DB &lt;--&gt; F2
-<a id="__codelineno-11-20" name="__codelineno-11-20" href="#__codelineno-11-20"></a>    DB &lt;--&gt; F3
-</code></pre></div>
+<pre class="mermaid"><code>graph TB
+    subgraph GIT["🗄️ Shared Git Database"]
+        DB[".git repository&lt;br/&gt;(commits, branches, history)"]
+    end
+
+    subgraph WT1["Worktree 1"]
+        F1["📁 ~/my-project/&lt;br/&gt;Branch: main&lt;br/&gt;Own working files"]
+    end
+
+    subgraph WT2["Worktree 2"]
+        F2["📁 ~/worktrees/feature-a/&lt;br/&gt;Branch: feature-a&lt;br/&gt;Own working files"]
+    end
+
+    subgraph WT3["Worktree 3"]
+        F3["📁 ~/worktrees/feature-b/&lt;br/&gt;Branch: feature-b&lt;br/&gt;Own working files"]
+    end
+
+    DB &lt;--&gt; F1
+    DB &lt;--&gt; F2
+    DB &lt;--&gt; F3</code></pre>
 <p><strong>What this means:</strong>
 - Commits in one worktree are visible in all others
 - Branches are shared across all worktrees
@@ -4422,111 +4413,107 @@
 <h2 id="part-5-how-worktree-folders-work">Part 5: How Worktree Folders Work</h2>
 <h3 id="why-are-worktrees-outside-the-project-folder">Why Are Worktrees OUTSIDE the Project Folder?</h3>
 <p>This is important! Worktrees should <strong>never</strong> live inside your project. Here's why:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>graph TD
-<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>    subgraph BAD[&quot;❌ BAD: Worktree Inside Project&quot;]
-<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>        B1[&quot;~/projects/dev-tools/aiterm/&quot;]
-<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>        B2[&quot;  ├── src/&quot;]
-<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>        B3[&quot;  ├── docs/&quot;]
-<a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>        B4[&quot;  ├── worktrees/           ← INSIDE PROJECT&quot;]
-<a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a>        B5[&quot;  │     └── feature-x/     ← This is a FULL COPY&quot;]
-<a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a>        B6[&quot;  │           ├── src/     ← Duplicate!&quot;]
-<a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a>        B7[&quot;  │           ├── docs/    ← Duplicate!&quot;]
-<a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a>        B8[&quot;  │           └── ...&quot;]
-<a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a>        B9[&quot;  └── package.json&quot;]
-<a id="__codelineno-12-12" name="__codelineno-12-12" href="#__codelineno-12-12"></a>    end
-<a id="__codelineno-12-13" name="__codelineno-12-13" href="#__codelineno-12-13"></a>
-<a id="__codelineno-12-14" name="__codelineno-12-14" href="#__codelineno-12-14"></a>    BAD --&gt; PROBLEMS[&quot;Problems:&lt;br/&gt;• Shows in git status&lt;br/&gt;• Could accidentally commit&lt;br/&gt;• Confusing nested structure&lt;br/&gt;• Might delete with project&quot;]
-</code></pre></div>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>graph TD
-<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>    subgraph GOOD[&quot;✅ GOOD: Worktree Outside Project&quot;]
-<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>        G1[&quot;~/projects/dev-tools/aiterm/    (your project)&quot;]
-<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>        G2[&quot;  ├── src/&quot;]
-<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>        G3[&quot;  ├── docs/&quot;]
-<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>        G4[&quot;  └── package.json&quot;]
-<a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a>
-<a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a>        G5[&quot;~/.git-worktrees/aiterm/     (separate location)&quot;]
-<a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a>        G6[&quot;  └── feature-x/&quot;]
-<a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a>        G7[&quot;        ├── src/&quot;]
-<a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a>        G8[&quot;        └── docs/&quot;]
-<a id="__codelineno-13-12" name="__codelineno-13-12" href="#__codelineno-13-12"></a>    end
-<a id="__codelineno-13-13" name="__codelineno-13-13" href="#__codelineno-13-13"></a>
-<a id="__codelineno-13-14" name="__codelineno-13-14" href="#__codelineno-13-14"></a>    GOOD --&gt; BENEFITS[&quot;Benefits:&lt;br/&gt;• Completely separate&lt;br/&gt;• Can&#39;t accidentally commit&lt;br/&gt;• Clean project folder&lt;br/&gt;• Easy to find all worktrees&quot;]
-</code></pre></div>
+<pre class="mermaid"><code>graph TD
+    subgraph BAD["❌ BAD: Worktree Inside Project"]
+        B1["~/projects/dev-tools/aiterm/"]
+        B2["  ├── src/"]
+        B3["  ├── docs/"]
+        B4["  ├── worktrees/           ← INSIDE PROJECT"]
+        B5["  │     └── feature-x/     ← This is a FULL COPY"]
+        B6["  │           ├── src/     ← Duplicate!"]
+        B7["  │           ├── docs/    ← Duplicate!"]
+        B8["  │           └── ..."]
+        B9["  └── package.json"]
+    end
+
+    BAD --&gt; PROBLEMS["Problems:&lt;br/&gt;• Shows in git status&lt;br/&gt;• Could accidentally commit&lt;br/&gt;• Confusing nested structure&lt;br/&gt;• Might delete with project"]</code></pre>
+<pre class="mermaid"><code>graph TD
+    subgraph GOOD["✅ GOOD: Worktree Outside Project"]
+        G1["~/projects/dev-tools/aiterm/    (your project)"]
+        G2["  ├── src/"]
+        G3["  ├── docs/"]
+        G4["  └── package.json"]
+
+        G5["~/.git-worktrees/aiterm/     (separate location)"]
+        G6["  └── feature-x/"]
+        G7["        ├── src/"]
+        G8["        └── docs/"]
+    end
+
+    GOOD --&gt; BENEFITS["Benefits:&lt;br/&gt;• Completely separate&lt;br/&gt;• Can't accidentally commit&lt;br/&gt;• Clean project folder&lt;br/&gt;• Easy to find all worktrees"]</code></pre>
 <p><strong>Key insight:</strong> A worktree is a <strong>complete copy</strong> of all your project files. It's not just a small config file — it's everything (src/, docs/, node_modules/, etc.). That's why it needs its own space outside your project.</p>
 <hr />
 <h3 id="what-is-a-parent-directory">What is a "Parent Directory"?</h3>
 <p>A <strong>parent directory</strong> is simply the folder that contains another folder. Think of it like a filing cabinet:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>graph TD
-<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>    subgraph ANALOGY[&quot;📁 Folder Hierarchy&quot;]
-<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>        CABINET[&quot;🗄️ ~/.git-worktrees/&lt;br/&gt;(cabinet for ALL worktrees)&quot;]
-<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>        DRAWER[&quot;📂 aiterm/&lt;br/&gt;(drawer for aiterm project)&quot;]
-<a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>        FOLDER[&quot;📁 feature-x/&lt;br/&gt;(one worktree)&quot;]
-<a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a>    end
-<a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a>
-<a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a>    CABINET --&gt;|&quot;contains&quot;| DRAWER
-<a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a>    DRAWER --&gt;|&quot;contains&quot;| FOLDER
-</code></pre></div>
+<pre class="mermaid"><code>graph TD
+    subgraph ANALOGY["📁 Folder Hierarchy"]
+        CABINET["🗄️ ~/.git-worktrees/&lt;br/&gt;(cabinet for ALL worktrees)"]
+        DRAWER["📂 aiterm/&lt;br/&gt;(drawer for aiterm project)"]
+        FOLDER["📁 feature-x/&lt;br/&gt;(one worktree)"]
+    end
+
+    CABINET --&gt;|"contains"| DRAWER
+    DRAWER --&gt;|"contains"| FOLDER</code></pre>
 <hr />
 <h3 id="real-example-the-aiterm-project">Real Example: The Aiterm Project</h3>
 <p>Your aiterm project lives at:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>~/projects/dev-tools/aiterm/     ← Main project (on &#39;dev&#39; branch)
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>~/projects/dev-tools/aiterm/     ← Main project (on &#39;dev&#39; branch)
 </code></pre></div></p>
 <p>It already has worktrees created by claude-squad:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>~/.claude-squad/worktrees/
-<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>├── aiterm-test_18832329dc9647d0/   ← branch: dt/aiterm-test
-<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>├── claude_1883239521946900/        ← branch: dt/claude
-<a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a>└── test_1883233f925c8880/          ← branch: dt/test
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>~/.claude-squad/worktrees/
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>├── aiterm-test_18832329dc9647d0/   ← branch: dt/aiterm-test
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>├── claude_1883239521946900/        ← branch: dt/claude
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>└── test_1883233f925c8880/          ← branch: dt/test
 </code></pre></div></p>
 <p>Here's the full picture:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>graph TB
-<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>    subgraph PROJECT[&quot;📁 Your Project Location&quot;]
-<a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>        MAIN[&quot;~/projects/dev-tools/aiterm/&quot;]
-<a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a>        MAIN_BR[&quot;Branch: dev&quot;]
-<a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a>        MAIN_FILES[&quot;Contains: src/, docs/, tests/, etc.&quot;]
-<a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a>    end
-<a id="__codelineno-17-7" name="__codelineno-17-7" href="#__codelineno-17-7"></a>
-<a id="__codelineno-17-8" name="__codelineno-17-8" href="#__codelineno-17-8"></a>    subgraph WORKTREES[&quot;📁 Worktrees Location (SEPARATE!)&quot;]
-<a id="__codelineno-17-9" name="__codelineno-17-9" href="#__codelineno-17-9"></a>        WT_LOC[&quot;~/.claude-squad/worktrees/&quot;]
-<a id="__codelineno-17-10" name="__codelineno-17-10" href="#__codelineno-17-10"></a>
-<a id="__codelineno-17-11" name="__codelineno-17-11" href="#__codelineno-17-11"></a>        WT1[&quot;aiterm-test.../&quot;]
-<a id="__codelineno-17-12" name="__codelineno-17-12" href="#__codelineno-17-12"></a>        WT1_BR[&quot;Branch: dt/aiterm-test&quot;]
-<a id="__codelineno-17-13" name="__codelineno-17-13" href="#__codelineno-17-13"></a>
-<a id="__codelineno-17-14" name="__codelineno-17-14" href="#__codelineno-17-14"></a>        WT2[&quot;claude.../&quot;]
-<a id="__codelineno-17-15" name="__codelineno-17-15" href="#__codelineno-17-15"></a>        WT2_BR[&quot;Branch: dt/claude&quot;]
-<a id="__codelineno-17-16" name="__codelineno-17-16" href="#__codelineno-17-16"></a>
-<a id="__codelineno-17-17" name="__codelineno-17-17" href="#__codelineno-17-17"></a>        WT3[&quot;test.../&quot;]
-<a id="__codelineno-17-18" name="__codelineno-17-18" href="#__codelineno-17-18"></a>        WT3_BR[&quot;Branch: dt/test&quot;]
-<a id="__codelineno-17-19" name="__codelineno-17-19" href="#__codelineno-17-19"></a>    end
-<a id="__codelineno-17-20" name="__codelineno-17-20" href="#__codelineno-17-20"></a>
-<a id="__codelineno-17-21" name="__codelineno-17-21" href="#__codelineno-17-21"></a>    subgraph SHARED[&quot;🗄️ Shared Git Database&quot;]
-<a id="__codelineno-17-22" name="__codelineno-17-22" href="#__codelineno-17-22"></a>        GIT[&quot;.git repository&lt;br/&gt;All commits, all branches&quot;]
-<a id="__codelineno-17-23" name="__codelineno-17-23" href="#__codelineno-17-23"></a>    end
-<a id="__codelineno-17-24" name="__codelineno-17-24" href="#__codelineno-17-24"></a>
-<a id="__codelineno-17-25" name="__codelineno-17-25" href="#__codelineno-17-25"></a>    MAIN &lt;--&gt; GIT
-<a id="__codelineno-17-26" name="__codelineno-17-26" href="#__codelineno-17-26"></a>    WT1 &lt;--&gt; GIT
-<a id="__codelineno-17-27" name="__codelineno-17-27" href="#__codelineno-17-27"></a>    WT2 &lt;--&gt; GIT
-<a id="__codelineno-17-28" name="__codelineno-17-28" href="#__codelineno-17-28"></a>    WT3 &lt;--&gt; GIT
-</code></pre></div>
+<pre class="mermaid"><code>graph TB
+    subgraph PROJECT["📁 Your Project Location"]
+        MAIN["~/projects/dev-tools/aiterm/"]
+        MAIN_BR["Branch: dev"]
+        MAIN_FILES["Contains: src/, docs/, tests/, etc."]
+    end
+
+    subgraph WORKTREES["📁 Worktrees Location (SEPARATE!)"]
+        WT_LOC["~/.claude-squad/worktrees/"]
+
+        WT1["aiterm-test.../"]
+        WT1_BR["Branch: dt/aiterm-test"]
+
+        WT2["claude.../"]
+        WT2_BR["Branch: dt/claude"]
+
+        WT3["test.../"]
+        WT3_BR["Branch: dt/test"]
+    end
+
+    subgraph SHARED["🗄️ Shared Git Database"]
+        GIT[".git repository&lt;br/&gt;All commits, all branches"]
+    end
+
+    MAIN &lt;--&gt; GIT
+    WT1 &lt;--&gt; GIT
+    WT2 &lt;--&gt; GIT
+    WT3 &lt;--&gt; GIT</code></pre>
 <p><strong>Notice:</strong> The worktrees are in <code>~/.claude-squad/worktrees/</code>, completely separate from <code>~/projects/dev-tools/aiterm/</code>. This keeps your project clean!</p>
 <hr />
 <h3 id="creating-a-manual-worktree-for-aiterm">Creating a Manual Worktree for Aiterm</h3>
 <p>If you wanted to create your own worktree (not via claude-squad):</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="c1"># 1. Go to your project</span>
-<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="nb">cd</span><span class="w"> </span>~/projects/dev-tools/aiterm
-<a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>
-<a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a><span class="c1"># 2. Create the parent folder (only needed once per project)</span>
-<a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>~/.git-worktrees/aiterm
-<a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a>
-<a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a><span class="c1"># 3. Create a worktree for a new feature</span>
-<a id="__codelineno-18-8" name="__codelineno-18-8" href="#__codelineno-18-8"></a>git<span class="w"> </span>worktree<span class="w"> </span>add<span class="w"> </span>~/.git-worktrees/aiterm/feature-mcp<span class="w"> </span>feature/mcp
-<a id="__codelineno-18-9" name="__codelineno-18-9" href="#__codelineno-18-9"></a><span class="c1">#                ↑                         ↑            ↑</span>
-<a id="__codelineno-18-10" name="__codelineno-18-10" href="#__codelineno-18-10"></a><span class="c1">#                │                         │            └── branch name</span>
-<a id="__codelineno-18-11" name="__codelineno-18-11" href="#__codelineno-18-11"></a><span class="c1">#                │                         └── folder name (Git creates this)</span>
-<a id="__codelineno-18-12" name="__codelineno-18-12" href="#__codelineno-18-12"></a><span class="c1">#                └── parent (you created with mkdir)</span>
-<a id="__codelineno-18-13" name="__codelineno-18-13" href="#__codelineno-18-13"></a>
-<a id="__codelineno-18-14" name="__codelineno-18-14" href="#__codelineno-18-14"></a><span class="c1"># Result:</span>
-<a id="__codelineno-18-15" name="__codelineno-18-15" href="#__codelineno-18-15"></a><span class="c1"># ~/projects/dev-tools/aiterm/              → dev branch (main)</span>
-<a id="__codelineno-18-16" name="__codelineno-18-16" href="#__codelineno-18-16"></a><span class="c1"># ~/.git-worktrees/aiterm/feature-mcp/   → feature/mcp branch (worktree)</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1"># 1. Go to your project</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="nb">cd</span><span class="w"> </span>~/projects/dev-tools/aiterm
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="c1"># 2. Create the parent folder (only needed once per project)</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>~/.git-worktrees/aiterm
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="c1"># 3. Create a worktree for a new feature</span>
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>git<span class="w"> </span>worktree<span class="w"> </span>add<span class="w"> </span>~/.git-worktrees/aiterm/feature-mcp<span class="w"> </span>feature/mcp
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="c1">#                ↑                         ↑            ↑</span>
+<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="c1">#                │                         │            └── branch name</span>
+<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="c1">#                │                         └── folder name (Git creates this)</span>
+<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="c1">#                └── parent (you created with mkdir)</span>
+<a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a>
+<a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a><span class="c1"># Result:</span>
+<a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a><span class="c1"># ~/projects/dev-tools/aiterm/              → dev branch (main)</span>
+<a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a><span class="c1"># ~/.git-worktrees/aiterm/feature-mcp/   → feature/mcp branch (worktree)</span>
 </code></pre></div>
 <hr />
 <h3 id="the-path-breakdown">The Path Breakdown</h3>
@@ -4564,24 +4551,23 @@
 </table>
 <hr />
 <h3 id="do-you-need-to-create-folders">Do You Need to Create Folders?</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>flowchart TD
-<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>    START[&quot;Want to create a worktree for aiterm&quot;]
-<a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>
-<a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a>    START --&gt; Q1{&quot;Does ~/.git-worktrees/aiterm/ exist?&quot;}
-<a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a>
-<a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a>    Q1 --&gt;|&quot;YES&quot;| DIRECT[&quot;Just run:&lt;br/&gt;git worktree add ~/.git-worktrees/aiterm/BRANCH BRANCH&quot;]
-<a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a>
-<a id="__codelineno-19-8" name="__codelineno-19-8" href="#__codelineno-19-8"></a>    Q1 --&gt;|&quot;NO (first time)&quot;| MKDIR[&quot;First run:&lt;br/&gt;mkdir -p ~/.git-worktrees/aiterm&lt;br/&gt;&lt;br/&gt;Then:&lt;br/&gt;git worktree add ~/.git-worktrees/aiterm/BRANCH BRANCH&quot;]
-<a id="__codelineno-19-9" name="__codelineno-19-9" href="#__codelineno-19-9"></a>
-<a id="__codelineno-19-10" name="__codelineno-19-10" href="#__codelineno-19-10"></a>    DIRECT --&gt; DONE[&quot;✅ Worktree created!&quot;]
-<a id="__codelineno-19-11" name="__codelineno-19-11" href="#__codelineno-19-11"></a>    MKDIR --&gt; DONE
-</code></pre></div>
+<pre class="mermaid"><code>flowchart TD
+    START["Want to create a worktree for aiterm"]
+
+    START --&gt; Q1{"Does ~/.git-worktrees/aiterm/ exist?"}
+
+    Q1 --&gt;|"YES"| DIRECT["Just run:&lt;br/&gt;git worktree add ~/.git-worktrees/aiterm/BRANCH BRANCH"]
+
+    Q1 --&gt;|"NO (first time)"| MKDIR["First run:&lt;br/&gt;mkdir -p ~/.git-worktrees/aiterm&lt;br/&gt;&lt;br/&gt;Then:&lt;br/&gt;git worktree add ~/.git-worktrees/aiterm/BRANCH BRANCH"]
+
+    DIRECT --&gt; DONE["✅ Worktree created!"]
+    MKDIR --&gt; DONE</code></pre>
 <p><strong>Quick check:</strong>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="c1"># See if the parent folder exists</span>
-<a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>ls<span class="w"> </span>~/.git-worktrees/
-<a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a>
-<a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a><span class="c1"># If it doesn&#39;t exist, create it</span>
-<a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>~/.git-worktrees/aiterm
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1"># See if the parent folder exists</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>ls<span class="w"> </span>~/.git-worktrees/
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="c1"># If it doesn&#39;t exist, create it</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>~/.git-worktrees/aiterm
 </code></pre></div></p>
 <hr />
 <h3 id="your-current-worktree-locations">Your Current Worktree Locations</h3>
@@ -4610,20 +4596,19 @@
 <hr />
 <h3 id="do-i-need-to-create-git-worktrees">Do I Need to Create ~/.git-worktrees/?</h3>
 <p><strong>Short answer:</strong> Maybe not — it might already exist!</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="c1"># Check if it exists</span>
-<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>ls<span class="w"> </span>~/.git-worktrees/
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1"># Check if it exists</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>ls<span class="w"> </span>~/.git-worktrees/
 </code></pre></div>
 <p>If you see folders listed, it already exists. If you get "No such file or directory", you need to create it once.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>flowchart TD
-<a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>    Q[&quot;Does ~/.git-worktrees/ exist?&quot;]
-<a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a>
-<a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a>    Q --&gt;|&quot;Yes, shows folders&quot;| EXISTS[&quot;✅ Already set up!&lt;br/&gt;Just add project subfolders as needed&quot;]
-<a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a>
-<a id="__codelineno-22-6" name="__codelineno-22-6" href="#__codelineno-22-6"></a>    Q --&gt;|&quot;No such file or directory&quot;| CREATE[&quot;Create it once:&lt;br/&gt;mkdir -p ~/.git-worktrees/&quot;]
-<a id="__codelineno-22-7" name="__codelineno-22-7" href="#__codelineno-22-7"></a>
-<a id="__codelineno-22-8" name="__codelineno-22-8" href="#__codelineno-22-8"></a>    CREATE --&gt; DONE[&quot;✅ Now you&#39;re set up forever&quot;]
-<a id="__codelineno-22-9" name="__codelineno-22-9" href="#__codelineno-22-9"></a>    EXISTS --&gt; USE[&quot;To add a new project&#39;s worktrees:&lt;br/&gt;mkdir -p ~/.git-worktrees/PROJECT-NAME&quot;]
-</code></pre></div>
+<pre class="mermaid"><code>flowchart TD
+    Q["Does ~/.git-worktrees/ exist?"]
+
+    Q --&gt;|"Yes, shows folders"| EXISTS["✅ Already set up!&lt;br/&gt;Just add project subfolders as needed"]
+
+    Q --&gt;|"No such file or directory"| CREATE["Create it once:&lt;br/&gt;mkdir -p ~/.git-worktrees/"]
+
+    CREATE --&gt; DONE["✅ Now you're set up forever"]
+    EXISTS --&gt; USE["To add a new project's worktrees:&lt;br/&gt;mkdir -p ~/.git-worktrees/PROJECT-NAME"]</code></pre>
 <p><strong>Important clarifications:</strong></p>
 <table>
 <thead>
@@ -4650,41 +4635,40 @@
 <hr />
 <h3 id="the-mkdir-p-flag-explained">The mkdir -p Flag Explained</h3>
 <p>The <code>-p</code> flag means "create parent directories as needed":</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="c1"># Without -p: FAILS if ~/.git-worktrees/ doesn&#39;t exist</span>
-<a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>mkdir<span class="w"> </span>~/.git-worktrees/aiterm/
-<a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a><span class="c1"># Error: No such file or directory</span>
-<a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a>
-<a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a><span class="c1"># With -p: Creates ALL missing folders in the path</span>
-<a id="__codelineno-23-6" name="__codelineno-23-6" href="#__codelineno-23-6"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>~/.git-worktrees/aiterm/
-<a id="__codelineno-23-7" name="__codelineno-23-7" href="#__codelineno-23-7"></a><span class="c1"># Creates:</span>
-<a id="__codelineno-23-8" name="__codelineno-23-8" href="#__codelineno-23-8"></a><span class="c1">#   ~/.git-worktrees/           (if missing)</span>
-<a id="__codelineno-23-9" name="__codelineno-23-9" href="#__codelineno-23-9"></a><span class="c1">#   └── aiterm/                    (the one you wanted)</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="c1"># Without -p: FAILS if ~/.git-worktrees/ doesn&#39;t exist</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>mkdir<span class="w"> </span>~/.git-worktrees/aiterm/
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="c1"># Error: No such file or directory</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="c1"># With -p: Creates ALL missing folders in the path</span>
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>~/.git-worktrees/aiterm/
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="c1"># Creates:</span>
+<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="c1">#   ~/.git-worktrees/           (if missing)</span>
+<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a><span class="c1">#   └── aiterm/                    (the one you wanted)</span>
 </code></pre></div>
 <p><strong>Tip:</strong> Always use <code>mkdir -p</code> — it's safe even if folders already exist.</p>
 <hr />
 <h3 id="recommended-folder-structure">Recommended Folder Structure</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>graph TD
-<a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a>    subgraph HOME[&quot;Your Home Directory ~&quot;]
-<a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a>        subgraph PROJECTS[&quot;📁 ~/projects/dev-tools/ (your code)&quot;]
-<a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a>            P1[&quot;aiterm/        (main: dev)&quot;]
-<a id="__codelineno-24-5" name="__codelineno-24-5" href="#__codelineno-24-5"></a>            P2[&quot;scribe/        (main: feat/mission-control-hud)&quot;]
-<a id="__codelineno-24-6" name="__codelineno-24-6" href="#__codelineno-24-6"></a>            P3[&quot;other-project/&quot;]
-<a id="__codelineno-24-7" name="__codelineno-24-7" href="#__codelineno-24-7"></a>        end
-<a id="__codelineno-24-8" name="__codelineno-24-8" href="#__codelineno-24-8"></a>
-<a id="__codelineno-24-9" name="__codelineno-24-9" href="#__codelineno-24-9"></a>        subgraph WORKTREES[&quot;📁 ~/.git-worktrees/ (worktrees)&quot;]
-<a id="__codelineno-24-10" name="__codelineno-24-10" href="#__codelineno-24-10"></a>            W1[&quot;aiterm/&quot;]
-<a id="__codelineno-24-11" name="__codelineno-24-11" href="#__codelineno-24-11"></a>            W1A[&quot;  └── feature-mcp/&quot;]
-<a id="__codelineno-24-12" name="__codelineno-24-12" href="#__codelineno-24-12"></a>            W2[&quot;scribe/&quot;]
-<a id="__codelineno-24-13" name="__codelineno-24-13" href="#__codelineno-24-13"></a>            W2A[&quot;  ├── wonderful-wilson/&quot;]
-<a id="__codelineno-24-14" name="__codelineno-24-14" href="#__codelineno-24-14"></a>            W2B[&quot;  └── hotfix/&quot;]
-<a id="__codelineno-24-15" name="__codelineno-24-15" href="#__codelineno-24-15"></a>        end
-<a id="__codelineno-24-16" name="__codelineno-24-16" href="#__codelineno-24-16"></a>
-<a id="__codelineno-24-17" name="__codelineno-24-17" href="#__codelineno-24-17"></a>        subgraph SQUAD[&quot;📁 ~/.claude-squad/worktrees/ (claude-squad)&quot;]
-<a id="__codelineno-24-18" name="__codelineno-24-18" href="#__codelineno-24-18"></a>            S1[&quot;aiterm-test.../&quot;]
-<a id="__codelineno-24-19" name="__codelineno-24-19" href="#__codelineno-24-19"></a>            S2[&quot;claude.../&quot;]
-<a id="__codelineno-24-20" name="__codelineno-24-20" href="#__codelineno-24-20"></a>        end
-<a id="__codelineno-24-21" name="__codelineno-24-21" href="#__codelineno-24-21"></a>    end
-</code></pre></div>
+<pre class="mermaid"><code>graph TD
+    subgraph HOME["Your Home Directory ~"]
+        subgraph PROJECTS["📁 ~/projects/dev-tools/ (your code)"]
+            P1["aiterm/        (main: dev)"]
+            P2["scribe/        (main: feat/mission-control-hud)"]
+            P3["other-project/"]
+        end
+
+        subgraph WORKTREES["📁 ~/.git-worktrees/ (worktrees)"]
+            W1["aiterm/"]
+            W1A["  └── feature-mcp/"]
+            W2["scribe/"]
+            W2A["  ├── wonderful-wilson/"]
+            W2B["  └── hotfix/"]
+        end
+
+        subgraph SQUAD["📁 ~/.claude-squad/worktrees/ (claude-squad)"]
+            S1["aiterm-test.../"]
+            S2["claude.../"]
+        end
+    end</code></pre>
 <p><strong>Why separate locations?</strong>
 - Projects stay clean — only your main branch
 - Worktrees are organized by project
@@ -4693,113 +4677,109 @@
 <hr />
 <h2 id="part-6-worktrees-in-practice">Part 6: Worktrees in Practice</h2>
 <h3 id="before-and-after">Before and After</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>graph TD
-<a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a>    subgraph BEFORE[&quot;❌ BEFORE: One folder, switching branches&quot;]
-<a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a>        B1[&quot;📁 ~/projects/my-app/&quot;]
-<a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a>        B2[&quot;on main... switch to feature... switch back...&quot;]
-<a id="__codelineno-25-5" name="__codelineno-25-5" href="#__codelineno-25-5"></a>        B3[&quot;(files keep changing!)&quot;]
-<a id="__codelineno-25-6" name="__codelineno-25-6" href="#__codelineno-25-6"></a>        B4[&quot;😵 Confusing!&quot;]
-<a id="__codelineno-25-7" name="__codelineno-25-7" href="#__codelineno-25-7"></a>    end
-<a id="__codelineno-25-8" name="__codelineno-25-8" href="#__codelineno-25-8"></a>
-<a id="__codelineno-25-9" name="__codelineno-25-9" href="#__codelineno-25-9"></a>    subgraph AFTER[&quot;✅ AFTER: Worktrees&quot;]
-<a id="__codelineno-25-10" name="__codelineno-25-10" href="#__codelineno-25-10"></a>        A1[&quot;📁 ~/projects/my-app/&quot;]
-<a id="__codelineno-25-11" name="__codelineno-25-11" href="#__codelineno-25-11"></a>        A1N[&quot;← Always main&quot;]
-<a id="__codelineno-25-12" name="__codelineno-25-12" href="#__codelineno-25-12"></a>
-<a id="__codelineno-25-13" name="__codelineno-25-13" href="#__codelineno-25-13"></a>        A2[&quot;📁 ~/.git-worktrees/my-app/login/&quot;]
-<a id="__codelineno-25-14" name="__codelineno-25-14" href="#__codelineno-25-14"></a>        A2N[&quot;← Always feature/login&quot;]
-<a id="__codelineno-25-15" name="__codelineno-25-15" href="#__codelineno-25-15"></a>
-<a id="__codelineno-25-16" name="__codelineno-25-16" href="#__codelineno-25-16"></a>        A3[&quot;📁 ~/.git-worktrees/my-app/dashboard/&quot;]
-<a id="__codelineno-25-17" name="__codelineno-25-17" href="#__codelineno-25-17"></a>        A3N[&quot;← Always feature/dashboard&quot;]
-<a id="__codelineno-25-18" name="__codelineno-25-18" href="#__codelineno-25-18"></a>
-<a id="__codelineno-25-19" name="__codelineno-25-19" href="#__codelineno-25-19"></a>        A4[&quot;😌 Each folder = One job. No confusion!&quot;]
-<a id="__codelineno-25-20" name="__codelineno-25-20" href="#__codelineno-25-20"></a>    end
-</code></pre></div>
+<pre class="mermaid"><code>graph TD
+    subgraph BEFORE["❌ BEFORE: One folder, switching branches"]
+        B1["📁 ~/projects/my-app/"]
+        B2["on main... switch to feature... switch back..."]
+        B3["(files keep changing!)"]
+        B4["😵 Confusing!"]
+    end
+
+    subgraph AFTER["✅ AFTER: Worktrees"]
+        A1["📁 ~/projects/my-app/"]
+        A1N["← Always main"]
+
+        A2["📁 ~/.git-worktrees/my-app/login/"]
+        A2N["← Always feature/login"]
+
+        A3["📁 ~/.git-worktrees/my-app/dashboard/"]
+        A3N["← Always feature/dashboard"]
+
+        A4["😌 Each folder = One job. No confusion!"]
+    end</code></pre>
 <hr />
 <h3 id="setting-up-multiple-terminals">Setting Up Multiple Terminals</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>graph LR
-<a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a>    subgraph T1[&quot;Terminal 1&quot;]
-<a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a>        T1A[&quot;📁 ~/projects/my-app/&quot;]
-<a id="__codelineno-26-4" name="__codelineno-26-4" href="#__codelineno-26-4"></a>        T1B[&quot;$ npm run dev&quot;]
-<a id="__codelineno-26-5" name="__codelineno-26-5" href="#__codelineno-26-5"></a>        T1C[&quot;Running on :3000&quot;]
-<a id="__codelineno-26-6" name="__codelineno-26-6" href="#__codelineno-26-6"></a>        T1D[&quot;Working on: main&quot;]
-<a id="__codelineno-26-7" name="__codelineno-26-7" href="#__codelineno-26-7"></a>        T1E[&quot;✅ Independent!&quot;]
-<a id="__codelineno-26-8" name="__codelineno-26-8" href="#__codelineno-26-8"></a>    end
-<a id="__codelineno-26-9" name="__codelineno-26-9" href="#__codelineno-26-9"></a>
-<a id="__codelineno-26-10" name="__codelineno-26-10" href="#__codelineno-26-10"></a>    subgraph T2[&quot;Terminal 2&quot;]
-<a id="__codelineno-26-11" name="__codelineno-26-11" href="#__codelineno-26-11"></a>        T2A[&quot;📁 ~/.git-worktrees/my-app/login/&quot;]
-<a id="__codelineno-26-12" name="__codelineno-26-12" href="#__codelineno-26-12"></a>        T2B[&quot;$ PORT=3001 npm run dev&quot;]
-<a id="__codelineno-26-13" name="__codelineno-26-13" href="#__codelineno-26-13"></a>        T2C[&quot;Running on :3001&quot;]
-<a id="__codelineno-26-14" name="__codelineno-26-14" href="#__codelineno-26-14"></a>        T2D[&quot;Working on: feature/login&quot;]
-<a id="__codelineno-26-15" name="__codelineno-26-15" href="#__codelineno-26-15"></a>        T2E[&quot;✅ Independent!&quot;]
-<a id="__codelineno-26-16" name="__codelineno-26-16" href="#__codelineno-26-16"></a>    end
-<a id="__codelineno-26-17" name="__codelineno-26-17" href="#__codelineno-26-17"></a>
-<a id="__codelineno-26-18" name="__codelineno-26-18" href="#__codelineno-26-18"></a>    T1 &lt;--&gt;|&quot;Can&#39;t interfere!&quot;| T2
-</code></pre></div>
+<pre class="mermaid"><code>graph LR
+    subgraph T1["Terminal 1"]
+        T1A["📁 ~/projects/my-app/"]
+        T1B["$ npm run dev"]
+        T1C["Running on :3000"]
+        T1D["Working on: main"]
+        T1E["✅ Independent!"]
+    end
+
+    subgraph T2["Terminal 2"]
+        T2A["📁 ~/.git-worktrees/my-app/login/"]
+        T2B["$ PORT=3001 npm run dev"]
+        T2C["Running on :3001"]
+        T2D["Working on: feature/login"]
+        T2E["✅ Independent!"]
+    end
+
+    T1 &lt;--&gt;|"Can't interfere!"| T2</code></pre>
 <p><strong>Remember:</strong> Use different ports for dev servers (<code>PORT=3001 npm run dev</code>)</p>
 <hr />
 <h2 id="part-7-common-commands">Part 7: Common Commands</h2>
 <h3 id="the-four-commands-you-need">The Four Commands You Need</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="c1"># 1. List your worktrees</span>
-<a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a>git<span class="w"> </span>worktree<span class="w"> </span>list
-<a id="__codelineno-27-3" name="__codelineno-27-3" href="#__codelineno-27-3"></a>
-<a id="__codelineno-27-4" name="__codelineno-27-4" href="#__codelineno-27-4"></a><span class="c1"># Output:</span>
-<a id="__codelineno-27-5" name="__codelineno-27-5" href="#__codelineno-27-5"></a><span class="c1"># /home/you/projects/my-app           abc1234 [main]</span>
-<a id="__codelineno-27-6" name="__codelineno-27-6" href="#__codelineno-27-6"></a><span class="c1"># /home/you/worktrees/my-app-login    def5678 [feature/login]</span>
-<a id="__codelineno-27-7" name="__codelineno-27-7" href="#__codelineno-27-7"></a>
-<a id="__codelineno-27-8" name="__codelineno-27-8" href="#__codelineno-27-8"></a>
-<a id="__codelineno-27-9" name="__codelineno-27-9" href="#__codelineno-27-9"></a><span class="c1"># 2. Create a new worktree</span>
-<a id="__codelineno-27-10" name="__codelineno-27-10" href="#__codelineno-27-10"></a>git<span class="w"> </span>worktree<span class="w"> </span>add<span class="w"> </span>&lt;folder-path&gt;<span class="w"> </span>&lt;branch-name&gt;
-<a id="__codelineno-27-11" name="__codelineno-27-11" href="#__codelineno-27-11"></a>
-<a id="__codelineno-27-12" name="__codelineno-27-12" href="#__codelineno-27-12"></a><span class="c1"># Example:</span>
-<a id="__codelineno-27-13" name="__codelineno-27-13" href="#__codelineno-27-13"></a>git<span class="w"> </span>worktree<span class="w"> </span>add<span class="w"> </span>~/.git-worktrees/my-app/login<span class="w"> </span>feature/login
-<a id="__codelineno-27-14" name="__codelineno-27-14" href="#__codelineno-27-14"></a>
-<a id="__codelineno-27-15" name="__codelineno-27-15" href="#__codelineno-27-15"></a>
-<a id="__codelineno-27-16" name="__codelineno-27-16" href="#__codelineno-27-16"></a><span class="c1"># 3. Remove a worktree (when done with the branch)</span>
-<a id="__codelineno-27-17" name="__codelineno-27-17" href="#__codelineno-27-17"></a>git<span class="w"> </span>worktree<span class="w"> </span>remove<span class="w"> </span>~/.git-worktrees/my-app/login
-<a id="__codelineno-27-18" name="__codelineno-27-18" href="#__codelineno-27-18"></a>
-<a id="__codelineno-27-19" name="__codelineno-27-19" href="#__codelineno-27-19"></a>
-<a id="__codelineno-27-20" name="__codelineno-27-20" href="#__codelineno-27-20"></a><span class="c1"># 4. Clean up broken worktrees (folder deleted but git remembers)</span>
-<a id="__codelineno-27-21" name="__codelineno-27-21" href="#__codelineno-27-21"></a>git<span class="w"> </span>worktree<span class="w"> </span>prune
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="c1"># 1. List your worktrees</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>git<span class="w"> </span>worktree<span class="w"> </span>list
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="c1"># Output:</span>
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="c1"># /home/you/projects/my-app           abc1234 [main]</span>
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="c1"># /home/you/worktrees/my-app-login    def5678 [feature/login]</span>
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>
+<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>
+<a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a><span class="c1"># 2. Create a new worktree</span>
+<a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a>git<span class="w"> </span>worktree<span class="w"> </span>add<span class="w"> </span>&lt;folder-path&gt;<span class="w"> </span>&lt;branch-name&gt;
+<a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a>
+<a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a><span class="c1"># Example:</span>
+<a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a>git<span class="w"> </span>worktree<span class="w"> </span>add<span class="w"> </span>~/.git-worktrees/my-app/login<span class="w"> </span>feature/login
+<a id="__codelineno-9-14" name="__codelineno-9-14" href="#__codelineno-9-14"></a>
+<a id="__codelineno-9-15" name="__codelineno-9-15" href="#__codelineno-9-15"></a>
+<a id="__codelineno-9-16" name="__codelineno-9-16" href="#__codelineno-9-16"></a><span class="c1"># 3. Remove a worktree (when done with the branch)</span>
+<a id="__codelineno-9-17" name="__codelineno-9-17" href="#__codelineno-9-17"></a>git<span class="w"> </span>worktree<span class="w"> </span>remove<span class="w"> </span>~/.git-worktrees/my-app/login
+<a id="__codelineno-9-18" name="__codelineno-9-18" href="#__codelineno-9-18"></a>
+<a id="__codelineno-9-19" name="__codelineno-9-19" href="#__codelineno-9-19"></a>
+<a id="__codelineno-9-20" name="__codelineno-9-20" href="#__codelineno-9-20"></a><span class="c1"># 4. Clean up broken worktrees (folder deleted but git remembers)</span>
+<a id="__codelineno-9-21" name="__codelineno-9-21" href="#__codelineno-9-21"></a>git<span class="w"> </span>worktree<span class="w"> </span>prune
 </code></pre></div>
 <hr />
 <h3 id="workflow-decision-tree">Workflow Decision Tree</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>flowchart TD
-<a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a>    Start[&quot;🤔 Want to work on&lt;br/&gt;a new feature?&quot;]
-<a id="__codelineno-28-3" name="__codelineno-28-3" href="#__codelineno-28-3"></a>
-<a id="__codelineno-28-4" name="__codelineno-28-4" href="#__codelineno-28-4"></a>    Start --&gt; Q1{&quot;Will you work on&lt;br/&gt;multiple things&lt;br/&gt;at once?&quot;}
-<a id="__codelineno-28-5" name="__codelineno-28-5" href="#__codelineno-28-5"></a>
-<a id="__codelineno-28-6" name="__codelineno-28-6" href="#__codelineno-28-6"></a>    Q1 --&gt;|&quot;No, just one thing&quot;| Branch[&quot;Use regular branch&lt;br/&gt;&lt;code&gt;git checkout -b feature-x&lt;/code&gt;&quot;]
-<a id="__codelineno-28-7" name="__codelineno-28-7" href="#__codelineno-28-7"></a>
-<a id="__codelineno-28-8" name="__codelineno-28-8" href="#__codelineno-28-8"></a>    Q1 --&gt;|&quot;Yes, parallel work&quot;| Worktree[&quot;Create a worktree&quot;]
-<a id="__codelineno-28-9" name="__codelineno-28-9" href="#__codelineno-28-9"></a>
-<a id="__codelineno-28-10" name="__codelineno-28-10" href="#__codelineno-28-10"></a>    Worktree --&gt; Step1[&quot;1. Create parent dir (if needed)&lt;br/&gt;&lt;code&gt;mkdir -p ~/.git-worktrees/project/&lt;/code&gt;&quot;]
-<a id="__codelineno-28-11" name="__codelineno-28-11" href="#__codelineno-28-11"></a>
-<a id="__codelineno-28-12" name="__codelineno-28-12" href="#__codelineno-28-12"></a>    Step1 --&gt; Step2[&quot;2. Add worktree&lt;br/&gt;&lt;code&gt;git worktree add ~/.git-worktrees/project/feature-x feature-x&lt;/code&gt;&quot;]
-<a id="__codelineno-28-13" name="__codelineno-28-13" href="#__codelineno-28-13"></a>
-<a id="__codelineno-28-14" name="__codelineno-28-14" href="#__codelineno-28-14"></a>    Step2 --&gt; Step3[&quot;3. Install dependencies&lt;br/&gt;&lt;code&gt;cd ~/.git-worktrees/project/feature-x &amp;&amp; npm install&lt;/code&gt;&quot;]
-<a id="__codelineno-28-15" name="__codelineno-28-15" href="#__codelineno-28-15"></a>
-<a id="__codelineno-28-16" name="__codelineno-28-16" href="#__codelineno-28-16"></a>    Step3 --&gt; Work[&quot;4. Work in that folder&lt;br/&gt;Each folder = one branch&quot;]
-<a id="__codelineno-28-17" name="__codelineno-28-17" href="#__codelineno-28-17"></a>
-<a id="__codelineno-28-18" name="__codelineno-28-18" href="#__codelineno-28-18"></a>    Work --&gt; Done{&quot;Done with&lt;br/&gt;the feature?&quot;}
-<a id="__codelineno-28-19" name="__codelineno-28-19" href="#__codelineno-28-19"></a>
-<a id="__codelineno-28-20" name="__codelineno-28-20" href="#__codelineno-28-20"></a>    Done --&gt;|&quot;No&quot;| Work
-<a id="__codelineno-28-21" name="__codelineno-28-21" href="#__codelineno-28-21"></a>    Done --&gt;|&quot;Yes&quot;| Cleanup[&quot;Remove worktree&lt;br/&gt;&lt;code&gt;git worktree remove path&lt;/code&gt;&quot;]
-<a id="__codelineno-28-22" name="__codelineno-28-22" href="#__codelineno-28-22"></a>
-<a id="__codelineno-28-23" name="__codelineno-28-23" href="#__codelineno-28-23"></a>    Branch --&gt; BranchDone[&quot;Work, commit, merge&lt;br/&gt;as usual&quot;]
-</code></pre></div>
+<pre class="mermaid"><code>flowchart TD
+    Start["🤔 Want to work on&lt;br/&gt;a new feature?"]
+
+    Start --&gt; Q1{"Will you work on&lt;br/&gt;multiple things&lt;br/&gt;at once?"}
+
+    Q1 --&gt;|"No, just one thing"| Branch["Use regular branch&lt;br/&gt;&lt;code&gt;git checkout -b feature-x&lt;/code&gt;"]
+
+    Q1 --&gt;|"Yes, parallel work"| Worktree["Create a worktree"]
+
+    Worktree --&gt; Step1["1. Create parent dir (if needed)&lt;br/&gt;&lt;code&gt;mkdir -p ~/.git-worktrees/project/&lt;/code&gt;"]
+
+    Step1 --&gt; Step2["2. Add worktree&lt;br/&gt;&lt;code&gt;git worktree add ~/.git-worktrees/project/feature-x feature-x&lt;/code&gt;"]
+
+    Step2 --&gt; Step3["3. Install dependencies&lt;br/&gt;&lt;code&gt;cd ~/.git-worktrees/project/feature-x &amp;&amp; npm install&lt;/code&gt;"]
+
+    Step3 --&gt; Work["4. Work in that folder&lt;br/&gt;Each folder = one branch"]
+
+    Work --&gt; Done{"Done with&lt;br/&gt;the feature?"}
+
+    Done --&gt;|"No"| Work
+    Done --&gt;|"Yes"| Cleanup["Remove worktree&lt;br/&gt;&lt;code&gt;git worktree remove path&lt;/code&gt;"]
+
+    Branch --&gt; BranchDone["Work, commit, merge&lt;br/&gt;as usual"]</code></pre>
 <hr />
 <h2 id="part-8-best-practices">Part 8: Best Practices</h2>
 <h3 id="the-golden-rules">The Golden Rules</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>graph TD
-<a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a>    subgraph RULES[&quot;🏆 Best Practices&quot;]
-<a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a>        R1[&quot;🌳 ONE FOLDER = ONE BRANCH = ONE PURPOSE&quot;]
-<a id="__codelineno-29-4" name="__codelineno-29-4" href="#__codelineno-29-4"></a>        R2[&quot;📍 Never switch branches in a worktree&quot;]
-<a id="__codelineno-29-5" name="__codelineno-29-5" href="#__codelineno-29-5"></a>        R3[&quot;💾 Commit before leaving any worktree&quot;]
-<a id="__codelineno-29-6" name="__codelineno-29-6" href="#__codelineno-29-6"></a>        R4[&quot;🔢 Use different ports for dev servers&quot;]
-<a id="__codelineno-29-7" name="__codelineno-29-7" href="#__codelineno-29-7"></a>        R5[&quot;🏷️ Name terminal tabs by branch&quot;]
-<a id="__codelineno-29-8" name="__codelineno-29-8" href="#__codelineno-29-8"></a>        R6[&quot;📁 Keep worktrees in a consistent location&quot;]
-<a id="__codelineno-29-9" name="__codelineno-29-9" href="#__codelineno-29-9"></a>    end
-</code></pre></div>
+<pre class="mermaid"><code>graph TD
+    subgraph RULES["🏆 Best Practices"]
+        R1["🌳 ONE FOLDER = ONE BRANCH = ONE PURPOSE"]
+        R2["📍 Never switch branches in a worktree"]
+        R3["💾 Commit before leaving any worktree"]
+        R4["🔢 Use different ports for dev servers"]
+        R5["🏷️ Name terminal tabs by branch"]
+        R6["📁 Keep worktrees in a consistent location"]
+    end</code></pre>
 <h3 id="do-this">DO This ✅</h3>
 <table>
 <thead>
@@ -4875,17 +4855,17 @@
 </tbody>
 </table>
 <h3 id="recommended-folder-structure_1">Recommended Folder Structure</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a>~/.git-worktrees/              # All worktrees live here
-<a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a>├── project-a/
-<a id="__codelineno-30-3" name="__codelineno-30-3" href="#__codelineno-30-3"></a>│   ├── feature-login/            # One feature
-<a id="__codelineno-30-4" name="__codelineno-30-4" href="#__codelineno-30-4"></a>│   ├── feature-dashboard/        # Another feature
-<a id="__codelineno-30-5" name="__codelineno-30-5" href="#__codelineno-30-5"></a>│   └── hotfix-urgent/            # Hotfix
-<a id="__codelineno-30-6" name="__codelineno-30-6" href="#__codelineno-30-6"></a>└── project-b/
-<a id="__codelineno-30-7" name="__codelineno-30-7" href="#__codelineno-30-7"></a>    └── refactor-api/             # Different project
-<a id="__codelineno-30-8" name="__codelineno-30-8" href="#__codelineno-30-8"></a>
-<a id="__codelineno-30-9" name="__codelineno-30-9" href="#__codelineno-30-9"></a>~/projects/                       # Your main repos
-<a id="__codelineno-30-10" name="__codelineno-30-10" href="#__codelineno-30-10"></a>├── project-a/                    # Main branch lives here
-<a id="__codelineno-30-11" name="__codelineno-30-11" href="#__codelineno-30-11"></a>└── project-b/                    # Main branch lives here
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>~/.git-worktrees/              # All worktrees live here
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>├── project-a/
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>│   ├── feature-login/            # One feature
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>│   ├── feature-dashboard/        # Another feature
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>│   └── hotfix-urgent/            # Hotfix
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>└── project-b/
+<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>    └── refactor-api/             # Different project
+<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>
+<a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a>~/projects/                       # Your main repos
+<a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a>├── project-a/                    # Main branch lives here
+<a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a>└── project-b/                    # Main branch lives here
 </code></pre></div>
 <hr />
 <h2 id="part-9-quick-reference-card">Part 9: Quick Reference Card</h2>
@@ -4921,79 +4901,78 @@
 </tbody>
 </table>
 <h3 id="quick-setup-for-new-feature">Quick Setup for New Feature</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a><span class="c1"># One-liner: create worktree + cd + install</span>
-<a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>~/.git-worktrees/myapp<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-31-3" name="__codelineno-31-3" href="#__codelineno-31-3"></a>git<span class="w"> </span>worktree<span class="w"> </span>add<span class="w"> </span>~/.git-worktrees/myapp/feature-x<span class="w"> </span>feature-x<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-31-4" name="__codelineno-31-4" href="#__codelineno-31-4"></a><span class="nb">cd</span><span class="w"> </span>~/.git-worktrees/myapp/feature-x<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-31-5" name="__codelineno-31-5" href="#__codelineno-31-5"></a>npm<span class="w"> </span>install
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="c1"># One-liner: create worktree + cd + install</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>~/.git-worktrees/myapp<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>git<span class="w"> </span>worktree<span class="w"> </span>add<span class="w"> </span>~/.git-worktrees/myapp/feature-x<span class="w"> </span>feature-x<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="nb">cd</span><span class="w"> </span>~/.git-worktrees/myapp/feature-x<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>npm<span class="w"> </span>install
 </code></pre></div>
 <hr />
 <h2 id="part-10-troubleshooting">Part 10: Troubleshooting</h2>
 <h3 id="branch-is-already-checked-out">"Branch is already checked out"</h3>
 <p>You can't have the same branch in two worktrees. If you see this error:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a>fatal: &#39;feature/login&#39; is already checked out at &#39;/home/you/worktrees/my-app-login&#39;
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>fatal: &#39;feature/login&#39; is already checked out at &#39;/home/you/worktrees/my-app-login&#39;
 </code></pre></div>
 <p><strong>Solution:</strong> Use the existing worktree, or checkout a different branch.</p>
 <hr />
 <h3 id="i-deleted-the-folder-but-git-still-thinks-it-exists">"I deleted the folder but git still thinks it exists"</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a><span class="c1"># Clean up references to deleted worktrees</span>
-<a id="__codelineno-33-2" name="__codelineno-33-2" href="#__codelineno-33-2"></a>git<span class="w"> </span>worktree<span class="w"> </span>prune
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="c1"># Clean up references to deleted worktrees</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>git<span class="w"> </span>worktree<span class="w"> </span>prune
 </code></pre></div>
 <hr />
 <h3 id="parent-directory-doesnt-exist">"Parent directory doesn't exist"</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a><span class="c1"># Error: fatal: cannot mkdir &#39;path&#39;: No such file or directory</span>
-<a id="__codelineno-34-2" name="__codelineno-34-2" href="#__codelineno-34-2"></a>
-<a id="__codelineno-34-3" name="__codelineno-34-3" href="#__codelineno-34-3"></a><span class="c1"># Solution: Create the parent first</span>
-<a id="__codelineno-34-4" name="__codelineno-34-4" href="#__codelineno-34-4"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>~/.git-worktrees/my-project/
-<a id="__codelineno-34-5" name="__codelineno-34-5" href="#__codelineno-34-5"></a>git<span class="w"> </span>worktree<span class="w"> </span>add<span class="w"> </span>~/.git-worktrees/my-project/feature<span class="w"> </span>feature-x
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="c1"># Error: fatal: cannot mkdir &#39;path&#39;: No such file or directory</span>
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="c1"># Solution: Create the parent first</span>
+<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>~/.git-worktrees/my-project/
+<a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>git<span class="w"> </span>worktree<span class="w"> </span>add<span class="w"> </span>~/.git-worktrees/my-project/feature<span class="w"> </span>feature-x
 </code></pre></div>
 <hr />
 <h3 id="i-made-changes-in-the-wrong-worktree">"I made changes in the wrong worktree"</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a><span class="c1"># In the WRONG worktree, stash your changes</span>
-<a id="__codelineno-35-2" name="__codelineno-35-2" href="#__codelineno-35-2"></a>git<span class="w"> </span>stash<span class="w"> </span>push<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;oops, meant for other branch&quot;</span>
-<a id="__codelineno-35-3" name="__codelineno-35-3" href="#__codelineno-35-3"></a>
-<a id="__codelineno-35-4" name="__codelineno-35-4" href="#__codelineno-35-4"></a><span class="c1"># Go to the CORRECT worktree</span>
-<a id="__codelineno-35-5" name="__codelineno-35-5" href="#__codelineno-35-5"></a><span class="nb">cd</span><span class="w"> </span>~/.git-worktrees/correct-branch
-<a id="__codelineno-35-6" name="__codelineno-35-6" href="#__codelineno-35-6"></a>
-<a id="__codelineno-35-7" name="__codelineno-35-7" href="#__codelineno-35-7"></a><span class="c1"># Apply the stash</span>
-<a id="__codelineno-35-8" name="__codelineno-35-8" href="#__codelineno-35-8"></a>git<span class="w"> </span>stash<span class="w"> </span>pop
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="c1"># In the WRONG worktree, stash your changes</span>
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>git<span class="w"> </span>stash<span class="w"> </span>push<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;oops, meant for other branch&quot;</span>
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>
+<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="c1"># Go to the CORRECT worktree</span>
+<a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a><span class="nb">cd</span><span class="w"> </span>~/.git-worktrees/correct-branch
+<a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>
+<a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a><span class="c1"># Apply the stash</span>
+<a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a>git<span class="w"> </span>stash<span class="w"> </span>pop
 </code></pre></div>
 <hr />
 <h2 id="part-11-backup-recovery">Part 11: Backup &amp; Recovery</h2>
 <h3 id="do-i-need-to-back-up-the-git-worktrees-folder">Do I Need to Back Up the ~/.git-worktrees/ Folder?</h3>
 <p><strong>Short answer: No.</strong> Worktree folders are disposable. Here's why:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a>graph TD
-<a id="__codelineno-36-2" name="__codelineno-36-2" href="#__codelineno-36-2"></a>    subgraph BACKED_UP[&quot;✅ Already Backed Up (via git push to GitHub)&quot;]
-<a id="__codelineno-36-3" name="__codelineno-36-3" href="#__codelineno-36-3"></a>        B1[&quot;All your commits&quot;]
-<a id="__codelineno-36-4" name="__codelineno-36-4" href="#__codelineno-36-4"></a>        B2[&quot;All your branches&quot;]
-<a id="__codelineno-36-5" name="__codelineno-36-5" href="#__codelineno-36-5"></a>        B3[&quot;All code history&quot;]
-<a id="__codelineno-36-6" name="__codelineno-36-6" href="#__codelineno-36-6"></a>        B4[&quot;Everything on remote (GitHub/GitLab)&quot;]
-<a id="__codelineno-36-7" name="__codelineno-36-7" href="#__codelineno-36-7"></a>    end
-<a id="__codelineno-36-8" name="__codelineno-36-8" href="#__codelineno-36-8"></a>
-<a id="__codelineno-36-9" name="__codelineno-36-9" href="#__codelineno-36-9"></a>    subgraph RECREATABLE[&quot;🔄 Easily Recreated (30 seconds)&quot;]
-<a id="__codelineno-36-10" name="__codelineno-36-10" href="#__codelineno-36-10"></a>        R1[&quot;~/.git-worktrees/ folder&quot;]
-<a id="__codelineno-36-11" name="__codelineno-36-11" href="#__codelineno-36-11"></a>        R2[&quot;Any worktree folder&quot;]
-<a id="__codelineno-36-12" name="__codelineno-36-12" href="#__codelineno-36-12"></a>        R3[&quot;node_modules/ (npm install)&quot;]
-<a id="__codelineno-36-13" name="__codelineno-36-13" href="#__codelineno-36-13"></a>    end
-<a id="__codelineno-36-14" name="__codelineno-36-14" href="#__codelineno-36-14"></a>
-<a id="__codelineno-36-15" name="__codelineno-36-15" href="#__codelineno-36-15"></a>    subgraph AT_RISK[&quot;⚠️ Only Thing At Risk&quot;]
-<a id="__codelineno-36-16" name="__codelineno-36-16" href="#__codelineno-36-16"></a>        A1[&quot;Uncommitted changes&quot;]
-<a id="__codelineno-36-17" name="__codelineno-36-17" href="#__codelineno-36-17"></a>        A2[&quot;Unstaged files&quot;]
-<a id="__codelineno-36-18" name="__codelineno-36-18" href="#__codelineno-36-18"></a>    end
-<a id="__codelineno-36-19" name="__codelineno-36-19" href="#__codelineno-36-19"></a>
-<a id="__codelineno-36-20" name="__codelineno-36-20" href="#__codelineno-36-20"></a>    BACKED_UP --&gt; SAFE[&quot;Safe on GitHub&quot;]
-<a id="__codelineno-36-21" name="__codelineno-36-21" href="#__codelineno-36-21"></a>    RECREATABLE --&gt; EASY[&quot;Just run git worktree add again&quot;]
-<a id="__codelineno-36-22" name="__codelineno-36-22" href="#__codelineno-36-22"></a>    AT_RISK --&gt; FIX[&quot;Solution: Commit and push regularly!&quot;]
-</code></pre></div>
+<pre class="mermaid"><code>graph TD
+    subgraph BACKED_UP["✅ Already Backed Up (via git push to GitHub)"]
+        B1["All your commits"]
+        B2["All your branches"]
+        B3["All code history"]
+        B4["Everything on remote (GitHub/GitLab)"]
+    end
+
+    subgraph RECREATABLE["🔄 Easily Recreated (30 seconds)"]
+        R1["~/.git-worktrees/ folder"]
+        R2["Any worktree folder"]
+        R3["node_modules/ (npm install)"]
+    end
+
+    subgraph AT_RISK["⚠️ Only Thing At Risk"]
+        A1["Uncommitted changes"]
+        A2["Unstaged files"]
+    end
+
+    BACKED_UP --&gt; SAFE["Safe on GitHub"]
+    RECREATABLE --&gt; EASY["Just run git worktree add again"]
+    AT_RISK --&gt; FIX["Solution: Commit and push regularly!"]</code></pre>
 <h3 id="what-if-i-lose-a-worktree-folder">What If I Lose a Worktree Folder?</h3>
 <p>No problem! Recreate it in 30 seconds:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a><span class="c1"># Worktree folder got deleted somehow? Just recreate it:</span>
-<a id="__codelineno-37-2" name="__codelineno-37-2" href="#__codelineno-37-2"></a><span class="nb">cd</span><span class="w"> </span>~/projects/dev-tools/aiterm
-<a id="__codelineno-37-3" name="__codelineno-37-3" href="#__codelineno-37-3"></a>git<span class="w"> </span>worktree<span class="w"> </span>add<span class="w"> </span>~/.git-worktrees/aiterm/feature-mcp<span class="w"> </span>feature/mcp
-<a id="__codelineno-37-4" name="__codelineno-37-4" href="#__codelineno-37-4"></a><span class="nb">cd</span><span class="w"> </span>~/.git-worktrees/aiterm/feature-mcp
-<a id="__codelineno-37-5" name="__codelineno-37-5" href="#__codelineno-37-5"></a>npm<span class="w"> </span>install
-<a id="__codelineno-37-6" name="__codelineno-37-6" href="#__codelineno-37-6"></a>
-<a id="__codelineno-37-7" name="__codelineno-37-7" href="#__codelineno-37-7"></a><span class="c1"># Done! All your COMMITTED work is restored.</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="c1"># Worktree folder got deleted somehow? Just recreate it:</span>
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="nb">cd</span><span class="w"> </span>~/projects/dev-tools/aiterm
+<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>git<span class="w"> </span>worktree<span class="w"> </span>add<span class="w"> </span>~/.git-worktrees/aiterm/feature-mcp<span class="w"> </span>feature/mcp
+<a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="nb">cd</span><span class="w"> </span>~/.git-worktrees/aiterm/feature-mcp
+<a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a>npm<span class="w"> </span>install
+<a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a>
+<a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a><span class="c1"># Done! All your COMMITTED work is restored.</span>
 </code></pre></div>
 <p><strong>The only thing you lose:</strong> Uncommitted changes in that worktree.</p>
 <hr />
@@ -5070,88 +5049,85 @@
 - Sync conflicts when files change rapidly</p>
 <hr />
 <h3 id="golden-rule-for-backups">Golden Rule for Backups</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a>graph LR
-<a id="__codelineno-38-2" name="__codelineno-38-2" href="#__codelineno-38-2"></a>    RULE[&quot;🏆 Golden Rule&quot;]
-<a id="__codelineno-38-3" name="__codelineno-38-3" href="#__codelineno-38-3"></a>    RULE --&gt; COMMITTED[&quot;If it&#39;s committed + pushed&lt;br/&gt;= Backed up on GitHub&quot;]
-<a id="__codelineno-38-4" name="__codelineno-38-4" href="#__codelineno-38-4"></a>    RULE --&gt; NOT[&quot;If it&#39;s NOT committed&lt;br/&gt;= NOT backed up anywhere&quot;]
-<a id="__codelineno-38-5" name="__codelineno-38-5" href="#__codelineno-38-5"></a>    RULE --&gt; WORKTREE[&quot;Worktree folders&lt;br/&gt;= Don&#39;t need backup (disposable)&quot;]
-</code></pre></div>
+<pre class="mermaid"><code>graph LR
+    RULE["🏆 Golden Rule"]
+    RULE --&gt; COMMITTED["If it's committed + pushed&lt;br/&gt;= Backed up on GitHub"]
+    RULE --&gt; NOT["If it's NOT committed&lt;br/&gt;= NOT backed up anywhere"]
+    RULE --&gt; WORKTREE["Worktree folders&lt;br/&gt;= Don't need backup (disposable)"]</code></pre>
 <p><strong>Before leaving any worktree:</strong></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a><span class="c1"># Quick save (even if not finished)</span>
-<a id="__codelineno-39-2" name="__codelineno-39-2" href="#__codelineno-39-2"></a>git<span class="w"> </span>add<span class="w"> </span>-A
-<a id="__codelineno-39-3" name="__codelineno-39-3" href="#__codelineno-39-3"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;WIP: [what you were working on]&quot;</span>
-<a id="__codelineno-39-4" name="__codelineno-39-4" href="#__codelineno-39-4"></a>git<span class="w"> </span>push
-<a id="__codelineno-39-5" name="__codelineno-39-5" href="#__codelineno-39-5"></a>
-<a id="__codelineno-39-6" name="__codelineno-39-6" href="#__codelineno-39-6"></a><span class="c1"># Now it&#39;s backed up on GitHub!</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="c1"># Quick save (even if not finished)</span>
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>git<span class="w"> </span>add<span class="w"> </span>-A
+<a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;WIP: [what you were working on]&quot;</span>
+<a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a>git<span class="w"> </span>push
+<a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a>
+<a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a><span class="c1"># Now it&#39;s backed up on GitHub!</span>
 </code></pre></div>
 <hr />
 <h2 id="part-12-using-worktrees-with-claude-code">Part 12: Using Worktrees with Claude Code</h2>
 <h3 id="where-to-start-claude-code">Where to Start Claude Code</h3>
 <p><strong>Start Claude Code in the worktree folder</strong>, not the main project:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a><span class="c1"># ✅ CORRECT: Start in the worktree</span>
-<a id="__codelineno-40-2" name="__codelineno-40-2" href="#__codelineno-40-2"></a><span class="nb">cd</span><span class="w"> </span>~/.git-worktrees/scribe/mission-control-hud
-<a id="__codelineno-40-3" name="__codelineno-40-3" href="#__codelineno-40-3"></a>claude
-<a id="__codelineno-40-4" name="__codelineno-40-4" href="#__codelineno-40-4"></a>
-<a id="__codelineno-40-5" name="__codelineno-40-5" href="#__codelineno-40-5"></a><span class="c1"># ❌ WRONG: Starting in main folder then trying to work on feature branch</span>
-<a id="__codelineno-40-6" name="__codelineno-40-6" href="#__codelineno-40-6"></a><span class="nb">cd</span><span class="w"> </span>~/projects/dev-tools/scribe
-<a id="__codelineno-40-7" name="__codelineno-40-7" href="#__codelineno-40-7"></a>claude<span class="w">  </span><span class="c1"># This sees &#39;main&#39; branch, not your feature!</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="c1"># ✅ CORRECT: Start in the worktree</span>
+<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="nb">cd</span><span class="w"> </span>~/.git-worktrees/scribe/mission-control-hud
+<a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>claude
+<a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a>
+<a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a><span class="c1"># ❌ WRONG: Starting in main folder then trying to work on feature branch</span>
+<a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a><span class="nb">cd</span><span class="w"> </span>~/projects/dev-tools/scribe
+<a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a>claude<span class="w">  </span><span class="c1"># This sees &#39;main&#39; branch, not your feature!</span>
 </code></pre></div>
 <p><strong>Why?</strong>
 - Claude sees the correct branch automatically
 - All file changes stay in that worktree
 - No cross-branch interference
 - Each terminal/Claude session is isolated</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a>graph TD
-<a id="__codelineno-41-2" name="__codelineno-41-2" href="#__codelineno-41-2"></a>    subgraph CORRECT[&quot;✅ CORRECT: Each Claude in its worktree&quot;]
-<a id="__codelineno-41-3" name="__codelineno-41-3" href="#__codelineno-41-3"></a>        T1[&quot;Terminal 1&lt;br/&gt;cd ~/.git-worktrees/scribe/mission-control-hud&lt;br/&gt;claude&lt;br/&gt;→ Works on feat/mission-control-hud&quot;]
-<a id="__codelineno-41-4" name="__codelineno-41-4" href="#__codelineno-41-4"></a>        T2[&quot;Terminal 2&lt;br/&gt;cd ~/.git-worktrees/scribe/wonderful-wilson&lt;br/&gt;claude&lt;br/&gt;→ Works on wonderful-wilson&quot;]
-<a id="__codelineno-41-5" name="__codelineno-41-5" href="#__codelineno-41-5"></a>    end
-<a id="__codelineno-41-6" name="__codelineno-41-6" href="#__codelineno-41-6"></a>
-<a id="__codelineno-41-7" name="__codelineno-41-7" href="#__codelineno-41-7"></a>    subgraph WRONG[&quot;❌ WRONG: Both in main folder&quot;]
-<a id="__codelineno-41-8" name="__codelineno-41-8" href="#__codelineno-41-8"></a>        T3[&quot;Terminal 1&lt;br/&gt;cd ~/projects/dev-tools/scribe&lt;br/&gt;claude&lt;br/&gt;→ Both see same files!&quot;]
-<a id="__codelineno-41-9" name="__codelineno-41-9" href="#__codelineno-41-9"></a>        T4[&quot;Terminal 2&lt;br/&gt;cd ~/projects/dev-tools/scribe&lt;br/&gt;claude&lt;br/&gt;→ Branches interfere!&quot;]
-<a id="__codelineno-41-10" name="__codelineno-41-10" href="#__codelineno-41-10"></a>    end
-</code></pre></div>
+<pre class="mermaid"><code>graph TD
+    subgraph CORRECT["✅ CORRECT: Each Claude in its worktree"]
+        T1["Terminal 1&lt;br/&gt;cd ~/.git-worktrees/scribe/mission-control-hud&lt;br/&gt;claude&lt;br/&gt;→ Works on feat/mission-control-hud"]
+        T2["Terminal 2&lt;br/&gt;cd ~/.git-worktrees/scribe/wonderful-wilson&lt;br/&gt;claude&lt;br/&gt;→ Works on wonderful-wilson"]
+    end
+
+    subgraph WRONG["❌ WRONG: Both in main folder"]
+        T3["Terminal 1&lt;br/&gt;cd ~/projects/dev-tools/scribe&lt;br/&gt;claude&lt;br/&gt;→ Both see same files!"]
+        T4["Terminal 2&lt;br/&gt;cd ~/projects/dev-tools/scribe&lt;br/&gt;claude&lt;br/&gt;→ Branches interfere!"]
+    end</code></pre>
 <hr />
 <h3 id="moving-an-existing-branch-to-a-worktree">Moving an Existing Branch to a Worktree</h3>
 <p>Sometimes you're already working on a branch in your main folder and want to move it to a worktree. Here's the real-world process (used with the scribe project):</p>
 <p><strong>The Problem:</strong>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a>~/projects/dev-tools/scribe/  →  feat/mission-control-hud (37 uncommitted files!)
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>~/projects/dev-tools/scribe/  →  feat/mission-control-hud (37 uncommitted files!)
 </code></pre></div></p>
 <p>You can't just create a worktree — the branch is already checked out. Here's the solution:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a><span class="c1"># Step 1: Stash your uncommitted work (IMPORTANT!)</span>
-<a id="__codelineno-43-2" name="__codelineno-43-2" href="#__codelineno-43-2"></a><span class="nb">cd</span><span class="w"> </span>~/projects/dev-tools/scribe
-<a id="__codelineno-43-3" name="__codelineno-43-3" href="#__codelineno-43-3"></a>git<span class="w"> </span>stash<span class="w"> </span>--include-untracked<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;WIP before moving to worktree&quot;</span>
-<a id="__codelineno-43-4" name="__codelineno-43-4" href="#__codelineno-43-4"></a>
-<a id="__codelineno-43-5" name="__codelineno-43-5" href="#__codelineno-43-5"></a><span class="c1"># Step 2: Switch main folder to a stable branch</span>
-<a id="__codelineno-43-6" name="__codelineno-43-6" href="#__codelineno-43-6"></a>git<span class="w"> </span>checkout<span class="w"> </span>main
-<a id="__codelineno-43-7" name="__codelineno-43-7" href="#__codelineno-43-7"></a>
-<a id="__codelineno-43-8" name="__codelineno-43-8" href="#__codelineno-43-8"></a><span class="c1"># Step 3: Create the worktree for your feature branch</span>
-<a id="__codelineno-43-9" name="__codelineno-43-9" href="#__codelineno-43-9"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>~/.git-worktrees/scribe
-<a id="__codelineno-43-10" name="__codelineno-43-10" href="#__codelineno-43-10"></a>git<span class="w"> </span>worktree<span class="w"> </span>add<span class="w"> </span>~/.git-worktrees/scribe/mission-control-hud<span class="w"> </span>feat/mission-control-hud
-<a id="__codelineno-43-11" name="__codelineno-43-11" href="#__codelineno-43-11"></a>
-<a id="__codelineno-43-12" name="__codelineno-43-12" href="#__codelineno-43-12"></a><span class="c1"># Step 4: Move to the new worktree and restore your work</span>
-<a id="__codelineno-43-13" name="__codelineno-43-13" href="#__codelineno-43-13"></a><span class="nb">cd</span><span class="w"> </span>~/.git-worktrees/scribe/mission-control-hud
-<a id="__codelineno-43-14" name="__codelineno-43-14" href="#__codelineno-43-14"></a>git<span class="w"> </span>stash<span class="w"> </span>pop
-<a id="__codelineno-43-15" name="__codelineno-43-15" href="#__codelineno-43-15"></a>
-<a id="__codelineno-43-16" name="__codelineno-43-16" href="#__codelineno-43-16"></a><span class="c1"># Step 5: Install dependencies</span>
-<a id="__codelineno-43-17" name="__codelineno-43-17" href="#__codelineno-43-17"></a>npm<span class="w"> </span>install
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="c1"># Step 1: Stash your uncommitted work (IMPORTANT!)</span>
+<a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="nb">cd</span><span class="w"> </span>~/projects/dev-tools/scribe
+<a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a>git<span class="w"> </span>stash<span class="w"> </span>--include-untracked<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;WIP before moving to worktree&quot;</span>
+<a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a>
+<a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a><span class="c1"># Step 2: Switch main folder to a stable branch</span>
+<a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a>git<span class="w"> </span>checkout<span class="w"> </span>main
+<a id="__codelineno-20-7" name="__codelineno-20-7" href="#__codelineno-20-7"></a>
+<a id="__codelineno-20-8" name="__codelineno-20-8" href="#__codelineno-20-8"></a><span class="c1"># Step 3: Create the worktree for your feature branch</span>
+<a id="__codelineno-20-9" name="__codelineno-20-9" href="#__codelineno-20-9"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>~/.git-worktrees/scribe
+<a id="__codelineno-20-10" name="__codelineno-20-10" href="#__codelineno-20-10"></a>git<span class="w"> </span>worktree<span class="w"> </span>add<span class="w"> </span>~/.git-worktrees/scribe/mission-control-hud<span class="w"> </span>feat/mission-control-hud
+<a id="__codelineno-20-11" name="__codelineno-20-11" href="#__codelineno-20-11"></a>
+<a id="__codelineno-20-12" name="__codelineno-20-12" href="#__codelineno-20-12"></a><span class="c1"># Step 4: Move to the new worktree and restore your work</span>
+<a id="__codelineno-20-13" name="__codelineno-20-13" href="#__codelineno-20-13"></a><span class="nb">cd</span><span class="w"> </span>~/.git-worktrees/scribe/mission-control-hud
+<a id="__codelineno-20-14" name="__codelineno-20-14" href="#__codelineno-20-14"></a>git<span class="w"> </span>stash<span class="w"> </span>pop
+<a id="__codelineno-20-15" name="__codelineno-20-15" href="#__codelineno-20-15"></a>
+<a id="__codelineno-20-16" name="__codelineno-20-16" href="#__codelineno-20-16"></a><span class="c1"># Step 5: Install dependencies</span>
+<a id="__codelineno-20-17" name="__codelineno-20-17" href="#__codelineno-20-17"></a>npm<span class="w"> </span>install
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-44-1" name="__codelineno-44-1" href="#__codelineno-44-1"></a>flowchart TD
-<a id="__codelineno-44-2" name="__codelineno-44-2" href="#__codelineno-44-2"></a>    START[&quot;Branch checked out in main folder&lt;br/&gt;Can&#39;t create worktree!&quot;]
-<a id="__codelineno-44-3" name="__codelineno-44-3" href="#__codelineno-44-3"></a>
-<a id="__codelineno-44-4" name="__codelineno-44-4" href="#__codelineno-44-4"></a>    START --&gt; STASH[&quot;1️⃣ git stash --include-untracked&lt;br/&gt;Save uncommitted work&quot;]
-<a id="__codelineno-44-5" name="__codelineno-44-5" href="#__codelineno-44-5"></a>
-<a id="__codelineno-44-6" name="__codelineno-44-6" href="#__codelineno-44-6"></a>    STASH --&gt; SWITCH[&quot;2️⃣ git checkout main&lt;br/&gt;Free up the branch&quot;]
-<a id="__codelineno-44-7" name="__codelineno-44-7" href="#__codelineno-44-7"></a>
-<a id="__codelineno-44-8" name="__codelineno-44-8" href="#__codelineno-44-8"></a>    SWITCH --&gt; CREATE[&quot;3️⃣ git worktree add path branch&lt;br/&gt;Create worktree&quot;]
-<a id="__codelineno-44-9" name="__codelineno-44-9" href="#__codelineno-44-9"></a>
-<a id="__codelineno-44-10" name="__codelineno-44-10" href="#__codelineno-44-10"></a>    CREATE --&gt; RESTORE[&quot;4️⃣ cd worktree &amp;&amp; git stash pop&lt;br/&gt;Restore your work&quot;]
-<a id="__codelineno-44-11" name="__codelineno-44-11" href="#__codelineno-44-11"></a>
-<a id="__codelineno-44-12" name="__codelineno-44-12" href="#__codelineno-44-12"></a>    RESTORE --&gt; INSTALL[&quot;5️⃣ npm install&lt;br/&gt;Install dependencies&quot;]
-<a id="__codelineno-44-13" name="__codelineno-44-13" href="#__codelineno-44-13"></a>
-<a id="__codelineno-44-14" name="__codelineno-44-14" href="#__codelineno-44-14"></a>    INSTALL --&gt; DONE[&quot;✅ Ready to work in worktree!&quot;]
-</code></pre></div>
+<pre class="mermaid"><code>flowchart TD
+    START["Branch checked out in main folder&lt;br/&gt;Can't create worktree!"]
+
+    START --&gt; STASH["1️⃣ git stash --include-untracked&lt;br/&gt;Save uncommitted work"]
+
+    STASH --&gt; SWITCH["2️⃣ git checkout main&lt;br/&gt;Free up the branch"]
+
+    SWITCH --&gt; CREATE["3️⃣ git worktree add path branch&lt;br/&gt;Create worktree"]
+
+    CREATE --&gt; RESTORE["4️⃣ cd worktree &amp;&amp; git stash pop&lt;br/&gt;Restore your work"]
+
+    RESTORE --&gt; INSTALL["5️⃣ npm install&lt;br/&gt;Install dependencies"]
+
+    INSTALL --&gt; DONE["✅ Ready to work in worktree!"]</code></pre>
 <p><strong>Result:</strong>
 | Location | Branch | Purpose |
 |----------|--------|---------|
@@ -5188,68 +5164,67 @@
 </tbody>
 </table>
 <p><strong>Why not shared?</strong></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-45-1" name="__codelineno-45-1" href="#__codelineno-45-1"></a>graph TD
-<a id="__codelineno-45-2" name="__codelineno-45-2" href="#__codelineno-45-2"></a>    subgraph WT1[&quot;Worktree 1: feature-a&quot;]
-<a id="__codelineno-45-3" name="__codelineno-45-3" href="#__codelineno-45-3"></a>        N1[&quot;node_modules/&lt;br/&gt;Has package X v1.0&quot;]
-<a id="__codelineno-45-4" name="__codelineno-45-4" href="#__codelineno-45-4"></a>    end
-<a id="__codelineno-45-5" name="__codelineno-45-5" href="#__codelineno-45-5"></a>
-<a id="__codelineno-45-6" name="__codelineno-45-6" href="#__codelineno-45-6"></a>    subgraph WT2[&quot;Worktree 2: feature-b&quot;]
-<a id="__codelineno-45-7" name="__codelineno-45-7" href="#__codelineno-45-7"></a>        N2[&quot;node_modules/&lt;br/&gt;Has package X v2.0&quot;]
-<a id="__codelineno-45-8" name="__codelineno-45-8" href="#__codelineno-45-8"></a>    end
-<a id="__codelineno-45-9" name="__codelineno-45-9" href="#__codelineno-45-9"></a>
-<a id="__codelineno-45-10" name="__codelineno-45-10" href="#__codelineno-45-10"></a>    NOTE[&quot;Different branches might need&lt;br/&gt;different dependency versions!&quot;]
-</code></pre></div>
+<pre class="mermaid"><code>graph TD
+    subgraph WT1["Worktree 1: feature-a"]
+        N1["node_modules/&lt;br/&gt;Has package X v1.0"]
+    end
+
+    subgraph WT2["Worktree 2: feature-b"]
+        N2["node_modules/&lt;br/&gt;Has package X v2.0"]
+    end
+
+    NOTE["Different branches might need&lt;br/&gt;different dependency versions!"]</code></pre>
 <p>Each worktree could have different <code>package.json</code> changes, so they need separate <code>node_modules/</code>.</p>
 <p><strong>After creating a worktree, always install:</strong></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-46-1" name="__codelineno-46-1" href="#__codelineno-46-1"></a><span class="c1"># Node.js projects</span>
-<a id="__codelineno-46-2" name="__codelineno-46-2" href="#__codelineno-46-2"></a><span class="nb">cd</span><span class="w"> </span>~/.git-worktrees/project/feature-branch
-<a id="__codelineno-46-3" name="__codelineno-46-3" href="#__codelineno-46-3"></a>npm<span class="w"> </span>install
-<a id="__codelineno-46-4" name="__codelineno-46-4" href="#__codelineno-46-4"></a>
-<a id="__codelineno-46-5" name="__codelineno-46-5" href="#__codelineno-46-5"></a><span class="c1"># Python projects</span>
-<a id="__codelineno-46-6" name="__codelineno-46-6" href="#__codelineno-46-6"></a><span class="nb">cd</span><span class="w"> </span>~/.git-worktrees/project/feature-branch
-<a id="__codelineno-46-7" name="__codelineno-46-7" href="#__codelineno-46-7"></a>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="c1"># Node.js projects</span>
+<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a><span class="nb">cd</span><span class="w"> </span>~/.git-worktrees/project/feature-branch
+<a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>npm<span class="w"> </span>install
+<a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a>
+<a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a><span class="c1"># Python projects</span>
+<a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a><span class="nb">cd</span><span class="w"> </span>~/.git-worktrees/project/feature-branch
+<a id="__codelineno-21-7" name="__codelineno-21-7" href="#__codelineno-21-7"></a>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
 </code></pre></div>
 <p><strong>Quick check — are dependencies installed?</strong></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-47-1" name="__codelineno-47-1" href="#__codelineno-47-1"></a>ls<span class="w"> </span>node_modules<span class="w">  </span><span class="c1"># Should show packages, not &quot;No such file&quot;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>ls<span class="w"> </span>node_modules<span class="w">  </span><span class="c1"># Should show packages, not &quot;No such file&quot;</span>
 </code></pre></div>
 <hr />
 <h3 id="shell-aliases-for-quick-access">Shell Aliases for Quick Access</h3>
 <p>Add these to <code>~/.config/zsh/.zshrc</code> or <code>~/.zshrc</code>:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-48-1" name="__codelineno-48-1" href="#__codelineno-48-1"></a><span class="c1"># Quick navigation to worktrees folder</span>
-<a id="__codelineno-48-2" name="__codelineno-48-2" href="#__codelineno-48-2"></a><span class="nb">alias</span><span class="w"> </span><span class="nv">wt</span><span class="o">=</span><span class="s1">&#39;cd ~/.git-worktrees&#39;</span>
-<a id="__codelineno-48-3" name="__codelineno-48-3" href="#__codelineno-48-3"></a>
-<a id="__codelineno-48-4" name="__codelineno-48-4" href="#__codelineno-48-4"></a><span class="c1"># List all worktrees for current project</span>
-<a id="__codelineno-48-5" name="__codelineno-48-5" href="#__codelineno-48-5"></a><span class="nb">alias</span><span class="w"> </span><span class="nv">wtl</span><span class="o">=</span><span class="s1">&#39;git worktree list&#39;</span>
-<a id="__codelineno-48-6" name="__codelineno-48-6" href="#__codelineno-48-6"></a>
-<a id="__codelineno-48-7" name="__codelineno-48-7" href="#__codelineno-48-7"></a><span class="c1"># Project-specific aliases (customize for your projects)</span>
-<a id="__codelineno-48-8" name="__codelineno-48-8" href="#__codelineno-48-8"></a><span class="nb">alias</span><span class="w"> </span>scribe-hud<span class="o">=</span><span class="s1">&#39;cd ~/.git-worktrees/scribe/mission-control-hud&#39;</span>
-<a id="__codelineno-48-9" name="__codelineno-48-9" href="#__codelineno-48-9"></a><span class="nb">alias</span><span class="w"> </span>scribe-alt<span class="o">=</span><span class="s1">&#39;cd ~/.git-worktrees/scribe/wonderful-wilson&#39;</span>
-<a id="__codelineno-48-10" name="__codelineno-48-10" href="#__codelineno-48-10"></a><span class="nb">alias</span><span class="w"> </span>aiterm-wt<span class="o">=</span><span class="s1">&#39;cd ~/.git-worktrees/aiterm&#39;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="c1"># Quick navigation to worktrees folder</span>
+<a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a><span class="nb">alias</span><span class="w"> </span><span class="nv">wt</span><span class="o">=</span><span class="s1">&#39;cd ~/.git-worktrees&#39;</span>
+<a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a>
+<a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a><span class="c1"># List all worktrees for current project</span>
+<a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a><span class="nb">alias</span><span class="w"> </span><span class="nv">wtl</span><span class="o">=</span><span class="s1">&#39;git worktree list&#39;</span>
+<a id="__codelineno-23-6" name="__codelineno-23-6" href="#__codelineno-23-6"></a>
+<a id="__codelineno-23-7" name="__codelineno-23-7" href="#__codelineno-23-7"></a><span class="c1"># Project-specific aliases (customize for your projects)</span>
+<a id="__codelineno-23-8" name="__codelineno-23-8" href="#__codelineno-23-8"></a><span class="nb">alias</span><span class="w"> </span>scribe-hud<span class="o">=</span><span class="s1">&#39;cd ~/.git-worktrees/scribe/mission-control-hud&#39;</span>
+<a id="__codelineno-23-9" name="__codelineno-23-9" href="#__codelineno-23-9"></a><span class="nb">alias</span><span class="w"> </span>scribe-alt<span class="o">=</span><span class="s1">&#39;cd ~/.git-worktrees/scribe/wonderful-wilson&#39;</span>
+<a id="__codelineno-23-10" name="__codelineno-23-10" href="#__codelineno-23-10"></a><span class="nb">alias</span><span class="w"> </span>aiterm-wt<span class="o">=</span><span class="s1">&#39;cd ~/.git-worktrees/aiterm&#39;</span>
 </code></pre></div>
 <p><strong>Usage:</strong>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-49-1" name="__codelineno-49-1" href="#__codelineno-49-1"></a><span class="c1"># Jump to scribe HUD worktree and start Claude</span>
-<a id="__codelineno-49-2" name="__codelineno-49-2" href="#__codelineno-49-2"></a>scribe-hud<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>claude
-<a id="__codelineno-49-3" name="__codelineno-49-3" href="#__codelineno-49-3"></a>
-<a id="__codelineno-49-4" name="__codelineno-49-4" href="#__codelineno-49-4"></a><span class="c1"># Jump to scribe alternate worktree</span>
-<a id="__codelineno-49-5" name="__codelineno-49-5" href="#__codelineno-49-5"></a>scribe-alt<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>claude
-<a id="__codelineno-49-6" name="__codelineno-49-6" href="#__codelineno-49-6"></a>
-<a id="__codelineno-49-7" name="__codelineno-49-7" href="#__codelineno-49-7"></a><span class="c1"># See all worktrees</span>
-<a id="__codelineno-49-8" name="__codelineno-49-8" href="#__codelineno-49-8"></a>wtl
+<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="c1"># Jump to scribe HUD worktree and start Claude</span>
+<a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a>scribe-hud<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>claude
+<a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a>
+<a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a><span class="c1"># Jump to scribe alternate worktree</span>
+<a id="__codelineno-24-5" name="__codelineno-24-5" href="#__codelineno-24-5"></a>scribe-alt<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>claude
+<a id="__codelineno-24-6" name="__codelineno-24-6" href="#__codelineno-24-6"></a>
+<a id="__codelineno-24-7" name="__codelineno-24-7" href="#__codelineno-24-7"></a><span class="c1"># See all worktrees</span>
+<a id="__codelineno-24-8" name="__codelineno-24-8" href="#__codelineno-24-8"></a>wtl
 </code></pre></div></p>
 <hr />
 <h3 id="parallel-development-workflow">Parallel Development Workflow</h3>
 <p>Here's the complete workflow for working on two features simultaneously:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-50-1" name="__codelineno-50-1" href="#__codelineno-50-1"></a><span class="c1"># Terminal 1: Mission Control HUD feature</span>
-<a id="__codelineno-50-2" name="__codelineno-50-2" href="#__codelineno-50-2"></a>scribe-hud<span class="w">                    </span><span class="c1"># Jump to worktree (alias)</span>
-<a id="__codelineno-50-3" name="__codelineno-50-3" href="#__codelineno-50-3"></a>claude<span class="w">                        </span><span class="c1"># Start Claude Code</span>
-<a id="__codelineno-50-4" name="__codelineno-50-4" href="#__codelineno-50-4"></a><span class="c1"># Claude sees: feat/mission-control-hud branch</span>
-<a id="__codelineno-50-5" name="__codelineno-50-5" href="#__codelineno-50-5"></a><span class="c1"># npm run dev runs on default port</span>
-<a id="__codelineno-50-6" name="__codelineno-50-6" href="#__codelineno-50-6"></a>
-<a id="__codelineno-50-7" name="__codelineno-50-7" href="#__codelineno-50-7"></a><span class="c1"># Terminal 2: Alternate feature (Wonderful Wilson)</span>
-<a id="__codelineno-50-8" name="__codelineno-50-8" href="#__codelineno-50-8"></a>scribe-alt<span class="w">                    </span><span class="c1"># Jump to worktree (alias)</span>
-<a id="__codelineno-50-9" name="__codelineno-50-9" href="#__codelineno-50-9"></a>claude<span class="w">                        </span><span class="c1"># Start Claude Code</span>
-<a id="__codelineno-50-10" name="__codelineno-50-10" href="#__codelineno-50-10"></a><span class="c1"># Claude sees: wonderful-wilson branch</span>
-<a id="__codelineno-50-11" name="__codelineno-50-11" href="#__codelineno-50-11"></a><span class="nv">PORT</span><span class="o">=</span><span class="m">3001</span><span class="w"> </span>npm<span class="w"> </span>run<span class="w"> </span>dev<span class="w">         </span><span class="c1"># Use different port!</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="c1"># Terminal 1: Mission Control HUD feature</span>
+<a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a>scribe-hud<span class="w">                    </span><span class="c1"># Jump to worktree (alias)</span>
+<a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a>claude<span class="w">                        </span><span class="c1"># Start Claude Code</span>
+<a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a><span class="c1"># Claude sees: feat/mission-control-hud branch</span>
+<a id="__codelineno-25-5" name="__codelineno-25-5" href="#__codelineno-25-5"></a><span class="c1"># npm run dev runs on default port</span>
+<a id="__codelineno-25-6" name="__codelineno-25-6" href="#__codelineno-25-6"></a>
+<a id="__codelineno-25-7" name="__codelineno-25-7" href="#__codelineno-25-7"></a><span class="c1"># Terminal 2: Alternate feature (Wonderful Wilson)</span>
+<a id="__codelineno-25-8" name="__codelineno-25-8" href="#__codelineno-25-8"></a>scribe-alt<span class="w">                    </span><span class="c1"># Jump to worktree (alias)</span>
+<a id="__codelineno-25-9" name="__codelineno-25-9" href="#__codelineno-25-9"></a>claude<span class="w">                        </span><span class="c1"># Start Claude Code</span>
+<a id="__codelineno-25-10" name="__codelineno-25-10" href="#__codelineno-25-10"></a><span class="c1"># Claude sees: wonderful-wilson branch</span>
+<a id="__codelineno-25-11" name="__codelineno-25-11" href="#__codelineno-25-11"></a><span class="nv">PORT</span><span class="o">=</span><span class="m">3001</span><span class="w"> </span>npm<span class="w"> </span>run<span class="w"> </span>dev<span class="w">         </span><span class="c1"># Use different port!</span>
 </code></pre></div>
 <p><strong>Key points:</strong>
 - Each Claude Code session is isolated
@@ -5258,18 +5233,17 @@
 - Dev servers run on different ports</p>
 <hr />
 <h2 id="summary">Summary</h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-51-1" name="__codelineno-51-1" href="#__codelineno-51-1"></a>graph LR
-<a id="__codelineno-51-2" name="__codelineno-51-2" href="#__codelineno-51-2"></a>    subgraph KEY[&quot;🔑 Key Takeaways&quot;]
-<a id="__codelineno-51-3" name="__codelineno-51-3" href="#__codelineno-51-3"></a>        K1[&quot;Branch = version of code&quot;]
-<a id="__codelineno-51-4" name="__codelineno-51-4" href="#__codelineno-51-4"></a>        K2[&quot;Worktree = folder for a branch&quot;]
-<a id="__codelineno-51-5" name="__codelineno-51-5" href="#__codelineno-51-5"></a>        K3[&quot;Use worktrees for parallel work&quot;]
-<a id="__codelineno-51-6" name="__codelineno-51-6" href="#__codelineno-51-6"></a>        K4[&quot;Each worktree is independent&quot;]
-<a id="__codelineno-51-7" name="__codelineno-51-7" href="#__codelineno-51-7"></a>        K5[&quot;They share git history&quot;]
-<a id="__codelineno-51-8" name="__codelineno-51-8" href="#__codelineno-51-8"></a>        K6[&quot;~/.git-worktrees/ is NOT auto-created&quot;]
-<a id="__codelineno-51-9" name="__codelineno-51-9" href="#__codelineno-51-9"></a>        K7[&quot;No need to backup worktree folders&quot;]
-<a id="__codelineno-51-10" name="__codelineno-51-10" href="#__codelineno-51-10"></a>        K8[&quot;Start Claude Code IN the worktree folder&quot;]
-<a id="__codelineno-51-11" name="__codelineno-51-11" href="#__codelineno-51-11"></a>    end
-</code></pre></div>
+<pre class="mermaid"><code>graph LR
+    subgraph KEY["🔑 Key Takeaways"]
+        K1["Branch = version of code"]
+        K2["Worktree = folder for a branch"]
+        K3["Use worktrees for parallel work"]
+        K4["Each worktree is independent"]
+        K5["They share git history"]
+        K6["~/.git-worktrees/ is NOT auto-created"]
+        K7["No need to backup worktree folders"]
+        K8["Start Claude Code IN the worktree folder"]
+    end</code></pre>
 <table>
 <thead>
 <tr>
@@ -5383,6 +5357,8 @@
     
     
       <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="https://unpkg.com/mermaid@10/dist/mermaid.min.js"></script>
       
     
   </body>

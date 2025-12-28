@@ -3808,78 +3808,77 @@
 <hr />
 <h2 id="diagnostic-flowchart">Diagnostic Flowchart</h2>
 <p>Use this flowchart to quickly identify and resolve common issues:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>flowchart TD
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    Start([Issue with aiterm?]) --&gt; Doctor[Run: aiterm doctor]
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    Doctor --&gt; DoctorOK{All checks&lt;br/&gt;passed?}
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    DoctorOK --&gt;|No| CheckFails{Which check&lt;br/&gt;failed?}
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    DoctorOK --&gt;|Yes| IssueType{What&#39;s the&lt;br/&gt;issue?}
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>
-<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>    CheckFails --&gt;|Python| PyFix[Python version &lt; 3.10&lt;br/&gt;→ Upgrade Python]
-<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>    CheckFails --&gt;|Terminal| TermFix[Unsupported terminal&lt;br/&gt;→ Install iTerm2]
-<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>    CheckFails --&gt;|Claude Code| ClaudeFix[Claude Code not found&lt;br/&gt;→ Install Claude CLI]
-<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>    CheckFails --&gt;|Settings| SettingsFix[Config missing&lt;br/&gt;→ Run: aiterm init]
-<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>
-<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>    PyFix --&gt; Retry[Retry: aiterm doctor]
-<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>    TermFix --&gt; Retry
-<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>    ClaudeFix --&gt; Retry
-<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>    SettingsFix --&gt; Retry
-<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>    Retry --&gt; DoctorOK
-<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>
-<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>    IssueType --&gt;|Profile not switching| ProfileIssue
-<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>    IssueType --&gt;|Context not detected| ContextIssue
-<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a>    IssueType --&gt;|Auto-approvals failing| ApprovalIssue
-<a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a>    IssueType --&gt;|Other| OtherIssue
-<a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a>
-<a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a>    ProfileIssue{Manual switch&lt;br/&gt;works?}
-<a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a>    ProfileIssue --&gt;|Yes| AutoSwitch[Auto-switching disabled&lt;br/&gt;→ Check AITERM_AUTO_SWITCH]
-<a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a>    ProfileIssue --&gt;|No| ProfileNotFound[Profile doesn&#39;t exist&lt;br/&gt;→ Run: aiterm profile list]
-<a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a>
-<a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a>    AutoSwitch --&gt; AddHook[Add chpwd hook to .zshrc&lt;br/&gt;See: Shell Integration]
-<a id="__codelineno-0-30" name="__codelineno-0-30" href="#__codelineno-0-30"></a>    ProfileNotFound --&gt; CreateProfile[Create custom profile&lt;br/&gt;See: Profile Management]
-<a id="__codelineno-0-31" name="__codelineno-0-31" href="#__codelineno-0-31"></a>
-<a id="__codelineno-0-32" name="__codelineno-0-32" href="#__codelineno-0-32"></a>    ContextIssue --&gt; DetectCmd[Run: aiterm detect]
-<a id="__codelineno-0-33" name="__codelineno-0-33" href="#__codelineno-0-33"></a>    DetectCmd --&gt; DetectResult{Context&lt;br/&gt;detected?}
-<a id="__codelineno-0-34" name="__codelineno-0-34" href="#__codelineno-0-34"></a>
-<a id="__codelineno-0-35" name="__codelineno-0-35" href="#__codelineno-0-35"></a>    DetectResult --&gt;|No| CheckMarkers[Check for context markers:&lt;br/&gt;- DESCRIPTION (R)&lt;br/&gt;- pyproject.toml (Python)&lt;br/&gt;- package.json (Node)]
-<a id="__codelineno-0-36" name="__codelineno-0-36" href="#__codelineno-0-36"></a>    DetectResult --&gt;|Yes| WrongProfile[Wrong profile selected?&lt;br/&gt;→ Adjust detection priority]
-<a id="__codelineno-0-37" name="__codelineno-0-37" href="#__codelineno-0-37"></a>
-<a id="__codelineno-0-38" name="__codelineno-0-38" href="#__codelineno-0-38"></a>    CheckMarkers --&gt; NoMarkers{Markers&lt;br/&gt;exist?}
-<a id="__codelineno-0-39" name="__codelineno-0-39" href="#__codelineno-0-39"></a>    NoMarkers --&gt;|No| AddMarkers[Add project markers or&lt;br/&gt;use manual profile switch]
-<a id="__codelineno-0-40" name="__codelineno-0-40" href="#__codelineno-0-40"></a>    NoMarkers --&gt;|Yes| CustomDetector[Create custom detector&lt;br/&gt;See: Integration Guide]
-<a id="__codelineno-0-41" name="__codelineno-0-41" href="#__codelineno-0-41"></a>
-<a id="__codelineno-0-42" name="__codelineno-0-42" href="#__codelineno-0-42"></a>    ApprovalIssue --&gt; ListPresets[Run: aiterm claude approvals list]
-<a id="__codelineno-0-43" name="__codelineno-0-43" href="#__codelineno-0-43"></a>    ListPresets --&gt; SetPreset[Run: aiterm claude approvals set PRESET]
-<a id="__codelineno-0-44" name="__codelineno-0-44" href="#__codelineno-0-44"></a>    SetPreset --&gt; VerifySettings[Check: ~/.claude/settings.json&lt;br/&gt;autoApprovals section]
-<a id="__codelineno-0-45" name="__codelineno-0-45" href="#__codelineno-0-45"></a>
-<a id="__codelineno-0-46" name="__codelineno-0-46" href="#__codelineno-0-46"></a>    VerifySettings --&gt; ValidJSON{Valid&lt;br/&gt;JSON?}
-<a id="__codelineno-0-47" name="__codelineno-0-47" href="#__codelineno-0-47"></a>    ValidJSON --&gt;|No| RestoreBackup[Restore from backup:&lt;br/&gt;~/.claude/settings.json.backup.*]
-<a id="__codelineno-0-48" name="__codelineno-0-48" href="#__codelineno-0-48"></a>    ValidJSON --&gt;|Yes| RestartClaude[Restart Claude Code]
-<a id="__codelineno-0-49" name="__codelineno-0-49" href="#__codelineno-0-49"></a>
-<a id="__codelineno-0-50" name="__codelineno-0-50" href="#__codelineno-0-50"></a>    OtherIssue --&gt; Debug[Run with debug logging:&lt;br/&gt;export AITERM_DEBUG=1]
-<a id="__codelineno-0-51" name="__codelineno-0-51" href="#__codelineno-0-51"></a>    Debug --&gt; Logs[Check logs and error messages]
-<a id="__codelineno-0-52" name="__codelineno-0-52" href="#__codelineno-0-52"></a>    Logs --&gt; GithubIssue[Still stuck?&lt;br/&gt;→ GitHub Issue with logs]
-<a id="__codelineno-0-53" name="__codelineno-0-53" href="#__codelineno-0-53"></a>
-<a id="__codelineno-0-54" name="__codelineno-0-54" href="#__codelineno-0-54"></a>    AddHook --&gt; Done([Issue Resolved])
-<a id="__codelineno-0-55" name="__codelineno-0-55" href="#__codelineno-0-55"></a>    CreateProfile --&gt; Done
-<a id="__codelineno-0-56" name="__codelineno-0-56" href="#__codelineno-0-56"></a>    WrongProfile --&gt; Done
-<a id="__codelineno-0-57" name="__codelineno-0-57" href="#__codelineno-0-57"></a>    AddMarkers --&gt; Done
-<a id="__codelineno-0-58" name="__codelineno-0-58" href="#__codelineno-0-58"></a>    CustomDetector --&gt; Done
-<a id="__codelineno-0-59" name="__codelineno-0-59" href="#__codelineno-0-59"></a>    RestartClaude --&gt; Done
-<a id="__codelineno-0-60" name="__codelineno-0-60" href="#__codelineno-0-60"></a>    RestoreBackup --&gt; Done
-<a id="__codelineno-0-61" name="__codelineno-0-61" href="#__codelineno-0-61"></a>
-<a id="__codelineno-0-62" name="__codelineno-0-62" href="#__codelineno-0-62"></a>    style Start fill:#e1f5e1
-<a id="__codelineno-0-63" name="__codelineno-0-63" href="#__codelineno-0-63"></a>    style Done fill:#e1f5e1
-<a id="__codelineno-0-64" name="__codelineno-0-64" href="#__codelineno-0-64"></a>    style DoctorOK fill:#fff4e6
-<a id="__codelineno-0-65" name="__codelineno-0-65" href="#__codelineno-0-65"></a>    style CheckFails fill:#fff4e6
-<a id="__codelineno-0-66" name="__codelineno-0-66" href="#__codelineno-0-66"></a>    style IssueType fill:#fff4e6
-<a id="__codelineno-0-67" name="__codelineno-0-67" href="#__codelineno-0-67"></a>    style ProfileIssue fill:#fff4e6
-<a id="__codelineno-0-68" name="__codelineno-0-68" href="#__codelineno-0-68"></a>    style DetectResult fill:#fff4e6
-<a id="__codelineno-0-69" name="__codelineno-0-69" href="#__codelineno-0-69"></a>    style NoMarkers fill:#fff4e6
-<a id="__codelineno-0-70" name="__codelineno-0-70" href="#__codelineno-0-70"></a>    style ValidJSON fill:#fff4e6
-<a id="__codelineno-0-71" name="__codelineno-0-71" href="#__codelineno-0-71"></a>    style GithubIssue fill:#ffe1e1
-</code></pre></div>
+<pre class="mermaid"><code>flowchart TD
+    Start([Issue with aiterm?]) --&gt; Doctor[Run: aiterm doctor]
+
+    Doctor --&gt; DoctorOK{All checks&lt;br/&gt;passed?}
+
+    DoctorOK --&gt;|No| CheckFails{Which check&lt;br/&gt;failed?}
+    DoctorOK --&gt;|Yes| IssueType{What's the&lt;br/&gt;issue?}
+
+    CheckFails --&gt;|Python| PyFix[Python version &lt; 3.10&lt;br/&gt;→ Upgrade Python]
+    CheckFails --&gt;|Terminal| TermFix[Unsupported terminal&lt;br/&gt;→ Install iTerm2]
+    CheckFails --&gt;|Claude Code| ClaudeFix[Claude Code not found&lt;br/&gt;→ Install Claude CLI]
+    CheckFails --&gt;|Settings| SettingsFix[Config missing&lt;br/&gt;→ Run: aiterm init]
+
+    PyFix --&gt; Retry[Retry: aiterm doctor]
+    TermFix --&gt; Retry
+    ClaudeFix --&gt; Retry
+    SettingsFix --&gt; Retry
+    Retry --&gt; DoctorOK
+
+    IssueType --&gt;|Profile not switching| ProfileIssue
+    IssueType --&gt;|Context not detected| ContextIssue
+    IssueType --&gt;|Auto-approvals failing| ApprovalIssue
+    IssueType --&gt;|Other| OtherIssue
+
+    ProfileIssue{Manual switch&lt;br/&gt;works?}
+    ProfileIssue --&gt;|Yes| AutoSwitch[Auto-switching disabled&lt;br/&gt;→ Check AITERM_AUTO_SWITCH]
+    ProfileIssue --&gt;|No| ProfileNotFound[Profile doesn't exist&lt;br/&gt;→ Run: aiterm profile list]
+
+    AutoSwitch --&gt; AddHook[Add chpwd hook to .zshrc&lt;br/&gt;See: Shell Integration]
+    ProfileNotFound --&gt; CreateProfile[Create custom profile&lt;br/&gt;See: Profile Management]
+
+    ContextIssue --&gt; DetectCmd[Run: aiterm detect]
+    DetectCmd --&gt; DetectResult{Context&lt;br/&gt;detected?}
+
+    DetectResult --&gt;|No| CheckMarkers[Check for context markers:&lt;br/&gt;- DESCRIPTION (R)&lt;br/&gt;- pyproject.toml (Python)&lt;br/&gt;- package.json (Node)]
+    DetectResult --&gt;|Yes| WrongProfile[Wrong profile selected?&lt;br/&gt;→ Adjust detection priority]
+
+    CheckMarkers --&gt; NoMarkers{Markers&lt;br/&gt;exist?}
+    NoMarkers --&gt;|No| AddMarkers[Add project markers or&lt;br/&gt;use manual profile switch]
+    NoMarkers --&gt;|Yes| CustomDetector[Create custom detector&lt;br/&gt;See: Integration Guide]
+
+    ApprovalIssue --&gt; ListPresets[Run: aiterm claude approvals list]
+    ListPresets --&gt; SetPreset[Run: aiterm claude approvals set PRESET]
+    SetPreset --&gt; VerifySettings[Check: ~/.claude/settings.json&lt;br/&gt;autoApprovals section]
+
+    VerifySettings --&gt; ValidJSON{Valid&lt;br/&gt;JSON?}
+    ValidJSON --&gt;|No| RestoreBackup[Restore from backup:&lt;br/&gt;~/.claude/settings.json.backup.*]
+    ValidJSON --&gt;|Yes| RestartClaude[Restart Claude Code]
+
+    OtherIssue --&gt; Debug[Run with debug logging:&lt;br/&gt;export AITERM_DEBUG=1]
+    Debug --&gt; Logs[Check logs and error messages]
+    Logs --&gt; GithubIssue[Still stuck?&lt;br/&gt;→ GitHub Issue with logs]
+
+    AddHook --&gt; Done([Issue Resolved])
+    CreateProfile --&gt; Done
+    WrongProfile --&gt; Done
+    AddMarkers --&gt; Done
+    CustomDetector --&gt; Done
+    RestartClaude --&gt; Done
+    RestoreBackup --&gt; Done
+
+    style Start fill:#e1f5e1
+    style Done fill:#e1f5e1
+    style DoctorOK fill:#fff4e6
+    style CheckFails fill:#fff4e6
+    style IssueType fill:#fff4e6
+    style ProfileIssue fill:#fff4e6
+    style DetectResult fill:#fff4e6
+    style NoMarkers fill:#fff4e6
+    style ValidJSON fill:#fff4e6
+    style GithubIssue fill:#ffe1e1</code></pre>
 <p><strong>How to Use This Flowchart:</strong></p>
 <ol>
 <li><strong>Start with <code>aiterm doctor</code></strong> - Verifies installation and environment</li>
@@ -3892,53 +3891,53 @@
 <h3 id="installation-issues">Installation Issues</h3>
 <h4 id="issue-aiterm-command-not-found">Issue: <code>aiterm: command not found</code></h4>
 <p><strong>Symptom:</strong>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>$<span class="w"> </span>aiterm<span class="w"> </span>--version
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>zsh:<span class="w"> </span><span class="nb">command</span><span class="w"> </span>not<span class="w"> </span>found:<span class="w"> </span>aiterm
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>$<span class="w"> </span>aiterm<span class="w"> </span>--version
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>zsh:<span class="w"> </span><span class="nb">command</span><span class="w"> </span>not<span class="w"> </span>found:<span class="w"> </span>aiterm
 </code></pre></div></p>
 <p><strong>Diagnosis:</strong>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># Check if installed</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>show<span class="w"> </span>aiterm
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="c1"># Check Python bin directory in PATH</span>
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="nb">echo</span><span class="w"> </span><span class="nv">$PATH</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-o<span class="w"> </span><span class="s1">&#39;/[^:]*python[^:]*bin&#39;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># Check if installed</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>show<span class="w"> </span>aiterm
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="c1"># Check Python bin directory in PATH</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="nb">echo</span><span class="w"> </span><span class="nv">$PATH</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-o<span class="w"> </span><span class="s1">&#39;/[^:]*python[^:]*bin&#39;</span>
 </code></pre></div></p>
 <p><strong>Solution 1: Reinstall</strong>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># With UV</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>uv<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--force-reinstall<span class="w"> </span>aiterm
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="c1"># With pip</span>
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>pip<span class="w"> </span>install<span class="w"> </span>--force-reinstall<span class="w"> </span>aiterm
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># With UV</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>uv<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--force-reinstall<span class="w"> </span>aiterm
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="c1"># With pip</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>pip<span class="w"> </span>install<span class="w"> </span>--force-reinstall<span class="w"> </span>aiterm
 </code></pre></div></p>
 <p><strong>Solution 2: Add to PATH</strong>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># Find Python bin directory</span>
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>python3<span class="w"> </span>-m<span class="w"> </span>site<span class="w"> </span>--user-base
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>
-<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="c1"># Add to ~/.zshrc or ~/.bashrc</span>
-<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">/.local/bin:</span><span class="nv">$PATH</span><span class="s2">&quot;</span>
-<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>
-<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="c1"># Reload shell</span>
-<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="nb">source</span><span class="w"> </span>~/.zshrc
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># Find Python bin directory</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>python3<span class="w"> </span>-m<span class="w"> </span>site<span class="w"> </span>--user-base
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="c1"># Add to ~/.zshrc or ~/.bashrc</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">/.local/bin:</span><span class="nv">$PATH</span><span class="s2">&quot;</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="c1"># Reload shell</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="nb">source</span><span class="w"> </span>~/.zshrc
 </code></pre></div></p>
 <hr />
 <h4 id="issue-importerror-no-module-named-aiterm">Issue: <code>ImportError: No module named 'aiterm'</code></h4>
 <p><strong>Symptom:</strong>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span><span class="w"> </span><span class="nn">aiterm</span>
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="ne">ImportError</span><span class="p">:</span> <span class="n">No</span> <span class="n">module</span> <span class="n">named</span> <span class="s1">&#39;aiterm&#39;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span><span class="w"> </span><span class="nn">aiterm</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="ne">ImportError</span><span class="p">:</span> <span class="n">No</span> <span class="n">module</span> <span class="n">named</span> <span class="s1">&#39;aiterm&#39;</span>
 </code></pre></div></p>
 <p><strong>Diagnosis:</strong>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1"># Check Python version</span>
-<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>python3<span class="w"> </span>--version<span class="w">  </span><span class="c1"># Should be 3.10+</span>
-<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>
-<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="c1"># Check installed packages</span>
-<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>list<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>aiterm
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1"># Check Python version</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>python3<span class="w"> </span>--version<span class="w">  </span><span class="c1"># Should be 3.10+</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="c1"># Check installed packages</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>list<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>aiterm
 </code></pre></div></p>
 <p><strong>Solution:</strong>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1"># Install in correct Python environment</span>
-<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>aiterm
-<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>
-<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="c1"># Or activate virtual environment first</span>
-<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="nb">source</span><span class="w"> </span>venv/bin/activate
-<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>pip<span class="w"> </span>install<span class="w"> </span>aiterm
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1"># Install in correct Python environment</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>aiterm
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="c1"># Or activate virtual environment first</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="nb">source</span><span class="w"> </span>venv/bin/activate
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>pip<span class="w"> </span>install<span class="w"> </span>aiterm
 </code></pre></div></p>
 <hr />
 <h3 id="profile-switching-issues">Profile Switching Issues</h3>
@@ -3946,57 +3945,57 @@
 <p><strong>Symptom:</strong>
 Profile doesn't change when <code>cd</code> into project</p>
 <p><strong>Diagnosis:</strong>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="c1"># 1. Check if context detected</span>
-<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="nb">cd</span><span class="w"> </span>~/your-project
-<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>aiterm<span class="w"> </span>detect
-<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="c1"># Should show context type and profile</span>
-<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>
-<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="c1"># 2. Check if auto-switching enabled</span>
-<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="nb">echo</span><span class="w"> </span><span class="nv">$AITERM_AUTO_SWITCH</span>
-<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="c1"># Should be empty or &quot;1&quot;</span>
-<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>
-<a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a><span class="c1"># 3. Check terminal type</span>
-<a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a><span class="nb">echo</span><span class="w"> </span><span class="nv">$TERM_PROGRAM</span>
-<a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a><span class="c1"># Should show &quot;iTerm.app&quot; or &quot;WezTerm&quot;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1"># 1. Check if context detected</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="nb">cd</span><span class="w"> </span>~/your-project
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>aiterm<span class="w"> </span>detect
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="c1"># Should show context type and profile</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="c1"># 2. Check if auto-switching enabled</span>
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="nb">echo</span><span class="w"> </span><span class="nv">$AITERM_AUTO_SWITCH</span>
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="c1"># Should be empty or &quot;1&quot;</span>
+<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>
+<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="c1"># 3. Check terminal type</span>
+<a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a><span class="nb">echo</span><span class="w"> </span><span class="nv">$TERM_PROGRAM</span>
+<a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a><span class="c1"># Should show &quot;iTerm.app&quot; or &quot;WezTerm&quot;</span>
 </code></pre></div></p>
 <p><strong>Solution 1: Auto-switching disabled</strong>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="c1"># Enable auto-switching</span>
-<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="nb">unset</span><span class="w"> </span>AITERM_AUTO_SWITCH
-<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>
-<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="c1"># Or set explicitly</span>
-<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="nb">export</span><span class="w"> </span><span class="nv">AITERM_AUTO_SWITCH</span><span class="o">=</span><span class="m">1</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="c1"># Enable auto-switching</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="nb">unset</span><span class="w"> </span>AITERM_AUTO_SWITCH
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="c1"># Or set explicitly</span>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="nb">export</span><span class="w"> </span><span class="nv">AITERM_AUTO_SWITCH</span><span class="o">=</span><span class="m">1</span>
 </code></pre></div></p>
 <p><strong>Solution 2: Terminal not supported</strong>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="c1"># Check supported terminals</span>
-<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>aiterm<span class="w"> </span>doctor
-<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>
-<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="c1"># If using Terminal.app:</span>
-<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="c1"># → Download iTerm2 from https://iterm2.com</span>
-<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="c1"># → Install and set as default</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="c1"># Check supported terminals</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>aiterm<span class="w"> </span>doctor
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="c1"># If using Terminal.app:</span>
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="c1"># → Download iTerm2 from https://iterm2.com</span>
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="c1"># → Install and set as default</span>
 </code></pre></div></p>
 <p><strong>Solution 3: Shell integration needed</strong></p>
 <p>Add to <code>~/.zshrc</code>:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="c1"># aiterm automatic context switching</span>
-<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="k">function</span><span class="w"> </span>chpwd<span class="o">()</span><span class="w"> </span><span class="o">{</span>
-<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="w">    </span>aiterm<span class="w"> </span>detect<span class="w"> </span>--silent<span class="w"> </span>--auto-switch
-<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="o">}</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="c1"># aiterm automatic context switching</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="k">function</span><span class="w"> </span>chpwd<span class="o">()</span><span class="w"> </span><span class="o">{</span>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="w">    </span>aiterm<span class="w"> </span>detect<span class="w"> </span>--silent<span class="w"> </span>--auto-switch
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="o">}</span>
 </code></pre></div></p>
 <hr />
 <h4 id="issue-profile-exists-but-switch-fails">Issue: Profile exists but switch fails</h4>
 <p><strong>Symptom:</strong>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>$<span class="w"> </span>aiterm<span class="w"> </span>profile<span class="w"> </span>switch<span class="w"> </span>R-Dev
-<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>❌<span class="w"> </span>Failed<span class="w"> </span>to<span class="w"> </span>switch<span class="w"> </span>profile:<span class="w"> </span>R-Dev
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>$<span class="w"> </span>aiterm<span class="w"> </span>profile<span class="w"> </span>switch<span class="w"> </span>R-Dev
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>❌<span class="w"> </span>Failed<span class="w"> </span>to<span class="w"> </span>switch<span class="w"> </span>profile:<span class="w"> </span>R-Dev
 </code></pre></div></p>
 <p><strong>Diagnosis:</strong>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="c1"># 1. List available profiles</span>
-<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>aiterm<span class="w"> </span>profile<span class="w"> </span>list
-<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>
-<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="c1"># 2. Check iTerm2 profiles</span>
-<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="c1"># iTerm2 → Preferences → Profiles</span>
-<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="c1"># Verify &quot;R-Dev&quot; profile exists</span>
-<a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a>
-<a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a><span class="c1"># 3. Check terminal connection</span>
-<a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a>ps<span class="w"> </span>aux<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>iTerm
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="c1"># 1. List available profiles</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>aiterm<span class="w"> </span>profile<span class="w"> </span>list
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="c1"># 2. Check iTerm2 profiles</span>
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="c1"># iTerm2 → Preferences → Profiles</span>
+<a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a><span class="c1"># Verify &quot;R-Dev&quot; profile exists</span>
+<a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a>
+<a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a><span class="c1"># 3. Check terminal connection</span>
+<a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a>ps<span class="w"> </span>aux<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>iTerm
 </code></pre></div></p>
 <p><strong>Solution 1: Profile doesn't exist</strong></p>
 <p>Create profile in iTerm2:
@@ -4006,96 +4005,96 @@ Profile doesn't change when <code>cd</code> into project</p>
 4. Configure colors, fonts, etc.
 5. Try switch again</p>
 <p><strong>Solution 2: iTerm2 not responding</strong>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="c1"># Restart iTerm2</span>
-<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>pkill<span class="w"> </span>-9<span class="w"> </span>iTerm2
-<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>open<span class="w"> </span>-a<span class="w"> </span>iTerm
-<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>
-<a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="c1"># Try again</span>
-<a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a>aiterm<span class="w"> </span>profile<span class="w"> </span>switch<span class="w"> </span>R-Dev
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="c1"># Restart iTerm2</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>pkill<span class="w"> </span>-9<span class="w"> </span>iTerm2
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>open<span class="w"> </span>-a<span class="w"> </span>iTerm
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="c1"># Try again</span>
+<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>aiterm<span class="w"> </span>profile<span class="w"> </span>switch<span class="w"> </span>R-Dev
 </code></pre></div></p>
 <hr />
 <h3 id="context-detection-issues">Context Detection Issues</h3>
 <h4 id="issue-context-not-detected">Issue: Context not detected</h4>
 <p><strong>Symptom:</strong>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>~/projects/my-r-package
-<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>$<span class="w"> </span>aiterm<span class="w"> </span>detect
-<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>📁<span class="w"> </span>Path:<span class="w"> </span>/Users/dt/projects/my-r-package
-<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>🎯<span class="w"> </span>Type:<span class="w"> </span>Unknown
-<a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>📋<span class="w"> </span>Profile:<span class="w"> </span>Default
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>~/projects/my-r-package
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>$<span class="w"> </span>aiterm<span class="w"> </span>detect
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>📁<span class="w"> </span>Path:<span class="w"> </span>/Users/dt/projects/my-r-package
+<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>🎯<span class="w"> </span>Type:<span class="w"> </span>Unknown
+<a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>📋<span class="w"> </span>Profile:<span class="w"> </span>Default
 </code></pre></div></p>
 <p><strong>Diagnosis:</strong>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="c1"># Check for marker files</span>
-<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>ls<span class="w"> </span>-la
-<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>
-<a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="c1"># R package should have:</span>
-<a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a>ls<span class="w"> </span>DESCRIPTION<span class="w"> </span>R/
-<a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a>
-<a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a><span class="c1"># Python should have:</span>
-<a id="__codelineno-16-8" name="__codelineno-16-8" href="#__codelineno-16-8"></a>ls<span class="w"> </span>pyproject.toml<span class="w"> </span>setup.py
-<a id="__codelineno-16-9" name="__codelineno-16-9" href="#__codelineno-16-9"></a>
-<a id="__codelineno-16-10" name="__codelineno-16-10" href="#__codelineno-16-10"></a><span class="c1"># Node.js should have:</span>
-<a id="__codelineno-16-11" name="__codelineno-16-11" href="#__codelineno-16-11"></a>ls<span class="w"> </span>package.json
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="c1"># Check for marker files</span>
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>ls<span class="w"> </span>-la
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>
+<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="c1"># R package should have:</span>
+<a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>ls<span class="w"> </span>DESCRIPTION<span class="w"> </span>R/
+<a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>
+<a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a><span class="c1"># Python should have:</span>
+<a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a>ls<span class="w"> </span>pyproject.toml<span class="w"> </span>setup.py
+<a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a>
+<a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a><span class="c1"># Node.js should have:</span>
+<a id="__codelineno-15-11" name="__codelineno-15-11" href="#__codelineno-15-11"></a>ls<span class="w"> </span>package.json
 </code></pre></div></p>
 <p><strong>Solution 1: Missing marker file</strong></p>
 <p><strong>For R packages:</strong>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="c1"># Create minimal DESCRIPTION</span>
-<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>cat<span class="w"> </span>&gt;<span class="w"> </span>DESCRIPTION<span class="w"> </span><span class="s">&lt;&lt; &#39;EOF&#39;</span>
-<a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="s">Package: MyPackage</span>
-<a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a><span class="s">Title: My R Package</span>
-<a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a><span class="s">Version: 0.1.0</span>
-<a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a><span class="s">Description: My package description.</span>
-<a id="__codelineno-17-7" name="__codelineno-17-7" href="#__codelineno-17-7"></a><span class="s">License: MIT</span>
-<a id="__codelineno-17-8" name="__codelineno-17-8" href="#__codelineno-17-8"></a><span class="s">Encoding: UTF-8</span>
-<a id="__codelineno-17-9" name="__codelineno-17-9" href="#__codelineno-17-9"></a><span class="s">EOF</span>
-<a id="__codelineno-17-10" name="__codelineno-17-10" href="#__codelineno-17-10"></a>
-<a id="__codelineno-17-11" name="__codelineno-17-11" href="#__codelineno-17-11"></a><span class="c1"># Create R directory</span>
-<a id="__codelineno-17-12" name="__codelineno-17-12" href="#__codelineno-17-12"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>R
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="c1"># Create minimal DESCRIPTION</span>
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>cat<span class="w"> </span>&gt;<span class="w"> </span>DESCRIPTION<span class="w"> </span><span class="s">&lt;&lt; &#39;EOF&#39;</span>
+<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="s">Package: MyPackage</span>
+<a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="s">Title: My R Package</span>
+<a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a><span class="s">Version: 0.1.0</span>
+<a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a><span class="s">Description: My package description.</span>
+<a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a><span class="s">License: MIT</span>
+<a id="__codelineno-16-8" name="__codelineno-16-8" href="#__codelineno-16-8"></a><span class="s">Encoding: UTF-8</span>
+<a id="__codelineno-16-9" name="__codelineno-16-9" href="#__codelineno-16-9"></a><span class="s">EOF</span>
+<a id="__codelineno-16-10" name="__codelineno-16-10" href="#__codelineno-16-10"></a>
+<a id="__codelineno-16-11" name="__codelineno-16-11" href="#__codelineno-16-11"></a><span class="c1"># Create R directory</span>
+<a id="__codelineno-16-12" name="__codelineno-16-12" href="#__codelineno-16-12"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>R
 </code></pre></div></p>
 <p><strong>For Python:</strong>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="c1"># Create pyproject.toml</span>
-<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>cat<span class="w"> </span>&gt;<span class="w"> </span>pyproject.toml<span class="w"> </span><span class="s">&lt;&lt; &#39;EOF&#39;</span>
-<a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a><span class="s">[project]</span>
-<a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a><span class="s">name = &quot;my-package&quot;</span>
-<a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a><span class="s">version = &quot;0.1.0&quot;</span>
-<a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a><span class="s">EOF</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="c1"># Create pyproject.toml</span>
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>cat<span class="w"> </span>&gt;<span class="w"> </span>pyproject.toml<span class="w"> </span><span class="s">&lt;&lt; &#39;EOF&#39;</span>
+<a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="s">[project]</span>
+<a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a><span class="s">name = &quot;my-package&quot;</span>
+<a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a><span class="s">version = &quot;0.1.0&quot;</span>
+<a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a><span class="s">EOF</span>
 </code></pre></div></p>
 <p><strong>Solution 2: Wrong directory</strong>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="c1"># Navigate to package root</span>
-<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="nb">cd</span><span class="w"> </span>~/projects/my-r-package
-<a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>
-<a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a><span class="c1"># Verify marker files</span>
-<a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a>ls<span class="w"> </span>DESCRIPTION<span class="w"> </span>R/
-<a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a>
-<a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a><span class="c1"># Try detect again</span>
-<a id="__codelineno-19-8" name="__codelineno-19-8" href="#__codelineno-19-8"></a>aiterm<span class="w"> </span>detect
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="c1"># Navigate to package root</span>
+<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="nb">cd</span><span class="w"> </span>~/projects/my-r-package
+<a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>
+<a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a><span class="c1"># Verify marker files</span>
+<a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a>ls<span class="w"> </span>DESCRIPTION<span class="w"> </span>R/
+<a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a>
+<a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a><span class="c1"># Try detect again</span>
+<a id="__codelineno-18-8" name="__codelineno-18-8" href="#__codelineno-18-8"></a>aiterm<span class="w"> </span>detect
 </code></pre></div></p>
 <hr />
 <h4 id="issue-wrong-context-detected">Issue: Wrong context detected</h4>
 <p><strong>Symptom:</strong>
 Context type is incorrect for your project</p>
 <p><strong>Example:</strong>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>~/my-quarto-project
-<a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>$<span class="w"> </span>aiterm<span class="w"> </span>detect
-<a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a>🎯<span class="w"> </span>Type:<span class="w"> </span>R<span class="w"> </span>Package<span class="w">  </span><span class="c1"># Wrong! Should be Quarto</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>~/my-quarto-project
+<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>$<span class="w"> </span>aiterm<span class="w"> </span>detect
+<a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>🎯<span class="w"> </span>Type:<span class="w"> </span>R<span class="w"> </span>Package<span class="w">  </span><span class="c1"># Wrong! Should be Quarto</span>
 </code></pre></div></p>
 <p><strong>Diagnosis:</strong>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="c1"># Check marker files</span>
-<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>ls<span class="w"> </span>-la
-<a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>
-<a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a><span class="c1"># Multiple markers?</span>
-<a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a>ls<span class="w"> </span>DESCRIPTION<span class="w"> </span>_quarto.yml
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="c1"># Check marker files</span>
+<a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>ls<span class="w"> </span>-la
+<a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a>
+<a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a><span class="c1"># Multiple markers?</span>
+<a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a>ls<span class="w"> </span>DESCRIPTION<span class="w"> </span>_quarto.yml
 </code></pre></div></p>
 <p><strong>Cause:</strong> Multiple context types match, priority determines winner</p>
 <p><strong>Solution 1: Remove conflicting markers</strong>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="c1"># If not actually an R package, remove DESCRIPTION</span>
-<a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>rm<span class="w"> </span>DESCRIPTION
-<a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a>
-<a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a><span class="c1"># Now should detect as Quarto</span>
-<a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a>aiterm<span class="w"> </span>detect
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="c1"># If not actually an R package, remove DESCRIPTION</span>
+<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>rm<span class="w"> </span>DESCRIPTION
+<a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>
+<a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a><span class="c1"># Now should detect as Quarto</span>
+<a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a>aiterm<span class="w"> </span>detect
 </code></pre></div></p>
 <p><strong>Solution 2: Manual override</strong>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="c1"># Force specific profile</span>
-<a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>aiterm<span class="w"> </span>profile<span class="w"> </span>switch<span class="w"> </span>Quarto-Dev
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="c1"># Force specific profile</span>
+<a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>aiterm<span class="w"> </span>profile<span class="w"> </span>switch<span class="w"> </span>Quarto-Dev
 </code></pre></div></p>
 <p><strong>Solution 3: Adjust priority (advanced)</strong></p>
 <p>Create custom detector with higher priority (see Integration Guide)</p>
@@ -4103,77 +4102,77 @@ Context type is incorrect for your project</p>
 <h3 id="claude-code-integration-issues">Claude Code Integration Issues</h3>
 <h4 id="issue-auto-approvals-not-applied">Issue: Auto-approvals not applied</h4>
 <p><strong>Symptom:</strong>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>$<span class="w"> </span>aiterm<span class="w"> </span>claude<span class="w"> </span>approvals<span class="w"> </span><span class="nb">set</span><span class="w"> </span>r-package
-<a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a>✅<span class="w"> </span>Applied<span class="w"> </span>preset:<span class="w"> </span>r-package<span class="w"> </span><span class="o">(</span><span class="m">35</span><span class="w"> </span>tools<span class="o">)</span>
-<a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a>
-<a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a><span class="c1"># But Claude Code still asking for approvals</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>$<span class="w"> </span>aiterm<span class="w"> </span>claude<span class="w"> </span>approvals<span class="w"> </span><span class="nb">set</span><span class="w"> </span>r-package
+<a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>✅<span class="w"> </span>Applied<span class="w"> </span>preset:<span class="w"> </span>r-package<span class="w"> </span><span class="o">(</span><span class="m">35</span><span class="w"> </span>tools<span class="o">)</span>
+<a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a>
+<a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a><span class="c1"># But Claude Code still asking for approvals</span>
 </code></pre></div></p>
 <p><strong>Diagnosis:</strong>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="c1"># 1. Check settings file</span>
-<a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a>cat<span class="w"> </span>~/.claude/settings.json<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-A<span class="w"> </span><span class="m">5</span><span class="w"> </span>autoApprovals
-<a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a>
-<a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a><span class="c1"># 2. Verify Claude Code version</span>
-<a id="__codelineno-25-5" name="__codelineno-25-5" href="#__codelineno-25-5"></a>claude<span class="w"> </span>--version
-<a id="__codelineno-25-6" name="__codelineno-25-6" href="#__codelineno-25-6"></a>
-<a id="__codelineno-25-7" name="__codelineno-25-7" href="#__codelineno-25-7"></a><span class="c1"># 3. Check file permissions</span>
-<a id="__codelineno-25-8" name="__codelineno-25-8" href="#__codelineno-25-8"></a>ls<span class="w"> </span>-l<span class="w"> </span>~/.claude/settings.json
+<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="c1"># 1. Check settings file</span>
+<a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a>cat<span class="w"> </span>~/.claude/settings.json<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-A<span class="w"> </span><span class="m">5</span><span class="w"> </span>autoApprovals
+<a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a>
+<a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a><span class="c1"># 2. Verify Claude Code version</span>
+<a id="__codelineno-24-5" name="__codelineno-24-5" href="#__codelineno-24-5"></a>claude<span class="w"> </span>--version
+<a id="__codelineno-24-6" name="__codelineno-24-6" href="#__codelineno-24-6"></a>
+<a id="__codelineno-24-7" name="__codelineno-24-7" href="#__codelineno-24-7"></a><span class="c1"># 3. Check file permissions</span>
+<a id="__codelineno-24-8" name="__codelineno-24-8" href="#__codelineno-24-8"></a>ls<span class="w"> </span>-l<span class="w"> </span>~/.claude/settings.json
 </code></pre></div></p>
 <p><strong>Solution 1: Claude Code not reading settings</strong>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="c1"># Restart Claude Code</span>
-<a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a>pkill<span class="w"> </span>claude
-<a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a>claude
-<a id="__codelineno-26-4" name="__codelineno-26-4" href="#__codelineno-26-4"></a>
-<a id="__codelineno-26-5" name="__codelineno-26-5" href="#__codelineno-26-5"></a><span class="c1"># Or restart terminal</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="c1"># Restart Claude Code</span>
+<a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a>pkill<span class="w"> </span>claude
+<a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a>claude
+<a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a>
+<a id="__codelineno-25-5" name="__codelineno-25-5" href="#__codelineno-25-5"></a><span class="c1"># Or restart terminal</span>
 </code></pre></div></p>
 <p><strong>Solution 2: Settings file corrupted</strong>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="c1"># Backup current</span>
-<a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a>cp<span class="w"> </span>~/.claude/settings.json<span class="w"> </span>~/.claude/settings.json.backup
-<a id="__codelineno-27-3" name="__codelineno-27-3" href="#__codelineno-27-3"></a>
-<a id="__codelineno-27-4" name="__codelineno-27-4" href="#__codelineno-27-4"></a><span class="c1"># Validate JSON</span>
-<a id="__codelineno-27-5" name="__codelineno-27-5" href="#__codelineno-27-5"></a>python3<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;</span>
-<a id="__codelineno-27-6" name="__codelineno-27-6" href="#__codelineno-27-6"></a><span class="s2">import json</span>
-<a id="__codelineno-27-7" name="__codelineno-27-7" href="#__codelineno-27-7"></a><span class="s2">with open(&#39;~/.claude/settings.json&#39;) as f:</span>
-<a id="__codelineno-27-8" name="__codelineno-27-8" href="#__codelineno-27-8"></a><span class="s2">    json.load(f)  # Will error if invalid</span>
-<a id="__codelineno-27-9" name="__codelineno-27-9" href="#__codelineno-27-9"></a><span class="s2">&quot;</span>
-<a id="__codelineno-27-10" name="__codelineno-27-10" href="#__codelineno-27-10"></a>
-<a id="__codelineno-27-11" name="__codelineno-27-11" href="#__codelineno-27-11"></a><span class="c1"># If invalid, restore from backup</span>
-<a id="__codelineno-27-12" name="__codelineno-27-12" href="#__codelineno-27-12"></a>aiterm<span class="w"> </span>claude<span class="w"> </span>settings<span class="w"> </span>show<span class="w"> </span>--validate
+<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="c1"># Backup current</span>
+<a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a>cp<span class="w"> </span>~/.claude/settings.json<span class="w"> </span>~/.claude/settings.json.backup
+<a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a>
+<a id="__codelineno-26-4" name="__codelineno-26-4" href="#__codelineno-26-4"></a><span class="c1"># Validate JSON</span>
+<a id="__codelineno-26-5" name="__codelineno-26-5" href="#__codelineno-26-5"></a>python3<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;</span>
+<a id="__codelineno-26-6" name="__codelineno-26-6" href="#__codelineno-26-6"></a><span class="s2">import json</span>
+<a id="__codelineno-26-7" name="__codelineno-26-7" href="#__codelineno-26-7"></a><span class="s2">with open(&#39;~/.claude/settings.json&#39;) as f:</span>
+<a id="__codelineno-26-8" name="__codelineno-26-8" href="#__codelineno-26-8"></a><span class="s2">    json.load(f)  # Will error if invalid</span>
+<a id="__codelineno-26-9" name="__codelineno-26-9" href="#__codelineno-26-9"></a><span class="s2">&quot;</span>
+<a id="__codelineno-26-10" name="__codelineno-26-10" href="#__codelineno-26-10"></a>
+<a id="__codelineno-26-11" name="__codelineno-26-11" href="#__codelineno-26-11"></a><span class="c1"># If invalid, restore from backup</span>
+<a id="__codelineno-26-12" name="__codelineno-26-12" href="#__codelineno-26-12"></a>aiterm<span class="w"> </span>claude<span class="w"> </span>settings<span class="w"> </span>show<span class="w"> </span>--validate
 </code></pre></div></p>
 <p><strong>Solution 3: Wrong settings location</strong>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a><span class="c1"># Check Claude Code config directory</span>
-<a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a>ls<span class="w"> </span>~/.claude/
-<a id="__codelineno-28-3" name="__codelineno-28-3" href="#__codelineno-28-3"></a>
-<a id="__codelineno-28-4" name="__codelineno-28-4" href="#__codelineno-28-4"></a><span class="c1"># Should contain settings.json</span>
-<a id="__codelineno-28-5" name="__codelineno-28-5" href="#__codelineno-28-5"></a><span class="c1"># If not, create it:</span>
-<a id="__codelineno-28-6" name="__codelineno-28-6" href="#__codelineno-28-6"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>~/.claude
-<a id="__codelineno-28-7" name="__codelineno-28-7" href="#__codelineno-28-7"></a><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;{&quot;autoApprovals&quot;: []}&#39;</span><span class="w"> </span>&gt;<span class="w"> </span>~/.claude/settings.json
-<a id="__codelineno-28-8" name="__codelineno-28-8" href="#__codelineno-28-8"></a>
-<a id="__codelineno-28-9" name="__codelineno-28-9" href="#__codelineno-28-9"></a><span class="c1"># Try preset again</span>
-<a id="__codelineno-28-10" name="__codelineno-28-10" href="#__codelineno-28-10"></a>aiterm<span class="w"> </span>claude<span class="w"> </span>approvals<span class="w"> </span><span class="nb">set</span><span class="w"> </span>r-package
+<div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="c1"># Check Claude Code config directory</span>
+<a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a>ls<span class="w"> </span>~/.claude/
+<a id="__codelineno-27-3" name="__codelineno-27-3" href="#__codelineno-27-3"></a>
+<a id="__codelineno-27-4" name="__codelineno-27-4" href="#__codelineno-27-4"></a><span class="c1"># Should contain settings.json</span>
+<a id="__codelineno-27-5" name="__codelineno-27-5" href="#__codelineno-27-5"></a><span class="c1"># If not, create it:</span>
+<a id="__codelineno-27-6" name="__codelineno-27-6" href="#__codelineno-27-6"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>~/.claude
+<a id="__codelineno-27-7" name="__codelineno-27-7" href="#__codelineno-27-7"></a><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;{&quot;autoApprovals&quot;: []}&#39;</span><span class="w"> </span>&gt;<span class="w"> </span>~/.claude/settings.json
+<a id="__codelineno-27-8" name="__codelineno-27-8" href="#__codelineno-27-8"></a>
+<a id="__codelineno-27-9" name="__codelineno-27-9" href="#__codelineno-27-9"></a><span class="c1"># Try preset again</span>
+<a id="__codelineno-27-10" name="__codelineno-27-10" href="#__codelineno-27-10"></a>aiterm<span class="w"> </span>claude<span class="w"> </span>approvals<span class="w"> </span><span class="nb">set</span><span class="w"> </span>r-package
 </code></pre></div></p>
 <hr />
 <h4 id="issue-settings-backup-failed">Issue: Settings backup failed</h4>
 <p><strong>Symptom:</strong>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>$<span class="w"> </span>aiterm<span class="w"> </span>claude<span class="w"> </span>approvals<span class="w"> </span><span class="nb">set</span><span class="w"> </span>r-package
-<a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a>❌<span class="w"> </span>Failed<span class="w"> </span>to<span class="w"> </span>create<span class="w"> </span>backup
+<div class="highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>$<span class="w"> </span>aiterm<span class="w"> </span>claude<span class="w"> </span>approvals<span class="w"> </span><span class="nb">set</span><span class="w"> </span>r-package
+<a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a>❌<span class="w"> </span>Failed<span class="w"> </span>to<span class="w"> </span>create<span class="w"> </span>backup
 </code></pre></div></p>
 <p><strong>Diagnosis:</strong>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a><span class="c1"># Check permissions</span>
-<a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a>ls<span class="w"> </span>-la<span class="w"> </span>~/.claude/
-<a id="__codelineno-30-3" name="__codelineno-30-3" href="#__codelineno-30-3"></a>
-<a id="__codelineno-30-4" name="__codelineno-30-4" href="#__codelineno-30-4"></a><span class="c1"># Check disk space</span>
-<a id="__codelineno-30-5" name="__codelineno-30-5" href="#__codelineno-30-5"></a>df<span class="w"> </span>-h<span class="w"> </span>~
+<div class="highlight"><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a><span class="c1"># Check permissions</span>
+<a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a>ls<span class="w"> </span>-la<span class="w"> </span>~/.claude/
+<a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a>
+<a id="__codelineno-29-4" name="__codelineno-29-4" href="#__codelineno-29-4"></a><span class="c1"># Check disk space</span>
+<a id="__codelineno-29-5" name="__codelineno-29-5" href="#__codelineno-29-5"></a>df<span class="w"> </span>-h<span class="w"> </span>~
 </code></pre></div></p>
 <p><strong>Solution:</strong>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a><span class="c1"># Fix permissions</span>
-<a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a>chmod<span class="w"> </span><span class="m">700</span><span class="w"> </span>~/.claude
-<a id="__codelineno-31-3" name="__codelineno-31-3" href="#__codelineno-31-3"></a>chmod<span class="w"> </span><span class="m">600</span><span class="w"> </span>~/.claude/settings.json
-<a id="__codelineno-31-4" name="__codelineno-31-4" href="#__codelineno-31-4"></a>
-<a id="__codelineno-31-5" name="__codelineno-31-5" href="#__codelineno-31-5"></a><span class="c1"># Clean old backups if disk full</span>
-<a id="__codelineno-31-6" name="__codelineno-31-6" href="#__codelineno-31-6"></a>rm<span class="w"> </span>~/.claude/settings.json.backup.*
-<a id="__codelineno-31-7" name="__codelineno-31-7" href="#__codelineno-31-7"></a>
-<a id="__codelineno-31-8" name="__codelineno-31-8" href="#__codelineno-31-8"></a><span class="c1"># Try again</span>
-<a id="__codelineno-31-9" name="__codelineno-31-9" href="#__codelineno-31-9"></a>aiterm<span class="w"> </span>claude<span class="w"> </span>approvals<span class="w"> </span><span class="nb">set</span><span class="w"> </span>r-package
+<div class="highlight"><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a><span class="c1"># Fix permissions</span>
+<a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a>chmod<span class="w"> </span><span class="m">700</span><span class="w"> </span>~/.claude
+<a id="__codelineno-30-3" name="__codelineno-30-3" href="#__codelineno-30-3"></a>chmod<span class="w"> </span><span class="m">600</span><span class="w"> </span>~/.claude/settings.json
+<a id="__codelineno-30-4" name="__codelineno-30-4" href="#__codelineno-30-4"></a>
+<a id="__codelineno-30-5" name="__codelineno-30-5" href="#__codelineno-30-5"></a><span class="c1"># Clean old backups if disk full</span>
+<a id="__codelineno-30-6" name="__codelineno-30-6" href="#__codelineno-30-6"></a>rm<span class="w"> </span>~/.claude/settings.json.backup.*
+<a id="__codelineno-30-7" name="__codelineno-30-7" href="#__codelineno-30-7"></a>
+<a id="__codelineno-30-8" name="__codelineno-30-8" href="#__codelineno-30-8"></a><span class="c1"># Try again</span>
+<a id="__codelineno-30-9" name="__codelineno-30-9" href="#__codelineno-30-9"></a>aiterm<span class="w"> </span>claude<span class="w"> </span>approvals<span class="w"> </span><span class="nb">set</span><span class="w"> </span>r-package
 </code></pre></div></p>
 <hr />
 <h3 id="terminal-compatibility">Terminal Compatibility</h3>
@@ -4184,14 +4183,14 @@ Context type is incorrect for your project</p>
 - User-defined status bar variables
 - Advanced escape sequences</p>
 <p><strong>Solution:</strong> Install iTerm2
-<div class="highlight"><pre><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a><span class="c1"># Download and install</span>
-<a id="__codelineno-32-2" name="__codelineno-32-2" href="#__codelineno-32-2"></a>open<span class="w"> </span>https://iterm2.com
-<a id="__codelineno-32-3" name="__codelineno-32-3" href="#__codelineno-32-3"></a>
-<a id="__codelineno-32-4" name="__codelineno-32-4" href="#__codelineno-32-4"></a><span class="c1"># Or with Homebrew</span>
-<a id="__codelineno-32-5" name="__codelineno-32-5" href="#__codelineno-32-5"></a>brew<span class="w"> </span>install<span class="w"> </span>--cask<span class="w"> </span>iterm2
-<a id="__codelineno-32-6" name="__codelineno-32-6" href="#__codelineno-32-6"></a>
-<a id="__codelineno-32-7" name="__codelineno-32-7" href="#__codelineno-32-7"></a><span class="c1"># Set as default terminal</span>
-<a id="__codelineno-32-8" name="__codelineno-32-8" href="#__codelineno-32-8"></a><span class="c1"># System Settings → General → Default terminal → iTerm</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a><span class="c1"># Download and install</span>
+<a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a>open<span class="w"> </span>https://iterm2.com
+<a id="__codelineno-31-3" name="__codelineno-31-3" href="#__codelineno-31-3"></a>
+<a id="__codelineno-31-4" name="__codelineno-31-4" href="#__codelineno-31-4"></a><span class="c1"># Or with Homebrew</span>
+<a id="__codelineno-31-5" name="__codelineno-31-5" href="#__codelineno-31-5"></a>brew<span class="w"> </span>install<span class="w"> </span>--cask<span class="w"> </span>iterm2
+<a id="__codelineno-31-6" name="__codelineno-31-6" href="#__codelineno-31-6"></a>
+<a id="__codelineno-31-7" name="__codelineno-31-7" href="#__codelineno-31-7"></a><span class="c1"># Set as default terminal</span>
+<a id="__codelineno-31-8" name="__codelineno-31-8" href="#__codelineno-31-8"></a><span class="c1"># System Settings → General → Default terminal → iTerm</span>
 </code></pre></div></p>
 <hr />
 <h4 id="macos-iterm2">macOS - iTerm2</h4>
@@ -4206,11 +4205,11 @@ Context type is incorrect for your project</p>
 <p><strong>Common Issue: Accessibility permission denied</strong></p>
 <p><strong>Symptom:</strong> Profile switching works but slow/unreliable</p>
 <p><strong>Solution:</strong>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a><span class="c1"># 1. Open System Settings</span>
-<a id="__codelineno-33-2" name="__codelineno-33-2" href="#__codelineno-33-2"></a><span class="c1"># 2. Privacy &amp; Security → Accessibility</span>
-<a id="__codelineno-33-3" name="__codelineno-33-3" href="#__codelineno-33-3"></a><span class="c1"># 3. Find iTerm2 in list</span>
-<a id="__codelineno-33-4" name="__codelineno-33-4" href="#__codelineno-33-4"></a><span class="c1"># 4. Toggle OFF then ON</span>
-<a id="__codelineno-33-5" name="__codelineno-33-5" href="#__codelineno-33-5"></a><span class="c1"># 5. Restart iTerm2</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a><span class="c1"># 1. Open System Settings</span>
+<a id="__codelineno-32-2" name="__codelineno-32-2" href="#__codelineno-32-2"></a><span class="c1"># 2. Privacy &amp; Security → Accessibility</span>
+<a id="__codelineno-32-3" name="__codelineno-32-3" href="#__codelineno-32-3"></a><span class="c1"># 3. Find iTerm2 in list</span>
+<a id="__codelineno-32-4" name="__codelineno-32-4" href="#__codelineno-32-4"></a><span class="c1"># 4. Toggle OFF then ON</span>
+<a id="__codelineno-32-5" name="__codelineno-32-5" href="#__codelineno-32-5"></a><span class="c1"># 5. Restart iTerm2</span>
 </code></pre></div></p>
 <hr />
 <h4 id="linux-gnome-terminal">Linux - gnome-terminal</h4>
@@ -4228,12 +4227,12 @@ Context type is incorrect for your project</p>
 - ❌ Profile switching requires config file editing
 - ❌ Real-time profile switching not implemented</p>
 <p><strong>Workaround:</strong>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a><span class="c1"># Manual profile switching</span>
-<a id="__codelineno-34-2" name="__codelineno-34-2" href="#__codelineno-34-2"></a>cp<span class="w"> </span>~/.config/alacritty/themes/r-dev.yml<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-34-3" name="__codelineno-34-3" href="#__codelineno-34-3"></a><span class="w">   </span>~/.config/alacritty/alacritty.yml
-<a id="__codelineno-34-4" name="__codelineno-34-4" href="#__codelineno-34-4"></a>
-<a id="__codelineno-34-5" name="__codelineno-34-5" href="#__codelineno-34-5"></a><span class="c1"># Reload Alacritty</span>
-<a id="__codelineno-34-6" name="__codelineno-34-6" href="#__codelineno-34-6"></a>pkill<span class="w"> </span>-USR1<span class="w"> </span>alacritty
+<div class="highlight"><pre><span></span><code><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a><span class="c1"># Manual profile switching</span>
+<a id="__codelineno-33-2" name="__codelineno-33-2" href="#__codelineno-33-2"></a>cp<span class="w"> </span>~/.config/alacritty/themes/r-dev.yml<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-33-3" name="__codelineno-33-3" href="#__codelineno-33-3"></a><span class="w">   </span>~/.config/alacritty/alacritty.yml
+<a id="__codelineno-33-4" name="__codelineno-33-4" href="#__codelineno-33-4"></a>
+<a id="__codelineno-33-5" name="__codelineno-33-5" href="#__codelineno-33-5"></a><span class="c1"># Reload Alacritty</span>
+<a id="__codelineno-33-6" name="__codelineno-33-6" href="#__codelineno-33-6"></a>pkill<span class="w"> </span>-USR1<span class="w"> </span>alacritty
 </code></pre></div></p>
 <hr />
 <h4 id="linux-wezterm">Linux - Wezterm</h4>
@@ -4243,8 +4242,8 @@ Context type is incorrect for your project</p>
 - ⚠️ Profile switching via CLI (slow)
 - ❌ Optimized integration not implemented</p>
 <p><strong>Workaround:</strong>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a><span class="c1"># Use Wezterm CLI</span>
-<a id="__codelineno-35-2" name="__codelineno-35-2" href="#__codelineno-35-2"></a>wezterm<span class="w"> </span>cli<span class="w"> </span>set-tab-color-scheme<span class="w"> </span><span class="s2">&quot;R-Dev&quot;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a><span class="c1"># Use Wezterm CLI</span>
+<a id="__codelineno-34-2" name="__codelineno-34-2" href="#__codelineno-34-2"></a>wezterm<span class="w"> </span>cli<span class="w"> </span>set-tab-color-scheme<span class="w"> </span><span class="s2">&quot;R-Dev&quot;</span>
 </code></pre></div></p>
 <hr />
 <h4 id="windows-windows-terminal">Windows - Windows Terminal</h4>
@@ -4256,62 +4255,62 @@ Context type is incorrect for your project</p>
 <h3 id="macos">macOS</h3>
 <h4 id="issue-operation-not-permitted">Issue: "Operation not permitted"</h4>
 <p><strong>Symptom:</strong>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a>$<span class="w"> </span>aiterm<span class="w"> </span>profile<span class="w"> </span>switch<span class="w"> </span>R-Dev
-<a id="__codelineno-36-2" name="__codelineno-36-2" href="#__codelineno-36-2"></a>❌<span class="w"> </span>Operation<span class="w"> </span>not<span class="w"> </span>permitted
+<div class="highlight"><pre><span></span><code><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a>$<span class="w"> </span>aiterm<span class="w"> </span>profile<span class="w"> </span>switch<span class="w"> </span>R-Dev
+<a id="__codelineno-35-2" name="__codelineno-35-2" href="#__codelineno-35-2"></a>❌<span class="w"> </span>Operation<span class="w"> </span>not<span class="w"> </span>permitted
 </code></pre></div></p>
 <p><strong>Cause:</strong> macOS security restrictions</p>
 <p><strong>Solution:</strong>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a><span class="c1"># Grant Full Disk Access</span>
-<a id="__codelineno-37-2" name="__codelineno-37-2" href="#__codelineno-37-2"></a><span class="c1"># 1. System Settings → Privacy &amp; Security</span>
-<a id="__codelineno-37-3" name="__codelineno-37-3" href="#__codelineno-37-3"></a><span class="c1"># 2. Full Disk Access</span>
-<a id="__codelineno-37-4" name="__codelineno-37-4" href="#__codelineno-37-4"></a><span class="c1"># 3. Add iTerm2</span>
-<a id="__codelineno-37-5" name="__codelineno-37-5" href="#__codelineno-37-5"></a><span class="c1"># 4. Toggle ON</span>
-<a id="__codelineno-37-6" name="__codelineno-37-6" href="#__codelineno-37-6"></a><span class="c1"># 5. Restart iTerm2</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a><span class="c1"># Grant Full Disk Access</span>
+<a id="__codelineno-36-2" name="__codelineno-36-2" href="#__codelineno-36-2"></a><span class="c1"># 1. System Settings → Privacy &amp; Security</span>
+<a id="__codelineno-36-3" name="__codelineno-36-3" href="#__codelineno-36-3"></a><span class="c1"># 2. Full Disk Access</span>
+<a id="__codelineno-36-4" name="__codelineno-36-4" href="#__codelineno-36-4"></a><span class="c1"># 3. Add iTerm2</span>
+<a id="__codelineno-36-5" name="__codelineno-36-5" href="#__codelineno-36-5"></a><span class="c1"># 4. Toggle ON</span>
+<a id="__codelineno-36-6" name="__codelineno-36-6" href="#__codelineno-36-6"></a><span class="c1"># 5. Restart iTerm2</span>
 </code></pre></div></p>
 <hr />
 <h4 id="issue-slow-profile-switching">Issue: Slow profile switching</h4>
 <p><strong>Symptom:</strong> Profile switch takes &gt; 1 second</p>
 <p><strong>Cause:</strong> macOS App Nap</p>
 <p><strong>Solution:</strong>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a><span class="c1"># Disable App Nap for iTerm2</span>
-<a id="__codelineno-38-2" name="__codelineno-38-2" href="#__codelineno-38-2"></a>defaults<span class="w"> </span>write<span class="w"> </span>com.googlecode.iterm2<span class="w"> </span>NSAppSleepDisabled<span class="w"> </span>-bool<span class="w"> </span>YES
-<a id="__codelineno-38-3" name="__codelineno-38-3" href="#__codelineno-38-3"></a>
-<a id="__codelineno-38-4" name="__codelineno-38-4" href="#__codelineno-38-4"></a><span class="c1"># Restart iTerm2</span>
-<a id="__codelineno-38-5" name="__codelineno-38-5" href="#__codelineno-38-5"></a>pkill<span class="w"> </span>iTerm2
-<a id="__codelineno-38-6" name="__codelineno-38-6" href="#__codelineno-38-6"></a>open<span class="w"> </span>-a<span class="w"> </span>iTerm
+<div class="highlight"><pre><span></span><code><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a><span class="c1"># Disable App Nap for iTerm2</span>
+<a id="__codelineno-37-2" name="__codelineno-37-2" href="#__codelineno-37-2"></a>defaults<span class="w"> </span>write<span class="w"> </span>com.googlecode.iterm2<span class="w"> </span>NSAppSleepDisabled<span class="w"> </span>-bool<span class="w"> </span>YES
+<a id="__codelineno-37-3" name="__codelineno-37-3" href="#__codelineno-37-3"></a>
+<a id="__codelineno-37-4" name="__codelineno-37-4" href="#__codelineno-37-4"></a><span class="c1"># Restart iTerm2</span>
+<a id="__codelineno-37-5" name="__codelineno-37-5" href="#__codelineno-37-5"></a>pkill<span class="w"> </span>iTerm2
+<a id="__codelineno-37-6" name="__codelineno-37-6" href="#__codelineno-37-6"></a>open<span class="w"> </span>-a<span class="w"> </span>iTerm
 </code></pre></div></p>
 <hr />
 <h3 id="linux">Linux</h3>
 <h4 id="issue-libpython-not-found">Issue: <code>libpython not found</code></h4>
 <p><strong>Symptom:</strong>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a>$<span class="w"> </span>aiterm
-<a id="__codelineno-39-2" name="__codelineno-39-2" href="#__codelineno-39-2"></a>error<span class="w"> </span><span class="k">while</span><span class="w"> </span>loading<span class="w"> </span>shared<span class="w"> </span>libraries:<span class="w"> </span>libpython3.11.so.1.0
+<div class="highlight"><pre><span></span><code><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a>$<span class="w"> </span>aiterm
+<a id="__codelineno-38-2" name="__codelineno-38-2" href="#__codelineno-38-2"></a>error<span class="w"> </span><span class="k">while</span><span class="w"> </span>loading<span class="w"> </span>shared<span class="w"> </span>libraries:<span class="w"> </span>libpython3.11.so.1.0
 </code></pre></div></p>
 <p><strong>Solution:</strong>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a><span class="c1"># Ubuntu/Debian</span>
-<a id="__codelineno-40-2" name="__codelineno-40-2" href="#__codelineno-40-2"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>python3.11<span class="w"> </span>python3.11-dev
-<a id="__codelineno-40-3" name="__codelineno-40-3" href="#__codelineno-40-3"></a>
-<a id="__codelineno-40-4" name="__codelineno-40-4" href="#__codelineno-40-4"></a><span class="c1"># Fedora/RHEL</span>
-<a id="__codelineno-40-5" name="__codelineno-40-5" href="#__codelineno-40-5"></a>sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>python3.11<span class="w"> </span>python3.11-devel
-<a id="__codelineno-40-6" name="__codelineno-40-6" href="#__codelineno-40-6"></a>
-<a id="__codelineno-40-7" name="__codelineno-40-7" href="#__codelineno-40-7"></a><span class="c1"># Arch</span>
-<a id="__codelineno-40-8" name="__codelineno-40-8" href="#__codelineno-40-8"></a>sudo<span class="w"> </span>pacman<span class="w"> </span>-S<span class="w"> </span>python
+<div class="highlight"><pre><span></span><code><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a><span class="c1"># Ubuntu/Debian</span>
+<a id="__codelineno-39-2" name="__codelineno-39-2" href="#__codelineno-39-2"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>python3.11<span class="w"> </span>python3.11-dev
+<a id="__codelineno-39-3" name="__codelineno-39-3" href="#__codelineno-39-3"></a>
+<a id="__codelineno-39-4" name="__codelineno-39-4" href="#__codelineno-39-4"></a><span class="c1"># Fedora/RHEL</span>
+<a id="__codelineno-39-5" name="__codelineno-39-5" href="#__codelineno-39-5"></a>sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>python3.11<span class="w"> </span>python3.11-devel
+<a id="__codelineno-39-6" name="__codelineno-39-6" href="#__codelineno-39-6"></a>
+<a id="__codelineno-39-7" name="__codelineno-39-7" href="#__codelineno-39-7"></a><span class="c1"># Arch</span>
+<a id="__codelineno-39-8" name="__codelineno-39-8" href="#__codelineno-39-8"></a>sudo<span class="w"> </span>pacman<span class="w"> </span>-S<span class="w"> </span>python
 </code></pre></div></p>
 <hr />
 <h4 id="issue-permission-denied-on-config-directory">Issue: Permission denied on config directory</h4>
 <p><strong>Symptom:</strong>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a>$<span class="w"> </span>aiterm<span class="w"> </span>doctor
-<a id="__codelineno-41-2" name="__codelineno-41-2" href="#__codelineno-41-2"></a>❌<span class="w"> </span>Settings:<span class="w"> </span>Permission<span class="w"> </span>denied
+<div class="highlight"><pre><span></span><code><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a>$<span class="w"> </span>aiterm<span class="w"> </span>doctor
+<a id="__codelineno-40-2" name="__codelineno-40-2" href="#__codelineno-40-2"></a>❌<span class="w"> </span>Settings:<span class="w"> </span>Permission<span class="w"> </span>denied
 </code></pre></div></p>
 <p><strong>Solution:</strong>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a><span class="c1"># Fix ownership</span>
-<a id="__codelineno-42-2" name="__codelineno-42-2" href="#__codelineno-42-2"></a>sudo<span class="w"> </span>chown<span class="w"> </span>-R<span class="w"> </span><span class="nv">$USER</span>:<span class="nv">$USER</span><span class="w"> </span>~/.aiterm
-<a id="__codelineno-42-3" name="__codelineno-42-3" href="#__codelineno-42-3"></a>sudo<span class="w"> </span>chown<span class="w"> </span>-R<span class="w"> </span><span class="nv">$USER</span>:<span class="nv">$USER</span><span class="w"> </span>~/.claude
-<a id="__codelineno-42-4" name="__codelineno-42-4" href="#__codelineno-42-4"></a>
-<a id="__codelineno-42-5" name="__codelineno-42-5" href="#__codelineno-42-5"></a><span class="c1"># Fix permissions</span>
-<a id="__codelineno-42-6" name="__codelineno-42-6" href="#__codelineno-42-6"></a>chmod<span class="w"> </span><span class="m">700</span><span class="w"> </span>~/.aiterm
-<a id="__codelineno-42-7" name="__codelineno-42-7" href="#__codelineno-42-7"></a>chmod<span class="w"> </span><span class="m">700</span><span class="w"> </span>~/.claude
-<a id="__codelineno-42-8" name="__codelineno-42-8" href="#__codelineno-42-8"></a>chmod<span class="w"> </span><span class="m">600</span><span class="w"> </span>~/.claude/settings.json
+<div class="highlight"><pre><span></span><code><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a><span class="c1"># Fix ownership</span>
+<a id="__codelineno-41-2" name="__codelineno-41-2" href="#__codelineno-41-2"></a>sudo<span class="w"> </span>chown<span class="w"> </span>-R<span class="w"> </span><span class="nv">$USER</span>:<span class="nv">$USER</span><span class="w"> </span>~/.aiterm
+<a id="__codelineno-41-3" name="__codelineno-41-3" href="#__codelineno-41-3"></a>sudo<span class="w"> </span>chown<span class="w"> </span>-R<span class="w"> </span><span class="nv">$USER</span>:<span class="nv">$USER</span><span class="w"> </span>~/.claude
+<a id="__codelineno-41-4" name="__codelineno-41-4" href="#__codelineno-41-4"></a>
+<a id="__codelineno-41-5" name="__codelineno-41-5" href="#__codelineno-41-5"></a><span class="c1"># Fix permissions</span>
+<a id="__codelineno-41-6" name="__codelineno-41-6" href="#__codelineno-41-6"></a>chmod<span class="w"> </span><span class="m">700</span><span class="w"> </span>~/.aiterm
+<a id="__codelineno-41-7" name="__codelineno-41-7" href="#__codelineno-41-7"></a>chmod<span class="w"> </span><span class="m">700</span><span class="w"> </span>~/.claude
+<a id="__codelineno-41-8" name="__codelineno-41-8" href="#__codelineno-41-8"></a>chmod<span class="w"> </span><span class="m">600</span><span class="w"> </span>~/.claude/settings.json
 </code></pre></div></p>
 <hr />
 <h2 id="error-messages-reference">Error Messages Reference</h2>
@@ -4319,47 +4318,47 @@ Context type is incorrect for your project</p>
 <p><strong>Message:</strong> <code>Profile 'NAME' not found</code></p>
 <p><strong>Cause:</strong> Profile doesn't exist in terminal</p>
 <p><strong>Solution:</strong>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a><span class="c1"># List available profiles</span>
-<a id="__codelineno-43-2" name="__codelineno-43-2" href="#__codelineno-43-2"></a>aiterm<span class="w"> </span>profile<span class="w"> </span>list
-<a id="__codelineno-43-3" name="__codelineno-43-3" href="#__codelineno-43-3"></a>
-<a id="__codelineno-43-4" name="__codelineno-43-4" href="#__codelineno-43-4"></a><span class="c1"># Create profile in terminal settings</span>
-<a id="__codelineno-43-5" name="__codelineno-43-5" href="#__codelineno-43-5"></a><span class="c1"># Or use existing profile name</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a><span class="c1"># List available profiles</span>
+<a id="__codelineno-42-2" name="__codelineno-42-2" href="#__codelineno-42-2"></a>aiterm<span class="w"> </span>profile<span class="w"> </span>list
+<a id="__codelineno-42-3" name="__codelineno-42-3" href="#__codelineno-42-3"></a>
+<a id="__codelineno-42-4" name="__codelineno-42-4" href="#__codelineno-42-4"></a><span class="c1"># Create profile in terminal settings</span>
+<a id="__codelineno-42-5" name="__codelineno-42-5" href="#__codelineno-42-5"></a><span class="c1"># Or use existing profile name</span>
 </code></pre></div></p>
 <hr />
 <h3 id="terminalunsupportederror"><code>TerminalUnsupportedError</code></h3>
 <p><strong>Message:</strong> <code>Terminal 'NAME' not supported</code></p>
 <p><strong>Cause:</strong> Using unsupported terminal</p>
 <p><strong>Solution:</strong>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-44-1" name="__codelineno-44-1" href="#__codelineno-44-1"></a><span class="c1"># Check supported terminals</span>
-<a id="__codelineno-44-2" name="__codelineno-44-2" href="#__codelineno-44-2"></a>aiterm<span class="w"> </span>doctor
-<a id="__codelineno-44-3" name="__codelineno-44-3" href="#__codelineno-44-3"></a>
-<a id="__codelineno-44-4" name="__codelineno-44-4" href="#__codelineno-44-4"></a><span class="c1"># Install supported terminal (iTerm2, Wezterm, etc.)</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a><span class="c1"># Check supported terminals</span>
+<a id="__codelineno-43-2" name="__codelineno-43-2" href="#__codelineno-43-2"></a>aiterm<span class="w"> </span>doctor
+<a id="__codelineno-43-3" name="__codelineno-43-3" href="#__codelineno-43-3"></a>
+<a id="__codelineno-43-4" name="__codelineno-43-4" href="#__codelineno-43-4"></a><span class="c1"># Install supported terminal (iTerm2, Wezterm, etc.)</span>
 </code></pre></div></p>
 <hr />
 <h3 id="configerror"><code>ConfigError</code></h3>
 <p><strong>Message:</strong> <code>Invalid configuration: DETAILS</code></p>
 <p><strong>Cause:</strong> Malformed config file</p>
 <p><strong>Solution:</strong>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-45-1" name="__codelineno-45-1" href="#__codelineno-45-1"></a><span class="c1"># Validate config</span>
-<a id="__codelineno-45-2" name="__codelineno-45-2" href="#__codelineno-45-2"></a>aiterm<span class="w"> </span>claude<span class="w"> </span>settings<span class="w"> </span>show<span class="w"> </span>--validate
-<a id="__codelineno-45-3" name="__codelineno-45-3" href="#__codelineno-45-3"></a>
-<a id="__codelineno-45-4" name="__codelineno-45-4" href="#__codelineno-45-4"></a><span class="c1"># Reset to defaults</span>
-<a id="__codelineno-45-5" name="__codelineno-45-5" href="#__codelineno-45-5"></a>rm<span class="w"> </span>~/.aiterm/config.json
-<a id="__codelineno-45-6" name="__codelineno-45-6" href="#__codelineno-45-6"></a>aiterm<span class="w"> </span>doctor<span class="w">  </span><span class="c1"># Recreates defaults</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-44-1" name="__codelineno-44-1" href="#__codelineno-44-1"></a><span class="c1"># Validate config</span>
+<a id="__codelineno-44-2" name="__codelineno-44-2" href="#__codelineno-44-2"></a>aiterm<span class="w"> </span>claude<span class="w"> </span>settings<span class="w"> </span>show<span class="w"> </span>--validate
+<a id="__codelineno-44-3" name="__codelineno-44-3" href="#__codelineno-44-3"></a>
+<a id="__codelineno-44-4" name="__codelineno-44-4" href="#__codelineno-44-4"></a><span class="c1"># Reset to defaults</span>
+<a id="__codelineno-44-5" name="__codelineno-44-5" href="#__codelineno-44-5"></a>rm<span class="w"> </span>~/.aiterm/config.json
+<a id="__codelineno-44-6" name="__codelineno-44-6" href="#__codelineno-44-6"></a>aiterm<span class="w"> </span>doctor<span class="w">  </span><span class="c1"># Recreates defaults</span>
 </code></pre></div></p>
 <hr />
 <h3 id="settingserror"><code>SettingsError</code></h3>
 <p><strong>Message:</strong> <code>Failed to update settings: DETAILS</code></p>
 <p><strong>Cause:</strong> Can't write to settings file</p>
 <p><strong>Solution:</strong>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-46-1" name="__codelineno-46-1" href="#__codelineno-46-1"></a><span class="c1"># Check permissions</span>
-<a id="__codelineno-46-2" name="__codelineno-46-2" href="#__codelineno-46-2"></a>ls<span class="w"> </span>-la<span class="w"> </span>~/.claude/settings.json
-<a id="__codelineno-46-3" name="__codelineno-46-3" href="#__codelineno-46-3"></a>
-<a id="__codelineno-46-4" name="__codelineno-46-4" href="#__codelineno-46-4"></a><span class="c1"># Fix permissions</span>
-<a id="__codelineno-46-5" name="__codelineno-46-5" href="#__codelineno-46-5"></a>chmod<span class="w"> </span><span class="m">600</span><span class="w"> </span>~/.claude/settings.json
-<a id="__codelineno-46-6" name="__codelineno-46-6" href="#__codelineno-46-6"></a>
-<a id="__codelineno-46-7" name="__codelineno-46-7" href="#__codelineno-46-7"></a><span class="c1"># Check disk space</span>
-<a id="__codelineno-46-8" name="__codelineno-46-8" href="#__codelineno-46-8"></a>df<span class="w"> </span>-h<span class="w"> </span>~
+<div class="highlight"><pre><span></span><code><a id="__codelineno-45-1" name="__codelineno-45-1" href="#__codelineno-45-1"></a><span class="c1"># Check permissions</span>
+<a id="__codelineno-45-2" name="__codelineno-45-2" href="#__codelineno-45-2"></a>ls<span class="w"> </span>-la<span class="w"> </span>~/.claude/settings.json
+<a id="__codelineno-45-3" name="__codelineno-45-3" href="#__codelineno-45-3"></a>
+<a id="__codelineno-45-4" name="__codelineno-45-4" href="#__codelineno-45-4"></a><span class="c1"># Fix permissions</span>
+<a id="__codelineno-45-5" name="__codelineno-45-5" href="#__codelineno-45-5"></a>chmod<span class="w"> </span><span class="m">600</span><span class="w"> </span>~/.claude/settings.json
+<a id="__codelineno-45-6" name="__codelineno-45-6" href="#__codelineno-45-6"></a>
+<a id="__codelineno-45-7" name="__codelineno-45-7" href="#__codelineno-45-7"></a><span class="c1"># Check disk space</span>
+<a id="__codelineno-45-8" name="__codelineno-45-8" href="#__codelineno-45-8"></a>df<span class="w"> </span>-h<span class="w"> </span>~
 </code></pre></div></p>
 <hr />
 <h2 id="performance-issues">Performance Issues</h2>
@@ -4367,100 +4366,100 @@ Context type is incorrect for your project</p>
 <p><strong>Expected:</strong> &lt; 50ms
 <strong>If slower:</strong> &gt; 500ms</p>
 <p><strong>Diagnosis:</strong>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-47-1" name="__codelineno-47-1" href="#__codelineno-47-1"></a><span class="c1"># Time detection</span>
-<a id="__codelineno-47-2" name="__codelineno-47-2" href="#__codelineno-47-2"></a><span class="nb">time</span><span class="w"> </span>aiterm<span class="w"> </span>detect
-<a id="__codelineno-47-3" name="__codelineno-47-3" href="#__codelineno-47-3"></a><span class="c1"># Should complete in &lt; 0.1s</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-46-1" name="__codelineno-46-1" href="#__codelineno-46-1"></a><span class="c1"># Time detection</span>
+<a id="__codelineno-46-2" name="__codelineno-46-2" href="#__codelineno-46-2"></a><span class="nb">time</span><span class="w"> </span>aiterm<span class="w"> </span>detect
+<a id="__codelineno-46-3" name="__codelineno-46-3" href="#__codelineno-46-3"></a><span class="c1"># Should complete in &lt; 0.1s</span>
 </code></pre></div></p>
 <p><strong>Causes:</strong>
 1. Network-mounted directories (NFS, SMB)
 2. Very deep directory structure
 3. Large number of files</p>
 <p><strong>Solutions:</strong>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-48-1" name="__codelineno-48-1" href="#__codelineno-48-1"></a><span class="c1"># 1. Work on local disk</span>
-<a id="__codelineno-48-2" name="__codelineno-48-2" href="#__codelineno-48-2"></a><span class="nb">cd</span><span class="w"> </span>~/local/copy/of/project
-<a id="__codelineno-48-3" name="__codelineno-48-3" href="#__codelineno-48-3"></a>
-<a id="__codelineno-48-4" name="__codelineno-48-4" href="#__codelineno-48-4"></a><span class="c1"># 2. Exclude from detection</span>
-<a id="__codelineno-48-5" name="__codelineno-48-5" href="#__codelineno-48-5"></a><span class="nb">export</span><span class="w"> </span><span class="nv">AITERM_SKIP_DETECT</span><span class="o">=</span><span class="m">1</span>
-<a id="__codelineno-48-6" name="__codelineno-48-6" href="#__codelineno-48-6"></a>
-<a id="__codelineno-48-7" name="__codelineno-48-7" href="#__codelineno-48-7"></a><span class="c1"># 3. Use manual profile switching</span>
-<a id="__codelineno-48-8" name="__codelineno-48-8" href="#__codelineno-48-8"></a>aiterm<span class="w"> </span>profile<span class="w"> </span>switch<span class="w"> </span>PROFILE_NAME
+<div class="highlight"><pre><span></span><code><a id="__codelineno-47-1" name="__codelineno-47-1" href="#__codelineno-47-1"></a><span class="c1"># 1. Work on local disk</span>
+<a id="__codelineno-47-2" name="__codelineno-47-2" href="#__codelineno-47-2"></a><span class="nb">cd</span><span class="w"> </span>~/local/copy/of/project
+<a id="__codelineno-47-3" name="__codelineno-47-3" href="#__codelineno-47-3"></a>
+<a id="__codelineno-47-4" name="__codelineno-47-4" href="#__codelineno-47-4"></a><span class="c1"># 2. Exclude from detection</span>
+<a id="__codelineno-47-5" name="__codelineno-47-5" href="#__codelineno-47-5"></a><span class="nb">export</span><span class="w"> </span><span class="nv">AITERM_SKIP_DETECT</span><span class="o">=</span><span class="m">1</span>
+<a id="__codelineno-47-6" name="__codelineno-47-6" href="#__codelineno-47-6"></a>
+<a id="__codelineno-47-7" name="__codelineno-47-7" href="#__codelineno-47-7"></a><span class="c1"># 3. Use manual profile switching</span>
+<a id="__codelineno-47-8" name="__codelineno-47-8" href="#__codelineno-47-8"></a>aiterm<span class="w"> </span>profile<span class="w"> </span>switch<span class="w"> </span>PROFILE_NAME
 </code></pre></div></p>
 <hr />
 <h3 id="high-cpu-usage">High CPU usage</h3>
 <p><strong>Symptom:</strong> aiterm using &gt; 10% CPU</p>
 <p><strong>Diagnosis:</strong>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-49-1" name="__codelineno-49-1" href="#__codelineno-49-1"></a><span class="c1"># Check process</span>
-<a id="__codelineno-49-2" name="__codelineno-49-2" href="#__codelineno-49-2"></a>top<span class="w"> </span>-p<span class="w"> </span><span class="k">$(</span>pgrep<span class="w"> </span>-f<span class="w"> </span>aiterm<span class="k">)</span>
-<a id="__codelineno-49-3" name="__codelineno-49-3" href="#__codelineno-49-3"></a>
-<a id="__codelineno-49-4" name="__codelineno-49-4" href="#__codelineno-49-4"></a><span class="c1"># Check if running background tasks</span>
-<a id="__codelineno-49-5" name="__codelineno-49-5" href="#__codelineno-49-5"></a>ps<span class="w"> </span>aux<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>aiterm
+<div class="highlight"><pre><span></span><code><a id="__codelineno-48-1" name="__codelineno-48-1" href="#__codelineno-48-1"></a><span class="c1"># Check process</span>
+<a id="__codelineno-48-2" name="__codelineno-48-2" href="#__codelineno-48-2"></a>top<span class="w"> </span>-p<span class="w"> </span><span class="k">$(</span>pgrep<span class="w"> </span>-f<span class="w"> </span>aiterm<span class="k">)</span>
+<a id="__codelineno-48-3" name="__codelineno-48-3" href="#__codelineno-48-3"></a>
+<a id="__codelineno-48-4" name="__codelineno-48-4" href="#__codelineno-48-4"></a><span class="c1"># Check if running background tasks</span>
+<a id="__codelineno-48-5" name="__codelineno-48-5" href="#__codelineno-48-5"></a>ps<span class="w"> </span>aux<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>aiterm
 </code></pre></div></p>
 <p><strong>Solution:</strong>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-50-1" name="__codelineno-50-1" href="#__codelineno-50-1"></a><span class="c1"># Kill background processes</span>
-<a id="__codelineno-50-2" name="__codelineno-50-2" href="#__codelineno-50-2"></a>pkill<span class="w"> </span>-f<span class="w"> </span>aiterm
-<a id="__codelineno-50-3" name="__codelineno-50-3" href="#__codelineno-50-3"></a>
-<a id="__codelineno-50-4" name="__codelineno-50-4" href="#__codelineno-50-4"></a><span class="c1"># Restart with clean state</span>
-<a id="__codelineno-50-5" name="__codelineno-50-5" href="#__codelineno-50-5"></a>aiterm<span class="w"> </span>doctor
+<div class="highlight"><pre><span></span><code><a id="__codelineno-49-1" name="__codelineno-49-1" href="#__codelineno-49-1"></a><span class="c1"># Kill background processes</span>
+<a id="__codelineno-49-2" name="__codelineno-49-2" href="#__codelineno-49-2"></a>pkill<span class="w"> </span>-f<span class="w"> </span>aiterm
+<a id="__codelineno-49-3" name="__codelineno-49-3" href="#__codelineno-49-3"></a>
+<a id="__codelineno-49-4" name="__codelineno-49-4" href="#__codelineno-49-4"></a><span class="c1"># Restart with clean state</span>
+<a id="__codelineno-49-5" name="__codelineno-49-5" href="#__codelineno-49-5"></a>aiterm<span class="w"> </span>doctor
 </code></pre></div></p>
 <hr />
 <h2 id="diagnostic-tools">Diagnostic Tools</h2>
 <h3 id="complete-diagnostic-script">Complete diagnostic script</h3>
 <p>Save as <code>diagnose-aiterm.sh</code>:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-51-1" name="__codelineno-51-1" href="#__codelineno-51-1"></a><span class="ch">#!/bin/bash</span>
-<a id="__codelineno-51-2" name="__codelineno-51-2" href="#__codelineno-51-2"></a>
-<a id="__codelineno-51-3" name="__codelineno-51-3" href="#__codelineno-51-3"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;=== aiterm Diagnostic Report ===&quot;</span>
-<a id="__codelineno-51-4" name="__codelineno-51-4" href="#__codelineno-51-4"></a><span class="nb">echo</span>
-<a id="__codelineno-51-5" name="__codelineno-51-5" href="#__codelineno-51-5"></a>
-<a id="__codelineno-51-6" name="__codelineno-51-6" href="#__codelineno-51-6"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;1. Installation:&quot;</span>
-<a id="__codelineno-51-7" name="__codelineno-51-7" href="#__codelineno-51-7"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;   Python: </span><span class="k">$(</span>python3<span class="w"> </span>--version<span class="k">)</span><span class="s2">&quot;</span>
-<a id="__codelineno-51-8" name="__codelineno-51-8" href="#__codelineno-51-8"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;   aiterm: </span><span class="k">$(</span>aiterm<span class="w"> </span>--version<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;NOT INSTALLED&#39;</span><span class="k">)</span><span class="s2">&quot;</span>
-<a id="__codelineno-51-9" name="__codelineno-51-9" href="#__codelineno-51-9"></a><span class="nb">echo</span>
-<a id="__codelineno-51-10" name="__codelineno-51-10" href="#__codelineno-51-10"></a>
-<a id="__codelineno-51-11" name="__codelineno-51-11" href="#__codelineno-51-11"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;2. Environment:&quot;</span>
-<a id="__codelineno-51-12" name="__codelineno-51-12" href="#__codelineno-51-12"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;   TERM_PROGRAM: </span><span class="nv">$TERM_PROGRAM</span><span class="s2">&quot;</span>
-<a id="__codelineno-51-13" name="__codelineno-51-13" href="#__codelineno-51-13"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;   AITERM_AUTO_SWITCH: </span><span class="nv">$AITERM_AUTO_SWITCH</span><span class="s2">&quot;</span>
-<a id="__codelineno-51-14" name="__codelineno-51-14" href="#__codelineno-51-14"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;   AITERM_CONFIG: </span><span class="nv">$AITERM_CONFIG</span><span class="s2">&quot;</span>
-<a id="__codelineno-51-15" name="__codelineno-51-15" href="#__codelineno-51-15"></a><span class="nb">echo</span>
-<a id="__codelineno-51-16" name="__codelineno-51-16" href="#__codelineno-51-16"></a>
-<a id="__codelineno-51-17" name="__codelineno-51-17" href="#__codelineno-51-17"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;3. Terminal:&quot;</span>
-<a id="__codelineno-51-18" name="__codelineno-51-18" href="#__codelineno-51-18"></a>ps<span class="w"> </span>aux<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span>iterm<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-v<span class="w"> </span>grep<span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;   iTerm2: Not running&quot;</span>
-<a id="__codelineno-51-19" name="__codelineno-51-19" href="#__codelineno-51-19"></a><span class="nb">echo</span>
-<a id="__codelineno-51-20" name="__codelineno-51-20" href="#__codelineno-51-20"></a>
-<a id="__codelineno-51-21" name="__codelineno-51-21" href="#__codelineno-51-21"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;4. Config Files:&quot;</span>
-<a id="__codelineno-51-22" name="__codelineno-51-22" href="#__codelineno-51-22"></a>ls<span class="w"> </span>-la<span class="w"> </span>~/.aiterm/<span class="w"> </span><span class="m">2</span>&gt;/dev/null<span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;   ~/.aiterm/: Not found&quot;</span>
-<a id="__codelineno-51-23" name="__codelineno-51-23" href="#__codelineno-51-23"></a>ls<span class="w"> </span>-la<span class="w"> </span>~/.claude/settings.json<span class="w"> </span><span class="m">2</span>&gt;/dev/null<span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;   ~/.claude/settings.json: Not found&quot;</span>
-<a id="__codelineno-51-24" name="__codelineno-51-24" href="#__codelineno-51-24"></a><span class="nb">echo</span>
-<a id="__codelineno-51-25" name="__codelineno-51-25" href="#__codelineno-51-25"></a>
-<a id="__codelineno-51-26" name="__codelineno-51-26" href="#__codelineno-51-26"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;5. Current Directory:&quot;</span>
-<a id="__codelineno-51-27" name="__codelineno-51-27" href="#__codelineno-51-27"></a><span class="nb">pwd</span>
-<a id="__codelineno-51-28" name="__codelineno-51-28" href="#__codelineno-51-28"></a>ls<span class="w"> </span>-la<span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-10
-<a id="__codelineno-51-29" name="__codelineno-51-29" href="#__codelineno-51-29"></a><span class="nb">echo</span>
-<a id="__codelineno-51-30" name="__codelineno-51-30" href="#__codelineno-51-30"></a>
-<a id="__codelineno-51-31" name="__codelineno-51-31" href="#__codelineno-51-31"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;6. Context Detection:&quot;</span>
-<a id="__codelineno-51-32" name="__codelineno-51-32" href="#__codelineno-51-32"></a>aiterm<span class="w"> </span>detect<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;   Detection failed&quot;</span>
-<a id="__codelineno-51-33" name="__codelineno-51-33" href="#__codelineno-51-33"></a><span class="nb">echo</span>
-<a id="__codelineno-51-34" name="__codelineno-51-34" href="#__codelineno-51-34"></a>
-<a id="__codelineno-51-35" name="__codelineno-51-35" href="#__codelineno-51-35"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;=== End Diagnostic Report ===&quot;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-50-1" name="__codelineno-50-1" href="#__codelineno-50-1"></a><span class="ch">#!/bin/bash</span>
+<a id="__codelineno-50-2" name="__codelineno-50-2" href="#__codelineno-50-2"></a>
+<a id="__codelineno-50-3" name="__codelineno-50-3" href="#__codelineno-50-3"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;=== aiterm Diagnostic Report ===&quot;</span>
+<a id="__codelineno-50-4" name="__codelineno-50-4" href="#__codelineno-50-4"></a><span class="nb">echo</span>
+<a id="__codelineno-50-5" name="__codelineno-50-5" href="#__codelineno-50-5"></a>
+<a id="__codelineno-50-6" name="__codelineno-50-6" href="#__codelineno-50-6"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;1. Installation:&quot;</span>
+<a id="__codelineno-50-7" name="__codelineno-50-7" href="#__codelineno-50-7"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;   Python: </span><span class="k">$(</span>python3<span class="w"> </span>--version<span class="k">)</span><span class="s2">&quot;</span>
+<a id="__codelineno-50-8" name="__codelineno-50-8" href="#__codelineno-50-8"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;   aiterm: </span><span class="k">$(</span>aiterm<span class="w"> </span>--version<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;NOT INSTALLED&#39;</span><span class="k">)</span><span class="s2">&quot;</span>
+<a id="__codelineno-50-9" name="__codelineno-50-9" href="#__codelineno-50-9"></a><span class="nb">echo</span>
+<a id="__codelineno-50-10" name="__codelineno-50-10" href="#__codelineno-50-10"></a>
+<a id="__codelineno-50-11" name="__codelineno-50-11" href="#__codelineno-50-11"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;2. Environment:&quot;</span>
+<a id="__codelineno-50-12" name="__codelineno-50-12" href="#__codelineno-50-12"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;   TERM_PROGRAM: </span><span class="nv">$TERM_PROGRAM</span><span class="s2">&quot;</span>
+<a id="__codelineno-50-13" name="__codelineno-50-13" href="#__codelineno-50-13"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;   AITERM_AUTO_SWITCH: </span><span class="nv">$AITERM_AUTO_SWITCH</span><span class="s2">&quot;</span>
+<a id="__codelineno-50-14" name="__codelineno-50-14" href="#__codelineno-50-14"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;   AITERM_CONFIG: </span><span class="nv">$AITERM_CONFIG</span><span class="s2">&quot;</span>
+<a id="__codelineno-50-15" name="__codelineno-50-15" href="#__codelineno-50-15"></a><span class="nb">echo</span>
+<a id="__codelineno-50-16" name="__codelineno-50-16" href="#__codelineno-50-16"></a>
+<a id="__codelineno-50-17" name="__codelineno-50-17" href="#__codelineno-50-17"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;3. Terminal:&quot;</span>
+<a id="__codelineno-50-18" name="__codelineno-50-18" href="#__codelineno-50-18"></a>ps<span class="w"> </span>aux<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span>iterm<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-v<span class="w"> </span>grep<span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;   iTerm2: Not running&quot;</span>
+<a id="__codelineno-50-19" name="__codelineno-50-19" href="#__codelineno-50-19"></a><span class="nb">echo</span>
+<a id="__codelineno-50-20" name="__codelineno-50-20" href="#__codelineno-50-20"></a>
+<a id="__codelineno-50-21" name="__codelineno-50-21" href="#__codelineno-50-21"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;4. Config Files:&quot;</span>
+<a id="__codelineno-50-22" name="__codelineno-50-22" href="#__codelineno-50-22"></a>ls<span class="w"> </span>-la<span class="w"> </span>~/.aiterm/<span class="w"> </span><span class="m">2</span>&gt;/dev/null<span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;   ~/.aiterm/: Not found&quot;</span>
+<a id="__codelineno-50-23" name="__codelineno-50-23" href="#__codelineno-50-23"></a>ls<span class="w"> </span>-la<span class="w"> </span>~/.claude/settings.json<span class="w"> </span><span class="m">2</span>&gt;/dev/null<span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;   ~/.claude/settings.json: Not found&quot;</span>
+<a id="__codelineno-50-24" name="__codelineno-50-24" href="#__codelineno-50-24"></a><span class="nb">echo</span>
+<a id="__codelineno-50-25" name="__codelineno-50-25" href="#__codelineno-50-25"></a>
+<a id="__codelineno-50-26" name="__codelineno-50-26" href="#__codelineno-50-26"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;5. Current Directory:&quot;</span>
+<a id="__codelineno-50-27" name="__codelineno-50-27" href="#__codelineno-50-27"></a><span class="nb">pwd</span>
+<a id="__codelineno-50-28" name="__codelineno-50-28" href="#__codelineno-50-28"></a>ls<span class="w"> </span>-la<span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-10
+<a id="__codelineno-50-29" name="__codelineno-50-29" href="#__codelineno-50-29"></a><span class="nb">echo</span>
+<a id="__codelineno-50-30" name="__codelineno-50-30" href="#__codelineno-50-30"></a>
+<a id="__codelineno-50-31" name="__codelineno-50-31" href="#__codelineno-50-31"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;6. Context Detection:&quot;</span>
+<a id="__codelineno-50-32" name="__codelineno-50-32" href="#__codelineno-50-32"></a>aiterm<span class="w"> </span>detect<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;   Detection failed&quot;</span>
+<a id="__codelineno-50-33" name="__codelineno-50-33" href="#__codelineno-50-33"></a><span class="nb">echo</span>
+<a id="__codelineno-50-34" name="__codelineno-50-34" href="#__codelineno-50-34"></a>
+<a id="__codelineno-50-35" name="__codelineno-50-35" href="#__codelineno-50-35"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;=== End Diagnostic Report ===&quot;</span>
 </code></pre></div>
 <p><strong>Usage:</strong>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-52-1" name="__codelineno-52-1" href="#__codelineno-52-1"></a>chmod<span class="w"> </span>+x<span class="w"> </span>diagnose-aiterm.sh
-<a id="__codelineno-52-2" name="__codelineno-52-2" href="#__codelineno-52-2"></a>./diagnose-aiterm.sh<span class="w"> </span>&gt;<span class="w"> </span>aiterm-diagnostic.txt
+<div class="highlight"><pre><span></span><code><a id="__codelineno-51-1" name="__codelineno-51-1" href="#__codelineno-51-1"></a>chmod<span class="w"> </span>+x<span class="w"> </span>diagnose-aiterm.sh
+<a id="__codelineno-51-2" name="__codelineno-51-2" href="#__codelineno-51-2"></a>./diagnose-aiterm.sh<span class="w"> </span>&gt;<span class="w"> </span>aiterm-diagnostic.txt
 </code></pre></div></p>
 <hr />
 <h2 id="getting-help">Getting Help</h2>
 <h3 id="before-asking-for-help">Before asking for help</h3>
 <p>Run these diagnostic commands:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-53-1" name="__codelineno-53-1" href="#__codelineno-53-1"></a><span class="c1"># 1. Check installation</span>
-<a id="__codelineno-53-2" name="__codelineno-53-2" href="#__codelineno-53-2"></a>aiterm<span class="w"> </span>doctor
-<a id="__codelineno-53-3" name="__codelineno-53-3" href="#__codelineno-53-3"></a>
-<a id="__codelineno-53-4" name="__codelineno-53-4" href="#__codelineno-53-4"></a><span class="c1"># 2. Check context detection</span>
-<a id="__codelineno-53-5" name="__codelineno-53-5" href="#__codelineno-53-5"></a>aiterm<span class="w"> </span>detect
-<a id="__codelineno-53-6" name="__codelineno-53-6" href="#__codelineno-53-6"></a>
-<a id="__codelineno-53-7" name="__codelineno-53-7" href="#__codelineno-53-7"></a><span class="c1"># 3. Check settings</span>
-<a id="__codelineno-53-8" name="__codelineno-53-8" href="#__codelineno-53-8"></a>aiterm<span class="w"> </span>claude<span class="w"> </span>settings<span class="w"> </span>show
-<a id="__codelineno-53-9" name="__codelineno-53-9" href="#__codelineno-53-9"></a>
-<a id="__codelineno-53-10" name="__codelineno-53-10" href="#__codelineno-53-10"></a><span class="c1"># 4. Run diagnostic script</span>
-<a id="__codelineno-53-11" name="__codelineno-53-11" href="#__codelineno-53-11"></a>./diagnose-aiterm.sh<span class="w"> </span>&gt;<span class="w"> </span>diagnostic.txt
+<div class="highlight"><pre><span></span><code><a id="__codelineno-52-1" name="__codelineno-52-1" href="#__codelineno-52-1"></a><span class="c1"># 1. Check installation</span>
+<a id="__codelineno-52-2" name="__codelineno-52-2" href="#__codelineno-52-2"></a>aiterm<span class="w"> </span>doctor
+<a id="__codelineno-52-3" name="__codelineno-52-3" href="#__codelineno-52-3"></a>
+<a id="__codelineno-52-4" name="__codelineno-52-4" href="#__codelineno-52-4"></a><span class="c1"># 2. Check context detection</span>
+<a id="__codelineno-52-5" name="__codelineno-52-5" href="#__codelineno-52-5"></a>aiterm<span class="w"> </span>detect
+<a id="__codelineno-52-6" name="__codelineno-52-6" href="#__codelineno-52-6"></a>
+<a id="__codelineno-52-7" name="__codelineno-52-7" href="#__codelineno-52-7"></a><span class="c1"># 3. Check settings</span>
+<a id="__codelineno-52-8" name="__codelineno-52-8" href="#__codelineno-52-8"></a>aiterm<span class="w"> </span>claude<span class="w"> </span>settings<span class="w"> </span>show
+<a id="__codelineno-52-9" name="__codelineno-52-9" href="#__codelineno-52-9"></a>
+<a id="__codelineno-52-10" name="__codelineno-52-10" href="#__codelineno-52-10"></a><span class="c1"># 4. Run diagnostic script</span>
+<a id="__codelineno-52-11" name="__codelineno-52-11" href="#__codelineno-52-11"></a>./diagnose-aiterm.sh<span class="w"> </span>&gt;<span class="w"> </span>diagnostic.txt
 </code></pre></div>
 <h3 id="useful-information-to-include">Useful information to include</h3>
 <p>When reporting issues:</p>
@@ -4494,33 +4493,33 @@ Context type is incorrect for your project</p>
 3. Detection logic (<code>_has_file()</code>, etc.)
 4. Return value (<code>Context</code> object or <code>None</code>)</p>
 <p><strong>Debug:</strong>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-54-1" name="__codelineno-54-1" href="#__codelineno-54-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">aiterm.context</span><span class="w"> </span><span class="kn">import</span> <span class="n">detect_context</span>
-<a id="__codelineno-54-2" name="__codelineno-54-2" href="#__codelineno-54-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
-<a id="__codelineno-54-3" name="__codelineno-54-3" href="#__codelineno-54-3"></a>
-<a id="__codelineno-54-4" name="__codelineno-54-4" href="#__codelineno-54-4"></a><span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">)</span>
-<a id="__codelineno-54-5" name="__codelineno-54-5" href="#__codelineno-54-5"></a><span class="n">context</span> <span class="o">=</span> <span class="n">detect_context</span><span class="p">(</span><span class="s2">&quot;/path&quot;</span><span class="p">)</span>
-<a id="__codelineno-54-6" name="__codelineno-54-6" href="#__codelineno-54-6"></a><span class="c1"># Should show detector execution</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-53-1" name="__codelineno-53-1" href="#__codelineno-53-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">aiterm.context</span><span class="w"> </span><span class="kn">import</span> <span class="n">detect_context</span>
+<a id="__codelineno-53-2" name="__codelineno-53-2" href="#__codelineno-53-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+<a id="__codelineno-53-3" name="__codelineno-53-3" href="#__codelineno-53-3"></a>
+<a id="__codelineno-53-4" name="__codelineno-53-4" href="#__codelineno-53-4"></a><span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">)</span>
+<a id="__codelineno-53-5" name="__codelineno-53-5" href="#__codelineno-53-5"></a><span class="n">context</span> <span class="o">=</span> <span class="n">detect_context</span><span class="p">(</span><span class="s2">&quot;/path&quot;</span><span class="p">)</span>
+<a id="__codelineno-53-6" name="__codelineno-53-6" href="#__codelineno-53-6"></a><span class="c1"># Should show detector execution</span>
 </code></pre></div></p>
 <hr />
 <h3 id="q-can-i-roll-back-auto-approval-changes">Q: Can I roll back auto-approval changes?</h3>
 <p><strong>A:</strong> Yes! aiterm creates automatic backups:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-55-1" name="__codelineno-55-1" href="#__codelineno-55-1"></a><span class="c1"># List backups</span>
-<a id="__codelineno-55-2" name="__codelineno-55-2" href="#__codelineno-55-2"></a>ls<span class="w"> </span>~/.claude/settings.json.backup.*
-<a id="__codelineno-55-3" name="__codelineno-55-3" href="#__codelineno-55-3"></a>
-<a id="__codelineno-55-4" name="__codelineno-55-4" href="#__codelineno-55-4"></a><span class="c1"># Restore from backup</span>
-<a id="__codelineno-55-5" name="__codelineno-55-5" href="#__codelineno-55-5"></a>cp<span class="w"> </span>~/.claude/settings.json.backup.TIMESTAMP<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-55-6" name="__codelineno-55-6" href="#__codelineno-55-6"></a><span class="w">   </span>~/.claude/settings.json
+<div class="highlight"><pre><span></span><code><a id="__codelineno-54-1" name="__codelineno-54-1" href="#__codelineno-54-1"></a><span class="c1"># List backups</span>
+<a id="__codelineno-54-2" name="__codelineno-54-2" href="#__codelineno-54-2"></a>ls<span class="w"> </span>~/.claude/settings.json.backup.*
+<a id="__codelineno-54-3" name="__codelineno-54-3" href="#__codelineno-54-3"></a>
+<a id="__codelineno-54-4" name="__codelineno-54-4" href="#__codelineno-54-4"></a><span class="c1"># Restore from backup</span>
+<a id="__codelineno-54-5" name="__codelineno-54-5" href="#__codelineno-54-5"></a>cp<span class="w"> </span>~/.claude/settings.json.backup.TIMESTAMP<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-54-6" name="__codelineno-54-6" href="#__codelineno-54-6"></a><span class="w">   </span>~/.claude/settings.json
 </code></pre></div>
 <hr />
 <h3 id="q-how-do-i-reset-aiterm-to-defaults">Q: How do I reset aiterm to defaults?</h3>
 <p><strong>A:</strong>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-56-1" name="__codelineno-56-1" href="#__codelineno-56-1"></a><span class="c1"># Remove config</span>
-<a id="__codelineno-56-2" name="__codelineno-56-2" href="#__codelineno-56-2"></a>rm<span class="w"> </span>-rf<span class="w"> </span>~/.aiterm
-<a id="__codelineno-56-3" name="__codelineno-56-3" href="#__codelineno-56-3"></a>
-<a id="__codelineno-56-4" name="__codelineno-56-4" href="#__codelineno-56-4"></a><span class="c1"># Recreate defaults</span>
-<a id="__codelineno-56-5" name="__codelineno-56-5" href="#__codelineno-56-5"></a>aiterm<span class="w"> </span>doctor
-<a id="__codelineno-56-6" name="__codelineno-56-6" href="#__codelineno-56-6"></a>
-<a id="__codelineno-56-7" name="__codelineno-56-7" href="#__codelineno-56-7"></a><span class="c1"># Settings will be regenerated</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-55-1" name="__codelineno-55-1" href="#__codelineno-55-1"></a><span class="c1"># Remove config</span>
+<a id="__codelineno-55-2" name="__codelineno-55-2" href="#__codelineno-55-2"></a>rm<span class="w"> </span>-rf<span class="w"> </span>~/.aiterm
+<a id="__codelineno-55-3" name="__codelineno-55-3" href="#__codelineno-55-3"></a>
+<a id="__codelineno-55-4" name="__codelineno-55-4" href="#__codelineno-55-4"></a><span class="c1"># Recreate defaults</span>
+<a id="__codelineno-55-5" name="__codelineno-55-5" href="#__codelineno-55-5"></a>aiterm<span class="w"> </span>doctor
+<a id="__codelineno-55-6" name="__codelineno-55-6" href="#__codelineno-55-6"></a>
+<a id="__codelineno-55-7" name="__codelineno-55-7" href="#__codelineno-55-7"></a><span class="c1"># Settings will be regenerated</span>
 </code></pre></div></p>
 <p><strong>Note:</strong> Claude Code settings are NOT removed (safe)</p>
 <hr />
@@ -4609,6 +4608,8 @@ Context type is incorrect for your project</p>
     
     
       <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="https://unpkg.com/mermaid@10/dist/mermaid.min.js"></script>
       
     
   </body>
