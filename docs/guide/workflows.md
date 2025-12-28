@@ -379,9 +379,9 @@ Claude: [Fetches paper abstracts with WebFetch]
 Claude: [Summarizes findings]
 ```
 
-**Coming in v0.2.0:**
-- MCP server integration
-- Zotero library access
+**Available:**
+- MCP server integration (`ait mcp list`)
+- See [MCP Reference](../reference/REFCARD-MCP.md) for Zotero and other servers
 - PDF reading and analysis
 
 ---

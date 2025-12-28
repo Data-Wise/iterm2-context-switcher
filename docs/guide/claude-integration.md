@@ -11,8 +11,8 @@ Complete guide to using **aiterm** with Claude Code CLI.
 - ✅ View and backup `~/.claude/settings.json`
 - ✅ Manage auto-approval permissions with curated presets
 - ✅ Quick setup with safe, production-tested configurations
-- 🚧 Hook management (coming v0.2.0)
-- 🚧 MCP server integration (coming v0.2.0)
+- ✅ Hook management (`ait hooks list`)
+- ✅ MCP server integration (`ait mcp list`)
 
 ---
 
@@ -363,7 +363,7 @@ Currently, you must manually edit `~/.claude/settings.json`:
 }
 ```
 
-**Coming in v0.2.0:** `ait claude approvals remove <preset>`
+**Future:** `ait claude approvals remove <preset>` (not yet implemented)
 
 ---
 
@@ -482,35 +482,31 @@ Claude Code merges local settings with global settings.
 
 ---
 
-## Coming in v0.2.0
+## Hooks & MCP Integration
 
 ### Hook Management
 
 ```bash
-# Install Claude Code hooks
-ait hooks install session-start
-ait hooks install pre-commit
-ait hooks install cost-tracker
-
 # List installed hooks
 ait hooks list
-
-# Configure hooks
-ait hooks config session-start
 ```
+
+See [Hooks Reference](../reference/REFCARD-HOOKS.md) for details.
 
 ### MCP Server Integration
 
 ```bash
-# Discover MCP servers
+# List configured MCP servers
 ait mcp list
 
-# Configure server
-ait mcp config statistical-research
+# Validate MCP configuration
+ait mcp validate
 
-# Test server
-ait mcp test statistical-research
+# Test a specific server
+ait mcp test filesystem
 ```
+
+See [MCP Reference](../reference/REFCARD-MCP.md) for details.
 
 ---
 
