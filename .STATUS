@@ -1,10 +1,10 @@
 project: aiterm
 status: active
 priority: P1
-progress: 20
-version: 0.3.7
-updated: 2025-12-28
-next: Plan v0.4.0 - Workflow Templates (ait recipes)
+progress: 28
+version: 0.3.8
+updated: 2025-12-29
+next: Merge Ghostty → main, then Quick Wins (v0.3.9)
 
 ## 🎯 v0.4.0 Plan: Workflow Automation & Craft Integration
 
@@ -52,6 +52,39 @@ next: Plan v0.4.0 - Workflow Templates (ait recipes)
 ### Phase 3: Session-Aware Workflows
 - [ ] Session checks in workflow runner
 - [ ] Task auto-update during workflows
+
+## ✅ Just Completed (Session Dec 29, 2025 - Ghostty + Brainstorm)
+
+- ✅ **Phase 0.6: Ghostty Multi-Terminal Support COMPLETE**
+  - Terminal detection system (6 terminals supported)
+  - Ghostty backend: config parsing, themes, fonts (250 lines)
+  - Ghostty CLI: status, config, theme, font, set commands (280 lines)
+  - 14 built-in themes (dracula, solarized, nord, etc.)
+  - 19 new tests (all passing)
+  - Documentation: `docs/guide/terminals.md`
+
+- ✅ **Brainstorm: aiterm + flow-cli Integration**
+  - Created `IDEAS.md` with comprehensive feature roadmap
+  - Analyzed flow-cli patterns (help format, doctor, dispatchers)
+  - Identified 4 quick wins, 4 medium tasks, 4 long-term items
+  - Priority: Ghost aliases → terminal doctor → help style
+
+- ✅ **Quick Wins Identified (v0.3.9)**
+  1. `ait ghost` aliases (15 min)
+  2. Terminal-aware `ait switch` (30 min)
+  3. `ait terminals doctor` (1 hour)
+  4. flow-cli help style adoption (2 hours)
+
+- ✅ **flow-cli Integration Plans**
+  - Complement commands: `ait work`, `ait finish`, `ait hop`
+  - Terminal recipe templates (YAML config)
+  - Unified shell integration
+
+📊 **Session Stats:**
+- 2 commits (Ghostty feature + docs)
+- +1,000 lines of code (Ghostty backend + CLI + tests + docs)
+- 1 new file: IDEAS.md
+- 19 tests added
 
 ## ✅ Just Completed (Session Dec 28, 2025 - Feature Branch Workflow)
 
