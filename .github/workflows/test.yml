@@ -38,6 +38,8 @@ jobs:
 
       - name: Run CLI integration tests
         run: |
+          # Add uv venv to PATH so CLI is available
+          export PATH="$PWD/.venv/bin:$PATH"
           bash tests/cli/automated-tests.sh --junit cli-test-results.xml --benchmark
 
       - name: Upload CLI Test Results
