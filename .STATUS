@@ -4,7 +4,7 @@ priority: P1
 progress: 25
 version: 0.3.8
 updated: 2025-12-29
-next: Merge feature/ghostty-support → main, then v0.4.0 Workflow Templates
+next: flow-cli workflow enforcement, then aiterm Phase 1d
 
 ## 🎯 v0.4.0 Plan: Workflow Automation & Craft Integration
 
@@ -52,6 +52,32 @@ next: Merge feature/ghostty-support → main, then v0.4.0 Workflow Templates
 ### Phase 3: Session-Aware Workflows
 - [ ] Session checks in workflow runner
 - [ ] Task auto-update during workflows
+
+## ✅ Just Completed (Session Dec 29, 2025 - Workflow Enforcement Proposal)
+
+- ✅ **Workflow Enforcement Proposal Created**
+  - Designed 4-layer smart enforcement system (shell → hooks → CI → GitHub)
+  - Split responsibilities: flow-cli (shell) vs aiterm (CLI)
+  - Branch workflow: `feature/* → dev → main` with PR discipline
+  - Smart guards: warn by default, show fix commands, allow overrides
+  - Proposal: `~/.claude/plans/refactored-growing-riddle.md`
+
+- ✅ **Documentation Updated**
+  - flow-cli/TODO.md: Added Priority 0 - Workflow Enforcement
+  - flow-cli/IDEAS.md: Added HIGH PRIORITY workflow section
+  - aiterm/V0.4.0-PLAN.md: Added Phase 1d (depends on flow-cli)
+  - Session saved: `docs/sessions/2025-12-29-workflow-enforcement-proposal.md`
+
+- ✅ **Next Steps Defined**
+  - flow-cli session: Implement `g feature/promote/release` commands
+  - aiterm Phase 1d: Add `ait workflows enforce/branch-status/violations`
+  - Branch patterns: feature/*, hotfix/*, bugfix/*, release/*
+
+📊 **Session Stats:**
+- 1 proposal document created
+- 3 planning docs updated
+- 1 session summary saved
+- Ready for flow-cli implementation
 
 ## ✅ Just Completed (Session Dec 29, 2025 - Ghostty Multi-Terminal Support)
 

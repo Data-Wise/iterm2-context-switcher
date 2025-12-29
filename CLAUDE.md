@@ -59,8 +59,15 @@ This file provides guidance to Claude Code when working with the aiterm project.
 **Next Phase:** v0.4.0 - Workflow Automation & Craft Integration
 - [ ] **Phase 1:** Workflow Templates (`ait recipes list/show/apply`)
 - [ ] **Phase 1b:** Feature Workflow (`ait feature status/start/cleanup`)
+- [ ] **Phase 1d:** Workflow Enforcement (`ait workflows enforce/branch-status/violations`) ⏳
 - [ ] **Phase 2:** Craft Plugin Management (`ait craft install/sync/run`)
 - [ ] **Phase 3:** Session-Aware Workflows
+
+**Phase 1d: Workflow Enforcement** (NEW - Dec 29, 2025)
+- **Status:** ⏳ Waiting for flow-cli completion
+- **Dependency:** flow-cli `g feature/promote/release` commands
+- **Commands:** `ait workflows enforce --install`, `branch-status`, `violations`
+- **Proposal:** `~/.claude/plans/refactored-growing-riddle.md`
 
 **Feature Branch Workflow Split (aiterm + flow-cli):**
 - **flow-cli** → Shell aliases (`gfs`, `gfp`, `gfr`, `wt*`) - instant, zero overhead
