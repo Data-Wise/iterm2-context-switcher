@@ -2,210 +2,222 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://data-wise.github.io/aiterm/</loc>
-         <lastmod>2025-12-28</lastmod>
+         <lastmod>2025-12-29</lastmod>
     </url>
     <url>
          <loc>https://data-wise.github.io/aiterm/AITERM-DOCS-INDEX/</loc>
-         <lastmod>2025-12-28</lastmod>
+         <lastmod>2025-12-29</lastmod>
     </url>
     <url>
          <loc>https://data-wise.github.io/aiterm/AITERM-IMPLEMENTATION-SUMMARY/</loc>
-         <lastmod>2025-12-28</lastmod>
+         <lastmod>2025-12-29</lastmod>
     </url>
     <url>
          <loc>https://data-wise.github.io/aiterm/AUTO-UPDATE-INDEX/</loc>
-         <lastmod>2025-12-28</lastmod>
+         <lastmod>2025-12-29</lastmod>
     </url>
     <url>
          <loc>https://data-wise.github.io/aiterm/AUTO-UPDATE-REFCARD/</loc>
-         <lastmod>2025-12-28</lastmod>
+         <lastmod>2025-12-29</lastmod>
     </url>
     <url>
          <loc>https://data-wise.github.io/aiterm/AUTO-UPDATE-TUTORIAL/</loc>
-         <lastmod>2025-12-28</lastmod>
+         <lastmod>2025-12-29</lastmod>
     </url>
     <url>
          <loc>https://data-wise.github.io/aiterm/AUTO-UPDATE-WORKFLOW-DIAGRAM/</loc>
-         <lastmod>2025-12-28</lastmod>
+         <lastmod>2025-12-29</lastmod>
     </url>
     <url>
          <loc>https://data-wise.github.io/aiterm/AUTO-UPDATE-WORKFLOW/</loc>
-         <lastmod>2025-12-28</lastmod>
+         <lastmod>2025-12-29</lastmod>
     </url>
     <url>
          <loc>https://data-wise.github.io/aiterm/CLAUDE-CODE-TUTORIAL/</loc>
-         <lastmod>2025-12-28</lastmod>
+         <lastmod>2025-12-29</lastmod>
     </url>
     <url>
          <loc>https://data-wise.github.io/aiterm/DOCS-HELPERS/</loc>
-         <lastmod>2025-12-28</lastmod>
+         <lastmod>2025-12-29</lastmod>
     </url>
     <url>
          <loc>https://data-wise.github.io/aiterm/GETTING-STARTED/</loc>
-         <lastmod>2025-12-28</lastmod>
+         <lastmod>2025-12-29</lastmod>
     </url>
     <url>
          <loc>https://data-wise.github.io/aiterm/MCP-INTEGRATION/</loc>
-         <lastmod>2025-12-28</lastmod>
+         <lastmod>2025-12-29</lastmod>
     </url>
     <url>
          <loc>https://data-wise.github.io/aiterm/QUICK-START/</loc>
-         <lastmod>2025-12-28</lastmod>
+         <lastmod>2025-12-29</lastmod>
     </url>
     <url>
          <loc>https://data-wise.github.io/aiterm/REFCARD/</loc>
-         <lastmod>2025-12-28</lastmod>
+         <lastmod>2025-12-29</lastmod>
+    </url>
+    <url>
+         <loc>https://data-wise.github.io/aiterm/_archive/PROPOSAL-DOCS-REORGANIZATION/</loc>
+         <lastmod>2025-12-29</lastmod>
+    </url>
+    <url>
+         <loc>https://data-wise.github.io/aiterm/_archive/PROPOSAL-craft-enhancements-2025-12-26/</loc>
+         <lastmod>2025-12-29</lastmod>
+    </url>
+    <url>
+         <loc>https://data-wise.github.io/aiterm/_archive/PROPOSAL-craft-worktree-mermaid-2025-12-28/</loc>
+         <lastmod>2025-12-29</lastmod>
     </url>
     <url>
          <loc>https://data-wise.github.io/aiterm/api/AITERM-API/</loc>
-         <lastmod>2025-12-28</lastmod>
+         <lastmod>2025-12-29</lastmod>
     </url>
     <url>
          <loc>https://data-wise.github.io/aiterm/architecture/AITERM-ARCHITECTURE/</loc>
-         <lastmod>2025-12-28</lastmod>
+         <lastmod>2025-12-29</lastmod>
     </url>
     <url>
          <loc>https://data-wise.github.io/aiterm/architecture/RFORGE-UNIVERSAL-BACKEND/</loc>
-         <lastmod>2025-12-28</lastmod>
+         <lastmod>2025-12-29</lastmod>
     </url>
     <url>
          <loc>https://data-wise.github.io/aiterm/development/architecture/</loc>
-         <lastmod>2025-12-28</lastmod>
+         <lastmod>2025-12-29</lastmod>
     </url>
     <url>
          <loc>https://data-wise.github.io/aiterm/development/contributing/</loc>
-         <lastmod>2025-12-28</lastmod>
+         <lastmod>2025-12-29</lastmod>
     </url>
     <url>
          <loc>https://data-wise.github.io/aiterm/gemini-cli/GEMINI_REFCARD/</loc>
-         <lastmod>2025-12-28</lastmod>
+         <lastmod>2025-12-29</lastmod>
     </url>
     <url>
          <loc>https://data-wise.github.io/aiterm/gemini-cli/GEMINI_TUTORIAL/</loc>
-         <lastmod>2025-12-28</lastmod>
+         <lastmod>2025-12-29</lastmod>
     </url>
     <url>
          <loc>https://data-wise.github.io/aiterm/gemini-cli/PROMPT_ENGINEERING_ADHD/</loc>
-         <lastmod>2025-12-28</lastmod>
+         <lastmod>2025-12-29</lastmod>
     </url>
     <url>
          <loc>https://data-wise.github.io/aiterm/gemini-cli/WORKFLOW_GUIDE/</loc>
-         <lastmod>2025-12-28</lastmod>
+         <lastmod>2025-12-29</lastmod>
     </url>
     <url>
          <loc>https://data-wise.github.io/aiterm/getting-started/installation/</loc>
-         <lastmod>2025-12-28</lastmod>
+         <lastmod>2025-12-29</lastmod>
     </url>
     <url>
          <loc>https://data-wise.github.io/aiterm/getting-started/quickstart/</loc>
-         <lastmod>2025-12-28</lastmod>
+         <lastmod>2025-12-29</lastmod>
     </url>
     <url>
          <loc>https://data-wise.github.io/aiterm/guide/claude-integration/</loc>
-         <lastmod>2025-12-28</lastmod>
+         <lastmod>2025-12-29</lastmod>
     </url>
     <url>
          <loc>https://data-wise.github.io/aiterm/guide/context-detection/</loc>
-         <lastmod>2025-12-28</lastmod>
+         <lastmod>2025-12-29</lastmod>
     </url>
     <url>
          <loc>https://data-wise.github.io/aiterm/guide/ide-integration/</loc>
-         <lastmod>2025-12-28</lastmod>
+         <lastmod>2025-12-29</lastmod>
     </url>
     <url>
          <loc>https://data-wise.github.io/aiterm/guide/profiles/</loc>
-         <lastmod>2025-12-28</lastmod>
+         <lastmod>2025-12-29</lastmod>
     </url>
     <url>
          <loc>https://data-wise.github.io/aiterm/guide/sessions/</loc>
-         <lastmod>2025-12-28</lastmod>
+         <lastmod>2025-12-29</lastmod>
     </url>
     <url>
          <loc>https://data-wise.github.io/aiterm/guide/shell-completion/</loc>
-         <lastmod>2025-12-28</lastmod>
+         <lastmod>2025-12-29</lastmod>
     </url>
     <url>
          <loc>https://data-wise.github.io/aiterm/guide/status-bar/</loc>
-         <lastmod>2025-12-28</lastmod>
+         <lastmod>2025-12-29</lastmod>
     </url>
     <url>
          <loc>https://data-wise.github.io/aiterm/guide/triggers/</loc>
-         <lastmod>2025-12-28</lastmod>
+         <lastmod>2025-12-29</lastmod>
     </url>
     <url>
          <loc>https://data-wise.github.io/aiterm/guide/workflows/</loc>
-         <lastmod>2025-12-28</lastmod>
+         <lastmod>2025-12-29</lastmod>
     </url>
     <url>
          <loc>https://data-wise.github.io/aiterm/guides/AITERM-INTEGRATION/</loc>
-         <lastmod>2025-12-28</lastmod>
+         <lastmod>2025-12-29</lastmod>
     </url>
     <url>
          <loc>https://data-wise.github.io/aiterm/guides/AITERM-USER-GUIDE/</loc>
-         <lastmod>2025-12-28</lastmod>
+         <lastmod>2025-12-29</lastmod>
     </url>
     <url>
          <loc>https://data-wise.github.io/aiterm/guides/GIT-WORKTREES-GUIDE/</loc>
-         <lastmod>2025-12-28</lastmod>
+         <lastmod>2025-12-29</lastmod>
     </url>
     <url>
          <loc>https://data-wise.github.io/aiterm/guides/OPENCODE-AGENT-TESTING/</loc>
-         <lastmod>2025-12-28</lastmod>
+         <lastmod>2025-12-29</lastmod>
     </url>
     <url>
          <loc>https://data-wise.github.io/aiterm/guides/VIDEO-WALKTHROUGH/</loc>
-         <lastmod>2025-12-28</lastmod>
+         <lastmod>2025-12-29</lastmod>
     </url>
     <url>
          <loc>https://data-wise.github.io/aiterm/reference/ARCHITECTURE/</loc>
-         <lastmod>2025-12-28</lastmod>
+         <lastmod>2025-12-29</lastmod>
     </url>
     <url>
          <loc>https://data-wise.github.io/aiterm/reference/CLAUDE-CODE-CAPABILITIES/</loc>
-         <lastmod>2025-12-28</lastmod>
+         <lastmod>2025-12-29</lastmod>
     </url>
     <url>
          <loc>https://data-wise.github.io/aiterm/reference/REFCARD-CLAUDE/</loc>
-         <lastmod>2025-12-28</lastmod>
+         <lastmod>2025-12-29</lastmod>
     </url>
     <url>
          <loc>https://data-wise.github.io/aiterm/reference/REFCARD-CONTEXT/</loc>
-         <lastmod>2025-12-28</lastmod>
+         <lastmod>2025-12-29</lastmod>
     </url>
     <url>
          <loc>https://data-wise.github.io/aiterm/reference/REFCARD-HOOKS/</loc>
-         <lastmod>2025-12-28</lastmod>
+         <lastmod>2025-12-29</lastmod>
     </url>
     <url>
          <loc>https://data-wise.github.io/aiterm/reference/REFCARD-IDE/</loc>
-         <lastmod>2025-12-28</lastmod>
+         <lastmod>2025-12-29</lastmod>
     </url>
     <url>
          <loc>https://data-wise.github.io/aiterm/reference/REFCARD-MCP/</loc>
-         <lastmod>2025-12-28</lastmod>
+         <lastmod>2025-12-29</lastmod>
     </url>
     <url>
          <loc>https://data-wise.github.io/aiterm/reference/REFCARD-OPENCODE/</loc>
-         <lastmod>2025-12-28</lastmod>
+         <lastmod>2025-12-29</lastmod>
     </url>
     <url>
          <loc>https://data-wise.github.io/aiterm/reference/REFCARD-SESSIONS/</loc>
-         <lastmod>2025-12-28</lastmod>
+         <lastmod>2025-12-29</lastmod>
     </url>
     <url>
          <loc>https://data-wise.github.io/aiterm/reference/commands/</loc>
-         <lastmod>2025-12-28</lastmod>
+         <lastmod>2025-12-29</lastmod>
     </url>
     <url>
          <loc>https://data-wise.github.io/aiterm/reference/configuration/</loc>
-         <lastmod>2025-12-28</lastmod>
+         <lastmod>2025-12-29</lastmod>
     </url>
     <url>
          <loc>https://data-wise.github.io/aiterm/reference/troubleshooting/</loc>
-         <lastmod>2025-12-28</lastmod>
+         <lastmod>2025-12-29</lastmod>
     </url>
     <url>
          <loc>https://data-wise.github.io/aiterm/troubleshooting/AITERM-TROUBLESHOOTING/</loc>
-         <lastmod>2025-12-28</lastmod>
+         <lastmod>2025-12-29</lastmod>
     </url>
 </urlset>
