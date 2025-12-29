@@ -565,12 +565,124 @@ else
 fi
 
 # ============================================
+# TERMINALS SUBCOMMANDS (v0.3.8+)
+# ============================================
+log_section "Terminals Subcommands"
+
+# Test: terminals list works
+start_test "terminals list works"
+if ait terminals list > /dev/null 2>&1; then
+    log_pass "terminals list works"
+else
+    log_fail "terminals list failed"
+fi
+
+# Test: terminals detect works
+start_test "terminals detect works"
+if ait terminals detect > /dev/null 2>&1; then
+    log_pass "terminals detect works"
+else
+    log_fail "terminals detect failed"
+fi
+
+# Test: terminals detect returns a terminal name
+start_test "terminals detect returns terminal name"
+OUTPUT=$(ait terminals detect 2>&1)
+if echo "$OUTPUT" | grep -qi "iterm2\|kitty\|alacritty\|wezterm\|ghostty\|terminal"; then
+    log_pass "terminals detect returns terminal name"
+else
+    log_fail "terminals detect output unexpected"
+fi
+
+# Test: terminals features works
+start_test "terminals features works"
+if ait terminals features iterm2 > /dev/null 2>&1; then
+    log_pass "terminals features works"
+else
+    log_fail "terminals features failed"
+fi
+
+# Test: terminals config works
+start_test "terminals config works"
+if ait terminals config iterm2 > /dev/null 2>&1; then
+    log_pass "terminals config works"
+else
+    log_fail "terminals config failed"
+fi
+
+# Test: terminals compare works
+start_test "terminals compare works"
+if ait terminals compare > /dev/null 2>&1; then
+    log_pass "terminals compare works"
+else
+    log_fail "terminals compare failed"
+fi
+
+# Test: terminals help
+start_test "terminals --help works"
+if ait terminals --help > /dev/null 2>&1; then
+    log_pass "terminals --help works"
+else
+    log_fail "terminals --help failed"
+fi
+
+# ============================================
+# GHOSTTY TERMINAL SUPPORT (v0.3.8+)
+# ============================================
+log_section "Ghostty Terminal Support"
+
+# Test: Ghostty appears in terminals list
+start_test "Ghostty appears in terminals list"
+OUTPUT=$(ait terminals list 2>&1)
+if echo "$OUTPUT" | grep -qi "ghostty"; then
+    log_pass "Ghostty appears in terminals list"
+else
+    log_fail "Ghostty not found in terminals list"
+fi
+
+# Test: Ghostty features shows supported features
+start_test "Ghostty features shows tab_title"
+OUTPUT=$(ait terminals features ghostty 2>&1)
+if echo "$OUTPUT" | grep -qi "tab_title"; then
+    log_pass "Ghostty features shows tab_title"
+else
+    log_fail "Ghostty tab_title feature not listed"
+fi
+
+# Test: Ghostty features shows themes support
+start_test "Ghostty features shows themes"
+OUTPUT=$(ait terminals features ghostty 2>&1)
+if echo "$OUTPUT" | grep -qi "themes"; then
+    log_pass "Ghostty features shows themes"
+else
+    log_fail "Ghostty themes feature not listed"
+fi
+
+# Test: Ghostty config path is correct
+start_test "Ghostty config path is ~/.config/ghostty/config"
+OUTPUT=$(ait terminals config ghostty 2>&1)
+if echo "$OUTPUT" | grep -qi "ghostty/config"; then
+    log_pass "Ghostty config path is ~/.config/ghostty/config"
+else
+    log_fail "Ghostty config path unexpected"
+fi
+
+# Test: Ghostty detection when running in Ghostty
+start_test "Ghostty detection (if running in Ghostty)"
+OUTPUT=$(ait terminals detect 2>&1)
+if echo "$OUTPUT" | grep -qi "ghostty"; then
+    log_pass "Ghostty detection (if running in Ghostty)"
+else
+    log_skip "Not running in Ghostty terminal"
+fi
+
+# ============================================
 # HELP ACCESSIBILITY
 # ============================================
 log_section "Help Accessibility"
 
 # Test all major subcommand help
-for cmd in context profile claude mcp sessions ide opencode; do
+for cmd in context profile claude mcp sessions ide opencode terminals; do
     start_test "$cmd --help accessible"
     if ait $cmd --help > /dev/null 2>&1; then
         log_pass "$cmd --help accessible"

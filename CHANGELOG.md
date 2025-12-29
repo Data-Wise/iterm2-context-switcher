@@ -6,7 +6,30 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
-*No unreleased changes*
+### Added
+- **Ghostty Terminal Support** - Full integration with Ghostty terminal emulator
+  - Auto-detection when running in Ghostty
+  - Version detection (channel, build config)
+  - Features: `tab_title`, `themes`, `native_ui`
+  - Config path: `~/.config/ghostty/config`
+- **Terminals Subcommand** - New `ait terminals` command group
+  - `terminals list` - List all supported terminals with installation status
+  - `terminals detect` - Detect current terminal with version info
+  - `terminals features <terminal>` - Show terminal-specific features
+  - `terminals config <terminal>` - Show config file location
+  - `terminals compare` - Side-by-side feature comparison
+  - `terminals title <text>` - Set tab/window title
+  - `terminals profile <name>` - Switch terminal profile (iTerm2)
+- **New CLI Tests** - 12 new automated tests for terminals
+  - 7 terminals subcommand tests
+  - 5 Ghostty-specific tests
+
+### Changed
+- **CI Pipelines** - Migrated from pip to uv for faster builds
+  - `publish.yml`: Faster PyPI publishing
+  - `docs.yml`: Faster documentation builds
+- **Test Suite** - Expanded from 41 to 54 automated tests
+- **Interactive Tests** - Expanded from 33 to 42 tests
 
 ---
 
