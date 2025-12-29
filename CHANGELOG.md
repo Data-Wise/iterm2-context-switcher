@@ -6,30 +6,30 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
-### Added (feature/ghostty-support branch)
-- **Multi-Terminal Support:** Detection for 6 terminals
-  - iTerm2, Ghostty, Kitty, Alacritty, WezTerm, Apple Terminal
-  - `detect_terminal()` returns `TerminalType` enum
-  - `get_terminal_info()` returns capabilities dict
-- **Ghostty Backend:** Full configuration management
-  - Config parsing (`~/.config/ghostty/config`)
-  - Theme management (14 built-in themes)
-  - Font settings
-  - Generic config value setting
-- **Ghostty CLI Commands:**
-  - `ait ghostty status` - Check detection & version
-  - `ait ghostty config [--edit]` - Show/edit configuration
-  - `ait ghostty theme list` - List available themes
-  - `ait ghostty theme apply <name>` - Apply theme
-  - `ait ghostty theme show` - Current theme
-  - `ait ghostty font show` - Current font settings
-  - `ait ghostty font set <name> [-s SIZE]` - Change font
-  - `ait ghostty set <key> <value>` - Set any config value
-- **19 new tests** for Ghostty functionality
+### Added
+- **Ghostty Terminal Support** - Full integration with Ghostty terminal emulator
+  - Auto-detection when running in Ghostty
+  - Version detection (channel, build config)
+  - Features: `tab_title`, `themes`, `native_ui`
+  - Config path: `~/.config/ghostty/config`
+- **Terminals Subcommand** - New `ait terminals` command group
+  - `terminals list` - List all supported terminals with installation status
+  - `terminals detect` - Detect current terminal with version info
+  - `terminals features <terminal>` - Show terminal-specific features
+  - `terminals config <terminal>` - Show config file location
+  - `terminals compare` - Side-by-side feature comparison
+  - `terminals title <text>` - Set tab/window title
+  - `terminals profile <name>` - Switch terminal profile (iTerm2)
+- **New CLI Tests** - 12 new automated tests for terminals
+  - 7 terminals subcommand tests
+  - 5 Ghostty-specific tests
 
-### Development
-- **Git Worktree:** `~/.git-worktrees/aiterm/feature-ghostty-support`
-- **Shell Alias:** `aiterm-ghost` for quick navigation
+### Changed
+- **CI Pipelines** - Migrated from pip to uv for faster builds
+  - `publish.yml`: Faster PyPI publishing
+  - `docs.yml`: Faster documentation builds
+- **Test Suite** - Expanded from 41 to 54 automated tests
+- **Interactive Tests** - Expanded from 33 to 42 tests
 
 ---
 

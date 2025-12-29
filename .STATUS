@@ -1,10 +1,10 @@
 project: aiterm
 status: active
 priority: P1
-progress: 25
+progress: 28
 version: 0.3.8
 updated: 2025-12-29
-next: flow-cli workflow enforcement, then aiterm Phase 1d
+next: Merge Ghostty → main, then Quick Wins (v0.3.9)
 
 ## 🎯 v0.4.0 Plan: Workflow Automation & Craft Integration
 
@@ -53,71 +53,38 @@ next: flow-cli workflow enforcement, then aiterm Phase 1d
 - [ ] Session checks in workflow runner
 - [ ] Task auto-update during workflows
 
-## ✅ Just Completed (Session Dec 29, 2025 - Workflow Enforcement Proposal)
+## ✅ Just Completed (Session Dec 29, 2025 - Ghostty + Brainstorm)
 
-- ✅ **Workflow Enforcement Proposal Created**
-  - Designed 4-layer smart enforcement system (shell → hooks → CI → GitHub)
-  - Split responsibilities: flow-cli (shell) vs aiterm (CLI)
-  - Branch workflow: `feature/* → dev → main` with PR discipline
-  - Smart guards: warn by default, show fix commands, allow overrides
-  - Proposal: `~/.claude/plans/refactored-growing-riddle.md`
-
-- ✅ **Documentation Updated**
-  - flow-cli/TODO.md: Added Priority 0 - Workflow Enforcement
-  - flow-cli/IDEAS.md: Added HIGH PRIORITY workflow section
-  - aiterm/V0.4.0-PLAN.md: Added Phase 1d (depends on flow-cli)
-  - Session saved: `docs/sessions/2025-12-29-workflow-enforcement-proposal.md`
-
-- ✅ **Next Steps Defined**
-  - flow-cli session: Implement `g feature/promote/release` commands
-  - aiterm Phase 1d: Add `ait workflows enforce/branch-status/violations`
-  - Branch patterns: feature/*, hotfix/*, bugfix/*, release/*
-
-📊 **Session Stats:**
-- 1 proposal document created
-- 3 planning docs updated
-- 1 session summary saved
-- Ready for flow-cli implementation
-
-## ✅ Just Completed (Session Dec 29, 2025 - Ghostty Multi-Terminal Support)
-
-- ✅ **Phase 0.6: Multi-Terminal Support (Ghostty) COMPLETE**
-  - Created feature branch `feature/ghostty-support` with git worktree
-  - Worktree location: `~/.git-worktrees/aiterm/feature-ghostty-support`
-  - Shell alias added: `aiterm-ghost`
-
-- ✅ **Terminal Detection System**
-  - 6 terminals supported: iTerm2, Ghostty, Kitty, Alacritty, WezTerm, Apple Terminal
-  - `detect_terminal()` returns `TerminalType` enum
-  - `get_terminal_info()` returns capabilities dict
-  - `apply_context()` works across all terminals
-
-- ✅ **Ghostty Backend (250 lines)**
-  - Config parsing (`~/.config/ghostty/config`)
-  - Theme management (14 built-in themes)
-  - Font settings (family + size)
-  - Generic config value setting
-  - Auto-reload on config save
-
-- ✅ **Ghostty CLI Commands (280 lines)**
-  - `ait ghostty status` - Check detection & version
-  - `ait ghostty config [--edit]` - Show/edit configuration
-  - `ait ghostty theme list/apply/show` - Theme management
-  - `ait ghostty font show/set` - Font configuration
-  - `ait ghostty set <key> <value>` - Set any config value
-
-- ✅ **Tests & Documentation**
+- ✅ **Phase 0.6: Ghostty Multi-Terminal Support COMPLETE**
+  - Terminal detection system (6 terminals supported)
+  - Ghostty backend: config parsing, themes, fonts (250 lines)
+  - Ghostty CLI: status, config, theme, font, set commands (280 lines)
+  - 14 built-in themes (dracula, solarized, nord, etc.)
   - 19 new tests (all passing)
-  - Updated V0.4.0-PLAN.md with Phase 0.6
-  - Updated CHANGELOG.md (Unreleased section)
-  - Tested /workflow:brainstorm v2.1.6 flow
+  - Documentation: `docs/guide/terminals.md`
+
+- ✅ **Brainstorm: aiterm + flow-cli Integration**
+  - Created `IDEAS.md` with comprehensive feature roadmap
+  - Analyzed flow-cli patterns (help format, doctor, dispatchers)
+  - Identified 4 quick wins, 4 medium tasks, 4 long-term items
+  - Priority: Ghost aliases → terminal doctor → help style
+
+- ✅ **Quick Wins Identified (v0.3.9)**
+  1. `ait ghost` aliases (15 min)
+  2. Terminal-aware `ait switch` (30 min)
+  3. `ait terminals doctor` (1 hour)
+  4. flow-cli help style adoption (2 hours)
+
+- ✅ **flow-cli Integration Plans**
+  - Complement commands: `ait work`, `ait finish`, `ait hop`
+  - Terminal recipe templates (YAML config)
+  - Unified shell integration
 
 📊 **Session Stats:**
-- 1 commit to feature branch
-- 1 commit to flow-cli (zshrc alias)
-- +957 lines of code (ghostty.py, cli/ghostty.py, tests)
+- 2 commits (Ghostty feature + docs)
+- +1,000 lines of code (Ghostty backend + CLI + tests + docs)
+- 1 new file: IDEAS.md
 - 19 tests added
-- Detected: Running in Ghostty 1.2.3!
 
 ## ✅ Just Completed (Session Dec 28, 2025 - Feature Branch Workflow)
 

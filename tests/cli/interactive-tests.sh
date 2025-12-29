@@ -15,7 +15,7 @@ set -euo pipefail
 PASS=0
 FAIL=0
 TOTAL=0
-TOTAL_TESTS=33  # Includes: 3 smoke + 5 dogfooding + 4 core + 3 claude + 3 mcp + 5 sessions + 4 ide + 2 opencode + 2 error + 2 visual
+TOTAL_TESTS=42  # Includes: 3 smoke + 5 dogfooding + 4 core + 3 claude + 3 mcp + 5 sessions + 4 ide + 2 opencode + 5 terminals + 4 ghostty + 2 error + 2 visual
 
 # Logging
 LOG_DIR="${LOG_DIR:-tests/cli/logs}"
@@ -280,14 +280,58 @@ run_test 29 "OpenCode Summary" \
     "Complete OpenCode configuration summary"
 
 # ============================================
+# TERMINALS SUBCOMMANDS (v0.3.8+)
+# ============================================
+
+run_test 30 "Terminals List" \
+    "ait terminals list" \
+    "Table of supported terminals with installation status, version, and features"
+
+run_test 31 "Terminals Detect" \
+    "ait terminals detect" \
+    "Current terminal detected (iterm2/ghostty/wezterm/etc) with version and features"
+
+run_test 32 "Terminals Features" \
+    "ait terminals features iterm2" \
+    "List of iTerm2 features (profiles, tab_title, badge, etc.)"
+
+run_test 33 "Terminals Compare" \
+    "ait terminals compare" \
+    "Side-by-side comparison of terminal features"
+
+run_test 34 "Terminals Config" \
+    "ait terminals config iterm2" \
+    "Configuration file path for iTerm2"
+
+# ============================================
+# GHOSTTY TERMINAL (v0.3.8+)
+# ============================================
+
+run_test 35 "Ghostty in Terminals List" \
+    "ait terminals list 2>&1 | grep -i ghostty" \
+    "Ghostty row showing: installed status, version (1.x), features (tab_title, themes)"
+
+run_test 36 "Ghostty Features" \
+    "ait terminals features ghostty" \
+    "Features: tab_title, themes, native_ui + config path"
+
+run_test 37 "Ghostty Config Path" \
+    "ait terminals config ghostty" \
+    "Config path: ~/.config/ghostty/config"
+
+run_test 38 "Ghostty Detection (if running in Ghostty)" \
+    "ait terminals detect" \
+    "Should detect 'ghostty' if running in Ghostty terminal"
+
+# ============================================
 # ERROR HANDLING
 # ============================================
 
-run_test 30 "Invalid Command" \
+run_test 39 "Invalid Command" \
     "ait nonexistent-command 2>&1" \
     "Error message or usage info (graceful handling)"
 
-run_test 31 "Invalid Subcommand" \
+run_test 40 "Invalid Subcommand" \
     "ait claude nonexistent 2>&1" \
     "Error message for unknown subcommand"
 
@@ -295,11 +339,11 @@ run_test 31 "Invalid Subcommand" \
 # VISUAL/TERMINAL FEATURES
 # ============================================
 
-run_test 32 "Rich Output Formatting" \
+run_test 41 "Rich Output Formatting" \
     "ait doctor" \
     "Colored output with tables, checkmarks, emoji"
 
-run_test 33 "Profile Display" \
+run_test 42 "Profile Display" \
     "ait profile list 2>/dev/null || echo 'Profile command not implemented'" \
     "List of available terminal profiles"
 

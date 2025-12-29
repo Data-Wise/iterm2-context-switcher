@@ -625,6 +625,7 @@ from aiterm.cli import mcp as mcp_cli
 from aiterm.cli import docs as docs_cli
 from aiterm.cli import opencode as opencode_cli
 from aiterm.cli import ide as ide_cli
+from aiterm.cli import ghostty as ghostty_cli
 
 app.add_typer(hooks_cli.app, name="hooks")
 app.add_typer(commands_cli.app, name="commands")
@@ -632,6 +633,7 @@ app.add_typer(mcp_cli.app, name="mcp")
 app.add_typer(docs_cli.app, name="docs")
 app.add_typer(opencode_cli.app, name="opencode")
 app.add_typer(ide_cli.app, name="ide")
+app.add_typer(ghostty_cli.app, name="ghostty")
 
 # ─── Phase 2.5-4: Advanced CLI modules ──────────────────────────────────────────
 from aiterm.cli import agents as agents_cli

@@ -1,7 +1,7 @@
 # CLI Test Suite for aiterm
 
 Generated: 2025-12-26
-Updated: 2025-12-28
+Updated: 2025-12-29
 
 ## Overview
 
@@ -96,10 +96,26 @@ TERMINAL=ghostty ./scripts/run-interactive-tests.sh right
 - Exit 0 on success
 - Non-zero on error
 
-### Help Accessibility (7 tests)
-- Help for all major subcommand groups
+### Terminals Subcommands (7 tests) ⭐ NEW
+- `terminals list` - List all supported terminals
+- `terminals detect` - Detect current terminal
+- `terminals detect` - Returns valid terminal name
+- `terminals features` - Show features for terminal
+- `terminals config` - Show config path
+- `terminals compare` - Compare terminals
+- `terminals --help`
 
-**Total: 41 test cases (automated) / 33 test cases (interactive)**
+### Ghostty Terminal (5 tests) ⭐ NEW
+- Ghostty appears in terminals list
+- Ghostty features shows tab_title
+- Ghostty features shows themes
+- Ghostty config path is correct
+- Ghostty detection (when running in Ghostty)
+
+### Help Accessibility (8 tests)
+- Help for all major subcommand groups (including terminals)
+
+**Total: 54 test cases (automated) / 42 test cases (interactive)**
 
 ## Options
 

@@ -671,6 +671,176 @@ aiterm opencode set-model anthropic/claude-haiku-4-5 --small  # Set small model
 
 ---
 
+## Terminal Management
+
+### `aiterm terminals list`
+
+List all supported terminal emulators with installation status.
+
+```bash
+aiterm terminals list
+```
+
+**Output:**
+```
+                         Supported Terminals
+┏━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━━━━━┳━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━┓
+┃ Terminal  ┃ Installed ┃ Version      ┃ Active ┃ Features             ┃
+┡━━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━━━━━━━━╇━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━┩
+│ iterm2    │ ✓         │ unknown      │        │ profiles, tab_title  │
+│ kitty     │ ✗         │ -            │        │ -                    │
+│ alacritty │ ✗         │ -            │        │ -                    │
+│ wezterm   │ ✓         │ 20240203...  │        │ tab_title, lua_config│
+│ ghostty   │ ✓         │ 1.2.3        │   ●    │ tab_title, themes    │
+└───────────┴───────────┴──────────────┴────────┴──────────────────────┘
+```
+
+**Supported terminals:**
+- **iTerm2** - macOS terminal with profiles, badges, status bar
+- **Kitty** - GPU-accelerated with kitten plugins
+- **Alacritty** - Minimalist, YAML configuration
+- **WezTerm** - Cross-platform with Lua scripting
+- **Ghostty** - Fast, native UI with themes (v0.3.8+)
+
+---
+
+### `aiterm terminals detect`
+
+Detect and display information about the current terminal.
+
+```bash
+aiterm terminals detect
+```
+
+**Output:**
+```
+Terminal Detection
+
+✓ Detected: ghostty
+  Version: Ghostty 1.2.3
+
+Version
+  - version: 1.2.3
+  - channel: stable
+Build Config
+  - Zig version: 0.14.1
+  - build mode: ReleaseFast
+  Features: tab_title, themes, native_ui
+```
+
+**Detection methods:**
+- Environment variables (`TERM_PROGRAM`, `GHOSTTY_RESOURCES_DIR`)
+- Process inspection
+- Version command output parsing
+
+---
+
+### `aiterm terminals features <terminal>`
+
+Show features supported by a specific terminal.
+
+```bash
+aiterm terminals features ghostty
+aiterm terminals features iterm2
+```
+
+**Output (Ghostty):**
+```
+╭─────────────────── ghostty Features ────────────────────╮
+│   ✓ tab_title                                           │
+│   ✓ themes                                              │
+│   ✓ native_ui                                           │
+│                                                         │
+│   Config: ~/.config/ghostty/config                      │
+╰─────────────────────────────────────────────────────────╯
+```
+
+**Feature types:**
+- `profiles` - Named configuration profiles
+- `tab_title` - Tab/window title setting
+- `badge` - Status badges (iTerm2)
+- `themes` - Theme switching
+- `native_ui` - Native macOS UI elements
+- `lua_config` - Lua scripting support
+
+---
+
+### `aiterm terminals config <terminal>`
+
+Show configuration file location for a terminal.
+
+```bash
+aiterm terminals config ghostty
+aiterm terminals config iterm2
+aiterm terminals config wezterm
+```
+
+**Output:**
+```
+Config path: ~/.config/ghostty/config
+```
+
+**Config locations:**
+| Terminal | Config Path |
+|----------|-------------|
+| Ghostty | `~/.config/ghostty/config` |
+| iTerm2 | `~/Library/Preferences/com.googlecode.iterm2.plist` |
+| Kitty | `~/.config/kitty/kitty.conf` |
+| Alacritty | `~/.config/alacritty/alacritty.toml` |
+| WezTerm | `~/.wezterm.lua` |
+
+---
+
+### `aiterm terminals compare`
+
+Compare features across all terminal emulators.
+
+```bash
+aiterm terminals compare
+```
+
+**Output:**
+```
+                    Terminal Feature Comparison
+┏━━━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━┳━━━━━━━━┳━━━━━━━━━━━┓
+┃ Terminal  ┃ Profiles ┃ Tab Title ┃ Badge ┃ Themes ┃ Native UI ┃
+┡━━━━━━━━━━━╇━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━╇━━━━━━━━╇━━━━━━━━━━━┩
+│ iTerm2    │    ✓     │     ✓     │   ✓   │   ✓    │     ✓     │
+│ Kitty     │    ✓     │     ✓     │   ✗   │   ✓    │     ✗     │
+│ Alacritty │    ✗     │     ✓     │   ✗   │   ✓    │     ✗     │
+│ WezTerm   │    ✓     │     ✓     │   ✗   │   ✓    │     ✓     │
+│ Ghostty   │    ✗     │     ✓     │   ✗   │   ✓    │     ✓     │
+└───────────┴──────────┴───────────┴───────┴────────┴───────────┘
+```
+
+---
+
+### `aiterm terminals title <text>`
+
+Set the terminal tab or window title.
+
+```bash
+aiterm terminals title "Working on aiterm"
+aiterm terminals title "🚀 Production Server"
+```
+
+**Note:** Works with terminals that support the `tab_title` feature.
+
+---
+
+### `aiterm terminals profile <name>`
+
+Switch to a named terminal profile (iTerm2 only).
+
+```bash
+aiterm terminals profile "Python-Dev"
+aiterm terminals profile "Production"
+```
+
+**Note:** Requires iTerm2 with the named profile configured.
+
+---
+
 ## Examples
 
 ### Quick Setup for Claude Code
