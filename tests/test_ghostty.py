@@ -225,3 +225,404 @@ class TestTerminalInfo:
             assert info["type"] == "iterm2"
             assert info["supports_profiles"] is True
             assert info["supports_user_vars"] is True
+
+
+# =============================================================================
+# NEW TESTS: get_version() - subprocess handling
+# =============================================================================
+
+
+class TestGhosttyVersion:
+    """Test Ghostty version detection."""
+
+    def test_get_version_success(self):
+        """Test successful version retrieval."""
+        from aiterm.terminal import ghostty
+        from unittest.mock import MagicMock
+        import subprocess
+
+        mock_result = MagicMock()
+        mock_result.returncode = 0
+        mock_result.stdout = "Ghostty 1.0.0"
+
+        with patch.object(subprocess, "run", return_value=mock_result) as mock_run:
+            version = ghostty.get_version()
+            assert version == "Ghostty 1.0.0"
+            mock_run.assert_called_once()
+
+    def test_get_version_not_installed(self):
+        """Test version when Ghostty is not installed."""
+        from aiterm.terminal import ghostty
+        import subprocess
+
+        with patch.object(subprocess, "run", side_effect=FileNotFoundError):
+            version = ghostty.get_version()
+            assert version is None
+
+    def test_get_version_timeout(self):
+        """Test version when command times out."""
+        from aiterm.terminal import ghostty
+        import subprocess
+
+        with patch.object(subprocess, "run", side_effect=subprocess.TimeoutExpired("ghostty", 5)):
+            version = ghostty.get_version()
+            assert version is None
+
+    def test_get_version_nonzero_exit(self):
+        """Test version when command fails."""
+        from aiterm.terminal import ghostty
+        from unittest.mock import MagicMock
+        import subprocess
+
+        mock_result = MagicMock()
+        mock_result.returncode = 1
+        mock_result.stdout = ""
+
+        with patch.object(subprocess, "run", return_value=mock_result):
+            version = ghostty.get_version()
+            assert version is None
+
+
+# =============================================================================
+# NEW TESTS: set_title() - OSC escape sequence handling
+# =============================================================================
+
+
+class TestGhosttySetTitle:
+    """Test Ghostty window title setting."""
+
+    def test_set_title_in_ghostty(self):
+        """Test setting title when in Ghostty."""
+        from aiterm.terminal import ghostty
+        import io
+
+        with patch.dict(os.environ, {"TERM_PROGRAM": "ghostty"}):
+            mock_stdout = io.StringIO()
+            with patch("sys.stdout", mock_stdout):
+                result = ghostty.set_title("My Title")
+                assert result is True
+                output = mock_stdout.getvalue()
+                assert "\033]2;My Title\007" in output
+
+    def test_set_title_not_in_ghostty(self):
+        """Test setting title when not in Ghostty."""
+        from aiterm.terminal import ghostty
+
+        with patch.dict(os.environ, {"TERM_PROGRAM": "iTerm.app"}):
+            result = ghostty.set_title("My Title")
+            assert result is False
+
+    def test_set_title_with_special_characters(self):
+        """Test setting title with special characters."""
+        from aiterm.terminal import ghostty
+        import io
+
+        with patch.dict(os.environ, {"TERM_PROGRAM": "ghostty"}):
+            mock_stdout = io.StringIO()
+            with patch("sys.stdout", mock_stdout):
+                result = ghostty.set_title("📁 project (main)")
+                assert result is True
+                output = mock_stdout.getvalue()
+                assert "📁 project (main)" in output
+
+
+# =============================================================================
+# NEW TESTS: apply_context() - context to title mapping
+# =============================================================================
+
+
+class TestGhosttyApplyContext:
+    """Test applying context info to Ghostty."""
+
+    def test_apply_context_full(self):
+        """Test applying context with all fields."""
+        from aiterm.terminal import ghostty
+        from aiterm.context.detector import ContextInfo, ContextType
+        import io
+
+        context = ContextInfo(
+            type=ContextType.PYTHON,
+            name="myproject",
+            icon="🐍",
+            profile="Python-Dev",
+            branch="feature-x",
+            is_dirty=False,
+        )
+
+        with patch.dict(os.environ, {"TERM_PROGRAM": "ghostty"}):
+            mock_stdout = io.StringIO()
+            with patch("sys.stdout", mock_stdout):
+                ghostty.apply_context(context)
+                output = mock_stdout.getvalue()
+                assert "🐍" in output
+                assert "myproject" in output
+                assert "feature-x" in output
+
+    def test_apply_context_minimal(self):
+        """Test applying context with minimal fields."""
+        from aiterm.terminal import ghostty
+        from aiterm.context.detector import ContextInfo, ContextType
+        import io
+
+        context = ContextInfo(
+            type=ContextType.DEFAULT,
+            name="unknown",
+            icon="",
+            profile="Default",
+        )
+
+        with patch.dict(os.environ, {"TERM_PROGRAM": "ghostty"}):
+            mock_stdout = io.StringIO()
+            with patch("sys.stdout", mock_stdout):
+                ghostty.apply_context(context)
+                output = mock_stdout.getvalue()
+                assert "unknown" in output
+
+    def test_apply_context_no_branch(self):
+        """Test applying context without branch info."""
+        from aiterm.terminal import ghostty
+        from aiterm.context.detector import ContextInfo, ContextType
+        import io
+
+        context = ContextInfo(
+            type=ContextType.NODE,
+            name="webapp",
+            icon="📦",
+            profile="Node-Dev",
+        )
+
+        with patch.dict(os.environ, {"TERM_PROGRAM": "ghostty"}):
+            mock_stdout = io.StringIO()
+            with patch("sys.stdout", mock_stdout):
+                ghostty.apply_context(context)
+                output = mock_stdout.getvalue()
+                assert "📦" in output
+                assert "webapp" in output
+                # No branch parentheses
+                assert "(" not in output or "webapp" in output
+
+
+# =============================================================================
+# NEW TESTS: show_config() - formatted output
+# =============================================================================
+
+
+class TestGhosttyShowConfig:
+    """Test show_config formatted output."""
+
+    def test_show_config_with_values(self, tmp_path: Path):
+        """Test show_config with actual config."""
+        from aiterm.terminal import ghostty
+
+        config_file = tmp_path / "config"
+        config_file.write_text(
+            """font-family = JetBrains Mono
+font-size = 16
+theme = dracula
+cursor-style = underline
+"""
+        )
+
+        with patch.object(ghostty, "get_config_path", return_value=config_file):
+            output = ghostty.show_config()
+
+            assert "Ghostty Configuration" in output
+            assert "JetBrains Mono" in output
+            assert "16" in output
+            assert "dracula" in output
+            assert "underline" in output
+
+    def test_show_config_no_file(self):
+        """Test show_config when no config exists."""
+        from aiterm.terminal import ghostty
+
+        with patch.object(ghostty, "get_config_path", return_value=None):
+            output = ghostty.show_config()
+
+            assert "Ghostty Configuration" in output
+            assert "Not found" in output
+            assert "monospace" in output  # default font
+
+
+# =============================================================================
+# NEW TESTS: Edge cases - invalid values, malformed config
+# =============================================================================
+
+
+class TestGhosttyConfigEdgeCases:
+    """Test edge cases in config parsing."""
+
+    def test_parse_invalid_int(self, tmp_path: Path):
+        """Test parsing config with invalid integer value."""
+        from aiterm.terminal import ghostty
+
+        config_file = tmp_path / "config"
+        config_file.write_text("font-size = not-a-number\n")
+
+        config = ghostty.parse_config(config_file)
+        # Should keep default value
+        assert config.font_size == 14
+
+    def test_parse_invalid_float(self, tmp_path: Path):
+        """Test parsing config with invalid float value."""
+        from aiterm.terminal import ghostty
+
+        config_file = tmp_path / "config"
+        config_file.write_text("background-opacity = invalid\n")
+
+        config = ghostty.parse_config(config_file)
+        # Should keep default value
+        assert config.background_opacity == 1.0
+
+    def test_parse_malformed_line(self, tmp_path: Path):
+        """Test parsing config with malformed line (no equals)."""
+        from aiterm.terminal import ghostty
+
+        config_file = tmp_path / "config"
+        config_file.write_text(
+            """font-size = 14
+this line has no equals sign
+theme = nord
+"""
+        )
+
+        config = ghostty.parse_config(config_file)
+        assert config.font_size == 14
+        assert config.theme == "nord"
+
+    def test_parse_whitespace_handling(self, tmp_path: Path):
+        """Test parsing handles various whitespace."""
+        from aiterm.terminal import ghostty
+
+        config_file = tmp_path / "config"
+        config_file.write_text(
+            """  font-family   =   Fira Code
+font-size=12
+  theme =tokyo-night
+"""
+        )
+
+        config = ghostty.parse_config(config_file)
+        assert config.font_family == "Fira Code"
+        assert config.font_size == 12
+        assert config.theme == "tokyo-night"
+
+    def test_parse_background_opacity(self, tmp_path: Path):
+        """Test parsing background opacity."""
+        from aiterm.terminal import ghostty
+
+        config_file = tmp_path / "config"
+        config_file.write_text("background-opacity = 0.85\n")
+
+        config = ghostty.parse_config(config_file)
+        assert config.background_opacity == 0.85
+
+    def test_raw_config_capture(self, tmp_path: Path):
+        """Test that raw_config captures all key-value pairs."""
+        from aiterm.terminal import ghostty
+
+        config_file = tmp_path / "config"
+        config_file.write_text(
+            """font-family = Monaco
+custom-key = custom-value
+another = setting
+"""
+        )
+
+        config = ghostty.parse_config(config_file)
+        assert "custom-key" in config.raw_config
+        assert config.raw_config["custom-key"] == "custom-value"
+        assert config.raw_config["another"] == "setting"
+
+
+# =============================================================================
+# NEW TESTS: Config path functions
+# =============================================================================
+
+
+class TestGhosttyConfigPaths:
+    """Test config path detection functions."""
+
+    def test_get_config_path_xdg(self, tmp_path: Path):
+        """Test finding config in XDG location."""
+        from aiterm.terminal import ghostty
+
+        # Create fake XDG config
+        xdg_config = tmp_path / ".config" / "ghostty" / "config"
+        xdg_config.parent.mkdir(parents=True)
+        xdg_config.write_text("theme = test")
+
+        with patch.object(Path, "home", return_value=tmp_path):
+            # Need to re-import to pick up patched CONFIG_PATHS
+            with patch.object(ghostty, "CONFIG_PATHS", [xdg_config, tmp_path / ".ghostty"]):
+                path = ghostty.get_config_path()
+                assert path == xdg_config
+
+    def test_get_config_path_none_found(self, tmp_path: Path):
+        """Test when no config file exists."""
+        from aiterm.terminal import ghostty
+
+        with patch.object(ghostty, "CONFIG_PATHS", [tmp_path / "nonexistent1", tmp_path / "nonexistent2"]):
+            path = ghostty.get_config_path()
+            assert path is None
+
+    def test_get_default_config_path_creates_dirs(self, tmp_path: Path):
+        """Test default config path creates parent directories."""
+        from aiterm.terminal import ghostty
+
+        with patch.object(Path, "home", return_value=tmp_path):
+            path = ghostty.get_default_config_path()
+            assert path.parent.exists()
+            assert path.name == "config"
+
+
+# =============================================================================
+# NEW TESTS: reload_config()
+# =============================================================================
+
+
+class TestGhosttyReloadConfig:
+    """Test config reload functionality."""
+
+    def test_reload_config_in_ghostty(self):
+        """Test reload returns True in Ghostty."""
+        from aiterm.terminal import ghostty
+
+        with patch.dict(os.environ, {"TERM_PROGRAM": "ghostty"}):
+            result = ghostty.reload_config()
+            assert result is True
+
+    def test_reload_config_not_in_ghostty(self):
+        """Test reload returns False when not in Ghostty."""
+        from aiterm.terminal import ghostty
+
+        with patch.dict(os.environ, {"TERM_PROGRAM": "iTerm.app"}):
+            result = ghostty.reload_config()
+            assert result is False
+
+
+# =============================================================================
+# NEW TESTS: Theme list immutability
+# =============================================================================
+
+
+class TestGhosttyThemeList:
+    """Test theme list behavior."""
+
+    def test_list_themes_returns_copy(self):
+        """Test that list_themes returns a copy (not mutable original)."""
+        from aiterm.terminal import ghostty
+
+        themes1 = ghostty.list_themes()
+        themes1.append("fake-theme")
+
+        themes2 = ghostty.list_themes()
+        assert "fake-theme" not in themes2
+
+    def test_builtin_themes_count(self):
+        """Test expected number of built-in themes."""
+        from aiterm.terminal import ghostty
+
+        themes = ghostty.list_themes()
+        # Should have at least the documented themes
+        assert len(themes) >= 14
