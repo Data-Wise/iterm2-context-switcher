@@ -53,7 +53,26 @@ next: Phase 1b Feature Workflow (ait feature status/start/cleanup) or Phase 0.7 
 - [ ] Session checks in workflow runner
 - [ ] Task auto-update during workflows
 
-## ✅ Just Completed (Session Dec 30, 2025 - v0.3.11 & v0.3.12 Releases)
+## ✅ Just Completed (Session Dec 30, 2025 - Phase 0.7 & 1b)
+
+- ✅ **Phase 0.7: Quick Wins COMPLETE**
+  - `ait ghost` aliases for quick Ghostty access (status/theme/config/font)
+  - Terminal-aware `ait switch` (auto-detects iTerm2/Ghostty/etc)
+  - Shows terminal type in context detection output
+
+- ✅ **Phase 1b: Feature Workflow Commands COMPLETE**
+  - `ait feature status` - Rich pipeline visualization with worktree info
+  - `ait feature list` - Detailed feature branch listing
+  - `ait feature start` - Full automation (branch + worktree + deps)
+  - `ait feature cleanup` - Interactive merged branch cleanup
+  - 17 new tests (all passing)
+
+📊 **Session Stats:**
+- +894 lines of code
+- 3 files changed
+- 17 new tests
+
+## ✅ Earlier Today (Dec 30, 2025 - v0.3.11 & v0.3.12 Releases)
 
 - ✅ **v0.3.11 & v0.3.12 Released to PyPI**
   - Fixed `__version__` mismatch (was 0.3.7, now synced with pyproject.toml)
@@ -65,16 +84,6 @@ next: Phase 1b Feature Workflow (ait feature status/start/cleanup) or Phase 0.7 
   - terminals.md: Ghostty CLI Commands section
   - mkdocs navigation: Added terminals.md and troubleshooting guide
   - Deployed to GitHub Pages
-
-- ✅ **CI/CD Improvements**
-  - Workflow now uses `ref: ${{ github.ref }}` for proper tag checkout
-  - Future releases will build correct version artifacts
-
-📊 **Session Stats:**
-- 7 commits
-- 2 PyPI releases (v0.3.11, v0.3.12)
-- 2 Homebrew updates
-- Documentation deployed
 
 ## ✅ Just Completed (Session Dec 29, 2025 - Ghostty + Brainstorm)
 
