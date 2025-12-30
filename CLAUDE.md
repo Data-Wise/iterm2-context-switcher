@@ -28,9 +28,18 @@ This file provides guidance to Claude Code when working with the aiterm project.
 
 ---
 
-## Project Status: v0.3.8 ✅ RELEASED
+## Project Status: v0.3.10 ✅ RELEASED
 
-**Current Version:** v0.3.8 (Dec 28, 2025)
+**Current Version:** v0.3.10 (Dec 29, 2025)
+
+**v0.3.10 Release (Dec 29, 2025):**
+- [x] **flow-cli integration:** `tm` dispatcher via symlink mechanism
+- [x] **XDG config:** `AITERM_CONFIG_HOME` with `~/.config/aiterm/` default
+- [x] **Config CLI:** `ait config path/show/init/edit` commands
+
+**v0.3.9 Release (Dec 29, 2025):**
+- [x] **Ghostty terminal support:** `ait ghostty status/theme/font/set`
+- [x] **Terminal detection:** Multi-terminal framework with version parsing
 
 **v0.3.8 Release (Dec 28, 2025):**
 - [x] **Git Worktrees Guide:** Comprehensive parallel development documentation
@@ -160,6 +169,12 @@ ait doctor                       # Check installation
 ait detect                       # Show project context
 ait switch                       # Apply context to terminal
 
+# Configuration (NEW!)
+ait config path                  # Show config directory
+ait config path --all            # Show all config paths
+ait config show                  # Display current config
+ait config init                  # Create default config.toml
+
 # Claude Code
 ait claude settings              # View settings
 ait claude backup                # Backup settings
@@ -171,7 +186,7 @@ ait mcp list                     # List configured servers
 ait mcp test filesystem          # Test specific server
 ait mcp validate                 # Check configuration
 
-# Session Coordination (NEW!)
+# Session Coordination
 ait sessions live                # Show active Claude Code sessions
 ait sessions conflicts           # Detect parallel session conflicts
 ait sessions history             # Browse archived sessions

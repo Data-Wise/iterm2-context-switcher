@@ -4,6 +4,35 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+## [0.3.11] - 2025-12-29 - XDG Config Support
+
+**Tag:** v0.3.11 (pending)
+**PyPI:** https://pypi.org/project/aiterm-dev/0.3.11/
+**Homebrew:** `brew upgrade data-wise/tap/aiterm`
+
+### Added
+- **XDG-Compliant Configuration** - Config paths now follow XDG Base Directory Specification
+  - Default config directory: `~/.config/aiterm/`
+  - Config file: `~/.config/aiterm/config.toml`
+  - Profiles directory: `~/.config/aiterm/profiles/`
+  - Themes directory: `~/.config/aiterm/themes/`
+- **AITERM_CONFIG_HOME Environment Variable** - Override config location
+  - Priority: `AITERM_CONFIG_HOME` > `XDG_CONFIG_HOME/aiterm` > `~/.config/aiterm`
+  - Pattern follows `ZDOTDIR` from ZSH
+- **Config CLI Commands** - New `ait config` command group
+  - `config path` - Show config directory path
+  - `config path --all` - Show all paths with existence status
+  - `config show` - Display current configuration
+  - `config init` - Create default config.toml
+  - `config edit` - Open config in $EDITOR
+
+### Documentation
+- `docs/proposals/XDG-CONFIG-MIGRATION.md` - Full migration proposal
+- Updated `docs/reference/configuration.md` - XDG paths and environment variables
+- Updated `docs/reference/commands.md` - Config command reference
+
+---
+
 ## [0.3.10] - 2025-12-29 - flow-cli Integration
 
 **Tag:** v0.3.10

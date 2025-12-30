@@ -1090,13 +1090,88 @@ ait claude approvals list  # = aiterm claude approvals list
 
 ---
 
+## Configuration Commands
+
+### `aiterm config path`
+
+Show configuration file paths.
+
+```bash
+# Show config directory only
+ait config path
+
+# Show all paths with existence status
+ait config path --all
+```
+
+**Output (`--all`):**
+```
+Configuration Paths
+┏━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━┓
+┃ Path Type   ┃ Location                             ┃ Exists ┃
+┡━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━┩
+│ Config Home │ /Users/dt/.config/aiterm             │ yes    │
+│ Config File │ /Users/dt/.config/aiterm/config.toml │ yes    │
+│ Profiles    │ /Users/dt/.config/aiterm/profiles    │ no     │
+│ Themes      │ /Users/dt/.config/aiterm/themes      │ no     │
+│ Cache       │ /Users/dt/.config/aiterm/cache       │ no     │
+└─────────────┴──────────────────────────────────────┴────────┘
+
+Using default: ~/.config/aiterm
+```
+
+---
+
+### `aiterm config show`
+
+Display current configuration settings.
+
+```bash
+ait config show
+```
+
+---
+
+### `aiterm config init`
+
+Initialize configuration directory and create default config file.
+
+```bash
+ait config init          # Create if not exists
+ait config init --force  # Overwrite existing
+```
+
+Creates `~/.config/aiterm/config.toml` with default settings.
+
+---
+
+### `aiterm config edit`
+
+Open configuration file in your default editor.
+
+```bash
+ait config edit
+```
+
+Uses `$EDITOR` environment variable (defaults to `nano`).
+
+---
+
 ## Configuration Files
 
 | File | Purpose |
 |------|---------|
+| `~/.config/aiterm/config.toml` | aiterm main configuration |
+| `~/.config/aiterm/profiles/` | Terminal profiles |
+| `~/.config/aiterm/themes/` | Custom themes |
 | `~/.claude/settings.json` | Claude Code settings |
 | `~/.claude/hooks/` | Claude Code hooks |
-| `~/.config/aiterm/` | aiterm config (coming v0.2.0) |
+
+**Environment Variable Override:**
+```bash
+# Override config location
+export AITERM_CONFIG_HOME="/custom/path"
+```
 
 ---
 
