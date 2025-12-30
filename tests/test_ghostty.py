@@ -626,3 +626,323 @@ class TestGhosttyThemeList:
         themes = ghostty.list_themes()
         # Should have at least the documented themes
         assert len(themes) >= 14
+
+
+# =============================================================================
+# NEW TESTS: Profile Management (v0.4.0)
+# =============================================================================
+
+
+class TestGhosttyProfile:
+    """Test GhosttyProfile dataclass."""
+
+    def test_profile_to_config_lines(self):
+        """Test converting profile to config file lines."""
+        from aiterm.terminal.ghostty import GhosttyProfile
+
+        profile = GhosttyProfile(
+            name="test-profile",
+            theme="nord",
+            font_family="JetBrains Mono",
+            font_size=16,
+            description="Test profile",
+            created_at="2025-12-30T12:00:00",
+        )
+
+        lines = profile.to_config_lines()
+        assert "# Profile: test-profile" in lines
+        assert "# Test profile" in lines
+        assert "theme = nord" in lines
+        assert "font-family = JetBrains Mono" in lines
+        assert "font-size = 16" in lines
+
+    def test_profile_from_config(self):
+        """Test creating profile from GhosttyConfig."""
+        from aiterm.terminal.ghostty import GhosttyProfile, GhosttyConfig
+
+        config = GhosttyConfig(
+            font_family="Fira Code",
+            font_size=14,
+            theme="dracula",
+            background_opacity=0.9,
+        )
+
+        profile = GhosttyProfile.from_config("my-profile", config, "My coding setup")
+
+        assert profile.name == "my-profile"
+        assert profile.theme == "dracula"
+        assert profile.font_family == "Fira Code"
+        assert profile.font_size == 14
+        assert profile.background_opacity == 0.9
+        assert profile.description == "My coding setup"
+        assert profile.created_at  # Should have timestamp
+
+    def test_profile_with_custom_settings(self):
+        """Test profile with custom settings."""
+        from aiterm.terminal.ghostty import GhosttyProfile
+
+        profile = GhosttyProfile(
+            name="custom",
+            theme="nord",
+            custom_settings={"keybind": "ctrl+t=new_tab", "shell": "/bin/zsh"},
+        )
+
+        lines = profile.to_config_lines()
+        assert "keybind = ctrl+t=new_tab" in lines
+        assert "shell = /bin/zsh" in lines
+
+
+class TestGhosttyProfileManagement:
+    """Test profile management functions."""
+
+    def test_get_profiles_dir(self, tmp_path: Path):
+        """Test profiles directory creation."""
+        from aiterm.terminal import ghostty
+
+        profiles_dir = tmp_path / ".config" / "ghostty" / "profiles"
+        with patch.object(ghostty, "PROFILES_DIR", profiles_dir):
+            result = ghostty.get_profiles_dir()
+            assert result.exists()
+            assert result == profiles_dir
+
+    def test_list_profiles_empty(self, tmp_path: Path):
+        """Test listing profiles when none exist."""
+        from aiterm.terminal import ghostty
+
+        profiles_dir = tmp_path / "profiles"
+        profiles_dir.mkdir(parents=True)
+
+        with patch.object(ghostty, "PROFILES_DIR", profiles_dir):
+            profiles = ghostty.list_profiles()
+            assert profiles == []
+
+    def test_save_and_get_profile(self, tmp_path: Path):
+        """Test saving and retrieving a profile."""
+        from aiterm.terminal import ghostty
+        from aiterm.terminal.ghostty import GhosttyProfile
+
+        profiles_dir = tmp_path / "profiles"
+        profiles_dir.mkdir(parents=True)
+
+        with patch.object(ghostty, "PROFILES_DIR", profiles_dir):
+            profile = GhosttyProfile(
+                name="coding",
+                theme="tokyo-night",
+                font_family="JetBrains Mono",
+                font_size=14,
+                description="My coding setup",
+                created_at="2025-12-30T12:00:00",
+            )
+
+            saved_path = ghostty.save_profile(profile)
+            assert saved_path.exists()
+            assert saved_path.name == "coding.conf"
+
+            loaded = ghostty.get_profile("coding")
+            assert loaded is not None
+            assert loaded.name == "coding"
+            assert loaded.theme == "tokyo-night"
+            assert loaded.font_family == "JetBrains Mono"
+            assert loaded.font_size == 14
+
+    def test_get_profile_not_found(self, tmp_path: Path):
+        """Test getting a non-existent profile."""
+        from aiterm.terminal import ghostty
+
+        profiles_dir = tmp_path / "profiles"
+        profiles_dir.mkdir(parents=True)
+
+        with patch.object(ghostty, "PROFILES_DIR", profiles_dir):
+            profile = ghostty.get_profile("nonexistent")
+            assert profile is None
+
+    def test_delete_profile(self, tmp_path: Path):
+        """Test deleting a profile."""
+        from aiterm.terminal import ghostty
+        from aiterm.terminal.ghostty import GhosttyProfile
+
+        profiles_dir = tmp_path / "profiles"
+        profiles_dir.mkdir(parents=True)
+
+        with patch.object(ghostty, "PROFILES_DIR", profiles_dir):
+            profile = GhosttyProfile(name="to-delete", theme="nord")
+            ghostty.save_profile(profile)
+
+            assert ghostty.get_profile("to-delete") is not None
+
+            result = ghostty.delete_profile("to-delete")
+            assert result is True
+            assert ghostty.get_profile("to-delete") is None
+
+    def test_delete_profile_not_found(self, tmp_path: Path):
+        """Test deleting a non-existent profile."""
+        from aiterm.terminal import ghostty
+
+        profiles_dir = tmp_path / "profiles"
+        profiles_dir.mkdir(parents=True)
+
+        with patch.object(ghostty, "PROFILES_DIR", profiles_dir):
+            result = ghostty.delete_profile("nonexistent")
+            assert result is False
+
+    def test_create_profile_from_current(self, tmp_path: Path):
+        """Test creating a profile from current config."""
+        from aiterm.terminal import ghostty
+
+        # Setup profiles dir
+        profiles_dir = tmp_path / "profiles"
+        profiles_dir.mkdir(parents=True)
+
+        # Setup config file
+        config_file = tmp_path / "config"
+        config_file.write_text(
+            """font-family = Monaco
+font-size = 13
+theme = solarized-dark
+"""
+        )
+
+        with patch.object(ghostty, "PROFILES_DIR", profiles_dir):
+            with patch.object(ghostty, "get_config_path", return_value=config_file):
+                profile = ghostty.create_profile_from_current("backup", "Before update")
+
+                assert profile.name == "backup"
+                assert profile.theme == "solarized-dark"
+                assert profile.font_family == "Monaco"
+                assert profile.font_size == 13
+                assert profile.description == "Before update"
+
+                # Should be saved to disk
+                saved = ghostty.get_profile("backup")
+                assert saved is not None
+                assert saved.theme == "solarized-dark"
+
+    def test_apply_profile(self, tmp_path: Path):
+        """Test applying a profile to config."""
+        from aiterm.terminal import ghostty
+        from aiterm.terminal.ghostty import GhosttyProfile
+
+        # Setup
+        profiles_dir = tmp_path / "profiles"
+        profiles_dir.mkdir(parents=True)
+        config_file = tmp_path / "config"
+        config_file.write_text("theme = old-theme\n")
+
+        with patch.object(ghostty, "PROFILES_DIR", profiles_dir):
+            with patch.object(ghostty, "get_config_path", return_value=config_file):
+                with patch.object(ghostty, "get_default_config_path", return_value=config_file):
+                    # Save a profile
+                    profile = GhosttyProfile(
+                        name="new-look",
+                        theme="gruvbox-dark",
+                        font_family="Fira Code",
+                        font_size=15,
+                    )
+                    ghostty.save_profile(profile)
+
+                    # Apply it (with backup disabled for simpler test)
+                    result = ghostty.apply_profile("new-look", backup=False)
+                    assert result is True
+
+                    # Check config was updated
+                    config = ghostty.parse_config(config_file)
+                    assert config.theme == "gruvbox-dark"
+                    assert config.font_family == "Fira Code"
+                    assert config.font_size == 15
+
+    def test_apply_profile_not_found(self, tmp_path: Path):
+        """Test applying a non-existent profile."""
+        from aiterm.terminal import ghostty
+
+        profiles_dir = tmp_path / "profiles"
+        profiles_dir.mkdir(parents=True)
+
+        with patch.object(ghostty, "PROFILES_DIR", profiles_dir):
+            result = ghostty.apply_profile("nonexistent")
+            assert result is False
+
+
+class TestGhosttyBackup:
+    """Test backup functionality."""
+
+    def test_backup_config(self, tmp_path: Path):
+        """Test creating a config backup."""
+        from aiterm.terminal import ghostty
+
+        config_file = tmp_path / "config"
+        config_file.write_text("theme = catppuccin-mocha\n")
+
+        with patch.object(ghostty, "get_config_path", return_value=config_file):
+            backup_path = ghostty.backup_config()
+
+            assert backup_path is not None
+            assert backup_path.exists()
+            assert "config.backup." in backup_path.name
+            assert backup_path.read_text() == "theme = catppuccin-mocha\n"
+
+    def test_backup_config_with_suffix(self, tmp_path: Path):
+        """Test creating a backup with custom suffix."""
+        from aiterm.terminal import ghostty
+
+        config_file = tmp_path / "config"
+        config_file.write_text("theme = nord\n")
+
+        with patch.object(ghostty, "get_config_path", return_value=config_file):
+            backup_path = ghostty.backup_config(suffix="before-update")
+
+            assert backup_path is not None
+            assert "before-update" in backup_path.name
+
+    def test_backup_config_no_file(self, tmp_path: Path):
+        """Test backup when no config exists."""
+        from aiterm.terminal import ghostty
+
+        with patch.object(ghostty, "get_config_path", return_value=None):
+            backup_path = ghostty.backup_config()
+            assert backup_path is None
+
+    def test_list_backups(self, tmp_path: Path):
+        """Test listing available backups."""
+        from aiterm.terminal import ghostty
+
+        config_file = tmp_path / "config"
+        config_file.write_text("theme = test\n")
+
+        # Create some backup files
+        (tmp_path / "config.backup.20251230120000").write_text("v1")
+        (tmp_path / "config.backup.20251230130000").write_text("v2")
+        (tmp_path / "config.backup.20251230140000").write_text("v3")
+
+        with patch.object(ghostty, "get_config_path", return_value=config_file):
+            backups = ghostty.list_backups()
+
+            assert len(backups) == 3
+            # Should be sorted newest first
+            assert "140000" in backups[0].name
+            assert "120000" in backups[-1].name
+
+    def test_restore_backup(self, tmp_path: Path):
+        """Test restoring from a backup."""
+        from aiterm.terminal import ghostty
+
+        config_file = tmp_path / "config"
+        config_file.write_text("theme = current\n")
+
+        backup_file = tmp_path / "config.backup.old"
+        backup_file.write_text("theme = old-theme\n")
+
+        with patch.object(ghostty, "get_config_path", return_value=config_file):
+            with patch.object(ghostty, "get_default_config_path", return_value=config_file):
+                result = ghostty.restore_backup(backup_file)
+
+                assert result is True
+                assert config_file.read_text() == "theme = old-theme\n"
+                # Should have created pre-restore backup
+                assert (tmp_path / "config.pre-restore").exists()
+
+    def test_restore_backup_not_found(self, tmp_path: Path):
+        """Test restoring from non-existent backup."""
+        from aiterm.terminal import ghostty
+
+        result = ghostty.restore_backup(tmp_path / "nonexistent")
+        assert result is False

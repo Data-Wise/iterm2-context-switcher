@@ -95,7 +95,12 @@
       "Bash(mkdocs gh-deploy:*)",
       "Bash(claude /code:debug)",
       "Bash(claude --doctor)",
-      "Bash(# Temporarily enable thinking mode to test jq ''.alwaysThinkingEnabled = true'' ~/.claude/settings.json cat /tmp/test-thinking-indicator.json)"
+      "Bash(# Temporarily enable thinking mode to test jq ''.alwaysThinkingEnabled = true'' ~/.claude/settings.json cat /tmp/test-thinking-indicator.json)",
+      "Skill(workflow:brainstorm)",
+      "Bash(mkdocs build:*)",
+      "Bash(ait ghostty --help:*)",
+      "Bash(hash -r)",
+      "Bash(pip3 show:*)"
     ]
   }
 }

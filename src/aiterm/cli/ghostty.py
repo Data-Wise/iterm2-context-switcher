@@ -298,3 +298,307 @@ def ghostty_set(
     else:
         console.print(f"[red]Failed to set {key}.[/]")
         raise typer.Exit(1)
+
+
+# =============================================================================
+# Profile Management (v0.4.0)
+# =============================================================================
+
+profile_app = typer.Typer(help="Profile management for Ghostty.")
+app.add_typer(profile_app, name="profile")
+
+
+@profile_app.command(
+    "list",
+    epilog="""
+[bold]Examples:[/]
+  ait ghostty profile list   # List saved profiles
+""",
+)
+def profile_list() -> None:
+    """List available Ghostty profiles."""
+    from aiterm.terminal import ghostty
+
+    profiles = ghostty.list_profiles()
+
+    if not profiles:
+        console.print("[dim]No profiles saved yet.[/]")
+        console.print("\n[bold]Create your first profile:[/]")
+        console.print("  ait ghostty profile create my-profile")
+        return
+
+    console.print("[bold cyan]Saved Profiles[/]\n")
+
+    table = Table(show_header=True, border_style="dim")
+    table.add_column("Name", style="bold")
+    table.add_column("Theme")
+    table.add_column("Font")
+    table.add_column("Description")
+
+    for profile in profiles:
+        font_info = ""
+        if profile.font_family:
+            font_info = profile.font_family
+            if profile.font_size:
+                font_info += f" @ {profile.font_size}pt"
+
+        table.add_row(
+            profile.name,
+            profile.theme or "[dim]-[/]",
+            font_info or "[dim]-[/]",
+            profile.description[:40] + "..." if len(profile.description) > 40 else profile.description or "[dim]-[/]",
+        )
+
+    console.print(table)
+    console.print(f"\n[dim]Total: {len(profiles)} profile(s)[/]")
+
+
+@profile_app.command(
+    "show",
+    epilog="""
+[bold]Examples:[/]
+  ait ghostty profile show coding    # Show profile details
+""",
+)
+def profile_show(
+    name: str = typer.Argument(..., help="Profile name to show."),
+) -> None:
+    """Show details of a specific profile."""
+    from aiterm.terminal import ghostty
+
+    profile = ghostty.get_profile(name)
+    if not profile:
+        console.print(f"[red]Profile not found:[/] {name}")
+        raise typer.Exit(1)
+
+    console.print(Panel(f"[bold]{profile.name}[/]", title="Profile Details", border_style="cyan"))
+
+    table = Table(show_header=False, border_style="dim")
+    table.add_column("Setting", style="bold")
+    table.add_column("Value")
+
+    if profile.description:
+        table.add_row("Description", profile.description)
+    if profile.created_at:
+        table.add_row("Created", profile.created_at)
+    if profile.theme:
+        table.add_row("Theme", profile.theme)
+    if profile.font_family:
+        font = profile.font_family
+        if profile.font_size:
+            font += f" @ {profile.font_size}pt"
+        table.add_row("Font", font)
+    if profile.background_opacity > 0:
+        table.add_row("Opacity", str(profile.background_opacity))
+    if profile.window_padding_x or profile.window_padding_y:
+        table.add_row("Padding", f"x={profile.window_padding_x}, y={profile.window_padding_y}")
+    if profile.cursor_style:
+        table.add_row("Cursor", profile.cursor_style)
+
+    console.print(table)
+
+    if profile.custom_settings:
+        console.print("\n[bold]Custom settings:[/]")
+        for key, value in profile.custom_settings.items():
+            console.print(f"  {key} = {value}")
+
+
+@profile_app.command(
+    "create",
+    epilog="""
+[bold]Examples:[/]
+  ait ghostty profile create coding                      # Create from current config
+  ait ghostty profile create coding -d "My coding setup" # With description
+""",
+)
+def profile_create(
+    name: str = typer.Argument(..., help="Name for the new profile."),
+    description: str = typer.Option(
+        "",
+        "--description",
+        "-d",
+        help="Optional description for the profile.",
+    ),
+) -> None:
+    """Create a new profile from current Ghostty config."""
+    from aiterm.terminal import ghostty
+
+    # Check if profile already exists
+    existing = ghostty.get_profile(name)
+    if existing:
+        console.print(f"[red]Profile already exists:[/] {name}")
+        console.print("[dim]Use 'ait ghostty profile delete' first to replace.[/]")
+        raise typer.Exit(1)
+
+    profile = ghostty.create_profile_from_current(name, description)
+
+    console.print(f"[green]✓[/] Created profile: [bold]{profile.name}[/]")
+    if profile.theme:
+        console.print(f"  Theme: {profile.theme}")
+    if profile.font_family:
+        console.print(f"  Font: {profile.font_family} @ {profile.font_size}pt")
+
+    profile_path = ghostty.get_profiles_dir() / f"{name}.conf"
+    console.print(f"\n[dim]Saved to: {profile_path}[/]")
+
+
+@profile_app.command(
+    "apply",
+    epilog="""
+[bold]Examples:[/]
+  ait ghostty profile apply coding         # Apply profile
+  ait ghostty profile apply coding --no-backup  # Skip backup
+""",
+)
+def profile_apply(
+    name: str = typer.Argument(..., help="Profile name to apply."),
+    no_backup: bool = typer.Option(
+        False,
+        "--no-backup",
+        help="Skip backing up current config.",
+    ),
+) -> None:
+    """Apply a saved profile to Ghostty config."""
+    from aiterm.terminal import ghostty
+
+    if ghostty.apply_profile(name, backup=not no_backup):
+        console.print(f"[green]✓[/] Applied profile: [bold]{name}[/]")
+        console.print("[dim]Ghostty will auto-reload the config.[/]")
+    else:
+        console.print(f"[red]Profile not found:[/] {name}")
+        raise typer.Exit(1)
+
+
+@profile_app.command(
+    "delete",
+    epilog="""
+[bold]Examples:[/]
+  ait ghostty profile delete old-profile   # Delete a profile
+""",
+)
+def profile_delete(
+    name: str = typer.Argument(..., help="Profile name to delete."),
+    force: bool = typer.Option(
+        False,
+        "--force",
+        "-f",
+        help="Skip confirmation.",
+    ),
+) -> None:
+    """Delete a saved profile."""
+    from aiterm.terminal import ghostty
+
+    profile = ghostty.get_profile(name)
+    if not profile:
+        console.print(f"[red]Profile not found:[/] {name}")
+        raise typer.Exit(1)
+
+    if not force:
+        confirm = typer.confirm(f"Delete profile '{name}'?")
+        if not confirm:
+            console.print("[dim]Cancelled.[/]")
+            raise typer.Exit(0)
+
+    if ghostty.delete_profile(name):
+        console.print(f"[green]✓[/] Deleted profile: {name}")
+    else:
+        console.print(f"[red]Failed to delete profile:[/] {name}")
+        raise typer.Exit(1)
+
+
+# =============================================================================
+# Backup Management (v0.4.0)
+# =============================================================================
+
+@app.command(
+    "backup",
+    epilog="""
+[bold]Examples:[/]
+  ait ghostty backup                     # Create timestamped backup
+  ait ghostty backup --suffix before-update  # With custom suffix
+""",
+)
+def ghostty_backup(
+    suffix: Optional[str] = typer.Option(
+        None,
+        "--suffix",
+        "-s",
+        help="Optional suffix for backup filename.",
+    ),
+) -> None:
+    """Create a backup of Ghostty config."""
+    from aiterm.terminal import ghostty
+
+    backup_path = ghostty.backup_config(suffix)
+
+    if backup_path:
+        console.print(f"[green]✓[/] Backup created: {backup_path.name}")
+        console.print(f"[dim]Location: {backup_path}[/]")
+    else:
+        console.print("[yellow]No config file to backup.[/]")
+        raise typer.Exit(1)
+
+
+@app.command(
+    "restore",
+    epilog="""
+[bold]Examples:[/]
+  ait ghostty restore                      # List backups to choose from
+  ait ghostty restore config.backup.20251230  # Restore specific backup
+""",
+)
+def ghostty_restore(
+    backup_name: Optional[str] = typer.Argument(
+        None,
+        help="Backup filename to restore (optional).",
+    ),
+) -> None:
+    """Restore Ghostty config from a backup."""
+    from aiterm.terminal import ghostty
+
+    backups = ghostty.list_backups()
+
+    if not backups:
+        console.print("[yellow]No backups found.[/]")
+        raise typer.Exit(1)
+
+    if not backup_name:
+        # Show available backups
+        console.print("[bold cyan]Available Backups[/]\n")
+
+        table = Table(show_header=True, border_style="dim")
+        table.add_column("#", style="dim")
+        table.add_column("Backup File", style="bold")
+        table.add_column("Date")
+
+        for i, backup in enumerate(backups, 1):
+            # Parse timestamp from filename
+            parts = backup.name.replace("config.backup.", "").split(".")
+            timestamp = parts[0] if parts else "unknown"
+            table.add_row(str(i), backup.name, timestamp)
+
+        console.print(table)
+        console.print("\n[dim]Use 'ait ghostty restore <backup-name>' to restore[/]")
+        return
+
+    # Find the backup
+    backup_path = None
+    config_path = ghostty.get_config_path()
+    if config_path:
+        backup_path = config_path.parent / backup_name
+
+    if not backup_path or not backup_path.exists():
+        console.print(f"[red]Backup not found:[/] {backup_name}")
+        raise typer.Exit(1)
+
+    confirm = typer.confirm(f"Restore from '{backup_name}'? (current config will be saved as .pre-restore)")
+    if not confirm:
+        console.print("[dim]Cancelled.[/]")
+        raise typer.Exit(0)
+
+    if ghostty.restore_backup(backup_path):
+        console.print(f"[green]✓[/] Restored from: {backup_name}")
+        console.print("[dim]Ghostty will auto-reload the config.[/]")
+    else:
+        console.print("[red]Failed to restore backup.[/]")
+        raise typer.Exit(1)
