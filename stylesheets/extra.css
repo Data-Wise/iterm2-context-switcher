@@ -34,6 +34,52 @@
 }
 
 /* ============================================
+ * High Contrast Theme - Accessibility Focused
+ * Maximum readability for visual impairments
+ * ============================================ */
+
+[data-md-color-scheme="default"][data-md-color-primary="custom"]:has(+ [data-md-color-accent="custom"]) {
+  /* This selector targets high-contrast when cycling through themes */
+}
+
+/* High contrast overrides (applied via JS class) */
+.high-contrast {
+  --md-primary-fg-color: #000000;
+  --md-primary-fg-color--light: #333333;
+  --md-primary-fg-color--dark: #000000;
+  --md-accent-fg-color: #0066cc;
+  --md-accent-fg-color--transparent: #0066cc33;
+
+  /* Pure white background for maximum contrast */
+  --md-default-bg-color: #ffffff;
+
+  /* Pure black text */
+  --md-default-fg-color: #000000;
+  --md-default-fg-color--light: #333333;
+
+  /* High contrast code blocks */
+  --md-code-bg-color: #f0f0f0;
+  --md-code-fg-color: #000000;
+}
+
+.high-contrast .md-header {
+  background-color: #000000;
+}
+
+.high-contrast .md-tabs {
+  background-color: #000000;
+}
+
+.high-contrast .md-typeset a {
+  color: #0066cc;
+  text-decoration: underline;
+}
+
+.high-contrast .md-typeset a:hover {
+  color: #004499;
+}
+
+/* ============================================
  * ADHD-Friendly: Reduced Animations
  * ============================================ */
 
