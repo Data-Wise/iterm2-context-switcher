@@ -4,9 +4,23 @@ All notable changes to this project will be documented in this file.
 
 ---
 
-## [0.3.11] - 2025-12-29 - XDG Config Support
+## [0.3.12] - 2025-12-30 - Version Display Fix
 
-**Tag:** v0.3.11 (pending)
+**Tag:** v0.3.12
+**PyPI:** https://pypi.org/project/aiterm-dev/0.3.12/
+**Homebrew:** `brew upgrade data-wise/tap/aiterm`
+
+### Fixed
+- **Version Display** - Fixed mismatch between `--version` output and package version
+  - `__version__` in `__init__.py` now syncs with `pyproject.toml`
+- **CI Workflow** - Fixed checkout ref handling for `workflow_dispatch` triggers
+  - Ensures correct version is built when manually triggered
+
+---
+
+## [0.3.11] - 2025-12-30 - XDG Config Support
+
+**Tag:** v0.3.11
 **PyPI:** https://pypi.org/project/aiterm-dev/0.3.11/
 **Homebrew:** `brew upgrade data-wise/tap/aiterm`
 
