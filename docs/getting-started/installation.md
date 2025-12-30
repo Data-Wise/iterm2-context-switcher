@@ -324,7 +324,7 @@ uv pip uninstall aiterm
 
 ## Next Steps
 
-- ✅ **Quick Start:** [Get started in 2 minutes](quickstart.md)
+- ✅ **Quick Start:** [Get started in 2 minutes](../QUICK-START.md)
 - 📖 **CLI Reference:** [All commands and examples](../reference/commands.md)
 - 🎯 **Workflows:** [Common use cases](../guide/workflows.md)
 - ⚙️ **Claude Integration:** [Set up auto-approvals](../guide/claude-integration.md)
