@@ -6,6 +6,10 @@
 
 ---
 
+![Worktree Setup Demo](../demos/worktree-setup.gif)
+
+---
+
 ## Getting Started: A Practical Example
 
 ### Scenario: Two Features for Aiterm

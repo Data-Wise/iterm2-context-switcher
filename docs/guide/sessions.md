@@ -2,6 +2,12 @@
 
 Track and coordinate parallel Claude Code sessions across projects.
 
+---
+
+![Sessions Demo](../demos/sessions.gif)
+
+---
+
 ## Overview
 
 When running multiple Claude Code sessions simultaneously, aiterm provides automatic session tracking via Claude Code hooks. This helps you:
