@@ -229,7 +229,20 @@ ait detect    # Shows: 📦 r-package → R-Dev profile
 
 ## What's New in v0.3.x
 
-### v0.3.9 (Latest)
+### v0.3.13 (Latest)
+
+- **Dark Mode Toggle** - 4-theme docs site (auto/light/dark/high-contrast)
+- **Demo GIFs** - Automated CI workflow for animated documentation
+- **craft v1.11.0** - Enhanced git worktree and mermaid commands
+
+### v0.3.10-0.3.12
+
+- **Ghostty Terminal Support** - `ait ghostty status/theme/font/set`
+- **flow-cli Integration** - `tm` dispatcher via symlink mechanism
+- **XDG Config** - `AITERM_CONFIG_HOME` with `~/.config/aiterm/` default
+- **Config CLI** - `ait config path/show/init/edit` commands
+
+### v0.3.8-0.3.9
 
 - **Git Worktrees Guide** - Comprehensive parallel development documentation
 - **Mermaid Diagrams** - Fixed rendering with proper CSS

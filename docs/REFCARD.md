@@ -2,7 +2,7 @@
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│ AITERM v0.3.11 - Terminal Optimizer for AI Development     │
+│ AITERM v0.3.13 - Terminal Optimizer for AI Development     │
 ├─────────────────────────────────────────────────────────────┤
 │                                                             │
 │ ESSENTIAL                                                   │
@@ -13,7 +13,7 @@
 │ ait hello               Diagnostic greeting                 │
 │ ait info                System diagnostics (--json)         │
 │                                                             │
-│ CONFIGURATION (NEW in v0.3.11)                              │
+│ CONFIGURATION                                               │
 │ ──────────────────────────────                              │
 │ ait config path         Show config directory               │
 │ ait config path --all   Show all paths with status          │

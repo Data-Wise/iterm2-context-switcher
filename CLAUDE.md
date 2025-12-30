@@ -28,14 +28,20 @@ This file provides guidance to Claude Code when working with the aiterm project.
 
 ---
 
-## Project Status: v0.3.10 ✅ RELEASED
+## Project Status: v0.3.13 ✅ RELEASED
 
-**Current Version:** v0.3.10 (Dec 29, 2025)
+**Current Version:** v0.3.13 (Dec 30, 2025)
 
-**v0.3.10 Release (Dec 29, 2025):**
+**v0.3.13 Release (Dec 30, 2025):**
+- [x] **Dark mode toggle:** 4-theme docs site (auto/light/dark/high-contrast)
+- [x] **Demo GIFs:** Automated CI workflow for GIF generation
+- [x] **craft v1.11.0:** Enhanced git worktree and mermaid commands
+
+**v0.3.10-0.3.12 Releases (Dec 29, 2025):**
 - [x] **flow-cli integration:** `tm` dispatcher via symlink mechanism
 - [x] **XDG config:** `AITERM_CONFIG_HOME` with `~/.config/aiterm/` default
 - [x] **Config CLI:** `ait config path/show/init/edit` commands
+- [x] **Feature workflow docs:** Complete tutorial and reference
 
 **v0.3.9 Release (Dec 29, 2025):**
 - [x] **Ghostty terminal support:** `ait ghostty status/theme/font/set`
