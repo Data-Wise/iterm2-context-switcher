@@ -5,7 +5,7 @@ Terminal recordings for aiterm documentation using [VHS](https://github.com/char
 ## Requirements
 
 ```bash
-brew install vhs
+brew install vhs gifsicle
 ```
 
 ## Generate GIFs
@@ -20,6 +20,26 @@ done
 # Or generate specific demo
 vhs feature-workflow.tape
 ```
+
+## Optimize GIFs
+
+Use `gifsicle` for ~30% smaller file sizes:
+
+```bash
+# Install gifsicle
+brew install gifsicle
+
+# Optimize all GIFs (lossy compression)
+for gif in *.gif; do
+  gifsicle -O3 --lossy=80 "$gif" -o "${gif%.gif}-opt.gif"
+  mv "${gif%.gif}-opt.gif" "$gif"
+done
+```
+
+**Optimization results:**
+- `-O3` - Maximum optimization level
+- `--lossy=80` - Lossy compression (good quality/size balance)
+- Typical savings: 25-35% smaller files
 
 ## Available Demos
 
@@ -82,10 +102,15 @@ Add to GitHub Actions:
 ```yaml
 - name: Generate demo GIFs
   run: |
-    brew install vhs
+    brew install vhs gifsicle
     cd docs/demos
     for tape in *.tape; do
       vhs "$tape"
+    done
+    # Optimize
+    for gif in *.gif; do
+      gifsicle -O3 --lossy=80 "$gif" -o "${gif%.gif}-opt.gif"
+      mv "${gif%.gif}-opt.gif" "$gif"
     done
 ```
 
