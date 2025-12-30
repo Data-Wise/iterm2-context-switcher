@@ -10,7 +10,10 @@ from rich.syntax import Syntax
 
 from aiterm.mcp import MCPManager
 
-app = typer.Typer(help="Manage MCP servers for Claude Code")
+app = typer.Typer(
+    help="Manage MCP servers for Claude Code",
+    epilog="See also: flow-cli 'mcp' dispatcher for instant server checks.",
+)
 console = Console()
 
 

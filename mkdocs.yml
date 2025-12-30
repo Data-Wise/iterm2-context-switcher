@@ -106,6 +106,7 @@ nav:
   # ============================================
   - Integrations:
       - Overview: guides/AITERM-INTEGRATION.md
+      - flow-cli: guide/flow-cli-integration.md
       - Claude Code:
           - Guide: guide/claude-integration.md
           - Commands: reference/REFCARD-CLAUDE.md

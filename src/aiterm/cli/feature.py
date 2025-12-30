@@ -23,6 +23,7 @@ from rich.tree import Tree
 app = typer.Typer(
     help="Feature branch workflow commands.",
     no_args_is_help=True,
+    epilog="See also: flow-cli 'g feature' and 'wt' dispatchers for instant operations.",
 )
 
 console = Console()
