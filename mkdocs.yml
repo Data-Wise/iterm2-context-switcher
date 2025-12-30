@@ -127,6 +127,7 @@ nav:
       - All Commands: reference/commands.md
       - Configuration: reference/configuration.md
       - Context Types: reference/REFCARD-CONTEXT.md
+      - Craft Plugin: reference/REFCARD-CRAFT.md
       - Feature Workflow: reference/REFCARD-FEATURE.md
       - Hooks: reference/REFCARD-HOOKS.md
       - Sessions: reference/REFCARD-SESSIONS.md
@@ -138,6 +139,7 @@ nav:
   # ============================================
   - Guides:
       - Complete User Guide: guides/AITERM-USER-GUIDE.md
+      - Feature Workflow Tutorial: guides/FEATURE-WORKFLOW-TUTORIAL.md
       - Git Worktrees: guides/GIT-WORKTREES-GUIDE.md
       - Troubleshooting Guide: troubleshooting/AITERM-TROUBLESHOOTING.md
       - Video Walkthrough: guides/VIDEO-WALKTHROUGH.md

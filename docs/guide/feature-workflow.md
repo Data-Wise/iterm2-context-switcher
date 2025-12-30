@@ -6,6 +6,10 @@ Rich CLI commands for managing feature branches and git worktrees.
 
 ---
 
+![Feature Workflow Demo](../demos/feature-workflow.gif)
+
+---
+
 ## Overview
 
 The feature workflow commands provide:
@@ -203,22 +207,48 @@ ait feature cleanup --dry-run
 
 ---
 
-## Integration with flow-cli
+## The 3-Layer Architecture
 
-For quick shell aliases, use flow-cli:
+Choose the right tool for the task:
 
-| Need | flow-cli | aiterm |
-|------|----------|--------|
-| Quick branch | `gfs my-feature` | - |
-| Quick PR | `gfp` | - |
-| Pipeline view | - | `ait feature status` |
-| Full setup | - | `ait feature start --worktree` |
-| Cleanup | - | `ait feature cleanup` |
+```mermaid
+graph LR
+    subgraph LAYERS["Choose by Need"]
+        L1["🚀 flow-cli<br/>Instant (sub-10ms)"]
+        L2["📊 aiterm<br/>Rich visualization"]
+        L3["🤖 craft<br/>AI-assisted"]
+    end
 
-**Layered approach:**
-- **flow-cli** → Instant shell aliases (sub-10ms)
-- **aiterm** → Rich visualization and automation
-- **craft** → AI-assisted workflows (`/craft:git:feature`)
+    L1 -->|"Speed"| USE1["g feature start"]
+    L2 -->|"Insight"| USE2["ait feature status"]
+    L3 -->|"Automation"| USE3["/craft:git:worktree finish"]
+```
+
+### Quick Reference
+
+| Action | flow-cli | aiterm | craft |
+|--------|----------|--------|-------|
+| Start feature | `g feature start NAME` | `ait feature start NAME` | `/craft:git:worktree create` |
+| With worktree | `g feature start NAME -w` | `ait feature start NAME --worktree` | `/craft:git:worktree create` |
+| Check status | `g status` | `ait feature status` | - |
+| List features | `g feature list` | `ait feature list` | - |
+| Finish & PR | `g feature finish` | - | `/craft:git:worktree finish` |
+| Cleanup | `g feature prune` | `ait feature cleanup` | `/craft:git:worktree clean` |
+
+### craft Integration
+
+Use `/craft:git:worktree finish` for AI-assisted feature completion:
+
+1. **Run Tests** - Auto-detects project type (npm/pytest/cargo/go/R)
+2. **Generate Changelog** - Analyzes commits, writes CHANGELOG entry
+3. **Create PR** - Generates description, test plan, links issues
+
+```bash
+# In Claude Code, within your worktree:
+/craft:git:worktree finish
+```
+
+See the [Feature Workflow Tutorial](../guides/FEATURE-WORKFLOW-TUTORIAL.md) for the complete workflow.
 
 ---
 
