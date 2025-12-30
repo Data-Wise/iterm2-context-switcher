@@ -307,13 +307,14 @@ def info(
 # ─── Context detection implementation ────────────────────────────────────────
 
 
-def _context_detect_impl(path: Optional[Path], apply: bool) -> None:
+def _context_detect_impl(path: Optional[Path], apply: bool, force_terminal: Optional[str] = None) -> None:
     """Shared implementation for context detection commands."""
     from aiterm.context.detector import detect_context
-    from aiterm.terminal import iterm2
+    from aiterm.terminal import detect_terminal, apply_context as terminal_apply_context, TerminalType
 
     target = path or Path.cwd()
     context = detect_context(target)
+    terminal = detect_terminal()
 
     # Build info table
     table = Table(title="Context Detection", show_header=False, border_style="cyan")
@@ -324,6 +325,7 @@ def _context_detect_impl(path: Optional[Path], apply: bool) -> None:
     table.add_row("Type", f"{context.icon} {context.type.value}" if context.icon else context.type.value)
     table.add_row("Name", context.name)
     table.add_row("Profile", context.profile)
+    table.add_row("Terminal", terminal.value)
 
     if context.branch:
         dirty = " [red]*[/]" if context.is_dirty else ""
@@ -333,14 +335,151 @@ def _context_detect_impl(path: Optional[Path], apply: bool) -> None:
 
     # Apply to terminal if requested
     if apply:
-        if iterm2.is_iterm2():
-            iterm2.apply_context(context)
-            console.print("\n[green]✓[/] Context applied to iTerm2")
+        if terminal_apply_context(context):
+            terminal_name = terminal.value.replace("-", " ").title()
+            console.print(f"\n[green]✓[/] Context applied to {terminal_name}")
         else:
-            console.print("\n[yellow]⚠[/] Not running in iTerm2 - context not applied")
+            console.print(f"\n[yellow]⚠[/] Terminal '{terminal.value}' not fully supported - only title set")
 
 
 # ─── Top-level shortcuts ─────────────────────────────────────────────────────
+
+
+# Ghost alias for ghostty (quick access)
+ghost_app = typer.Typer(
+    help="Ghostty shortcuts (alias for 'ghostty').",
+    invoke_without_command=True,
+)
+
+
+@ghost_app.callback(invoke_without_command=True)
+def ghost_callback(ctx: typer.Context) -> None:
+    """Shortcut for Ghostty commands. Run 'ait ghost' for status."""
+    if ctx.invoked_subcommand is None:
+        # Default: show ghostty status
+        from aiterm.terminal import ghostty, detect_terminal, TerminalType
+
+        terminal = detect_terminal()
+        is_ghostty = terminal == TerminalType.GHOSTTY
+
+        table = Table(title="Ghostty Status", show_header=False, border_style="cyan")
+        table.add_column("Field", style="bold")
+        table.add_column("Value")
+
+        table.add_row("Detected Terminal", terminal.value)
+        table.add_row(
+            "Running in Ghostty",
+            "[green]Yes[/]" if is_ghostty else "[dim]No[/]",
+        )
+
+        version = ghostty.get_version()
+        if version:
+            table.add_row("Ghostty Version", version)
+
+        config_path = ghostty.get_config_path()
+        if config_path:
+            table.add_row("Config File", str(config_path))
+
+        console.print(table)
+        console.print("\n[dim]Tip: Use 'ait ghost theme', 'ait ghost config' for more[/]")
+
+
+@ghost_app.command("theme")
+def ghost_theme(
+    theme_name: Optional[str] = typer.Argument(None, help="Theme to apply (omit to list)."),
+) -> None:
+    """List themes or apply one. Shortcut for 'ghostty theme list/apply'."""
+    from aiterm.terminal import ghostty
+
+    if theme_name:
+        # Apply theme
+        builtin_themes = ghostty.list_themes()
+        is_builtin = theme_name in builtin_themes
+
+        if ghostty.set_theme(theme_name):
+            console.print(f"[green]✓[/] Theme set to: [bold]{theme_name}[/]")
+            if not is_builtin:
+                console.print("[yellow]Note: This is not a built-in theme.[/]")
+        else:
+            console.print("[red]Failed to set theme.[/]")
+            raise typer.Exit(1)
+    else:
+        # List themes
+        themes = ghostty.list_themes()
+        current_config = ghostty.parse_config()
+        current_theme = current_config.theme
+
+        console.print("[bold cyan]Ghostty Themes[/]\n")
+        for theme in themes:
+            if theme == current_theme:
+                console.print(f"  [green]● {theme}[/] (active)")
+            else:
+                console.print(f"  [dim]○[/] {theme}")
+        console.print(f"\n[dim]Use 'ait ghost theme <name>' to apply[/]")
+
+
+@ghost_app.command("config")
+def ghost_config(
+    edit: bool = typer.Option(False, "--edit", "-e", help="Open in editor."),
+) -> None:
+    """Show or edit Ghostty config. Shortcut for 'ghostty config'."""
+    from aiterm.terminal import ghostty
+    import os
+    import subprocess
+
+    config_path = ghostty.get_config_path()
+
+    if edit:
+        if not config_path:
+            config_path = ghostty.get_default_config_path()
+            if not config_path.exists():
+                config_path.touch()
+                console.print(f"[green]Created[/] {config_path}")
+
+        editor = os.environ.get("EDITOR", "vim")
+        console.print(f"[dim]Opening in {editor}...[/]")
+        subprocess.run([editor, str(config_path)])
+        return
+
+    if not config_path or not config_path.exists():
+        console.print("[yellow]No Ghostty config found.[/]")
+        console.print(f"[dim]Create: ~/.config/ghostty/config[/]")
+        return
+
+    config = ghostty.parse_config(config_path)
+    console.print(f"[bold]Config:[/] {config_path}\n")
+    console.print(f"  Font:    {config.font_family} @ {config.font_size}pt")
+    console.print(f"  Theme:   {config.theme or '(default)'}")
+    console.print(f"  Opacity: {config.background_opacity}")
+
+
+@ghost_app.command("font")
+def ghost_font(
+    font_family: Optional[str] = typer.Argument(None, help="Font family to set."),
+    size: Optional[int] = typer.Option(None, "--size", "-s", help="Font size."),
+) -> None:
+    """Show or set font. Shortcut for 'ghostty font'."""
+    from aiterm.terminal import ghostty
+
+    if font_family:
+        # Set font
+        success = ghostty.set_config_value("font-family", font_family)
+        if success:
+            console.print(f"[green]✓[/] Font: {font_family}")
+        else:
+            console.print("[red]Failed to set font.[/]")
+            raise typer.Exit(1)
+
+        if size:
+            success = ghostty.set_config_value("font-size", str(size))
+            if success:
+                console.print(f"[green]✓[/] Size: {size}pt")
+    else:
+        # Show current font
+        config = ghostty.parse_config()
+        console.print(f"[bold]Font:[/] {config.font_family} @ {config.font_size}pt")
+        if not size:
+            console.print("[dim]Use 'ait ghost font \"Name\" --size 14' to change[/]")
 
 
 @app.command(
@@ -382,6 +521,7 @@ claude_app = typer.Typer(help="Claude Code integration commands.")
 app.add_typer(context_app, name="context")
 app.add_typer(profile_app, name="profile")
 app.add_typer(claude_app, name="claude")
+app.add_typer(ghost_app, name="ghost")
 
 
 @context_app.command("detect")
@@ -627,6 +767,7 @@ from aiterm.cli import opencode as opencode_cli
 from aiterm.cli import ide as ide_cli
 from aiterm.cli import ghostty as ghostty_cli
 from aiterm.cli import config as config_cli
+from aiterm.cli import feature as feature_cli
 
 app.add_typer(hooks_cli.app, name="hooks")
 app.add_typer(commands_cli.app, name="commands")
@@ -636,6 +777,7 @@ app.add_typer(opencode_cli.app, name="opencode")
 app.add_typer(ide_cli.app, name="ide")
 app.add_typer(ghostty_cli.app, name="ghostty")
 app.add_typer(config_cli.app, name="config")
+app.add_typer(feature_cli.app, name="feature")
 
 # ─── Phase 2.5-4: Advanced CLI modules ──────────────────────────────────────────
 from aiterm.cli import agents as agents_cli
