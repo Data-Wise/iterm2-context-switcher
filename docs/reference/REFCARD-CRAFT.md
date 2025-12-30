@@ -1,6 +1,6 @@
 # Craft Plugin Quick Reference
 
-**Version:** 1.8.0+
+**Version:** 1.11.0
 **Purpose:** AI-assisted development workflows for Claude Code
 **Usage:** `/craft:<category>:<command>` in Claude Code
 
@@ -75,22 +75,43 @@ flowchart LR
 
 ---
 
-## Documentation Commands
+## Documentation Commands (v1.11.0 Consolidated)
+
+### Super Commands - Just run it, it figures out what's needed
 
 | Command | Description |
 |---------|-------------|
-| `/craft:docs:changelog` | Generate CHANGELOG entry |
-| `/craft:docs:sync` | Sync docs with code |
-| `/craft:docs:update` | Update documentation |
-| `/craft:docs:generate` | Generate docs from code |
+| `/craft:docs:update` | **Smart-Full**: Detect → Generate all needed → Check → Changelog |
+| `/craft:docs:sync` | **Detection**: Classify changes, report stale, recommend actions |
+| `/craft:docs:check` | **Validation**: Links + stale + nav + auto-fix (full-by-default) |
+
+```bash
+# THE ONE COMMAND
+/craft:docs:update                    # Detect what's needed, do it all
+/craft:docs:update "auth"             # Feature-specific full cycle
+/craft:docs:check                     # Full validation, auto-fixes issues
+/craft:docs:check --report-only       # CI mode (no changes)
+/craft:docs:sync                      # Quick: "3 stale, guide recommended"
+```
+
+### Specialized Commands
+
+| Command | Description |
+|---------|-------------|
 | `/craft:docs:api` | Generate API documentation |
-| `/craft:docs:claude-md` | Update CLAUDE.md |
-| `/craft:docs:validate` | Validate documentation |
-| `/craft:docs:nav-update` | Update navigation |
+| `/craft:docs:changelog` | Generate CHANGELOG entry |
+| `/craft:docs:site` | Website-focused updates |
 | `/craft:docs:mermaid` | Create Mermaid diagrams |
-| `/craft:docs:feature` | Document a feature |
-| `/craft:docs:done` | Complete docs workflow |
+| `/craft:docs:nav-update` | Update mkdocs navigation |
 | `/craft:docs:prompt` | Create prompt documentation |
+| `/craft:docs:demo` | VHS tape generator for GIF demos |
+| `/craft:docs:guide` | Feature guide + demo + refcard |
+
+### Internal
+
+| Command | Description |
+|---------|-------------|
+| `/craft:docs:claude-md` | Update CLAUDE.md (called by others) |
 
 ---
 
@@ -200,14 +221,17 @@ flowchart LR
 /craft:git:worktree finish
 ```
 
-### Documentation Update
+### Documentation Update (v1.11.0)
 
 ```bash
-# Update docs after code changes
-/craft:docs:sync
+# THE ONE COMMAND - detects what's needed, does it all
+/craft:docs:update
 
-# Generate changelog
-/craft:docs:changelog
+# Feature-specific
+/craft:docs:update "auth"
+
+# Check health
+/craft:docs:check
 
 # Deploy site
 /craft:site:deploy
