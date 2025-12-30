@@ -43,18 +43,31 @@ main
 └── dev
     ├── ● feature/auth +3
     ├── ○ feature/api-v2 +12 📁 ~/.git-worktrees/my-project/api-v2
+    ├── ○ feature/new-idea (new)
     └── ○ feature/old-feature (merged)
 
-Summary: 3 features (2 in progress, 1 merged)
+Summary: 4 features (2 in progress, 1 new, 1 merged)
 Tip: Run 'ait feature cleanup' to remove merged branches
 ```
 
 **Legend:**
-- `●` - Current branch
-- `○` - Other branch
-- `+N` - Commits ahead of dev
-- `(merged)` - Already merged into dev
-- `📁` - Has a worktree
+
+| Symbol | Meaning |
+|--------|---------|
+| `●` | Current branch (you are here) |
+| `○` | Other branch |
+| `+N` | Commits ahead of dev |
+| `(new)` | Just created, no commits yet |
+| `(merged)` | Has commits that were merged into dev |
+| `📁` | Has a worktree |
+
+**Branch States:**
+
+| State | Description | Action |
+|-------|-------------|--------|
+| **active** | Has commits ahead of dev | Keep working |
+| **new** | Just created, 0 commits | Start adding commits |
+| **merged** | All commits merged to dev | Safe to cleanup |
 
 ---
 
@@ -78,8 +91,17 @@ ait feature list --all
 ┡━━━━╇━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━╇━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
 │ ●  │ feature/auth        │       3 │ active │ -                              │
 │ ○  │ feature/api-v2      │      12 │ active │ ~/.git-worktrees/project/api-v2│
+│ ○  │ feature/new-idea    │       - │ new    │ -                              │
 └────┴─────────────────────┴─────────┴────────┴────────────────────────────────┘
 ```
+
+**Status Values:**
+
+| Status | Color | Meaning |
+|--------|-------|---------|
+| `active` | green | Has commits, work in progress |
+| `new` | cyan | Just created, no commits yet |
+| `merged` | yellow | Ready for cleanup |
 
 ---
 

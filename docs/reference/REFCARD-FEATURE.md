@@ -53,6 +53,18 @@ ait feature cleanup
 
 ---
 
+## Branch States
+
+| State | Symbol | Meaning |
+|-------|--------|---------|
+| **active** | `+N` | Has N commits ahead of dev |
+| **new** | `(new)` | Just created, 0 commits |
+| **merged** | `(merged)` | Ready for cleanup |
+
+**Icons:** `●` current, `○` other, `📁` has worktree
+
+---
+
 ## Worktree Paths
 
 ```
