@@ -2407,6 +2407,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#optimize-gifs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Optimize GIFs
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#available-demos" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2495,7 +2506,7 @@
 <h1 id="aiterm-demo-gifs">aiterm Demo GIFs</h1>
 <p>Terminal recordings for aiterm documentation using <a href="https://github.com/charmbracelet/vhs">VHS</a>.</p>
 <h2 id="requirements">Requirements</h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>brew<span class="w"> </span>install<span class="w"> </span>vhs
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>brew<span class="w"> </span>install<span class="w"> </span>vhs<span class="w"> </span>gifsicle
 </code></pre></div>
 <h2 id="generate-gifs">Generate GIFs</h2>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># Generate all demos</span>
@@ -2507,6 +2518,21 @@
 <a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="c1"># Or generate specific demo</span>
 <a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>vhs<span class="w"> </span>feature-workflow.tape
 </code></pre></div>
+<h2 id="optimize-gifs">Optimize GIFs</h2>
+<p>Use <code>gifsicle</code> for ~30% smaller file sizes:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># Install gifsicle</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>brew<span class="w"> </span>install<span class="w"> </span>gifsicle
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="c1"># Optimize all GIFs (lossy compression)</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="k">for</span><span class="w"> </span>gif<span class="w"> </span><span class="k">in</span><span class="w"> </span>*.gif<span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">  </span>gifsicle<span class="w"> </span>-O3<span class="w"> </span>--lossy<span class="o">=</span><span class="m">80</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$gif</span><span class="s2">&quot;</span><span class="w"> </span>-o<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">gif</span><span class="p">%.gif</span><span class="si">}</span><span class="s2">-opt.gif&quot;</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">  </span>mv<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">gif</span><span class="p">%.gif</span><span class="si">}</span><span class="s2">-opt.gif&quot;</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$gif</span><span class="s2">&quot;</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="k">done</span>
+</code></pre></div>
+<p><strong>Optimization results:</strong>
+- <code>-O3</code> - Maximum optimization level
+- <code>--lossy=80</code> - Lossy compression (good quality/size balance)
+- Typical savings: 25-35% smaller files</p>
 <h2 id="available-demos">Available Demos</h2>
 <table>
 <thead>
@@ -2566,41 +2592,46 @@
 <li><code>Sleep</code> - Pause duration between commands</li>
 </ul>
 <h2 id="embedding-in-docs">Embedding in Docs</h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>![<span class="nt">Feature Workflow</span>](<span class="na">./demos/feature-workflow.gif</span>)
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>![<span class="nt">Feature Workflow</span>](<span class="na">./demos/feature-workflow.gif</span>)
 </code></pre></div>
 <h2 id="tape-file-template">Tape File Template</h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a># Demo Title
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a># Brief description
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>Output demo-name.gif
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>
-<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>Set Shell &quot;zsh&quot;
-<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>Set FontSize 18
-<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>Set Width 800
-<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>Set Height 500
-<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>Set Theme &quot;Dracula&quot;
-<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>Set Padding 15
-<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>Set TypingSpeed 40ms
-<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>
-<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a># Command 1
-<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>Type &quot;command here&quot;
-<a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a>Enter
-<a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a>Sleep 2s
-<a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a>
-<a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a># Command 2
-<a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a>Type &quot;another command&quot;
-<a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a>Enter
-<a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a>Sleep 2s
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a># Demo Title
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a># Brief description
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>Output demo-name.gif
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>Set Shell &quot;zsh&quot;
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>Set FontSize 18
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>Set Width 800
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>Set Height 500
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>Set Theme &quot;Dracula&quot;
+<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>Set Padding 15
+<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>Set TypingSpeed 40ms
+<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a>
+<a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a># Command 1
+<a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a>Type &quot;command here&quot;
+<a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a>Enter
+<a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a>Sleep 2s
+<a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a>
+<a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a># Command 2
+<a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a>Type &quot;another command&quot;
+<a id="__codelineno-4-21" name="__codelineno-4-21" href="#__codelineno-4-21"></a>Enter
+<a id="__codelineno-4-22" name="__codelineno-4-22" href="#__codelineno-4-22"></a>Sleep 2s
 </code></pre></div>
 <h2 id="cicd-generation-optional">CI/CD Generation (Optional)</h2>
 <p>Add to GitHub Actions:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Generate demo GIFs</span>
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">  </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">    </span><span class="no">brew install vhs</span>
-<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">    </span><span class="no">cd docs/demos</span>
-<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">    </span><span class="no">for tape in *.tape; do</span>
-<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">      </span><span class="no">vhs &quot;$tape&quot;</span>
-<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="w">    </span><span class="no">done</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Generate demo GIFs</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">  </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">    </span><span class="no">brew install vhs gifsicle</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">    </span><span class="no">cd docs/demos</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">    </span><span class="no">for tape in *.tape; do</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="w">      </span><span class="no">vhs &quot;$tape&quot;</span>
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="w">    </span><span class="no">done</span>
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="w">    </span><span class="no"># Optimize</span>
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="w">    </span><span class="no">for gif in *.gif; do</span>
+<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="w">      </span><span class="no">gifsicle -O3 --lossy=80 &quot;$gif&quot; -o &quot;${gif%.gif}-opt.gif&quot;</span>
+<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="w">      </span><span class="no">mv &quot;${gif%.gif}-opt.gif&quot; &quot;$gif&quot;</span>
+<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="w">    </span><span class="no">done</span>
 </code></pre></div>
 <h2 id="tips">Tips</h2>
 <ul>
