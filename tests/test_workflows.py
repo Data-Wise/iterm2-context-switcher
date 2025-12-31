@@ -18,6 +18,11 @@ from aiterm.cli.workflows import (
     load_workflow,
     save_workflow,
     get_workflows_dir,
+    get_custom_workflows_dir,
+    load_custom_workflow,
+    list_custom_workflows,
+    get_all_workflows,
+    run_single_workflow,
 )
 
 runner = CliRunner()
@@ -302,3 +307,251 @@ class TestWorkflowTaskCommand:
                 result = runner.invoke(app, ["task"])  # No description = clear
                 assert result.exit_code == 0
                 assert "cleared" in result.output.lower()
+
+
+class TestNewBuiltinWorkflows:
+    """Test new built-in workflows added in quick wins."""
+
+    def test_new_workflows_defined(self):
+        """Test that new built-in workflows are defined."""
+        assert "format" in RUNNABLE_WORKFLOWS
+        assert "check" in RUNNABLE_WORKFLOWS
+        assert "build" in RUNNABLE_WORKFLOWS
+        assert "clean" in RUNNABLE_WORKFLOWS
+        assert "docs-serve" in RUNNABLE_WORKFLOWS
+        assert "deploy-docs" in RUNNABLE_WORKFLOWS
+
+    def test_workflow_has_required_fields(self):
+        """Test each workflow has required fields."""
+        for name, wf in RUNNABLE_WORKFLOWS.items():
+            assert "name" in wf, f"{name} missing 'name'"
+            assert "description" in wf, f"{name} missing 'description'"
+            assert "steps" in wf, f"{name} missing 'steps'"
+            assert "requires_session" in wf, f"{name} missing 'requires_session'"
+
+
+class TestWorkflowChaining:
+    """Test workflow chaining with + separator."""
+
+    def test_chain_dry_run(self):
+        """Test chaining multiple workflows in dry run."""
+        with patch("aiterm.cli.workflows.get_current_live_session", return_value=None):
+            result = runner.invoke(app, ["run", "lint+test", "--dry-run", "--no-session"])
+            assert result.exit_code == 0
+            assert "lint" in result.output.lower()
+            assert "test" in result.output.lower()
+            assert "chain" in result.output.lower() or "→" in result.output
+
+    def test_chain_unknown_workflow(self):
+        """Test chaining with unknown workflow fails."""
+        result = runner.invoke(app, ["run", "lint+nonexistent+test"])
+        assert result.exit_code == 1
+        assert "unknown" in result.output.lower() or "Unknown" in result.output
+
+    def test_single_workflow_no_chain_message(self):
+        """Test single workflow doesn't show chain messages."""
+        with patch("aiterm.cli.workflows.get_current_live_session", return_value=None):
+            result = runner.invoke(app, ["run", "lint", "--dry-run", "--no-session"])
+            assert result.exit_code == 0
+            # Should not show chain-related output for single workflow
+            assert "→" not in result.output
+
+
+class TestCustomWorkflows:
+    """Test custom YAML workflow support."""
+
+    def test_get_custom_workflows_dir(self):
+        """Test custom workflows directory path."""
+        path = get_custom_workflows_dir()
+        assert "aiterm" in str(path)
+        assert "workflows" in str(path)
+
+    def test_list_custom_workflows_empty(self, tmp_path: Path):
+        """Test listing custom workflows when none exist."""
+        with patch("aiterm.cli.workflows.get_custom_workflows_dir", return_value=tmp_path):
+            custom = list_custom_workflows()
+            assert custom == []
+
+    def test_list_custom_workflows(self, tmp_path: Path):
+        """Test listing custom workflows."""
+        # Create some workflow files
+        (tmp_path / "my-workflow.yaml").write_text("name: my-workflow")
+        (tmp_path / "another.yml").write_text("name: another")
+        (tmp_path / "not-a-workflow.txt").write_text("ignore me")
+
+        with patch("aiterm.cli.workflows.get_custom_workflows_dir", return_value=tmp_path):
+            custom = list_custom_workflows()
+            assert "my-workflow" in custom
+            assert "another" in custom
+            assert "not-a-workflow" not in custom
+
+    def test_load_custom_workflow(self, tmp_path: Path):
+        """Test loading a custom workflow from YAML."""
+        yaml_content = """
+name: test-custom
+description: A test workflow
+requires_session: true
+steps:
+  - task: Step 1
+    command: echo hello
+  - task: Step 2
+    command: echo world
+"""
+        (tmp_path / "test-custom.yaml").write_text(yaml_content)
+
+        with patch("aiterm.cli.workflows.get_custom_workflows_dir", return_value=tmp_path):
+            wf = load_custom_workflow("test-custom")
+            assert wf is not None
+            assert wf["name"] == "test-custom"
+            assert wf["description"] == "A test workflow"
+            assert wf["requires_session"] is True
+            assert len(wf["steps"]) == 2
+
+    def test_load_custom_workflow_not_found(self, tmp_path: Path):
+        """Test loading non-existent custom workflow."""
+        with patch("aiterm.cli.workflows.get_custom_workflows_dir", return_value=tmp_path):
+            wf = load_custom_workflow("nonexistent")
+            assert wf is None
+
+    def test_get_all_workflows_includes_custom(self, tmp_path: Path):
+        """Test get_all_workflows includes custom workflows."""
+        yaml_content = """
+name: custom-test
+description: Custom
+steps: []
+"""
+        (tmp_path / "custom-test.yaml").write_text(yaml_content)
+
+        with patch("aiterm.cli.workflows.get_custom_workflows_dir", return_value=tmp_path):
+            all_wf = get_all_workflows()
+            assert "test" in all_wf  # Built-in
+            assert "lint" in all_wf  # Built-in
+            assert "custom-test" in all_wf  # Custom
+
+
+class TestCustomWorkflowCommands:
+    """Test custom workflow CLI commands."""
+
+    def test_custom_list_empty(self, tmp_path: Path):
+        """Test listing custom workflows when none exist."""
+        with patch("aiterm.cli.workflows.get_custom_workflows_dir", return_value=tmp_path):
+            result = runner.invoke(app, ["custom", "list"])
+            assert result.exit_code == 0
+            assert "No custom workflows" in result.output
+
+    def test_custom_list_with_workflows(self, tmp_path: Path):
+        """Test listing custom workflows."""
+        (tmp_path / "my-wf.yaml").write_text("name: my-wf\ndescription: Test\n")
+
+        with patch("aiterm.cli.workflows.get_custom_workflows_dir", return_value=tmp_path):
+            result = runner.invoke(app, ["custom", "list"])
+            assert result.exit_code == 0
+            assert "my-wf" in result.output
+
+    def test_custom_show(self, tmp_path: Path):
+        """Test showing custom workflow details."""
+        yaml_content = """
+name: show-test
+description: Show test workflow
+steps:
+  - task: Run tests
+    command: pytest
+"""
+        (tmp_path / "show-test.yaml").write_text(yaml_content)
+
+        with patch("aiterm.cli.workflows.get_custom_workflows_dir", return_value=tmp_path):
+            result = runner.invoke(app, ["custom", "show", "show-test"])
+            assert result.exit_code == 0
+            assert "show-test" in result.output
+            assert "Show test workflow" in result.output
+
+    def test_custom_show_not_found(self, tmp_path: Path):
+        """Test showing non-existent workflow."""
+        with patch("aiterm.cli.workflows.get_custom_workflows_dir", return_value=tmp_path):
+            result = runner.invoke(app, ["custom", "show", "nonexistent"])
+            assert result.exit_code == 1
+            assert "not found" in result.output.lower()
+
+    def test_custom_create(self, tmp_path: Path):
+        """Test creating custom workflow."""
+        with patch("aiterm.cli.workflows.get_custom_workflows_dir", return_value=tmp_path):
+            result = runner.invoke(app, ["custom", "create", "new-workflow"])
+            assert result.exit_code == 0
+            assert "Created" in result.output
+
+            # Verify file was created
+            yaml_file = tmp_path / "new-workflow.yaml"
+            assert yaml_file.exists()
+            content = yaml_file.read_text()
+            assert "name: new-workflow" in content
+
+    def test_custom_create_already_exists(self, tmp_path: Path):
+        """Test creating workflow that already exists."""
+        (tmp_path / "existing.yaml").write_text("name: existing")
+
+        with patch("aiterm.cli.workflows.get_custom_workflows_dir", return_value=tmp_path):
+            result = runner.invoke(app, ["custom", "create", "existing"])
+            assert result.exit_code == 1
+            assert "already exists" in result.output
+
+    def test_custom_delete(self, tmp_path: Path):
+        """Test deleting custom workflow."""
+        (tmp_path / "to-delete.yaml").write_text("name: to-delete")
+
+        with patch("aiterm.cli.workflows.get_custom_workflows_dir", return_value=tmp_path):
+            result = runner.invoke(app, ["custom", "delete", "to-delete"])
+            assert result.exit_code == 0
+            assert "Deleted" in result.output
+
+            # Verify file was deleted
+            assert not (tmp_path / "to-delete.yaml").exists()
+
+    def test_custom_delete_not_found(self, tmp_path: Path):
+        """Test deleting non-existent workflow."""
+        with patch("aiterm.cli.workflows.get_custom_workflows_dir", return_value=tmp_path):
+            result = runner.invoke(app, ["custom", "delete", "nonexistent"])
+            assert result.exit_code == 1
+            assert "not found" in result.output.lower()
+
+
+class TestRunSingleWorkflow:
+    """Test run_single_workflow helper function."""
+
+    def test_run_single_workflow_dry_run(self):
+        """Test running workflow in dry run mode."""
+        wf = {
+            "name": "Test",
+            "description": "Test workflow",
+            "steps": [
+                {"task": "Echo", "command": "echo hello"},
+            ],
+        }
+
+        # Dry run should always succeed
+        result = run_single_workflow(
+            name="test",
+            wf=wf,
+            dry_run=True,
+            use_session=False,
+            session=None,
+        )
+        assert result is True
+
+    def test_run_single_workflow_with_chain_context(self):
+        """Test running workflow with chain context prefix."""
+        wf = {
+            "name": "Test",
+            "steps": [
+                {"task": "Echo", "command": "echo hello"},
+            ],
+        }
+
+        result = run_single_workflow(
+            name="test",
+            wf=wf,
+            dry_run=True,
+            use_session=False,
+            session=None,
+            chain_context="my-chain",
+        )
+        assert result is True
