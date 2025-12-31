@@ -1262,10 +1262,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#all-31-configuration-options" class="md-nav__link">
+  <a href="#all-32-configuration-options" class="md-nav__link">
     <span class="md-ellipsis">
       
-        All 31 Configuration Options
+        All 32 Configuration Options
       
     </span>
   </a>
@@ -1399,6 +1399,28 @@
   
     <nav class="md-nav" aria-label="Examples">
       <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#spacing-adjustments" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Spacing Adjustments
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worktree-display" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worktree Display
+      
+    </span>
+  </a>
+  
+</li>
         
           <li class="md-nav__item">
   <a href="#minimal-display" class="md-nav__link">
@@ -1700,10 +1722,21 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#v060-dec-31-2025" class="md-nav__link">
+  <a href="#v071-dec-31-2025" class="md-nav__link">
     <span class="md-ellipsis">
       
-        v0.6.0 (Dec 31, 2025)
+        v0.7.1 (Dec 31, 2025)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v070-dec-31-2025" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        v0.7.0 (Dec 31, 2025)
       
     </span>
   </a>
@@ -3927,10 +3960,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#all-31-configuration-options" class="md-nav__link">
+  <a href="#all-32-configuration-options" class="md-nav__link">
     <span class="md-ellipsis">
       
-        All 31 Configuration Options
+        All 32 Configuration Options
       
     </span>
   </a>
@@ -4064,6 +4097,28 @@
   
     <nav class="md-nav" aria-label="Examples">
       <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#spacing-adjustments" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Spacing Adjustments
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worktree-display" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worktree Display
+      
+    </span>
+  </a>
+  
+</li>
         
           <li class="md-nav__item">
   <a href="#minimal-display" class="md-nav__link">
@@ -4365,10 +4420,21 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#v060-dec-31-2025" class="md-nav__link">
+  <a href="#v071-dec-31-2025" class="md-nav__link">
     <span class="md-ellipsis">
       
-        v0.6.0 (Dec 31, 2025)
+        v0.7.1 (Dec 31, 2025)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v070-dec-31-2025" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        v0.7.0 (Dec 31, 2025)
       
     </span>
   </a>
@@ -4418,14 +4484,15 @@
 <p>The <strong>StatusLine</strong> feature provides a beautiful, informative 2-line status display for Claude Code CLI sessions. It shows project context, git status, session metrics, and more—all automatically updated every 300ms.</p>
 <p><strong>What it shows:</strong></p>
 <ul>
-<li><strong>Line 1:</strong> Project icon, name, Python environment, git branch, stash count, remote tracking</li>
+<li><strong>Line 1:</strong> Project icon, name, worktree indicator, Python environment, git branch, stash count, remote tracking, worktree count</li>
 <li><strong>Line 2:</strong> Model name, time of day, session duration, background agents, lines changed, output style</li>
 </ul>
 <p><strong>Key benefits:</strong></p>
 <ul>
 <li>🎯 <strong>At-a-glance context</strong> - See project type, git status, session info instantly</li>
 <li>🎨 <strong>3 color themes</strong> - Purple-charcoal (default), cool-blues, forest-greens</li>
-<li>⚙️ <strong>31 config options</strong> - Toggle features, customize display</li>
+<li>⚙️ <strong>32 config options</strong> - Toggle features, customize display</li>
+<li>🌳 <strong>Worktree awareness</strong> - Shows worktree count and marker for multi-branch workflows</li>
 <li>📊 <strong>Background agents</strong> - See when Task agents are running</li>
 <li>⏱️ <strong>Time tracking</strong> - Session duration, time-of-day indicators</li>
 </ul>
@@ -4471,6 +4538,10 @@
 <td>Project name (directory basename)</td>
 </tr>
 <tr>
+<td><code>(wt)</code></td>
+<td>Worktree indicator (shown when in a worktree)</td>
+</tr>
+<tr>
 <td><code>(venv: py3.11)</code></td>
 <td>Python environment (if detected)</td>
 </tr>
@@ -4493,6 +4564,10 @@
 <tr>
 <td><code>📦5</code></td>
 <td>5 stashed changes</td>
+</tr>
+<tr>
+<td><code>🌳4</code></td>
+<td>4 total worktrees (including main)</td>
 </tr>
 </tbody>
 </table>
@@ -4662,7 +4737,7 @@
 <a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>ait<span class="w"> </span>statusline<span class="w"> </span>config<span class="w"> </span>reset
 <a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>ait<span class="w"> </span>statusline<span class="w"> </span>config<span class="w"> </span>reset<span class="w"> </span>display.show_git<span class="w">  </span><span class="c1"># Reset single key</span>
 </code></pre></div>
-<h3 id="all-31-configuration-options">All 31 Configuration Options</h3>
+<h3 id="all-32-configuration-options">All 32 Configuration Options</h3>
 <p><strong>Display Settings (12 options):</strong></p>
 <table>
 <thead>
@@ -4738,9 +4813,14 @@
 <td><code>50</code></td>
 <td>Max directory name length</td>
 </tr>
+<tr>
+<td><code>display.separator_spacing</code></td>
+<td><code>standard</code></td>
+<td>Spacing around separators: minimal/standard/relaxed</td>
+</tr>
 </tbody>
 </table>
-<p><strong>Git Settings (5 options):</strong></p>
+<p><strong>Git Settings (6 options):</strong></p>
 <table>
 <thead>
 <tr>
@@ -4769,6 +4849,11 @@
 <td><code>git.show_remote_status</code></td>
 <td><code>true</code></td>
 <td>Show remote tracking info</td>
+</tr>
+<tr>
+<td><code>git.show_worktrees</code></td>
+<td><code>true</code></td>
+<td>Show 🌳N worktree count and (wt) marker</td>
 </tr>
 <tr>
 <td><code>git.truncate_branch_length</code></td>
@@ -5028,109 +5113,151 @@
 </code></pre></div>
 <hr />
 <h2 id="examples">Examples</h2>
+<h3 id="spacing-adjustments">Spacing Adjustments</h3>
+<p><strong>Goal:</strong> Customize visual spacing around separators</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="c1"># Minimal spacing (1 space) - Most compact</span>
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>ait<span class="w"> </span>statusline<span class="w"> </span>config<span class="w"> </span><span class="nb">set</span><span class="w"> </span>display.separator_spacing<span class="w"> </span>minimal
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>
+<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="c1"># Standard spacing (2 spaces) - Default, balanced</span>
+<a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>ait<span class="w"> </span>statusline<span class="w"> </span>config<span class="w"> </span><span class="nb">set</span><span class="w"> </span>display.separator_spacing<span class="w"> </span>standard
+<a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a>
+<a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a><span class="c1"># Relaxed spacing (3 spaces) - Most spacious</span>
+<a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a>ait<span class="w"> </span>statusline<span class="w"> </span>config<span class="w"> </span><span class="nb">set</span><span class="w"> </span>display.separator_spacing<span class="w"> </span>relaxed
+</code></pre></div>
+<p><strong>Visual comparison:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>Minimal:  Sonnet 4.5 │ 11:46 │ ⏱ 5m │ +123/-45
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>Standard: Sonnet 4.5  │  11:46  │  ⏱ 5m  │  +123/-45  (default)
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>Relaxed:  Sonnet 4.5   │   11:46   │   ⏱ 5m   │   +123/-45
+</code></pre></div></p>
+<p><strong>Recommended:</strong> Use <code>standard</code> (default) for best balance of readability and compactness.</p>
+<hr />
+<h3 id="worktree-display">Worktree Display</h3>
+<p><strong>Goal:</strong> Show git worktree information for multi-branch workflows</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="c1"># Enable worktree display (enabled by default)</span>
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>ait<span class="w"> </span>statusline<span class="w"> </span>config<span class="w"> </span><span class="nb">set</span><span class="w"> </span>git.show_worktrees<span class="w"> </span><span class="nb">true</span>
+<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>
+<a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="c1"># Disable if you don&#39;t use worktrees</span>
+<a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a>ait<span class="w"> </span>statusline<span class="w"> </span>config<span class="w"> </span><span class="nb">set</span><span class="w"> </span>git.show_worktrees<span class="w"> </span><span class="nb">false</span>
+</code></pre></div>
+<p><strong>In main working directory:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>╭─ ░▒▓ 🐍 aiterm  main 🌳4 ▓▒░
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>                        ^^^^
+<a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>                        4 total worktrees
+</code></pre></div></p>
+<p><strong>In a worktree directory:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>╭─ ░▒▓ 🐍 aiterm-test (wt)  feature-auth 🌳4 ▓▒░
+<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>                     ^^^^                 ^^^^
+<a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>                     Worktree marker      Total count
+</code></pre></div></p>
+<p><strong>Features:</strong>
+- <code>🌳N</code> - Shows total worktree count when &gt; 1
+- <code>(wt)</code> - Marker when in a non-main worktree
+- Helps identify context in multi-branch workflows</p>
+<hr />
 <h3 id="minimal-display">Minimal Display</h3>
 <p><strong>Goal:</strong> Show only essential info (model, time, git)</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="c1"># Disable extras</span>
-<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>ait<span class="w"> </span>statusline<span class="w"> </span>config<span class="w"> </span><span class="nb">set</span><span class="w"> </span>display.show_lines_changed<span class="w"> </span><span class="nb">false</span>
-<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>ait<span class="w"> </span>statusline<span class="w"> </span>config<span class="w"> </span><span class="nb">set</span><span class="w"> </span>display.show_output_style<span class="w"> </span>never
-<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>ait<span class="w"> </span>statusline<span class="w"> </span>config<span class="w"> </span><span class="nb">set</span><span class="w"> </span>time.show_productivity_indicator<span class="w"> </span><span class="nb">false</span>
-<a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>ait<span class="w"> </span>statusline<span class="w"> </span>config<span class="w"> </span><span class="nb">set</span><span class="w"> </span>project.detect_python_env<span class="w"> </span><span class="nb">false</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="c1"># Disable extras</span>
+<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>ait<span class="w"> </span>statusline<span class="w"> </span>config<span class="w"> </span><span class="nb">set</span><span class="w"> </span>display.show_lines_changed<span class="w"> </span><span class="nb">false</span>
+<a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>ait<span class="w"> </span>statusline<span class="w"> </span>config<span class="w"> </span><span class="nb">set</span><span class="w"> </span>display.show_output_style<span class="w"> </span>never
+<a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a>ait<span class="w"> </span>statusline<span class="w"> </span>config<span class="w"> </span><span class="nb">set</span><span class="w"> </span>time.show_productivity_indicator<span class="w"> </span><span class="nb">false</span>
+<a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a>ait<span class="w"> </span>statusline<span class="w"> </span>config<span class="w"> </span><span class="nb">set</span><span class="w"> </span>project.detect_python_env<span class="w"> </span><span class="nb">false</span>
 </code></pre></div>
 <p><strong>Result:</strong>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>╭─ ░▒▓ 🐍 aiterm  main ▓▒░
-<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>╰─ Sonnet 4.5 │ 10:30 │ ⏱ 5m
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>╭─ ░▒▓ 🐍 aiterm  main ▓▒░
+<a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>╰─ Sonnet 4.5 │ 10:30 │ ⏱ 5m
 </code></pre></div></p>
 <h3 id="maximum-detail">Maximum Detail</h3>
 <p><strong>Goal:</strong> Show everything available</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="c1"># Enable all features</span>
-<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>ait<span class="w"> </span>statusline<span class="w"> </span>config<span class="w"> </span><span class="nb">set</span><span class="w"> </span>git.show_stash_count<span class="w"> </span><span class="nb">true</span>
-<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>ait<span class="w"> </span>statusline<span class="w"> </span>config<span class="w"> </span><span class="nb">set</span><span class="w"> </span>git.show_remote_status<span class="w"> </span><span class="nb">true</span>
-<a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a>ait<span class="w"> </span>statusline<span class="w"> </span>config<span class="w"> </span><span class="nb">set</span><span class="w"> </span>project.detect_python_env<span class="w"> </span><span class="nb">true</span>
-<a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a>ait<span class="w"> </span>statusline<span class="w"> </span>config<span class="w"> </span><span class="nb">set</span><span class="w"> </span>time.show_productivity_indicator<span class="w"> </span><span class="nb">true</span>
-<a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a>ait<span class="w"> </span>statusline<span class="w"> </span>config<span class="w"> </span><span class="nb">set</span><span class="w"> </span>display.show_output_style<span class="w"> </span>always
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="c1"># Enable all features</span>
+<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>ait<span class="w"> </span>statusline<span class="w"> </span>config<span class="w"> </span><span class="nb">set</span><span class="w"> </span>git.show_stash_count<span class="w"> </span><span class="nb">true</span>
+<a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>ait<span class="w"> </span>statusline<span class="w"> </span>config<span class="w"> </span><span class="nb">set</span><span class="w"> </span>git.show_remote_status<span class="w"> </span><span class="nb">true</span>
+<a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a>ait<span class="w"> </span>statusline<span class="w"> </span>config<span class="w"> </span><span class="nb">set</span><span class="w"> </span>project.detect_python_env<span class="w"> </span><span class="nb">true</span>
+<a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a>ait<span class="w"> </span>statusline<span class="w"> </span>config<span class="w"> </span><span class="nb">set</span><span class="w"> </span>time.show_productivity_indicator<span class="w"> </span><span class="nb">true</span>
+<a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a>ait<span class="w"> </span>statusline<span class="w"> </span>config<span class="w"> </span><span class="nb">set</span><span class="w"> </span>display.show_output_style<span class="w"> </span>always
 </code></pre></div>
 <p><strong>Result:</strong>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>╭─ ░▒▓ 🐍 aiterm (venv: py3.11)  main* ⇣2 ⇡1 ?3 📦5 🔗origin/main ▓▒░
-<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>╰─ Sonnet 4.5 │ 🧠 │ 🌅 10:30 │ ⏱ 5m 🟢 │ 🤖2 │ +123/-45 │ 📘learning
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>╭─ ░▒▓ 🐍 aiterm (venv: py3.11)  main* ⇣2 ⇡1 ?3 📦5 🔗origin/main 🌳4 ▓▒░
+<a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>╰─ Sonnet 4.5 │ 🧠 │ 🌅 10:30 │ ⏱ 5m 🟢 │ 🤖2 │ +123/-45 │ 📘learning
 </code></pre></div></p>
 <h3 id="git-focused-display">Git-Focused Display</h3>
 <p><strong>Goal:</strong> Emphasize git information</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="c1"># Show all git features</span>
-<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>ait<span class="w"> </span>statusline<span class="w"> </span>config<span class="w"> </span><span class="nb">set</span><span class="w"> </span>git.show_stash_count<span class="w"> </span><span class="nb">true</span>
-<a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>ait<span class="w"> </span>statusline<span class="w"> </span>config<span class="w"> </span><span class="nb">set</span><span class="w"> </span>git.show_remote_status<span class="w"> </span><span class="nb">true</span>
-<a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a>ait<span class="w"> </span>statusline<span class="w"> </span>config<span class="w"> </span><span class="nb">set</span><span class="w"> </span>git.show_ahead_behind<span class="w"> </span><span class="nb">true</span>
-<a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a>ait<span class="w"> </span>statusline<span class="w"> </span>config<span class="w"> </span><span class="nb">set</span><span class="w"> </span>git.show_untracked_count<span class="w"> </span><span class="nb">true</span>
-<a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a>
-<a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a><span class="c1"># Disable non-git extras</span>
-<a id="__codelineno-18-8" name="__codelineno-18-8" href="#__codelineno-18-8"></a>ait<span class="w"> </span>statusline<span class="w"> </span>config<span class="w"> </span><span class="nb">set</span><span class="w"> </span>display.show_lines_changed<span class="w"> </span><span class="nb">false</span>
-<a id="__codelineno-18-9" name="__codelineno-18-9" href="#__codelineno-18-9"></a>ait<span class="w"> </span>statusline<span class="w"> </span>config<span class="w"> </span><span class="nb">set</span><span class="w"> </span>project.detect_python_env<span class="w"> </span><span class="nb">false</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="c1"># Show all git features</span>
+<a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>ait<span class="w"> </span>statusline<span class="w"> </span>config<span class="w"> </span><span class="nb">set</span><span class="w"> </span>git.show_stash_count<span class="w"> </span><span class="nb">true</span>
+<a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a>ait<span class="w"> </span>statusline<span class="w"> </span>config<span class="w"> </span><span class="nb">set</span><span class="w"> </span>git.show_remote_status<span class="w"> </span><span class="nb">true</span>
+<a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a>ait<span class="w"> </span>statusline<span class="w"> </span>config<span class="w"> </span><span class="nb">set</span><span class="w"> </span>git.show_worktrees<span class="w"> </span><span class="nb">true</span>
+<a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a>ait<span class="w"> </span>statusline<span class="w"> </span>config<span class="w"> </span><span class="nb">set</span><span class="w"> </span>git.show_ahead_behind<span class="w"> </span><span class="nb">true</span>
+<a id="__codelineno-23-6" name="__codelineno-23-6" href="#__codelineno-23-6"></a>ait<span class="w"> </span>statusline<span class="w"> </span>config<span class="w"> </span><span class="nb">set</span><span class="w"> </span>git.show_untracked_count<span class="w"> </span><span class="nb">true</span>
+<a id="__codelineno-23-7" name="__codelineno-23-7" href="#__codelineno-23-7"></a>
+<a id="__codelineno-23-8" name="__codelineno-23-8" href="#__codelineno-23-8"></a><span class="c1"># Disable non-git extras</span>
+<a id="__codelineno-23-9" name="__codelineno-23-9" href="#__codelineno-23-9"></a>ait<span class="w"> </span>statusline<span class="w"> </span>config<span class="w"> </span><span class="nb">set</span><span class="w"> </span>display.show_lines_changed<span class="w"> </span><span class="nb">false</span>
+<a id="__codelineno-23-10" name="__codelineno-23-10" href="#__codelineno-23-10"></a>ait<span class="w"> </span>statusline<span class="w"> </span>config<span class="w"> </span><span class="nb">set</span><span class="w"> </span>project.detect_python_env<span class="w"> </span><span class="nb">false</span>
 </code></pre></div>
 <p><strong>Result:</strong>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>╭─ ░▒▓ 🐍 aiterm  main* ⇣2 ⇡1 ?3 📦5 🔗origin/main ▓▒░
-<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>╰─ Sonnet 4.5 │ 10:30 │ ⏱ 5m
+<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>╭─ ░▒▓ 🐍 aiterm  main* ⇣2 ⇡1 ?3 📦5 🔗origin/main 🌳4 ▓▒░
+<a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a>╰─ Sonnet 4.5 │ 10:30 │ ⏱ 5m
 </code></pre></div></p>
 <hr />
 <h2 id="troubleshooting">Troubleshooting</h2>
 <h3 id="statusline-not-showing">StatusLine Not Showing</h3>
 <p><strong>Check installation:</strong></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="c1"># Verify settings.json</span>
-<a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>cat<span class="w"> </span>~/.claude/settings.json<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-A<span class="w"> </span><span class="m">3</span><span class="w"> </span>statusLine
-<a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a>
-<a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a><span class="c1"># Expected:</span>
-<a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a><span class="c1"># &quot;statusLine&quot;: {</span>
-<a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a><span class="c1">#   &quot;type&quot;: &quot;command&quot;,</span>
-<a id="__codelineno-20-7" name="__codelineno-20-7" href="#__codelineno-20-7"></a><span class="c1">#   &quot;command&quot;: &quot;ait statusline render&quot;</span>
-<a id="__codelineno-20-8" name="__codelineno-20-8" href="#__codelineno-20-8"></a><span class="c1"># }</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="c1"># Verify settings.json</span>
+<a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a>cat<span class="w"> </span>~/.claude/settings.json<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-A<span class="w"> </span><span class="m">3</span><span class="w"> </span>statusLine
+<a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a>
+<a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a><span class="c1"># Expected:</span>
+<a id="__codelineno-25-5" name="__codelineno-25-5" href="#__codelineno-25-5"></a><span class="c1"># &quot;statusLine&quot;: {</span>
+<a id="__codelineno-25-6" name="__codelineno-25-6" href="#__codelineno-25-6"></a><span class="c1">#   &quot;type&quot;: &quot;command&quot;,</span>
+<a id="__codelineno-25-7" name="__codelineno-25-7" href="#__codelineno-25-7"></a><span class="c1">#   &quot;command&quot;: &quot;ait statusline render&quot;</span>
+<a id="__codelineno-25-8" name="__codelineno-25-8" href="#__codelineno-25-8"></a><span class="c1"># }</span>
 </code></pre></div>
 <p><strong>Fix:</strong></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="c1"># Reinstall</span>
-<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>ait<span class="w"> </span>statusline<span class="w"> </span>install
-<a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>
-<a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a><span class="c1"># Or manually edit ~/.claude/settings.json</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="c1"># Reinstall</span>
+<a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a>ait<span class="w"> </span>statusline<span class="w"> </span>install
+<a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a>
+<a id="__codelineno-26-4" name="__codelineno-26-4" href="#__codelineno-26-4"></a><span class="c1"># Or manually edit ~/.claude/settings.json</span>
 </code></pre></div>
 <h3 id="wrong-colorstheme">Wrong Colors/Theme</h3>
 <p><strong>Check current theme:</strong></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>ait<span class="w"> </span>statusline<span class="w"> </span>theme<span class="w"> </span>show
+<div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>ait<span class="w"> </span>statusline<span class="w"> </span>theme<span class="w"> </span>show
 </code></pre></div>
 <p><strong>Fix:</strong></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="c1"># Switch to desired theme</span>
-<a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>ait<span class="w"> </span>statusline<span class="w"> </span>theme<span class="w"> </span><span class="nb">set</span><span class="w"> </span>purple-charcoal
+<div class="highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a><span class="c1"># Switch to desired theme</span>
+<a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a>ait<span class="w"> </span>statusline<span class="w"> </span>theme<span class="w"> </span><span class="nb">set</span><span class="w"> </span>purple-charcoal
 </code></pre></div>
 <h3 id="missing-git-information">Missing Git Information</h3>
 <p><strong>Check git settings:</strong></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>ait<span class="w"> </span>statusline<span class="w"> </span>config<span class="w"> </span>get<span class="w"> </span>git.show_ahead_behind
-<a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a>ait<span class="w"> </span>statusline<span class="w"> </span>config<span class="w"> </span>get<span class="w"> </span>git.show_stash_count
+<div class="highlight"><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>ait<span class="w"> </span>statusline<span class="w"> </span>config<span class="w"> </span>get<span class="w"> </span>git.show_ahead_behind
+<a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a>ait<span class="w"> </span>statusline<span class="w"> </span>config<span class="w"> </span>get<span class="w"> </span>git.show_stash_count
 </code></pre></div>
 <p><strong>Fix:</strong></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="c1"># Enable git features</span>
-<a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a>ait<span class="w"> </span>statusline<span class="w"> </span>config<span class="w"> </span><span class="nb">set</span><span class="w"> </span>git.show_ahead_behind<span class="w"> </span><span class="nb">true</span>
-<a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a>ait<span class="w"> </span>statusline<span class="w"> </span>config<span class="w"> </span><span class="nb">set</span><span class="w"> </span>git.show_stash_count<span class="w"> </span><span class="nb">true</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a><span class="c1"># Enable git features</span>
+<a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a>ait<span class="w"> </span>statusline<span class="w"> </span>config<span class="w"> </span><span class="nb">set</span><span class="w"> </span>git.show_ahead_behind<span class="w"> </span><span class="nb">true</span>
+<a id="__codelineno-30-3" name="__codelineno-30-3" href="#__codelineno-30-3"></a>ait<span class="w"> </span>statusline<span class="w"> </span>config<span class="w"> </span><span class="nb">set</span><span class="w"> </span>git.show_stash_count<span class="w"> </span><span class="nb">true</span>
 </code></pre></div>
 <h3 id="python-environment-not-showing">Python Environment Not Showing</h3>
 <p><strong>Check project detection:</strong></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>ait<span class="w"> </span>statusline<span class="w"> </span>config<span class="w"> </span>get<span class="w"> </span>project.detect_python_env
+<div class="highlight"><pre><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a>ait<span class="w"> </span>statusline<span class="w"> </span>config<span class="w"> </span>get<span class="w"> </span>project.detect_python_env
 </code></pre></div>
 <p><strong>Fix:</strong></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="c1"># Enable Python environment detection</span>
-<a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a>ait<span class="w"> </span>statusline<span class="w"> </span>config<span class="w"> </span><span class="nb">set</span><span class="w"> </span>project.detect_python_env<span class="w"> </span><span class="nb">true</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a><span class="c1"># Enable Python environment detection</span>
+<a id="__codelineno-32-2" name="__codelineno-32-2" href="#__codelineno-32-2"></a>ait<span class="w"> </span>statusline<span class="w"> </span>config<span class="w"> </span><span class="nb">set</span><span class="w"> </span>project.detect_python_env<span class="w"> </span><span class="nb">true</span>
 </code></pre></div>
 <h3 id="background-agents-not-showing">Background Agents Not Showing</h3>
 <p><strong>Check if agents are actually running:</strong></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a><span class="c1"># List running Task agents</span>
-<a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a>ait<span class="w"> </span>sessions<span class="w"> </span>live
+<div class="highlight"><pre><span></span><code><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a><span class="c1"># List running Task agents</span>
+<a id="__codelineno-33-2" name="__codelineno-33-2" href="#__codelineno-33-2"></a>ait<span class="w"> </span>sessions<span class="w"> </span>live
 </code></pre></div>
 <p><strong>Check config:</strong></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>ait<span class="w"> </span>statusline<span class="w"> </span>config<span class="w"> </span>get<span class="w"> </span>display.show_background_agents
+<div class="highlight"><pre><span></span><code><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a>ait<span class="w"> </span>statusline<span class="w"> </span>config<span class="w"> </span>get<span class="w"> </span>display.show_background_agents
 </code></pre></div>
 <p><strong>Fix:</strong></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a><span class="c1"># Enable background agents display</span>
-<a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a>ait<span class="w"> </span>statusline<span class="w"> </span>config<span class="w"> </span><span class="nb">set</span><span class="w"> </span>display.show_background_agents<span class="w"> </span><span class="nb">true</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a><span class="c1"># Enable background agents display</span>
+<a id="__codelineno-35-2" name="__codelineno-35-2" href="#__codelineno-35-2"></a>ait<span class="w"> </span>statusline<span class="w"> </span>config<span class="w"> </span><span class="nb">set</span><span class="w"> </span>display.show_background_agents<span class="w"> </span><span class="nb">true</span>
 </code></pre></div>
 <h3 id="config-changes-not-applied">Config Changes Not Applied</h3>
 <p><strong>Restart Claude Code session</strong> - Config is loaded at startup.</p>
 <p><strong>Or manually reload:</strong></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a><span class="c1"># Test rendering with current config</span>
-<a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a>ait<span class="w"> </span>statusline<span class="w"> </span><span class="nb">test</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a><span class="c1"># Test rendering with current config</span>
+<a id="__codelineno-36-2" name="__codelineno-36-2" href="#__codelineno-36-2"></a>ait<span class="w"> </span>statusline<span class="w"> </span><span class="nb">test</span>
 </code></pre></div>
 <hr />
 <h2 id="technical-details">Technical Details</h2>
@@ -5170,11 +5297,11 @@
 </ul>
 <h3 id="testing">Testing</h3>
 <p><strong>919 total tests</strong> including 70 StatusLine-specific tests:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a><span class="c1"># Run StatusLine tests</span>
-<a id="__codelineno-32-2" name="__codelineno-32-2" href="#__codelineno-32-2"></a>pytest<span class="w"> </span>tests/test_statusline_*.py
-<a id="__codelineno-32-3" name="__codelineno-32-3" href="#__codelineno-32-3"></a>
-<a id="__codelineno-32-4" name="__codelineno-32-4" href="#__codelineno-32-4"></a><span class="c1"># Run all tests</span>
-<a id="__codelineno-32-5" name="__codelineno-32-5" href="#__codelineno-32-5"></a>pytest
+<div class="highlight"><pre><span></span><code><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a><span class="c1"># Run StatusLine tests</span>
+<a id="__codelineno-37-2" name="__codelineno-37-2" href="#__codelineno-37-2"></a>pytest<span class="w"> </span>tests/test_statusline_*.py
+<a id="__codelineno-37-3" name="__codelineno-37-3" href="#__codelineno-37-3"></a>
+<a id="__codelineno-37-4" name="__codelineno-37-4" href="#__codelineno-37-4"></a><span class="c1"># Run all tests</span>
+<a id="__codelineno-37-5" name="__codelineno-37-5" href="#__codelineno-37-5"></a>pytest
 </code></pre></div>
 <hr />
 <h2 id="usage-tracking-currently-disabled">Usage Tracking (Currently Disabled)</h2>
@@ -5189,15 +5316,15 @@
 <p><strong>Tracking issue:</strong> <a href="https://github.com/anthropics/claude-code/issues/5621">#5621</a> - StatusLine should expose API usage/quota</p>
 <p><strong>Future:</strong> If Claude Code exposes usage data in JSON input, usage tracking will be automatically enabled.</p>
 <p><strong>Current display:</strong> Context window size available in JSON:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a><span class="p">{</span>
-<a id="__codelineno-33-2" name="__codelineno-33-2" href="#__codelineno-33-2"></a><span class="w">  </span><span class="nt">&quot;context_window&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-33-3" name="__codelineno-33-3" href="#__codelineno-33-3"></a><span class="w">    </span><span class="nt">&quot;context_window_size&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">200000</span><span class="p">,</span>
-<a id="__codelineno-33-4" name="__codelineno-33-4" href="#__codelineno-33-4"></a><span class="w">    </span><span class="nt">&quot;current_usage&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-33-5" name="__codelineno-33-5" href="#__codelineno-33-5"></a><span class="w">      </span><span class="nt">&quot;input_tokens&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1234</span><span class="p">,</span>
-<a id="__codelineno-33-6" name="__codelineno-33-6" href="#__codelineno-33-6"></a><span class="w">      </span><span class="nt">&quot;output_tokens&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">567</span>
-<a id="__codelineno-33-7" name="__codelineno-33-7" href="#__codelineno-33-7"></a><span class="w">    </span><span class="p">}</span>
-<a id="__codelineno-33-8" name="__codelineno-33-8" href="#__codelineno-33-8"></a><span class="w">  </span><span class="p">}</span>
-<a id="__codelineno-33-9" name="__codelineno-33-9" href="#__codelineno-33-9"></a><span class="p">}</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a><span class="p">{</span>
+<a id="__codelineno-38-2" name="__codelineno-38-2" href="#__codelineno-38-2"></a><span class="w">  </span><span class="nt">&quot;context_window&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-38-3" name="__codelineno-38-3" href="#__codelineno-38-3"></a><span class="w">    </span><span class="nt">&quot;context_window_size&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">200000</span><span class="p">,</span>
+<a id="__codelineno-38-4" name="__codelineno-38-4" href="#__codelineno-38-4"></a><span class="w">    </span><span class="nt">&quot;current_usage&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-38-5" name="__codelineno-38-5" href="#__codelineno-38-5"></a><span class="w">      </span><span class="nt">&quot;input_tokens&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1234</span><span class="p">,</span>
+<a id="__codelineno-38-6" name="__codelineno-38-6" href="#__codelineno-38-6"></a><span class="w">      </span><span class="nt">&quot;output_tokens&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">567</span>
+<a id="__codelineno-38-7" name="__codelineno-38-7" href="#__codelineno-38-7"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-38-8" name="__codelineno-38-8" href="#__codelineno-38-8"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-38-9" name="__codelineno-38-9" href="#__codelineno-38-9"></a><span class="p">}</span>
 </code></pre></div>
 <p>This data is available but not currently displayed. Could be added as optional feature in future.</p>
 <hr />
@@ -5209,15 +5336,15 @@
 <p>See <a href="#usage-tracking-currently-disabled">Usage Tracking</a> section above. Claude Code doesn't expose this data programmatically.</p>
 <h3 id="can-i-create-my-own-theme">Can I create my own theme?</h3>
 <p>Yes! Edit config with custom color overrides:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a>ait<span class="w"> </span>statusline<span class="w"> </span>config<span class="w"> </span>edit
+<div class="highlight"><pre><span></span><code><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a>ait<span class="w"> </span>statusline<span class="w"> </span>config<span class="w"> </span>edit
 </code></pre></div>
 <p>Add <code>theme.custom_colors</code> section with ANSI color codes.</p>
 <h3 id="how-do-i-disable-statusline-temporarily">How do I disable StatusLine temporarily?</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a><span class="c1"># Disable in config</span>
-<a id="__codelineno-35-2" name="__codelineno-35-2" href="#__codelineno-35-2"></a>ait<span class="w"> </span>statusline<span class="w"> </span>config<span class="w"> </span><span class="nb">set</span><span class="w"> </span>enabled<span class="w"> </span><span class="nb">false</span>
-<a id="__codelineno-35-3" name="__codelineno-35-3" href="#__codelineno-35-3"></a>
-<a id="__codelineno-35-4" name="__codelineno-35-4" href="#__codelineno-35-4"></a><span class="c1"># Or remove from Claude Code settings</span>
-<a id="__codelineno-35-5" name="__codelineno-35-5" href="#__codelineno-35-5"></a>ait<span class="w"> </span>statusline<span class="w"> </span>uninstall
+<div class="highlight"><pre><span></span><code><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a><span class="c1"># Disable in config</span>
+<a id="__codelineno-40-2" name="__codelineno-40-2" href="#__codelineno-40-2"></a>ait<span class="w"> </span>statusline<span class="w"> </span>config<span class="w"> </span><span class="nb">set</span><span class="w"> </span>enabled<span class="w"> </span><span class="nb">false</span>
+<a id="__codelineno-40-3" name="__codelineno-40-3" href="#__codelineno-40-3"></a>
+<a id="__codelineno-40-4" name="__codelineno-40-4" href="#__codelineno-40-4"></a><span class="c1"># Or remove from Claude Code settings</span>
+<a id="__codelineno-40-5" name="__codelineno-40-5" href="#__codelineno-40-5"></a>ait<span class="w"> </span>statusline<span class="w"> </span>uninstall
 </code></pre></div>
 <h3 id="can-i-show-custom-information">Can I show custom information?</h3>
 <p>Not currently, but planned for future versions. The modular segment design makes this feasible.</p>
@@ -5236,7 +5363,13 @@
 </ul>
 <hr />
 <h2 id="changelog">Changelog</h2>
-<h3 id="v060-dec-31-2025">v0.6.0 (Dec 31, 2025)</h3>
+<h3 id="v071-dec-31-2025">v0.7.1 (Dec 31, 2025)</h3>
+<ul>
+<li>🎨 <strong>Configurable Spacing</strong> - Adjust separator spacing (minimal/standard/relaxed)</li>
+<li>✨ <strong>Better Readability</strong> - Default spacing improved from 1 to 2 spaces</li>
+<li>⚙️ <strong>New Config Option</strong> - <code>display.separator_spacing</code></li>
+</ul>
+<h3 id="v070-dec-31-2025">v0.7.0 (Dec 31, 2025)</h3>
 <ul>
 <li>✨ <strong>Initial Release</strong> - Full StatusLine implementation</li>
 <li>🎨 <strong>3 Themes</strong> - purple-charcoal, cool-blues, forest-greens</li>
