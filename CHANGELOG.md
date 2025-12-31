@@ -4,6 +4,21 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+## [0.5.1] - 2025-12-30
+
+**Tag:** v0.5.1
+
+### Fixed
+
+- Test suite update for PyPI verification (now uses v0.5.0)
+
+### Documentation
+
+- Updated docs/index.md with v0.5.0 release info
+- Updated getting started guide version reference
+
+---
+
 ## [0.5.0] - 2025-12-30 - Release Automation 🚀
 
 **Tag:** v0.5.0

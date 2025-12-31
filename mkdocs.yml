@@ -176,7 +176,18 @@ nav:
       - API Reference: api/AITERM-API.md
       - Implementation: AITERM-IMPLEMENTATION-SUMMARY.md
       - Contributing: development/contributing.md
+      - Diagrams:
+          - Overview: diagrams/README.md
+          - Tutorial Flow: diagrams/tutorial-flow.md
+          - Context Detection: diagrams/context-detection.md
+          - Session Lifecycle: diagrams/session-lifecycle.md
+          - Release Workflow: diagrams/release-workflow.md
+          - Craft Integration: diagrams/craft-integration.md
+          - Git Worktrees: diagrams/worktree-flow.md
       - Specs:
+          - Tutorial System: specs/SPEC-interactive-tutorial-system.md
+          - Tutorial Summary: specs/SPEC-interactive-tutorial-system-SUMMARY.md
+          - Tutorial Quickstart: specs/SPEC-interactive-tutorial-QUICKSTART.md
           - Ghostty Enhancements: specs/SPEC-ghostty-enhancements-2025-12-30.md
 
 extra:
