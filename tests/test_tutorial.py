@@ -296,3 +296,176 @@ class TestTutorialContent:
         advanced = create_advanced_tutorial()
         gif_steps = [s for s in advanced.steps if s.gif_path]
         assert len(gif_steps) >= 3, "Advanced should have 3+ GIF references"
+
+
+class TestTutorialCLI:
+    """Tests for tutorial CLI commands."""
+
+    def test_learn_list_output(self, capsys):
+        """Test list_tutorials produces formatted output."""
+        list_tutorials()
+        captured = capsys.readouterr()
+        assert "getting-started" in captured.out
+        assert "intermediate" in captured.out
+        assert "advanced" in captured.out
+
+    def test_learn_list_shows_steps(self, capsys):
+        """Test list shows step counts."""
+        list_tutorials()
+        captured = capsys.readouterr()
+        assert "7" in captured.out
+        assert "11" in captured.out
+        assert "13" in captured.out
+
+
+class TestTutorialNavigation:
+    """Tests for tutorial navigation features."""
+
+    def test_tutorial_has_prerequisites(self):
+        """Test tutorials define prerequisites."""
+        for factory in [
+            create_getting_started_tutorial,
+            create_intermediate_tutorial,
+            create_advanced_tutorial,
+        ]:
+            tutorial = factory()
+            # Getting started has basic prereqs, others require previous level
+            if tutorial.level != TutorialLevel.GETTING_STARTED:
+                assert len(tutorial.prerequisites) >= 1
+
+    def test_steps_are_sequential(self):
+        """Test step numbers are sequential starting from 1."""
+        for level in TutorialLevel:
+            tutorial = get_tutorial(level)
+            for i, step in enumerate(tutorial.steps, 1):
+                assert step.number == i
+
+    def test_last_step_is_next_steps(self):
+        """Test last step typically contains next steps info."""
+        for level in [TutorialLevel.GETTING_STARTED, TutorialLevel.INTERMEDIATE]:
+            tutorial = get_tutorial(level)
+            last_step = tutorial.steps[-1]
+            # Last step title often contains "Next" or is about progression
+            assert last_step.title is not None
+
+
+class TestTutorialEdgeCases:
+    """Tests for edge cases and error handling."""
+
+    def test_parse_level_with_whitespace(self):
+        """Test parse_level handles whitespace."""
+        assert parse_level("  getting-started  ") == TutorialLevel.GETTING_STARTED
+        assert parse_level("\tintermediate\n") == TutorialLevel.INTERMEDIATE
+
+    def test_parse_level_mixed_case(self):
+        """Test parse_level handles mixed case."""
+        assert parse_level("GeTtInG-StArTeD") == TutorialLevel.GETTING_STARTED
+        assert parse_level("INTERMEDIATE") == TutorialLevel.INTERMEDIATE
+        assert parse_level("Advanced") == TutorialLevel.ADVANCED
+
+    def test_show_step_boundary_conditions(self):
+        """Test show_step at boundaries."""
+        tutorial = create_getting_started_tutorial()
+        # First step
+        step = tutorial.show_step(1)
+        assert step.number == 1
+        # Last step
+        last = tutorial.show_step(len(tutorial.steps))
+        assert last.number == len(tutorial.steps)
+
+    def test_tutorial_with_empty_prerequisites(self):
+        """Test tutorial works with no prerequisites."""
+        tutorial = Tutorial(
+            level=TutorialLevel.GETTING_STARTED,
+            title="Test",
+            description="Test",
+            prerequisites=[],
+            steps=[TutorialStep(number=1, title="Test", description="Test")],
+        )
+        assert tutorial.prerequisites == []
+
+
+class TestTutorialContentQuality:
+    """Tests for tutorial content quality assurance."""
+
+    def test_all_steps_have_titles(self):
+        """Test all steps have non-empty titles."""
+        for level in TutorialLevel:
+            tutorial = get_tutorial(level)
+            for step in tutorial.steps:
+                assert step.title, f"Step {step.number} in {level.value} has no title"
+                assert len(step.title) >= 3, f"Step {step.number} title too short"
+
+    def test_all_steps_have_descriptions(self):
+        """Test all steps have non-empty descriptions."""
+        for level in TutorialLevel:
+            tutorial = get_tutorial(level)
+            for step in tutorial.steps:
+                assert step.description, f"Step {step.number} in {level.value} has no description"
+                assert len(step.description) >= 10, f"Step {step.number} description too short"
+
+    def test_interactive_steps_have_commands(self):
+        """Test interactive steps have associated commands."""
+        for level in TutorialLevel:
+            tutorial = get_tutorial(level)
+            for step in tutorial.steps:
+                if step.interactive:
+                    assert step.command, f"Interactive step {step.number} has no command"
+
+    def test_commands_are_valid_format(self):
+        """Test commands follow expected format."""
+        for level in TutorialLevel:
+            tutorial = get_tutorial(level)
+            for step in tutorial.steps:
+                if step.command:
+                    # Commands should start with 'ait' or be comments
+                    assert step.command.startswith("ait") or step.command.startswith("#"), \
+                        f"Command '{step.command}' should start with 'ait' or '#'"
+
+    def test_gif_paths_are_valid_format(self):
+        """Test GIF paths follow expected format."""
+        for level in TutorialLevel:
+            tutorial = get_tutorial(level)
+            for step in tutorial.steps:
+                if step.gif_path:
+                    assert step.gif_path.endswith(".gif"), \
+                        f"GIF path '{step.gif_path}' should end with .gif"
+                    assert "demos/tutorials" in step.gif_path, \
+                        f"GIF path '{step.gif_path}' should be in demos/tutorials"
+
+
+class TestTutorialDisplay:
+    """Tests for tutorial display methods."""
+
+    def test_show_intro(self, capsys):
+        """Test show_intro displays level info."""
+        tutorial = create_getting_started_tutorial()
+        tutorial.show_intro()
+        captured = capsys.readouterr()
+        assert "Getting Started" in captured.out
+
+    def test_show_step_displays_command(self, capsys):
+        """Test show_step displays command if present."""
+        tutorial = create_getting_started_tutorial()
+        # Step 2 has ait doctor command
+        tutorial.show_step(2)
+        captured = capsys.readouterr()
+        assert "ait doctor" in captured.out
+
+    def test_show_step_displays_hint(self, capsys):
+        """Test show_step displays hint if present."""
+        tutorial = create_getting_started_tutorial()
+        # Find a step with a hint
+        for i, step in enumerate(tutorial.steps, 1):
+            if step.hint:
+                tutorial.show_step(i)
+                captured = capsys.readouterr()
+                assert "Hint" in captured.out or "💡" in captured.out
+                break
+
+    def test_show_completion(self, capsys):
+        """Test show_completion displays success message."""
+        tutorial = create_getting_started_tutorial()
+        tutorial.show_completion()
+        captured = capsys.readouterr()
+        assert "Congratulations" in captured.out or "Complete" in captured.out

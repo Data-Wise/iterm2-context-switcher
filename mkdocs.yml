@@ -102,6 +102,15 @@ nav:
   - Reference Card: REFCARD.md
 
   # ============================================
+  # INTERACTIVE TUTORIALS
+  # ============================================
+  - Tutorials:
+      - Overview: tutorials/index.md
+      - Getting Started: tutorials/getting-started/index.md
+      - Intermediate: tutorials/intermediate/index.md
+      - Advanced: tutorials/advanced/index.md
+
+  # ============================================
   # TIER 2: CORE FEATURES
   # ============================================
   - Features:
