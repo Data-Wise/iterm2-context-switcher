@@ -1138,6 +1138,28 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#ait-feature-promote" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ait feature promote
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ait-feature-release" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ait feature release
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1171,6 +1193,28 @@
     <span class="md-ellipsis">
       
         Checking Feature Status
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#promoting-a-feature" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Promoting a Feature
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#making-a-release" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Making a Release
       
     </span>
   </a>
@@ -3465,6 +3509,28 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#ait-feature-promote" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ait feature promote
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ait-feature-release" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ait feature release
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -3498,6 +3564,28 @@
     <span class="md-ellipsis">
       
         Checking Feature Status
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#promoting-a-feature" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Promoting a Feature
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#making-a-release" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Making a Release
       
     </span>
   </a>
@@ -3653,7 +3741,7 @@
 
 <h1 id="feature-branch-workflow">Feature Branch Workflow</h1>
 <p>Rich CLI commands for managing feature branches and git worktrees.</p>
-<p><strong>Added in:</strong> v0.3.13</p>
+<p><strong>Added in:</strong> v0.3.13 | <strong>Updated:</strong> v0.6.2 (promote/release commands)</p>
 <hr />
 <p><img alt="Feature Workflow Demo" src="../../demos/feature-workflow.gif" /></p>
 <hr />
@@ -3663,12 +3751,15 @@
 <li><strong>Pipeline Visualization</strong> - See your feature branches in a tree view</li>
 <li><strong>Worktree Integration</strong> - Parallel development with git worktrees</li>
 <li><strong>Dependency Automation</strong> - Auto-install deps when creating branches</li>
+<li><strong>PR Automation</strong> - Create PRs to dev (promote) and main (release)</li>
 <li><strong>Cleanup Tools</strong> - Remove merged branches and worktrees</li>
 </ul>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>ait<span class="w"> </span>feature<span class="w"> </span>status<span class="w">    </span><span class="c1"># Show pipeline</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>ait<span class="w"> </span>feature<span class="w"> </span>list<span class="w">      </span><span class="c1"># List all features</span>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>ait<span class="w"> </span>feature<span class="w"> </span>start<span class="w">     </span><span class="c1"># Create new feature</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>ait<span class="w"> </span>feature<span class="w"> </span>cleanup<span class="w">   </span><span class="c1"># Remove merged</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>ait<span class="w"> </span>feature<span class="w"> </span>promote<span class="w">   </span><span class="c1"># Create PR to dev</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>ait<span class="w"> </span>feature<span class="w"> </span>release<span class="w">   </span><span class="c1"># Create PR from dev to main</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>ait<span class="w"> </span>feature<span class="w"> </span>cleanup<span class="w">   </span><span class="c1"># Remove merged</span>
 </code></pre></div>
 <hr />
 <h2 id="commands">Commands</h2>
@@ -3902,32 +3993,180 @@
 <a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a>✓ Cleaned up 2 merged branches.
 </code></pre></div></p>
 <hr />
+<h3 id="ait-feature-promote"><code>ait feature promote</code></h3>
+<p>Create a pull request from your feature branch to dev.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="c1"># Create PR from current feature branch to dev</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>ait<span class="w"> </span>feature<span class="w"> </span>promote
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="c1"># Create as draft PR</span>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>ait<span class="w"> </span>feature<span class="w"> </span>promote<span class="w"> </span>--draft
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="c1"># Custom title</span>
+<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>ait<span class="w"> </span>feature<span class="w"> </span>promote<span class="w"> </span>--title<span class="w"> </span><span class="s2">&quot;Add authentication system&quot;</span>
+<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>
+<a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a><span class="c1"># Target different base branch</span>
+<a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a>ait<span class="w"> </span>feature<span class="w"> </span>promote<span class="w"> </span>--base<span class="w"> </span>main
+<a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a>
+<a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a><span class="c1"># Open PR in browser after creation</span>
+<a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a>ait<span class="w"> </span>feature<span class="w"> </span>promote<span class="w"> </span>--web
+</code></pre></div>
+<p><strong>Options:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Short</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--draft</code></td>
+<td><code>-d</code></td>
+<td>Create as draft PR</td>
+</tr>
+<tr>
+<td><code>--title</code></td>
+<td><code>-t</code></td>
+<td>PR title (default: branch name)</td>
+</tr>
+<tr>
+<td><code>--base</code></td>
+<td><code>-b</code></td>
+<td>Target branch (default: <code>dev</code>)</td>
+</tr>
+<tr>
+<td><code>--web</code></td>
+<td><code>-w</code></td>
+<td>Open PR in browser after creation</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Requirements:</strong></p>
+<ul>
+<li>GitHub CLI (<code>gh</code>) must be installed and authenticated</li>
+<li>Must be on a feature branch (starts with <code>feature/</code> or <code>feat/</code>)</li>
+</ul>
+<p><strong>What it does:</strong></p>
+<ol>
+<li>Checks if PR already exists for the branch</li>
+<li>Pushes current branch to origin</li>
+<li>Creates PR with commit summary as body</li>
+<li>Optionally opens in browser</li>
+</ol>
+<hr />
+<h3 id="ait-feature-release"><code>ait feature release</code></h3>
+<p>Create a release PR from dev to main.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="c1"># Create release PR from dev to main</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>ait<span class="w"> </span>feature<span class="w"> </span>release
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="c1"># Create as draft PR</span>
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>ait<span class="w"> </span>feature<span class="w"> </span>release<span class="w"> </span>--draft
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="c1"># Custom title</span>
+<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>ait<span class="w"> </span>feature<span class="w"> </span>release<span class="w"> </span>--title<span class="w"> </span><span class="s2">&quot;v1.0.0 Release&quot;</span>
+<a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>
+<a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a><span class="c1"># Open PR in browser after creation</span>
+<a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a>ait<span class="w"> </span>feature<span class="w"> </span>release<span class="w"> </span>--web
+</code></pre></div>
+<p><strong>Options:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Short</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--draft</code></td>
+<td><code>-d</code></td>
+<td>Create as draft PR</td>
+</tr>
+<tr>
+<td><code>--title</code></td>
+<td><code>-t</code></td>
+<td>PR title (default: "Release: merge dev to main")</td>
+</tr>
+<tr>
+<td><code>--body</code></td>
+<td><code>-b</code></td>
+<td>Custom PR body</td>
+</tr>
+<tr>
+<td><code>--web</code></td>
+<td><code>-w</code></td>
+<td>Open PR in browser after creation</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Requirements:</strong></p>
+<ul>
+<li>GitHub CLI (<code>gh</code>) must be installed and authenticated</li>
+<li>Should be on <code>dev</code> branch (warns if not)</li>
+</ul>
+<p><strong>What it does:</strong></p>
+<ol>
+<li>Checks if release PR already exists</li>
+<li>Fetches latest changes from origin</li>
+<li>Shows commits to be merged</li>
+<li>Pushes dev to origin</li>
+<li>Creates PR with commit summary</li>
+<li>Optionally opens in browser</li>
+</ol>
+<hr />
 <h2 id="workflow-examples">Workflow Examples</h2>
 <h3 id="starting-a-new-feature">Starting a New Feature</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="c1"># 1. Start feature with worktree</span>
-<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>ait<span class="w"> </span>feature<span class="w"> </span>start<span class="w"> </span>auth-redesign<span class="w"> </span>--worktree
-<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>
-<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="c1"># 2. Navigate to worktree</span>
-<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="nb">cd</span><span class="w"> </span>~/.git-worktrees/my-project/auth-redesign
-<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>
-<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="c1"># 3. Start Claude Code in worktree</span>
-<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>claude
-<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>
-<a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a><span class="c1"># 4. Work on feature...</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="c1"># 1. Start feature with worktree</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>ait<span class="w"> </span>feature<span class="w"> </span>start<span class="w"> </span>auth-redesign<span class="w"> </span>--worktree
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="c1"># 2. Navigate to worktree</span>
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="nb">cd</span><span class="w"> </span>~/.git-worktrees/my-project/auth-redesign
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>
+<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="c1"># 3. Start Claude Code in worktree</span>
+<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>claude
+<a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a>
+<a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a><span class="c1"># 4. Work on feature...</span>
 </code></pre></div>
 <h3 id="checking-feature-status">Checking Feature Status</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="c1"># Quick pipeline view</span>
-<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>ait<span class="w"> </span>feature<span class="w"> </span>status
-<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>
-<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="c1"># Detailed list with worktrees</span>
-<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>ait<span class="w"> </span>feature<span class="w"> </span>list
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="c1"># Quick pipeline view</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>ait<span class="w"> </span>feature<span class="w"> </span>status
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="c1"># Detailed list with worktrees</span>
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>ait<span class="w"> </span>feature<span class="w"> </span>list
+</code></pre></div>
+<h3 id="promoting-a-feature">Promoting a Feature</h3>
+<p>When your feature is ready for review:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="c1"># 1. Check your feature status</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>ait<span class="w"> </span>feature<span class="w"> </span>status
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="c1"># 2. Create PR to dev branch</span>
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>ait<span class="w"> </span>feature<span class="w"> </span>promote
+<a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>
+<a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="c1"># 3. Or create as draft for early feedback</span>
+<a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a>ait<span class="w"> </span>feature<span class="w"> </span>promote<span class="w"> </span>--draft<span class="w"> </span>--web
+</code></pre></div>
+<h3 id="making-a-release">Making a Release</h3>
+<p>When dev is ready to merge to main:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="c1"># 1. Switch to dev branch</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>git<span class="w"> </span>checkout<span class="w"> </span>dev
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="c1"># 2. Check what will be released</span>
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>ait<span class="w"> </span>feature<span class="w"> </span>release<span class="w"> </span>--dry-run<span class="w">  </span><span class="c1"># Coming soon</span>
+<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>
+<a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="c1"># 3. Create release PR</span>
+<a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a>ait<span class="w"> </span>feature<span class="w"> </span>release
+<a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a>
+<a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a><span class="c1"># 4. Or create with custom title</span>
+<a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a>ait<span class="w"> </span>feature<span class="w"> </span>release<span class="w"> </span>--title<span class="w"> </span><span class="s2">&quot;v1.0.0 Release&quot;</span><span class="w"> </span>--web
 </code></pre></div>
 <h3 id="after-merging-a-pr">After Merging a PR</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="c1"># Clean up merged branches</span>
-<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>ait<span class="w"> </span>feature<span class="w"> </span>cleanup
-<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>
-<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="c1"># Or preview first</span>
-<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>ait<span class="w"> </span>feature<span class="w"> </span>cleanup<span class="w"> </span>--dry-run
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="c1"># Clean up merged branches</span>
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>ait<span class="w"> </span>feature<span class="w"> </span>cleanup
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>
+<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="c1"># Or preview first</span>
+<a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>ait<span class="w"> </span>feature<span class="w"> </span>cleanup<span class="w"> </span>--dry-run
 </code></pre></div>
 <hr />
 <h2 id="the-3-layer-architecture">The 3-Layer Architecture</h2>
@@ -3978,10 +4217,16 @@
 <td>-</td>
 </tr>
 <tr>
-<td>Finish &amp; PR</td>
-<td><code>g feature finish</code></td>
-<td>-</td>
+<td>PR to dev</td>
+<td><code>g feature pr</code></td>
+<td><code>ait feature promote</code></td>
 <td><code>/craft:git:worktree finish</code></td>
+</tr>
+<tr>
+<td>PR dev→main</td>
+<td>-</td>
+<td><code>ait feature release</code></td>
+<td>-</td>
 </tr>
 <tr>
 <td>Cleanup</td>
@@ -3998,19 +4243,19 @@
 <li><strong>Generate Changelog</strong> - Analyzes commits, writes CHANGELOG entry</li>
 <li><strong>Create PR</strong> - Generates description, test plan, links issues</li>
 </ol>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="c1"># In Claude Code, within your worktree:</span>
-<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>/craft:git:worktree<span class="w"> </span>finish
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="c1"># In Claude Code, within your worktree:</span>
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>/craft:git:worktree<span class="w"> </span>finish
 </code></pre></div>
 <p>See the <a href="../../guides/FEATURE-WORKFLOW-TUTORIAL/">Feature Workflow Tutorial</a> for the complete workflow.</p>
 <hr />
 <h2 id="git-worktrees">Git Worktrees</h2>
 <p>The feature workflow integrates with git worktrees for parallel development.</p>
 <h3 id="default-worktree-location">Default Worktree Location</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>~/.git-worktrees/
-<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>└── &lt;project-name&gt;/
-<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>    ├── feature-auth/
-<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>    ├── feature-api-v2/
-<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>    └── hotfix-security/
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>~/.git-worktrees/
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>└── &lt;project-name&gt;/
+<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>    ├── feature-auth/
+<a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a>    ├── feature-api-v2/
+<a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a>    └── hotfix-security/
 </code></pre></div>
 <h3 id="benefits">Benefits</h3>
 <ul>
