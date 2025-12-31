@@ -789,10 +789,21 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#v050-latest" class="md-nav__link">
+  <a href="#v060-latest" class="md-nav__link">
     <span class="md-ellipsis">
       
-        v0.5.0 (Latest)
+        v0.6.0 (Latest)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v050" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        v0.5.0
       
     </span>
   </a>
@@ -839,10 +850,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#v060-next" class="md-nav__link">
+  <a href="#v070-next" class="md-nav__link">
     <span class="md-ellipsis">
       
-        v0.6.0 (Next)
+        v0.7.0 (Next)
       
     </span>
   </a>
@@ -3781,10 +3792,21 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#v050-latest" class="md-nav__link">
+  <a href="#v060-latest" class="md-nav__link">
     <span class="md-ellipsis">
       
-        v0.5.0 (Latest)
+        v0.6.0 (Latest)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v050" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        v0.5.0
       
     </span>
   </a>
@@ -3831,10 +3853,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#v060-next" class="md-nav__link">
+  <a href="#v070-next" class="md-nav__link">
     <span class="md-ellipsis">
       
-        v0.6.0 (Next)
+        v0.7.0 (Next)
       
     </span>
   </a>
@@ -4139,15 +4161,25 @@
 </code></pre></div>
 <hr />
 <h2 id="whats-new">What's New</h2>
-<h3 id="v050-latest">v0.5.0 (Latest)</h3>
+<h3 id="v060-latest">v0.6.0 (Latest)</h3>
+<ul>
+<li><strong>Interactive Tutorial System</strong> - Learn aiterm step-by-step</li>
+<li><code>ait learn start</code> - Begin interactive tutorials</li>
+<li><code>ait learn list</code> - Browse available tutorials</li>
+<li><code>ait learn progress</code> - Track your learning</li>
+<li>Three skill levels: Getting Started, Intermediate, Advanced</li>
+<li>75 comprehensive tests, GIF demos</li>
+<li><strong>PyPI Trusted Publishing</strong> - Automated releases via GitHub Actions</li>
+</ul>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="c1"># Interactive tutorials (v0.6.0)</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>ait<span class="w"> </span>learn<span class="w"> </span>start<span class="w"> </span>getting-started<span class="w">   </span><span class="c1"># Start learning</span>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>ait<span class="w"> </span>learn<span class="w"> </span>list<span class="w">                    </span><span class="c1"># See all tutorials</span>
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>ait<span class="w"> </span>learn<span class="w"> </span>progress<span class="w">                </span><span class="c1"># Check progress</span>
+</code></pre></div>
+<h3 id="v050">v0.5.0</h3>
 <ul>
 <li><strong>Release Automation</strong> - Complete CLI for streamlined publishing</li>
 <li><code>ait release check</code> - Pre-release validation</li>
-<li><code>ait release status</code> - Show version &amp; pending changes</li>
-<li><code>ait release pypi</code> - Build and publish to PyPI</li>
-<li><code>ait release homebrew</code> - Update Homebrew formula</li>
-<li><code>ait release tag</code> - Create annotated git tag</li>
-<li><code>ait release notes</code> - Generate release notes from commits</li>
 <li><code>ait release full</code> - Complete workflow: check → tag → pypi → homebrew</li>
 </ul>
 <h3 id="v040">v0.4.0</h3>
@@ -4155,29 +4187,18 @@
 <li><strong>Workflow Automation</strong> - Session-aware workflow runner</li>
 <li><code>ait workflows run test</code> - Run project tests</li>
 <li><code>ait workflows run lint+test+build</code> - Chain workflows with <code>+</code></li>
-<li>13 built-in workflows, custom YAML support</li>
 <li><strong>Craft Plugin Management</strong> - <code>ait craft status/list/install/sync</code></li>
-<li><strong>Feature Workflow</strong> - <code>ait feature status/start/cleanup</code></li>
 </ul>
 <h3 id="v03x-highlights">v0.3.x Highlights</h3>
 <ul>
 <li><strong>Ghostty Terminal</strong> - Full iTerm2 parity with 14 themes</li>
 <li><strong>Session Coordination</strong> - Hook-based tracking &amp; conflict detection</li>
 <li><strong>IDE Integrations</strong> - VS Code, Cursor, Zed, Positron, Windsurf</li>
-<li><strong>curl Installer</strong> - Smart auto-detection (uv/pipx/brew/pip)</li>
 </ul>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="c1"># Release automation (v0.5.0)</span>
-<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>ait<span class="w"> </span>release<span class="w"> </span>check<span class="w">        </span><span class="c1"># Validate before release</span>
-<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>ait<span class="w"> </span>release<span class="w"> </span>full<span class="w"> </span><span class="m">0</span>.6.0<span class="w">   </span><span class="c1"># Complete release workflow</span>
-<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>
-<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="c1"># Workflow automation (v0.4.0)</span>
-<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>ait<span class="w"> </span>workflows<span class="w"> </span>status<span class="w">     </span><span class="c1"># Session + workflow status</span>
-<a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>ait<span class="w"> </span>workflows<span class="w"> </span>run<span class="w"> </span><span class="nb">test</span><span class="w">   </span><span class="c1"># Run project tests</span>
-</code></pre></div>
 <h2 id="roadmap">Roadmap</h2>
-<h3 id="v060-next">v0.6.0 (Next)</h3>
+<h3 id="v070-next">v0.7.0 (Next)</h3>
 <ul>
-<li><strong>Workflow Variables</strong> - <code>--var key=value</code> substitution</li>
+<li><strong>Ghostty Enhancements</strong> - Theme switching, badge integration</li>
 <li><strong>Workflow Templates</strong> - Reusable workflow patterns</li>
 </ul>
 <h3 id="v100">v1.0.0</h3>
@@ -4200,7 +4221,7 @@
 <li>🎯 Single-purpose commands (no analysis paralysis)</li>
 <li>🎨 Visual context cues (production = red!)</li>
 <li>📝 Comprehensive docs with examples</li>
-<li>🧪 Well-tested (155 tests, 85% coverage)</li>
+<li>🧪 Well-tested (685 tests, 85% coverage)</li>
 </ul>
 <p><strong>Perfect for:</strong></p>
 <ul>
