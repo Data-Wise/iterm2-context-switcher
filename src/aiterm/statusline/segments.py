@@ -98,6 +98,11 @@ class ProjectSegment:
         # Build content
         content = f"{project_icon} {dir_display}"
 
+        # Add worktree marker if in a worktree
+        if self.config.get('git.show_worktrees', True):
+            if self._is_worktree(project_dir):
+                content += " \033[38;5;245m(wt)\033[38;5;250m"
+
         if r_version and self.config.get('display.show_r_version', True):
             content += f" \033[38;5;245m{r_version}\033[38;5;250m"
 
@@ -474,6 +479,31 @@ class ProjectSegment:
 
         return None
 
+    def _is_worktree(self, project_dir: str) -> bool:
+        """Check if current directory is in a worktree (not main working directory).
+
+        Args:
+            project_dir: Project directory path
+
+        Returns:
+            True if in a worktree, False if in main working directory
+        """
+        try:
+            # Get git directory
+            result = subprocess.run(
+                ['git', '-C', project_dir, 'rev-parse', '--git-dir'],
+                capture_output=True,
+                text=True
+            )
+            if result.returncode == 0:
+                git_dir = result.stdout.strip()
+                # Worktrees have .git/worktrees/<name> as git-dir
+                # Main working directory has .git as git-dir
+                return '/worktrees/' in git_dir
+        except Exception:
+            pass
+        return False
+
 
 class GitSegment:
     """Renders git branch and status."""
@@ -536,6 +566,12 @@ class GitSegment:
             remote = self._get_remote_tracking(cwd)
             if remote:
                 git_str += f" 🔗{remote}"
+
+        # Show worktree information
+        if self.config.get('git.show_worktrees', True):
+            worktree_count = self._get_worktree_count(cwd)
+            if worktree_count > 1:  # More than just main
+                git_str += f" 🌳{worktree_count}"
 
         # Build segment with powerline separator
         sep_left = ""
@@ -700,6 +736,55 @@ class GitSegment:
             if result.returncode == 0:
                 lines = [l for l in result.stdout.strip().split('\n') if l]
                 return len(lines) > 0
+        except Exception:
+            pass
+        return False
+
+    def _get_worktree_count(self, cwd: str) -> int:
+        """Get total number of worktrees for this repository.
+
+        Args:
+            cwd: Current working directory
+
+        Returns:
+            Total number of worktrees (including main)
+        """
+        try:
+            result = subprocess.run(
+                ['git', '-C', cwd, 'worktree', 'list'],
+                capture_output=True,
+                text=True,
+                timeout=1
+            )
+            if result.returncode == 0:
+                # Count lines (each line = 1 worktree)
+                lines = [l for l in result.stdout.strip().split('\n') if l]
+                return len(lines)
+        except Exception:
+            pass
+        return 0
+
+    def _is_worktree(self, cwd: str) -> bool:
+        """Check if current directory is in a worktree (not main working directory).
+
+        Args:
+            cwd: Current working directory
+
+        Returns:
+            True if in a worktree, False if in main working directory
+        """
+        try:
+            # Get git directory
+            result = subprocess.run(
+                ['git', '-C', cwd, 'rev-parse', '--git-dir'],
+                capture_output=True,
+                text=True
+            )
+            if result.returncode == 0:
+                git_dir = result.stdout.strip()
+                # Worktrees have .git/worktrees/<name> as git-dir
+                # Main working directory has .git as git-dir
+                return '/worktrees/' in git_dir
         except Exception:
             pass
         return False

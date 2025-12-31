@@ -10,14 +10,15 @@ The **StatusLine** feature provides a beautiful, informative 2-line status displ
 
 **What it shows:**
 
-- **Line 1:** Project icon, name, Python environment, git branch, stash count, remote tracking
+- **Line 1:** Project icon, name, worktree indicator, Python environment, git branch, stash count, remote tracking, worktree count
 - **Line 2:** Model name, time of day, session duration, background agents, lines changed, output style
 
 **Key benefits:**
 
 - 🎯 **At-a-glance context** - See project type, git status, session info instantly
 - 🎨 **3 color themes** - Purple-charcoal (default), cool-blues, forest-greens
-- ⚙️ **31 config options** - Toggle features, customize display
+- ⚙️ **32 config options** - Toggle features, customize display
+- 🌳 **Worktree awareness** - Shows worktree count and marker for multi-branch workflows
 - 📊 **Background agents** - See when Task agents are running
 - ⏱️ **Time tracking** - Session duration, time-of-day indicators
 
@@ -68,12 +69,14 @@ Open a new Claude Code session and you'll see the StatusLine at the top of your 
 |---------|---------|
 | `🐍` | Project type icon (Python/R/Node/Quarto/etc.) |
 | `aiterm` | Project name (directory basename) |
+| `(wt)` | Worktree indicator (shown when in a worktree) |
 | `(venv: py3.11)` | Python environment (if detected) |
 | `main*` | Git branch with dirty indicator (*) |
 | `⇣2` | 2 commits behind remote |
 | `⇡1` | 1 commit ahead of remote |
 | `?3` | 3 untracked files |
 | `📦5` | 5 stashed changes |
+| `🌳4` | 4 total worktrees (including main) |
 
 **Project icons:**
 
@@ -151,7 +154,7 @@ ait statusline config reset
 ait statusline config reset display.show_git  # Reset single key
 ```
 
-### All 31 Configuration Options
+### All 32 Configuration Options
 
 **Display Settings (12 options):**
 
@@ -172,7 +175,7 @@ ait statusline config reset display.show_git  # Reset single key
 | `display.max_directory_length` | `50` | Max directory name length |
 | `display.separator_spacing` | `standard` | Spacing around separators: minimal/standard/relaxed |
 
-**Git Settings (5 options):**
+**Git Settings (6 options):**
 
 | Setting | Default | Description |
 |---------|---------|-------------|
@@ -180,6 +183,7 @@ ait statusline config reset display.show_git  # Reset single key
 | `git.show_untracked_count` | `true` | Show ?N untracked files |
 | `git.show_stash_count` | `true` | Show 📦N stashed changes |
 | `git.show_remote_status` | `true` | Show remote tracking info |
+| `git.show_worktrees` | `true` | Show 🌳N worktree count and (wt) marker |
 | `git.truncate_branch_length` | `32` | Max branch name length |
 
 **Project Settings (4 options):**
@@ -378,6 +382,39 @@ Relaxed:  Sonnet 4.5   │   11:46   │   ⏱ 5m   │   +123/-45
 
 ---
 
+### Worktree Display
+
+**Goal:** Show git worktree information for multi-branch workflows
+
+```bash
+# Enable worktree display (enabled by default)
+ait statusline config set git.show_worktrees true
+
+# Disable if you don't use worktrees
+ait statusline config set git.show_worktrees false
+```
+
+**In main working directory:**
+```
+╭─ ░▒▓ 🐍 aiterm  main 🌳4 ▓▒░
+                        ^^^^
+                        4 total worktrees
+```
+
+**In a worktree directory:**
+```
+╭─ ░▒▓ 🐍 aiterm-test (wt)  feature-auth 🌳4 ▓▒░
+                     ^^^^                 ^^^^
+                     Worktree marker      Total count
+```
+
+**Features:**
+- `🌳N` - Shows total worktree count when > 1
+- `(wt)` - Marker when in a non-main worktree
+- Helps identify context in multi-branch workflows
+
+---
+
 ### Minimal Display
 
 **Goal:** Show only essential info (model, time, git)
@@ -411,7 +448,7 @@ ait statusline config set display.show_output_style always
 
 **Result:**
 ```
-╭─ ░▒▓ 🐍 aiterm (venv: py3.11)  main* ⇣2 ⇡1 ?3 📦5 🔗origin/main ▓▒░
+╭─ ░▒▓ 🐍 aiterm (venv: py3.11)  main* ⇣2 ⇡1 ?3 📦5 🔗origin/main 🌳4 ▓▒░
 ╰─ Sonnet 4.5 │ 🧠 │ 🌅 10:30 │ ⏱ 5m 🟢 │ 🤖2 │ +123/-45 │ 📘learning
 ```
 
@@ -423,6 +460,7 @@ ait statusline config set display.show_output_style always
 # Show all git features
 ait statusline config set git.show_stash_count true
 ait statusline config set git.show_remote_status true
+ait statusline config set git.show_worktrees true
 ait statusline config set git.show_ahead_behind true
 ait statusline config set git.show_untracked_count true
 
@@ -433,7 +471,7 @@ ait statusline config set project.detect_python_env false
 
 **Result:**
 ```
-╭─ ░▒▓ 🐍 aiterm  main* ⇣2 ⇡1 ?3 📦5 🔗origin/main ▓▒░
+╭─ ░▒▓ 🐍 aiterm  main* ⇣2 ⇡1 ?3 📦5 🔗origin/main 🌳4 ▓▒░
 ╰─ Sonnet 4.5 │ 10:30 │ ⏱ 5m
 ```
 

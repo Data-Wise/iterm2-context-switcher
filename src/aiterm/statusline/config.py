@@ -369,6 +369,12 @@ class StatusLineConfig:
                 'description': 'Max branch name length',
                 'category': 'git'
             },
+            'git.show_worktrees': {
+                'type': 'bool',
+                'default': True,
+                'description': 'Show worktree count and indicator',
+                'category': 'git'
+            },
             'project.detect_python_env': {
                 'type': 'bool',
                 'default': False,
