@@ -12,13 +12,13 @@
         <meta name="author" content="Data-Wise">
       
       
-        <link rel="canonical" href="https://data-wise.github.io/aiterm/guide/feature-workflow/">
+        <link rel="canonical" href="https://data-wise.github.io/aiterm/guide/release-automation/">
       
       
-        <link rel="prev" href="../terminals/">
+        <link rel="prev" href="../triggers/">
       
       
-        <link rel="next" href="../status-bar/">
+        <link rel="next" href="../../guides/AITERM-INTEGRATION/">
       
       
         
@@ -29,7 +29,7 @@
     
     
       
-        <title>Feature Workflow - aiterm</title>
+        <title>Release Automation - aiterm</title>
       
     
     
@@ -82,7 +82,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#feature-branch-workflow" class="md-skip">
+        <a href="#release-automation-guide" class="md-skip">
           Skip to content
         </a>
       
@@ -116,7 +116,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Feature Workflow
+              Release Automation
             
           </span>
         </div>
@@ -1009,37 +1009,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Feature Workflow
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../feature-workflow/" class="md-nav__link">
         
   
   
@@ -1055,303 +1028,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#overview" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Overview
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#commands" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Commands
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Commands">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#ait-feature-status" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        ait feature status
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#ait-feature-list" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        ait feature list
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#ait-feature-start" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        ait feature start
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#ait-feature-cleanup" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        ait feature cleanup
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#ait-feature-promote" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        ait feature promote
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#ait-feature-release" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        ait feature release
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#workflow-examples" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Workflow Examples
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Workflow Examples">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#starting-a-new-feature" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Starting a New Feature
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#checking-feature-status" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Checking Feature Status
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#promoting-a-feature" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Promoting a Feature
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#making-a-release" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Making a Release
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#after-merging-a-pr" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        After Merging a PR
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#the-3-layer-architecture" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        The 3-Layer Architecture
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="The 3-Layer Architecture">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#quick-reference" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Quick Reference
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#craft-integration" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        craft Integration
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#git-worktrees" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Git Worktrees
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Git Worktrees">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#default-worktree-location" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Default Worktree Location
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#benefits" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Benefits
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#learn-more" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Learn More
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#tips" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Tips
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#related-commands" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Related Commands
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -1529,10 +1205,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../release-automation/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Release Automation
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -1548,6 +1251,415 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-two-automation-paths" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Two Automation Paths
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The Two Automation Paths">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#path-1-github-actions-recommended" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Path 1: GitHub Actions (Recommended) 🎯
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#path-2-cli-commands-manual-control" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Path 2: CLI Commands (Manual Control)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-github-actions-is-better" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why GitHub Actions is Better
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Why GitHub Actions is Better">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#security-trusted-publishing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔐 Security: Trusted Publishing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#speed-parallel-execution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⚡ Speed: Parallel Execution
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reliability-automatic-everything" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎯 Reliability: Automatic Everything
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#when-to-use-each-method" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When to Use Each Method
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="When to Use Each Method">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#use-github-actions-gh-release-create-for" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Use GitHub Actions (gh release create) for:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#use-cli-commands-ait-release-for" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Use CLI Commands (ait release *) for:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#complete-workflow-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Complete Workflow Examples
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Complete Workflow Examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#production-release-recommended" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Production Release (Recommended)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#testing-before-release" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Testing Before Release
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#emergency-manual-release" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Emergency Manual Release
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Troubleshooting
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pypi-publish-fails" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PyPI Publish Fails
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#homebrew-pr-not-created" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Homebrew PR Not Created
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#homebrew-pr-not-auto-merged" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Homebrew PR Not Auto-Merged
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cli-command-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CLI Command Reference
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="CLI Command Reference">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#individual-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Individual Commands
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flags" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Flags
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#github-actions-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GitHub Actions Configuration
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="GitHub Actions Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pypi-trusted-publisher-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PyPI Trusted Publisher Setup
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#homebrew-token-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Homebrew Token Setup
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Best Practices
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Best Practices">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#version-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Version Management
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#release-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Release Checklist
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#release-timing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Release Timing
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#further-reading" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Further Reading
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -3566,22 +3678,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#commands" class="md-nav__link">
+  <a href="#the-two-automation-paths" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Commands
+        The Two Automation Paths
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Commands">
+    <nav class="md-nav" aria-label="The Two Automation Paths">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#ait-feature-status" class="md-nav__link">
+  <a href="#path-1-github-actions-recommended" class="md-nav__link">
     <span class="md-ellipsis">
       
-        ait feature status
+        Path 1: GitHub Actions (Recommended) 🎯
       
     </span>
   </a>
@@ -3589,54 +3701,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#ait-feature-list" class="md-nav__link">
+  <a href="#path-2-cli-commands-manual-control" class="md-nav__link">
     <span class="md-ellipsis">
       
-        ait feature list
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#ait-feature-start" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        ait feature start
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#ait-feature-cleanup" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        ait feature cleanup
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#ait-feature-promote" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        ait feature promote
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#ait-feature-release" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        ait feature release
+        Path 2: CLI Commands (Manual Control)
       
     </span>
   </a>
@@ -3649,22 +3717,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#workflow-examples" class="md-nav__link">
+  <a href="#why-github-actions-is-better" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Workflow Examples
+        Why GitHub Actions is Better
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Workflow Examples">
+    <nav class="md-nav" aria-label="Why GitHub Actions is Better">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#starting-a-new-feature" class="md-nav__link">
+  <a href="#security-trusted-publishing" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Starting a New Feature
+        🔐 Security: Trusted Publishing
       
     </span>
   </a>
@@ -3672,10 +3740,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#checking-feature-status" class="md-nav__link">
+  <a href="#speed-parallel-execution" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Checking Feature Status
+        ⚡ Speed: Parallel Execution
       
     </span>
   </a>
@@ -3683,32 +3751,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#promoting-a-feature" class="md-nav__link">
+  <a href="#reliability-automatic-everything" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Promoting a Feature
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#making-a-release" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Making a Release
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#after-merging-a-pr" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        After Merging a PR
+        🎯 Reliability: Automatic Everything
       
     </span>
   </a>
@@ -3721,22 +3767,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#the-3-layer-architecture" class="md-nav__link">
+  <a href="#when-to-use-each-method" class="md-nav__link">
     <span class="md-ellipsis">
       
-        The 3-Layer Architecture
+        When to Use Each Method
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="The 3-Layer Architecture">
+    <nav class="md-nav" aria-label="When to Use Each Method">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#quick-reference" class="md-nav__link">
+  <a href="#use-github-actions-gh-release-create-for" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Quick Reference
+        Use GitHub Actions (gh release create) for:
       
     </span>
   </a>
@@ -3744,10 +3790,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#craft-integration" class="md-nav__link">
+  <a href="#use-cli-commands-ait-release-for" class="md-nav__link">
     <span class="md-ellipsis">
       
-        craft Integration
+        Use CLI Commands (ait release *) for:
       
     </span>
   </a>
@@ -3760,22 +3806,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#git-worktrees" class="md-nav__link">
+  <a href="#complete-workflow-examples" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Git Worktrees
+        Complete Workflow Examples
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Git Worktrees">
+    <nav class="md-nav" aria-label="Complete Workflow Examples">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#default-worktree-location" class="md-nav__link">
+  <a href="#production-release-recommended" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Default Worktree Location
+        Production Release (Recommended)
       
     </span>
   </a>
@@ -3783,10 +3829,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#benefits" class="md-nav__link">
+  <a href="#testing-before-release" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Benefits
+        Testing Before Release
       
     </span>
   </a>
@@ -3794,10 +3840,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#learn-more" class="md-nav__link">
+  <a href="#emergency-manual-release" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Learn More
+        Emergency Manual Release
       
     </span>
   </a>
@@ -3810,10 +3856,188 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#tips" class="md-nav__link">
+  <a href="#troubleshooting" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Tips
+        Troubleshooting
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pypi-publish-fails" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PyPI Publish Fails
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#homebrew-pr-not-created" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Homebrew PR Not Created
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#homebrew-pr-not-auto-merged" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Homebrew PR Not Auto-Merged
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cli-command-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CLI Command Reference
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="CLI Command Reference">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#individual-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Individual Commands
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flags" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Flags
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#github-actions-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GitHub Actions Configuration
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="GitHub Actions Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pypi-trusted-publisher-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PyPI Trusted Publisher Setup
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#homebrew-token-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Homebrew Token Setup
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Best Practices
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Best Practices">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#version-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Version Management
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#release-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Release Checklist
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#release-timing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Release Timing
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary
       
     </span>
   </a>
@@ -3821,10 +4045,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#related-commands" class="md-nav__link">
+  <a href="#further-reading" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Related Commands
+        Further Reading
       
     </span>
   </a>
@@ -3851,553 +4075,469 @@
   
 
 
-<h1 id="feature-branch-workflow">Feature Branch Workflow</h1>
-<p>Rich CLI commands for managing feature branches and git worktrees.</p>
-<p><strong>Added in:</strong> v0.3.13 | <strong>Updated:</strong> v0.6.3 (promote/release commands)</p>
-<hr />
-<p><img alt="Feature Workflow Demo" src="../../demos/feature-workflow.gif" /></p>
-<hr />
+<h1 id="release-automation-guide">Release Automation Guide</h1>
+<p>Complete guide to aiterm's release automation system.</p>
 <h2 id="overview">Overview</h2>
-<p>The feature workflow commands provide:</p>
+<p>aiterm has <strong>two ways</strong> to publish releases:</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Type</th>
+<th>PyPI</th>
+<th>Homebrew</th>
+<th>Recommended</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>GitHub Actions</strong></td>
+<td>Automatic</td>
+<td>✅ Trusted Publisher</td>
+<td>✅ Auto-merge</td>
+<td>✅ <strong>YES</strong></td>
+</tr>
+<tr>
+<td><strong>CLI Commands</strong></td>
+<td>Manual</td>
+<td>⚠️ Local credentials</td>
+<td>⚠️ Manual PR</td>
+<td>Testing only</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Bottom line:</strong> Use <code>gh release create</code> for production releases. It's more secure, fully automated, and requires zero manual steps.</p>
+<hr />
+<h2 id="the-two-automation-paths">The Two Automation Paths</h2>
+<h3 id="path-1-github-actions-recommended">Path 1: GitHub Actions (Recommended) 🎯</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># 1. Update version</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="c1"># Edit pyproject.toml, bump version to 0.6.3</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="c1"># 2. Update changelog</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="c1"># Edit CHANGELOG.md, add v0.6.3 entry</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="c1"># 3. Commit and push</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>git<span class="w"> </span>add<span class="w"> </span>pyproject.toml<span class="w"> </span>CHANGELOG.md
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;chore: bump version to 0.6.3&quot;</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>git<span class="w"> </span>push
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="c1"># 4. Create GitHub release</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>gh<span class="w"> </span>release<span class="w"> </span>create<span class="w"> </span>v0.6.3<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="w">  </span>--title<span class="w"> </span><span class="s2">&quot;v0.6.3 - StatusLine System&quot;</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="w">  </span>--notes-file<span class="w"> </span>&lt;<span class="o">(</span>sed<span class="w"> </span>-n<span class="w"> </span><span class="s1">&#39;/## \[0.6.3\]/,/## \[0.6.0\]/p&#39;</span><span class="w"> </span>CHANGELOG.md<span class="o">)</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="c1"># 5. ✅ DONE! Everything happens automatically:</span>
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="c1">#    ✓ PyPI publish (30 seconds)</span>
+<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="c1">#    ✓ Homebrew formula update (2 minutes)</span>
+<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a><span class="c1">#    ✓ Documentation deploy (1 minute)</span>
+</code></pre></div>
+<p><strong>What happens automatically:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>gh release create v0.6.3
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>  │
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>  ├─&gt; Triggers: .github/workflows/pypi-release.yml
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>  │     ├─ Checkout code
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>  │     ├─ Install uv
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>  │     ├─ Build package (uv build)
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>  │     └─ Publish to PyPI (trusted publisher)
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>  │        ✅ No tokens needed!
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>  │        ✅ OIDC authentication
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>  │        ✅ Secure &amp; automatic
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>  │
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>  ├─&gt; Triggers: .github/workflows/homebrew-release.yml
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>  │     ├─ Download release tarball
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>  │     ├─ Calculate SHA256
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>  │     ├─ Clone Data-Wise/homebrew-tap
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>  │     ├─ Update Formula/aiterm.rb
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>  │     ├─ Create PR
+<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>  │     └─ Auto-merge PR
+<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>  │        ✅ Formula updated automatically!
+<a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a>  │
+<a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a>  └─&gt; Triggers: .github/workflows/docs.yml
+<a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a>        ├─ Build docs (mkdocs build --strict)
+<a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a>        └─ Deploy to GitHub Pages
+<a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a>           ✅ https://data-wise.github.io/aiterm/
+</code></pre></div>
+<hr />
+<h3 id="path-2-cli-commands-manual-control">Path 2: CLI Commands (Manual Control)</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># Full manual workflow</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>ait<span class="w"> </span>release<span class="w"> </span>full<span class="w"> </span><span class="m">0</span>.6.3
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="c1"># What it does:</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="c1">#   1. check      - Validate readiness</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="c1">#   2. tag        - Create git tag</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="c1">#   3. push       - Push tag to GitHub</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="c1">#   4. pypi       - Publish to PyPI (LOCAL)</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="c1">#   5. homebrew   - Update formula (CREATES PR, NO AUTO-MERGE)</span>
+</code></pre></div>
+<p><strong>Problems with this approach:</strong></p>
+<ol>
+<li><strong>PyPI:</strong> Uses local credentials (twine/uv)</li>
+<li>Requires PyPI API token in environment</li>
+<li>Less secure than trusted publishing</li>
+<li>
+<p>Token can expire</p>
+</li>
+<li>
+<p><strong>Homebrew:</strong> Only creates PR, doesn't merge</p>
+</li>
+<li>You must manually merge the PR</li>
+<li>
+<p>Extra step, easy to forget</p>
+</li>
+<li>
+<p><strong>No parallel execution</strong></p>
+</li>
+<li>Steps run sequentially</li>
+<li>
+<p>Slower than GitHub Actions</p>
+</li>
+<li>
+<p><strong>Local dependencies</strong></p>
+</li>
+<li>Requires <code>uv</code>, <code>twine</code> installed</li>
+<li>Requires <code>gh</code> CLI for Homebrew update</li>
+<li>Requires clean git state</li>
+</ol>
+<hr />
+<h2 id="why-github-actions-is-better">Why GitHub Actions is Better</h2>
+<h3 id="security-trusted-publishing">🔐 Security: Trusted Publishing</h3>
+<p><strong>GitHub Actions:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># No tokens needed!</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="nt">environment</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pypi</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="nt">permissions</span><span class="p">:</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">  </span><span class="nt">id-token</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">write</span><span class="w">  </span><span class="c1"># OIDC authentication</span>
+</code></pre></div></p>
 <ul>
-<li><strong>Pipeline Visualization</strong> - See your feature branches in a tree view</li>
-<li><strong>Worktree Integration</strong> - Parallel development with git worktrees</li>
-<li><strong>Dependency Automation</strong> - Auto-install deps when creating branches</li>
-<li><strong>PR Automation</strong> - Create PRs to dev (promote) and main (release)</li>
-<li><strong>Cleanup Tools</strong> - Remove merged branches and worktrees</li>
+<li>Uses PyPI Trusted Publishers</li>
+<li>OIDC authentication (OpenID Connect)</li>
+<li>No API tokens to leak or expire</li>
+<li>Configured once at: https://pypi.org/manage/account/publishing/</li>
 </ul>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>ait<span class="w"> </span>feature<span class="w"> </span>status<span class="w">    </span><span class="c1"># Show pipeline</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>ait<span class="w"> </span>feature<span class="w"> </span>list<span class="w">      </span><span class="c1"># List all features</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>ait<span class="w"> </span>feature<span class="w"> </span>start<span class="w">     </span><span class="c1"># Create new feature</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>ait<span class="w"> </span>feature<span class="w"> </span>promote<span class="w">   </span><span class="c1"># Create PR to dev</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>ait<span class="w"> </span>feature<span class="w"> </span>release<span class="w">   </span><span class="c1"># Create PR from dev to main</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>ait<span class="w"> </span>feature<span class="w"> </span>cleanup<span class="w">   </span><span class="c1"># Remove merged</span>
-</code></pre></div>
-<hr />
-<h2 id="commands">Commands</h2>
-<h3 id="ait-feature-status"><code>ait feature status</code></h3>
-<p>Show a rich pipeline visualization of your feature branches.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>ait<span class="w"> </span>feature<span class="w"> </span>status
-</code></pre></div>
-<p><strong>Output:</strong>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>╭──────────────────────────────────────────────────────────────────────────────╮
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>│ my-project - Feature Pipeline                                                │
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>╰──────────────────────────────────────────────────────────────────────────────╯
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>main
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>└── dev
-<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>    ├── ● feature/auth +3
-<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>    ├── ○ feature/api-v2 +12 📁 ~/.git-worktrees/my-project/api-v2
-<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>    ├── ○ feature/new-idea (new)
-<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>    └── ○ feature/old-feature (merged)
-<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>
-<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>Summary: 4 features (2 in progress, 1 new, 1 merged)
-<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>Tip: Run &#39;ait feature cleanup&#39; to remove merged branches
+<p><strong>CLI Commands:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># Requires environment variables</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="nb">export</span><span class="w"> </span><span class="nv">TWINE_USERNAME</span><span class="o">=</span>__token__
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="nb">export</span><span class="w"> </span><span class="nv">TWINE_PASSWORD</span><span class="o">=</span>pypi-xxx...<span class="w">  </span><span class="c1"># Can leak!</span>
 </code></pre></div></p>
-<p><strong>Legend:</strong></p>
-<table>
-<thead>
-<tr>
-<th>Symbol</th>
-<th>Meaning</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>●</code></td>
-<td>Current branch (you are here)</td>
-</tr>
-<tr>
-<td><code>○</code></td>
-<td>Other branch</td>
-</tr>
-<tr>
-<td><code>+N</code></td>
-<td>Commits ahead of dev</td>
-</tr>
-<tr>
-<td><code>(new)</code></td>
-<td>Just created, no commits yet</td>
-</tr>
-<tr>
-<td><code>(merged)</code></td>
-<td>Has commits that were merged into dev</td>
-</tr>
-<tr>
-<td><code>📁</code></td>
-<td>Has a worktree</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Branch States:</strong></p>
-<table>
-<thead>
-<tr>
-<th>State</th>
-<th>Description</th>
-<th>Action</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>active</strong></td>
-<td>Has commits ahead of dev</td>
-<td>Keep working</td>
-</tr>
-<tr>
-<td><strong>new</strong></td>
-<td>Just created, 0 commits</td>
-<td>Start adding commits</td>
-</tr>
-<tr>
-<td><strong>merged</strong></td>
-<td>All commits merged to dev</td>
-<td>Safe to cleanup</td>
-</tr>
-</tbody>
-</table>
+<h3 id="speed-parallel-execution">⚡ Speed: Parallel Execution</h3>
+<p><strong>GitHub Actions:</strong>
+- PyPI and Homebrew workflows run <strong>in parallel</strong>
+- Total time: ~2 minutes (longest workflow)</p>
+<p><strong>CLI Commands:</strong>
+- Steps run <strong>sequentially</strong>
+- Total time: ~5 minutes (sum of all steps)</p>
+<h3 id="reliability-automatic-everything">🎯 Reliability: Automatic Everything</h3>
+<p><strong>GitHub Actions:</strong>
+| Step | Status |
+|------|--------|
+| PyPI publish | ✅ Automatic |
+| Homebrew PR | ✅ Automatic |
+| Homebrew merge | ✅ <strong>Automatic</strong> |
+| Docs deploy | ✅ Automatic |</p>
+<p><strong>CLI Commands:</strong>
+| Step | Status |
+|------|--------|
+| PyPI publish | ⚠️ Manual (local) |
+| Homebrew PR | ⚠️ Manual (creates PR) |
+| Homebrew merge | ❌ <strong>Manual</strong> (you merge) |
+| Docs deploy | ❌ Not triggered |</p>
 <hr />
-<h3 id="ait-feature-list"><code>ait feature list</code></h3>
-<p>List feature branches with detailed information.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># List active features only</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>ait<span class="w"> </span>feature<span class="w"> </span>list
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="c1"># Include merged features</span>
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>ait<span class="w"> </span>feature<span class="w"> </span>list<span class="w"> </span>--all
-</code></pre></div>
-<p><strong>Output:</strong>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>                                Feature Branches
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>┏━━━━┳━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━┳━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>┃    ┃ Branch              ┃ Commits ┃ Status ┃ Worktree                       ┃
-<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>┡━━━━╇━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━╇━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
-<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>│ ●  │ feature/auth        │       3 │ active │ -                              │
-<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>│ ○  │ feature/api-v2      │      12 │ active │ ~/.git-worktrees/project/api-v2│
-<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>│ ○  │ feature/new-idea    │       - │ new    │ -                              │
-<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>└────┴─────────────────────┴─────────┴────────┴────────────────────────────────┘
-</code></pre></div></p>
-<p><strong>Status Values:</strong></p>
-<table>
-<thead>
-<tr>
-<th>Status</th>
-<th>Color</th>
-<th>Meaning</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>active</code></td>
-<td>green</td>
-<td>Has commits, work in progress</td>
-</tr>
-<tr>
-<td><code>new</code></td>
-<td>cyan</td>
-<td>Just created, no commits yet</td>
-</tr>
-<tr>
-<td><code>merged</code></td>
-<td>yellow</td>
-<td>Ready for cleanup</td>
-</tr>
-</tbody>
-</table>
+<h2 id="when-to-use-each-method">When to Use Each Method</h2>
+<h3 id="use-github-actions-gh-release-create-for">Use GitHub Actions (<code>gh release create</code>) for:</h3>
+<p>✅ <strong>Production releases</strong> - Always
+✅ <strong>Security</strong> - Trusted publishing, no tokens
+✅ <strong>Automation</strong> - Zero manual steps
+✅ <strong>Team workflows</strong> - Anyone can release
+✅ <strong>CI/CD integration</strong> - Hooks into existing workflows</p>
+<h3 id="use-cli-commands-ait-release-for">Use CLI Commands (<code>ait release *</code>) for:</h3>
+<p>⚠️ <strong>Testing</strong> - Before creating actual release
+⚠️ <strong>Dry runs</strong> - Preview what would happen
+⚠️ <strong>Debugging</strong> - When automation fails
+⚠️ <strong>Local development</strong> - Quick PyPI publish for testing
+⚠️ <strong>Partial updates</strong> - Only PyPI or only Homebrew</p>
 <hr />
-<h3 id="ait-feature-start"><code>ait feature start</code></h3>
-<p>Create a new feature branch with optional worktree and dependency installation.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1"># Basic: create feature/my-feature from dev</span>
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>ait<span class="w"> </span>feature<span class="w"> </span>start<span class="w"> </span>my-feature
-<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>
-<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="c1"># With worktree: parallel development</span>
-<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>ait<span class="w"> </span>feature<span class="w"> </span>start<span class="w"> </span>my-feature<span class="w"> </span>--worktree
-<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>
-<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="c1"># Skip dependency installation</span>
-<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>ait<span class="w"> </span>feature<span class="w"> </span>start<span class="w"> </span>my-feature<span class="w"> </span>--no-install
+<h2 id="complete-workflow-examples">Complete Workflow Examples</h2>
+<h3 id="production-release-recommended">Production Release (Recommended)</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1"># 1. Prepare release</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>vim<span class="w"> </span>pyproject.toml<span class="w">  </span><span class="c1"># Bump version to 0.6.3</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>vim<span class="w"> </span>CHANGELOG.md<span class="w">    </span><span class="c1"># Add v0.6.3 entry</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="c1"># 2. Commit</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>git<span class="w"> </span>add<span class="w"> </span>pyproject.toml<span class="w"> </span>CHANGELOG.md
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;chore: bump version to 0.6.3&quot;</span>
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>git<span class="w"> </span>push
 <a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>
-<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="c1"># Start from different base branch</span>
-<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>ait<span class="w"> </span>feature<span class="w"> </span>start<span class="w"> </span>hotfix<span class="w"> </span>--base<span class="w"> </span>main
+<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="c1"># 3. Create release (triggers everything)</span>
+<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>gh<span class="w"> </span>release<span class="w"> </span>create<span class="w"> </span>v0.6.3<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="w">  </span>--title<span class="w"> </span><span class="s2">&quot;v0.6.3 - StatusLine System &amp; CI Improvements&quot;</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a><span class="w">  </span>--notes<span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span>cat<span class="w"> </span><span class="s">&lt;&lt;&#39;EOF&#39;</span>
+<a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a><span class="s">## Major Features</span>
+<a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a><span class="s">- StatusLine system (32 config options)</span>
+<a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a><span class="s">- Feature workflow enhancements</span>
+<a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a><span class="s">- CI improvements (849 tests)</span>
+<a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a>
+<a id="__codelineno-5-19" name="__codelineno-5-19" href="#__codelineno-5-19"></a><span class="s">See CHANGELOG.md for details.</span>
+<a id="__codelineno-5-20" name="__codelineno-5-20" href="#__codelineno-5-20"></a><span class="s">EOF</span>
+<a id="__codelineno-5-21" name="__codelineno-5-21" href="#__codelineno-5-21"></a><span class="k">)</span><span class="s2">&quot;</span>
+<a id="__codelineno-5-22" name="__codelineno-5-22" href="#__codelineno-5-22"></a>
+<a id="__codelineno-5-23" name="__codelineno-5-23" href="#__codelineno-5-23"></a><span class="c1"># 4. Wait ~2 minutes, verify:</span>
+<a id="__codelineno-5-24" name="__codelineno-5-24" href="#__codelineno-5-24"></a><span class="c1">#    ✓ PyPI: https://pypi.org/project/aiterm-dev/0.6.3/</span>
+<a id="__codelineno-5-25" name="__codelineno-5-25" href="#__codelineno-5-25"></a><span class="c1">#    ✓ Homebrew: brew upgrade data-wise/tap/aiterm</span>
+<a id="__codelineno-5-26" name="__codelineno-5-26" href="#__codelineno-5-26"></a><span class="c1">#    ✓ Docs: https://data-wise.github.io/aiterm/</span>
+<a id="__codelineno-5-27" name="__codelineno-5-27" href="#__codelineno-5-27"></a>
+<a id="__codelineno-5-28" name="__codelineno-5-28" href="#__codelineno-5-28"></a><span class="c1"># 5. ✅ DONE!</span>
 </code></pre></div>
-<p><strong>Options:</strong></p>
-<table>
-<thead>
-<tr>
-<th>Option</th>
-<th>Short</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>--worktree</code></td>
-<td><code>-w</code></td>
-<td>Create in a git worktree at <code>~/.git-worktrees/&lt;project&gt;/&lt;name&gt;</code></td>
-</tr>
-<tr>
-<td><code>--no-install</code></td>
-<td></td>
-<td>Skip automatic dependency installation</td>
-</tr>
-<tr>
-<td><code>--base</code></td>
-<td><code>-b</code></td>
-<td>Base branch (default: <code>dev</code>)</td>
-</tr>
-</tbody>
-</table>
-<p><strong>What it does:</strong></p>
-<ol>
-<li>Fetches latest from origin</li>
-<li>Creates <code>feature/&lt;name&gt;</code> branch from base</li>
-<li>(Optional) Creates worktree at <code>~/.git-worktrees/&lt;project&gt;/&lt;name&gt;</code></li>
-<li>(Optional) Installs dependencies based on project type:</li>
-<li><strong>Python</strong>: <code>uv sync</code> or <code>pip install -r requirements.txt</code></li>
-<li><strong>Node</strong>: <code>bun install</code>, <code>pnpm install</code>, or <code>npm install</code></li>
-<li><strong>R</strong>: Detects <code>DESCRIPTION</code> file (deps via renv/pak)</li>
-</ol>
-<hr />
-<h3 id="ait-feature-cleanup"><code>ait feature cleanup</code></h3>
-<p>Interactively clean up merged feature branches and their worktrees.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1"># Interactive cleanup</span>
-<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>ait<span class="w"> </span>feature<span class="w"> </span>cleanup
+<h3 id="testing-before-release">Testing Before Release</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1"># Check readiness</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>ait<span class="w"> </span>release<span class="w"> </span>check
 <a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>
-<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="c1"># Preview what would be deleted</span>
-<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>ait<span class="w"> </span>feature<span class="w"> </span>cleanup<span class="w"> </span>--dry-run
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="c1"># Preview what would happen</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>ait<span class="w"> </span>release<span class="w"> </span>full<span class="w"> </span><span class="m">0</span>.6.3<span class="w"> </span>--dry-run
 <a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>
-<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="c1"># Delete without confirmation</span>
-<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>ait<span class="w"> </span>feature<span class="w"> </span>cleanup<span class="w"> </span>--force
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="c1"># Test PyPI publish (to test instance)</span>
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>ait<span class="w"> </span>release<span class="w"> </span>pypi<span class="w"> </span>--repository<span class="w"> </span>testpypi
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>
+<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="c1"># If everything looks good, do the real release:</span>
+<a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>gh<span class="w"> </span>release<span class="w"> </span>create<span class="w"> </span>v0.6.3<span class="w"> </span>...
 </code></pre></div>
-<p><strong>Options:</strong></p>
-<table>
-<thead>
-<tr>
-<th>Option</th>
-<th>Short</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>--dry-run</code></td>
-<td><code>-n</code></td>
-<td>Show what would be deleted without making changes</td>
-</tr>
-<tr>
-<td><code>--force</code></td>
-<td><code>-f</code></td>
-<td>Delete without confirmation prompt</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Example output:</strong>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>Found 2 merged feature branches:
-<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>
-<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>┏━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>┃ Branch                    ┃ Worktree                                       ┃
-<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>┡━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
-<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>│ feature/old-auth          │ ~/.git-worktrees/project/old-auth              │
-<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>│ feature/deprecated-api    │ -                                              │
-<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>└───────────────────────────┴────────────────────────────────────────────────┘
-<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>
-<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>Delete these branches? [y/N]: y
-<a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a>Removing worktree: ~/.git-worktrees/project/old-auth
-<a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a>Deleting branch: feature/old-auth
-<a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a>Deleting branch: feature/deprecated-api
-<a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a>
-<a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a>✓ Cleaned up 2 merged branches.
+<h3 id="emergency-manual-release">Emergency Manual Release</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1"># If GitHub Actions are down or broken</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>ait<span class="w"> </span>release<span class="w"> </span>full<span class="w"> </span><span class="m">0</span>.6.3
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="c1"># Then manually:</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="c1"># 1. Go to https://github.com/Data-Wise/homebrew-tap/pulls</span>
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="c1"># 2. Find the PR for v0.6.3</span>
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="c1"># 3. Review and merge</span>
+</code></pre></div>
+<hr />
+<h2 id="troubleshooting">Troubleshooting</h2>
+<h3 id="pypi-publish-fails">PyPI Publish Fails</h3>
+<p><strong>Check trusted publisher configuration:</strong></p>
+<ol>
+<li>Go to https://pypi.org/manage/account/publishing/</li>
+<li>Verify publisher for <code>aiterm-dev</code>:</li>
+<li>Owner: <code>Data-Wise</code></li>
+<li>Repository: <code>aiterm</code></li>
+<li>Workflow: <code>pypi-release.yml</code></li>
+<li>Environment: <code>pypi</code></li>
+</ol>
+<p><strong>If misconfigured:</strong> Update settings and re-run workflow:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>gh<span class="w"> </span>run<span class="w"> </span>rerun<span class="w"> </span>&lt;run-id&gt;<span class="w"> </span>--repo<span class="w"> </span>Data-Wise/aiterm
 </code></pre></div></p>
+<h3 id="homebrew-pr-not-created">Homebrew PR Not Created</h3>
+<p><strong>Check workflow logs:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>gh<span class="w"> </span>run<span class="w"> </span>list<span class="w"> </span>--workflow<span class="o">=</span>homebrew-release.yml<span class="w"> </span>--limit<span class="w"> </span><span class="m">5</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>gh<span class="w"> </span>run<span class="w"> </span>view<span class="w"> </span>&lt;run-id&gt;<span class="w"> </span>--log
+</code></pre></div></p>
+<p><strong>Common issues:</strong>
+- SHA256 calculation failed (tarball not available)
+- Token expired (update <code>HOMEBREW_TAP_GITHUB_TOKEN</code>)
+- Formula syntax error (check homebrew-tap repo)</p>
+<p><strong>Manual fix:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="c1"># Run manually</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>gh<span class="w"> </span>workflow<span class="w"> </span>run<span class="w"> </span>homebrew-release.yml<span class="w"> </span>-f<span class="w"> </span><span class="nv">version</span><span class="o">=</span><span class="m">0</span>.6.3
+</code></pre></div></p>
+<h3 id="homebrew-pr-not-auto-merged">Homebrew PR Not Auto-Merged</h3>
+<p><strong>Check auto-merge setting:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="c1"># .github/workflows/homebrew-release.yml</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="nt">auto_merge</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w">  </span><span class="c1"># Should be true</span>
+</code></pre></div></p>
+<p><strong>If disabled:</strong> Manually merge at:
+https://github.com/Data-Wise/homebrew-tap/pulls</p>
 <hr />
-<h3 id="ait-feature-promote"><code>ait feature promote</code></h3>
-<p>Create a pull request from your feature branch to dev.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="c1"># Create PR from current feature branch to dev</span>
-<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>ait<span class="w"> </span>feature<span class="w"> </span>promote
-<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>
-<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="c1"># Create as draft PR</span>
-<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>ait<span class="w"> </span>feature<span class="w"> </span>promote<span class="w"> </span>--draft
-<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>
-<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="c1"># Custom title</span>
-<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>ait<span class="w"> </span>feature<span class="w"> </span>promote<span class="w"> </span>--title<span class="w"> </span><span class="s2">&quot;Add authentication system&quot;</span>
-<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>
-<a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a><span class="c1"># Target different base branch</span>
-<a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a>ait<span class="w"> </span>feature<span class="w"> </span>promote<span class="w"> </span>--base<span class="w"> </span>main
-<a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a>
-<a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a><span class="c1"># Open PR in browser after creation</span>
-<a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a>ait<span class="w"> </span>feature<span class="w"> </span>promote<span class="w"> </span>--web
+<h2 id="cli-command-reference">CLI Command Reference</h2>
+<h3 id="individual-commands">Individual Commands</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="c1"># Validate release readiness</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>ait<span class="w"> </span>release<span class="w"> </span>check
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="w">  </span>✓<span class="w"> </span>Version<span class="w"> </span><span class="k">in</span><span class="w"> </span>pyproject.toml
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="w">  </span>✓<span class="w"> </span>Git<span class="w"> </span>clean<span class="w"> </span>state
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="w">  </span>✓<span class="w"> </span>All<span class="w"> </span>tests<span class="w"> </span>passing
+<a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a><span class="w">  </span>✓<span class="w"> </span>CHANGELOG.md<span class="w"> </span>updated
+<a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a>
+<a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a><span class="c1"># Show current state</span>
+<a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a>ait<span class="w"> </span>release<span class="w"> </span>status
+<a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a><span class="w">  </span>Current:<span class="w"> </span>v0.6.2
+<a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a><span class="w">  </span>Latest<span class="w"> </span>tag:<span class="w"> </span>v0.6.2
+<a id="__codelineno-12-12" name="__codelineno-12-12" href="#__codelineno-12-12"></a><span class="w">  </span>Commits<span class="w"> </span>since:<span class="w"> </span><span class="m">15</span>
+<a id="__codelineno-12-13" name="__codelineno-12-13" href="#__codelineno-12-13"></a><span class="w">  </span>Ready:<span class="w"> </span>Yes
+<a id="__codelineno-12-14" name="__codelineno-12-14" href="#__codelineno-12-14"></a>
+<a id="__codelineno-12-15" name="__codelineno-12-15" href="#__codelineno-12-15"></a><span class="c1"># Create git tag</span>
+<a id="__codelineno-12-16" name="__codelineno-12-16" href="#__codelineno-12-16"></a>ait<span class="w"> </span>release<span class="w"> </span>tag<span class="w"> </span><span class="m">0</span>.6.3
+<a id="__codelineno-12-17" name="__codelineno-12-17" href="#__codelineno-12-17"></a><span class="w">  </span>✓<span class="w"> </span>Created<span class="w"> </span>v0.6.3
+<a id="__codelineno-12-18" name="__codelineno-12-18" href="#__codelineno-12-18"></a><span class="w">  </span>✓<span class="w"> </span>Pushed<span class="w"> </span>to<span class="w"> </span>origin
+<a id="__codelineno-12-19" name="__codelineno-12-19" href="#__codelineno-12-19"></a>
+<a id="__codelineno-12-20" name="__codelineno-12-20" href="#__codelineno-12-20"></a><span class="c1"># Generate release notes</span>
+<a id="__codelineno-12-21" name="__codelineno-12-21" href="#__codelineno-12-21"></a>ait<span class="w"> </span>release<span class="w"> </span>notes
+<a id="__codelineno-12-22" name="__codelineno-12-22" href="#__codelineno-12-22"></a><span class="w">  </span><span class="c1">## Changes since v0.6.2</span>
+<a id="__codelineno-12-23" name="__codelineno-12-23" href="#__codelineno-12-23"></a><span class="w">  </span>-<span class="w"> </span>feat<span class="o">(</span>statusline<span class="o">)</span>:<span class="w"> </span>add<span class="w"> </span>worktree<span class="w"> </span>display
+<a id="__codelineno-12-24" name="__codelineno-12-24" href="#__codelineno-12-24"></a><span class="w">  </span>-<span class="w"> </span>ci<span class="o">(</span>docs<span class="o">)</span>:<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>strict<span class="w"> </span>mode
+<a id="__codelineno-12-25" name="__codelineno-12-25" href="#__codelineno-12-25"></a><span class="w">  </span>...
+<a id="__codelineno-12-26" name="__codelineno-12-26" href="#__codelineno-12-26"></a>
+<a id="__codelineno-12-27" name="__codelineno-12-27" href="#__codelineno-12-27"></a><span class="c1"># Publish to PyPI</span>
+<a id="__codelineno-12-28" name="__codelineno-12-28" href="#__codelineno-12-28"></a>ait<span class="w"> </span>release<span class="w"> </span>pypi
+<a id="__codelineno-12-29" name="__codelineno-12-29" href="#__codelineno-12-29"></a><span class="w">  </span>Building...
+<a id="__codelineno-12-30" name="__codelineno-12-30" href="#__codelineno-12-30"></a><span class="w">  </span>✓<span class="w"> </span>Built<span class="w"> </span>dist/aiterm_dev-0.6.3.tar.gz
+<a id="__codelineno-12-31" name="__codelineno-12-31" href="#__codelineno-12-31"></a><span class="w">  </span>Publishing...
+<a id="__codelineno-12-32" name="__codelineno-12-32" href="#__codelineno-12-32"></a><span class="w">  </span>✓<span class="w"> </span>Published<span class="w"> </span>to<span class="w"> </span>PyPI
+<a id="__codelineno-12-33" name="__codelineno-12-33" href="#__codelineno-12-33"></a>
+<a id="__codelineno-12-34" name="__codelineno-12-34" href="#__codelineno-12-34"></a><span class="c1"># Update Homebrew formula</span>
+<a id="__codelineno-12-35" name="__codelineno-12-35" href="#__codelineno-12-35"></a>ait<span class="w"> </span>release<span class="w"> </span>homebrew
+<a id="__codelineno-12-36" name="__codelineno-12-36" href="#__codelineno-12-36"></a><span class="w">  </span>✓<span class="w"> </span>Calculated<span class="w"> </span>SHA256
+<a id="__codelineno-12-37" name="__codelineno-12-37" href="#__codelineno-12-37"></a><span class="w">  </span>✓<span class="w"> </span>Created<span class="w"> </span>PR<span class="w"> </span><span class="k">in</span><span class="w"> </span>homebrew-tap
+<a id="__codelineno-12-38" name="__codelineno-12-38" href="#__codelineno-12-38"></a><span class="w">  </span>→<span class="w"> </span>Merge<span class="w"> </span>at:<span class="w"> </span>https://github.com/Data-Wise/homebrew-tap/pulls/42
+<a id="__codelineno-12-39" name="__codelineno-12-39" href="#__codelineno-12-39"></a>
+<a id="__codelineno-12-40" name="__codelineno-12-40" href="#__codelineno-12-40"></a><span class="c1"># Full workflow</span>
+<a id="__codelineno-12-41" name="__codelineno-12-41" href="#__codelineno-12-41"></a>ait<span class="w"> </span>release<span class="w"> </span>full<span class="w"> </span><span class="m">0</span>.6.3
+<a id="__codelineno-12-42" name="__codelineno-12-42" href="#__codelineno-12-42"></a><span class="w">  </span><span class="c1"># Runs all steps above</span>
 </code></pre></div>
-<p><strong>Options:</strong></p>
-<table>
-<thead>
-<tr>
-<th>Option</th>
-<th>Short</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>--draft</code></td>
-<td><code>-d</code></td>
-<td>Create as draft PR</td>
-</tr>
-<tr>
-<td><code>--title</code></td>
-<td><code>-t</code></td>
-<td>PR title (default: branch name)</td>
-</tr>
-<tr>
-<td><code>--base</code></td>
-<td><code>-b</code></td>
-<td>Target branch (default: <code>dev</code>)</td>
-</tr>
-<tr>
-<td><code>--web</code></td>
-<td><code>-w</code></td>
-<td>Open PR in browser after creation</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Requirements:</strong></p>
-<ul>
-<li>GitHub CLI (<code>gh</code>) must be installed and authenticated</li>
-<li>Must be on a feature branch (starts with <code>feature/</code> or <code>feat/</code>)</li>
-</ul>
-<p><strong>What it does:</strong></p>
-<ol>
-<li>Checks if PR already exists for the branch</li>
-<li>Pushes current branch to origin</li>
-<li>Creates PR with commit summary as body</li>
-<li>Optionally opens in browser</li>
-</ol>
-<hr />
-<h3 id="ait-feature-release"><code>ait feature release</code></h3>
-<p>Create a release PR from dev to main.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="c1"># Create release PR from dev to main</span>
-<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>ait<span class="w"> </span>feature<span class="w"> </span>release
-<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>
-<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="c1"># Create as draft PR</span>
-<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>ait<span class="w"> </span>feature<span class="w"> </span>release<span class="w"> </span>--draft
-<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>
-<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="c1"># Custom title</span>
-<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>ait<span class="w"> </span>feature<span class="w"> </span>release<span class="w"> </span>--title<span class="w"> </span><span class="s2">&quot;v1.0.0 Release&quot;</span>
-<a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>
-<a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a><span class="c1"># Open PR in browser after creation</span>
-<a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a>ait<span class="w"> </span>feature<span class="w"> </span>release<span class="w"> </span>--web
-</code></pre></div>
-<p><strong>Options:</strong></p>
-<table>
-<thead>
-<tr>
-<th>Option</th>
-<th>Short</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>--draft</code></td>
-<td><code>-d</code></td>
-<td>Create as draft PR</td>
-</tr>
-<tr>
-<td><code>--title</code></td>
-<td><code>-t</code></td>
-<td>PR title (default: "Release: merge dev to main")</td>
-</tr>
-<tr>
-<td><code>--body</code></td>
-<td><code>-b</code></td>
-<td>Custom PR body</td>
-</tr>
-<tr>
-<td><code>--web</code></td>
-<td><code>-w</code></td>
-<td>Open PR in browser after creation</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Requirements:</strong></p>
-<ul>
-<li>GitHub CLI (<code>gh</code>) must be installed and authenticated</li>
-<li>Should be on <code>dev</code> branch (warns if not)</li>
-</ul>
-<p><strong>What it does:</strong></p>
-<ol>
-<li>Checks if release PR already exists</li>
-<li>Fetches latest changes from origin</li>
-<li>Shows commits to be merged</li>
-<li>Pushes dev to origin</li>
-<li>Creates PR with commit summary</li>
-<li>Optionally opens in browser</li>
-</ol>
-<hr />
-<h2 id="workflow-examples">Workflow Examples</h2>
-<h3 id="starting-a-new-feature">Starting a New Feature</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="c1"># 1. Start feature with worktree</span>
-<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>ait<span class="w"> </span>feature<span class="w"> </span>start<span class="w"> </span>auth-redesign<span class="w"> </span>--worktree
-<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>
-<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="c1"># 2. Navigate to worktree</span>
-<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="nb">cd</span><span class="w"> </span>~/.git-worktrees/my-project/auth-redesign
-<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>
-<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="c1"># 3. Start Claude Code in worktree</span>
-<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>claude
-<a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a>
-<a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a><span class="c1"># 4. Work on feature...</span>
-</code></pre></div>
-<h3 id="checking-feature-status">Checking Feature Status</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="c1"># Quick pipeline view</span>
-<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>ait<span class="w"> </span>feature<span class="w"> </span>status
-<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>
-<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="c1"># Detailed list with worktrees</span>
-<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>ait<span class="w"> </span>feature<span class="w"> </span>list
-</code></pre></div>
-<h3 id="promoting-a-feature">Promoting a Feature</h3>
-<p>When your feature is ready for review:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="c1"># 1. Check your feature status</span>
-<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>ait<span class="w"> </span>feature<span class="w"> </span>status
-<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>
-<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="c1"># 2. Create PR to dev branch</span>
-<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>ait<span class="w"> </span>feature<span class="w"> </span>promote
-<a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>
-<a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="c1"># 3. Or create as draft for early feedback</span>
-<a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a>ait<span class="w"> </span>feature<span class="w"> </span>promote<span class="w"> </span>--draft<span class="w"> </span>--web
-</code></pre></div>
-<h3 id="making-a-release">Making a Release</h3>
-<p>When dev is ready to merge to main:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="c1"># 1. Switch to dev branch</span>
-<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>git<span class="w"> </span>checkout<span class="w"> </span>dev
+<h3 id="flags">Flags</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="c1"># Dry run (preview only)</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>ait<span class="w"> </span>release<span class="w"> </span>full<span class="w"> </span><span class="m">0</span>.6.3<span class="w"> </span>--dry-run
 <a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>
-<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="c1"># 2. Check what will be released</span>
-<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>ait<span class="w"> </span>feature<span class="w"> </span>release<span class="w"> </span>--dry-run<span class="w">  </span><span class="c1"># Coming soon</span>
-<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>
-<a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="c1"># 3. Create release PR</span>
-<a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a>ait<span class="w"> </span>feature<span class="w"> </span>release
-<a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a>
-<a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a><span class="c1"># 4. Or create with custom title</span>
-<a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a>ait<span class="w"> </span>feature<span class="w"> </span>release<span class="w"> </span>--title<span class="w"> </span><span class="s2">&quot;v1.0.0 Release&quot;</span><span class="w"> </span>--web
-</code></pre></div>
-<h3 id="after-merging-a-pr">After Merging a PR</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="c1"># Clean up merged branches</span>
-<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>ait<span class="w"> </span>feature<span class="w"> </span>cleanup
-<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>
-<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="c1"># Or preview first</span>
-<a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>ait<span class="w"> </span>feature<span class="w"> </span>cleanup<span class="w"> </span>--dry-run
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="c1"># Skip specific steps</span>
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>ait<span class="w"> </span>release<span class="w"> </span>full<span class="w"> </span><span class="m">0</span>.6.3<span class="w"> </span>--skip-tests
+<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>ait<span class="w"> </span>release<span class="w"> </span>full<span class="w"> </span><span class="m">0</span>.6.3<span class="w"> </span>--skip-homebrew
+<a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a>
+<a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a><span class="c1"># PyPI repository</span>
+<a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a>ait<span class="w"> </span>release<span class="w"> </span>pypi<span class="w"> </span>--repository<span class="w"> </span>testpypi
 </code></pre></div>
 <hr />
-<h2 id="the-3-layer-architecture">The 3-Layer Architecture</h2>
-<p>Choose the right tool for the task:</p>
-<pre class="mermaid"><code>graph LR
-    subgraph LAYERS["Choose by Need"]
-        L1["🚀 flow-cli&lt;br/&gt;Instant (sub-10ms)"]
-        L2["📊 aiterm&lt;br/&gt;Rich visualization"]
-        L3["🤖 craft&lt;br/&gt;AI-assisted"]
-    end
-
-    L1 --&gt;|"Speed"| USE1["g feature start"]
-    L2 --&gt;|"Insight"| USE2["ait feature status"]
-    L3 --&gt;|"Automation"| USE3["/craft:git:worktree finish"]</code></pre>
-<h3 id="quick-reference">Quick Reference</h3>
+<h2 id="github-actions-configuration">GitHub Actions Configuration</h2>
+<h3 id="pypi-trusted-publisher-setup">PyPI Trusted Publisher Setup</h3>
+<p><strong>One-time setup at PyPI:</strong></p>
+<ol>
+<li>Go to: https://pypi.org/manage/account/publishing/</li>
+<li>Add pending publisher:</li>
+<li><strong>PyPI Project Name:</strong> <code>aiterm-dev</code></li>
+<li><strong>Owner:</strong> <code>Data-Wise</code></li>
+<li><strong>Repository name:</strong> <code>aiterm</code></li>
+<li><strong>Workflow name:</strong> <code>pypi-release.yml</code></li>
+<li>
+<p><strong>Environment name:</strong> <code>pypi</code></p>
+</li>
+<li>
+<p>Verify in workflow:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="nt">environment</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pypi</span><span class="w">  </span><span class="c1"># Must match!</span>
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="nt">permissions</span><span class="p">:</span>
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="w">  </span><span class="nt">id-token</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">write</span><span class="w">  </span><span class="c1"># Required for OIDC</span>
+</code></pre></div></p>
+</li>
+</ol>
+<h3 id="homebrew-token-setup">Homebrew Token Setup</h3>
+<p><strong>One-time setup in GitHub:</strong></p>
+<ol>
+<li>Create Personal Access Token at: https://github.com/settings/tokens</li>
+<li>Name: <code>HOMEBREW_TAP_GITHUB_TOKEN</code></li>
+<li>
+<p>Scopes: <code>repo</code> (full control)</p>
+</li>
+<li>
+<p>Add to repository secrets:</p>
+</li>
+<li>Go to: https://github.com/Data-Wise/aiterm/settings/secrets/actions</li>
+<li>New repository secret</li>
+<li>Name: <code>HOMEBREW_TAP_GITHUB_TOKEN</code></li>
+<li>
+<p>Value: <code>ghp_...</code> (your token)</p>
+</li>
+<li>
+<p>Verify in workflow:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="nt">secrets</span><span class="p">:</span>
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="w">  </span><span class="nt">tap_token</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ secrets.HOMEBREW_TAP_GITHUB_TOKEN }}</span>
+</code></pre></div></p>
+</li>
+</ol>
+<hr />
+<h2 id="best-practices">Best Practices</h2>
+<h3 id="version-management">Version Management</h3>
+<p><strong>Always update these together:</strong>
+1. <code>pyproject.toml</code> - Source of truth
+2. <code>CHANGELOG.md</code> - User-facing changelog
+3. <code>docs/REFCARD.md</code> - Quick reference version header</p>
+<p><strong>Script to check:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="c1"># Check version consistency</span>
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>grep<span class="w"> </span>version<span class="w"> </span>pyproject.toml
+<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>grep<span class="w"> </span><span class="s2">&quot;AITERM v&quot;</span><span class="w"> </span>docs/REFCARD.md
+<a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a>grep<span class="w"> </span><span class="s2">&quot;## \[&quot;</span><span class="w"> </span>CHANGELOG.md<span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-1
+</code></pre></div></p>
+<h3 id="release-checklist">Release Checklist</h3>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> All tests passing (<code>pytest</code>)</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Documentation updated</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> CHANGELOG.md has entry for new version</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Version bumped in <code>pyproject.toml</code></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> REFCARD.md version updated</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> CLAUDE.md current version updated</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Git working directory clean</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> On main branch</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Pulled latest changes</li>
+</ul>
+<h3 id="release-timing">Release Timing</h3>
+<p><strong>When to release:</strong>
+- ✅ Major feature complete
+- ✅ Bug fix ready
+- ✅ End of sprint/milestone
+- ✅ Breaking changes (bump major version)</p>
+<p><strong>When NOT to release:</strong>
+- ❌ Tests failing
+- ❌ Incomplete features
+- ❌ During active development
+- ❌ Breaking changes without version bump</p>
+<hr />
+<h2 id="summary">Summary</h2>
 <table>
 <thead>
 <tr>
-<th>Action</th>
-<th>flow-cli</th>
-<th>aiterm</th>
-<th>craft</th>
+<th>Aspect</th>
+<th>GitHub Actions</th>
+<th>CLI Commands</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Start feature</td>
-<td><code>g feature start NAME</code></td>
-<td><code>ait feature start NAME</code></td>
-<td><code>/craft:git:worktree create</code></td>
+<td><strong>Security</strong></td>
+<td>✅ Trusted publishing</td>
+<td>⚠️ Local tokens</td>
 </tr>
 <tr>
-<td>With worktree</td>
-<td><code>g feature start NAME -w</code></td>
-<td><code>ait feature start NAME --worktree</code></td>
-<td><code>/craft:git:worktree create</code></td>
+<td><strong>Speed</strong></td>
+<td>✅ Parallel execution</td>
+<td>⚠️ Sequential</td>
 </tr>
 <tr>
-<td>Check status</td>
-<td><code>g status</code></td>
-<td><code>ait feature status</code></td>
-<td>-</td>
+<td><strong>Automation</strong></td>
+<td>✅ Fully automatic</td>
+<td>⚠️ Manual steps</td>
 </tr>
 <tr>
-<td>List features</td>
-<td><code>g feature list</code></td>
-<td><code>ait feature list</code></td>
-<td>-</td>
+<td><strong>Reliability</strong></td>
+<td>✅ CI environment</td>
+<td>⚠️ Local dependencies</td>
 </tr>
 <tr>
-<td>PR to dev</td>
-<td><code>g feature pr</code></td>
-<td><code>ait feature promote</code></td>
-<td><code>/craft:git:worktree finish</code></td>
+<td><strong>Homebrew</strong></td>
+<td>✅ Auto-merge</td>
+<td>❌ Manual merge</td>
 </tr>
 <tr>
-<td>PR dev→main</td>
-<td>-</td>
-<td><code>ait feature release</code></td>
-<td>-</td>
+<td><strong>Docs</strong></td>
+<td>✅ Auto-deploy</td>
+<td>❌ Not triggered</td>
 </tr>
 <tr>
-<td>Cleanup</td>
-<td><code>g feature prune</code></td>
-<td><code>ait feature cleanup</code></td>
-<td><code>/craft:git:worktree clean</code></td>
+<td><strong>Use case</strong></td>
+<td><strong>Production</strong></td>
+<td>Testing/debugging</td>
 </tr>
 </tbody>
 </table>
-<h3 id="craft-integration">craft Integration</h3>
-<p>Use <code>/craft:git:worktree finish</code> for AI-assisted feature completion:</p>
-<ol>
-<li><strong>Run Tests</strong> - Auto-detects project type (npm/pytest/cargo/go/R)</li>
-<li><strong>Generate Changelog</strong> - Analyzes commits, writes CHANGELOG entry</li>
-<li><strong>Create PR</strong> - Generates description, test plan, links issues</li>
-</ol>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="c1"># In Claude Code, within your worktree:</span>
-<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>/craft:git:worktree<span class="w"> </span>finish
-</code></pre></div>
-<p>See the <a href="../../guides/FEATURE-WORKFLOW-TUTORIAL/">Feature Workflow Tutorial</a> for the complete workflow.</p>
+<p><strong>Recommendation:</strong> Always use <code>gh release create</code> for production releases. Use CLI commands only for testing and debugging.</p>
 <hr />
-<h2 id="git-worktrees">Git Worktrees</h2>
-<p>The feature workflow integrates with git worktrees for parallel development.</p>
-<h3 id="default-worktree-location">Default Worktree Location</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>~/.git-worktrees/
-<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>└── &lt;project-name&gt;/
-<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>    ├── feature-auth/
-<a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a>    ├── feature-api-v2/
-<a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a>    └── hotfix-security/
-</code></pre></div>
-<h3 id="benefits">Benefits</h3>
+<h2 id="further-reading">Further Reading</h2>
 <ul>
-<li>Work on multiple features simultaneously</li>
-<li>Each worktree has its own working directory</li>
-<li>No need to stash/switch branches</li>
-<li>Dependencies installed per-worktree</li>
-</ul>
-<h3 id="learn-more">Learn More</h3>
-<p>See the <a href="../../guides/GIT-WORKTREES-GUIDE/">Git Worktrees Guide</a> for a comprehensive tutorial.</p>
-<hr />
-<h2 id="tips">Tips</h2>
-<div class="admonition tip">
-<p class="admonition-title">Use worktrees for parallel work</p>
-<p>When working on multiple features, use <code>--worktree</code> to avoid constant branch switching.</p>
-</div>
-<div class="admonition tip">
-<p class="admonition-title">Clean up regularly</p>
-<p>Run <code>ait feature cleanup</code> after merging PRs to keep your repo tidy.</p>
-</div>
-<div class="admonition tip">
-<p class="admonition-title">Check status before starting</p>
-<p>Run <code>ait feature status</code> to see the current state before creating new features.</p>
-</div>
-<hr />
-<h2 id="related-commands">Related Commands</h2>
-<ul>
-<li><a href="../terminals/#ghostty-support-v039-enhanced-v0315"><code>ait ghost</code></a> - Ghostty terminal shortcuts</li>
-<li><a href="../context-detection/"><code>ait switch</code></a> - Terminal-aware context switching</li>
-<li><a href="../sessions/"><code>ait sessions</code></a> - Session coordination</li>
+<li><a href="https://docs.pypi.org/trusted-publishers/">PyPI Trusted Publishers</a></li>
+<li><a href="https://docs.github.com/en/actions/publishing-packages">GitHub Actions: Publishing</a></li>
+<li><a href="https://docs.brew.sh/How-To-Open-a-Homebrew-Pull-Request">Homebrew Formula Updating</a></li>
+<li><a href="https://semver.org/">Semantic Versioning</a></li>
 </ul>
 
 
