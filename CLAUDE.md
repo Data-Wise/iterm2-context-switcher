@@ -228,12 +228,21 @@ gh release create v0.6.0 --title "v0.6.0" --notes "..."
 ### Manual Triggers
 
 ```bash
-# Trigger PyPI publish manually
-gh workflow run pypi-release.yml -f version=0.6.0
-
-# Trigger Homebrew update manually
+# Trigger Homebrew update
 gh workflow run homebrew-release.yml -f version=0.6.0
 ```
+
+### PyPI Publishing
+
+**Option 1: Local CLI (working)**
+```bash
+ait release pypi  # Uses uv build + twine
+```
+
+**Option 2: GitHub Actions (requires PyPI setup)**
+1. Go to https://pypi.org/manage/account/publishing/
+2. Add trusted publisher for `Data-Wise/aiterm`
+3. Then: `gh workflow run pypi-release.yml -f version=X.Y.Z`
 
 ---
 
