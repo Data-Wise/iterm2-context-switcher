@@ -8,12 +8,12 @@ Complete reference for all **aiterm** commands with examples.
 
 ```bash
 aiterm --help              # Show help message
-aiterm --version           # Show version info (enhanced in v0.3.5)
+aiterm --version           # Show version info (enhanced in v0.6.0)
 aiterm --install-completion  # Install shell completion
 aiterm --show-completion    # Show completion script
 ```
 
-### Enhanced `--version` (v0.3.5+)
+### Enhanced `--version` (v0.6.0+)
 
 ```bash
 aiterm --version
@@ -21,13 +21,89 @@ aiterm --version
 
 **Output:**
 ```
-aiterm 0.3.5
+aiterm 0.6.0
 Python: 3.12.0
 Platform: macOS-15.2-arm64
 Path: /Users/dt/.local/bin/aiterm
 ```
 
 Shows version, Python runtime, platform, and installation path.
+
+---
+
+## Interactive Tutorials (v0.6.0)
+
+Learn aiterm step-by-step with interactive tutorials.
+
+### `aiterm learn start [TUTORIAL]`
+
+Start an interactive tutorial.
+
+```bash
+aiterm learn start                    # Show tutorial menu
+aiterm learn start getting-started    # Start beginner tutorial
+aiterm learn start intermediate       # Start intermediate tutorial
+aiterm learn start advanced           # Start advanced tutorial
+ait learn start getting-started       # Short alias
+```
+
+**Tutorial Levels:**
+- **Getting Started** - Installation verification, basic commands
+- **Intermediate** - Context detection, profile switching, Claude integration
+- **Advanced** - Custom workflows, automation, hooks
+
+---
+
+### `aiterm learn list`
+
+List all available tutorials.
+
+```bash
+aiterm learn list
+ait learn list
+```
+
+**Output:**
+```
+Available Tutorials
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+getting-started   Learn the basics (10 min)
+intermediate      Context & profiles (15 min)
+advanced          Automation & hooks (20 min)
+
+Start with: ait learn start <tutorial>
+```
+
+---
+
+### `aiterm learn progress`
+
+Show your learning progress.
+
+```bash
+aiterm learn progress
+ait learn progress
+```
+
+**Output:**
+```
+Tutorial Progress
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+getting-started   ████████░░  80% (4/5 steps)
+intermediate      ██░░░░░░░░  20% (1/5 steps)
+advanced          ░░░░░░░░░░   0% (not started)
+```
+
+---
+
+### `aiterm learn reset [TUTORIAL]`
+
+Reset tutorial progress.
+
+```bash
+aiterm learn reset                    # Reset all progress
+aiterm learn reset getting-started    # Reset specific tutorial
+```
 
 ---
 
@@ -48,7 +124,7 @@ aiterm doctor - Health check
 Terminal: iTerm.app
 Shell: /bin/zsh
 Python: 3.12.0
-aiterm: 0.3.5
+aiterm: 0.6.0
 
 Basic checks passed!
 ```
@@ -63,7 +139,7 @@ Basic checks passed!
 
 ### `aiterm hello`
 
-Diagnostic greeting command (added in v0.3.5).
+Diagnostic greeting command.
 
 ```bash
 aiterm hello              # Default greeting
@@ -73,14 +149,14 @@ aiterm hello --name "DT"  # Personalized greeting
 **Output:**
 ```
 👋 Hello from aiterm!
-Version: 0.3.5
+Version: 0.6.0
 Terminal: iTerm.app
 ```
 
 **With name:**
 ```
 👋 Hello, DT!
-Version: 0.3.5
+Version: 0.6.0
 Terminal: iTerm.app
 ```
 
@@ -90,7 +166,7 @@ Useful for verifying aiterm is installed and working correctly.
 
 ### `aiterm goodbye`
 
-Farewell diagnostic command (added in v0.3.5).
+Farewell diagnostic command.
 
 ```bash
 aiterm goodbye              # Default farewell
@@ -100,7 +176,7 @@ aiterm goodbye --name "DT"  # Personalized farewell
 **Output:**
 ```
 👋 Goodbye from aiterm!
-Thanks for using aiterm 0.3.5
+Thanks for using aiterm 0.6.0
 ```
 
 Pair with `hello` for quick installation testing.
@@ -109,7 +185,7 @@ Pair with `hello` for quick installation testing.
 
 ### `aiterm info`
 
-Display detailed system diagnostics (added in v0.3.5).
+Display detailed system diagnostics.
 
 ```bash
 aiterm info              # Full system info
@@ -120,7 +196,7 @@ aiterm info --json       # Output as JSON
 ```
 aiterm System Information
 
-Version: 0.3.5
+Version: 0.6.0
 Python: 3.12.0
 Platform: macOS-15.2-arm64
 Path: /Users/dt/.local/bin/aiterm
@@ -139,7 +215,7 @@ Claude Code:
 **JSON output:**
 ```bash
 aiterm info --json | jq '.version'
-# "0.3.5"
+# "0.6.0"
 ```
 
 Useful for debugging, issue reports, and scripting.

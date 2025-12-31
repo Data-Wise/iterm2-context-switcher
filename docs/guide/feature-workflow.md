@@ -316,6 +316,6 @@ See the [Git Worktrees Guide](../guides/GIT-WORKTREES-GUIDE.md) for a comprehens
 
 ## Related Commands
 
-- [`ait ghost`](terminals.md#ghostty-support-v039) - Ghostty terminal shortcuts
+- [`ait ghost`](terminals.md#ghostty-support-v039-enhanced-v0315) - Ghostty terminal shortcuts
 - [`ait switch`](context-detection.md) - Terminal-aware context switching
 - [`ait sessions`](sessions.md) - Session coordination
