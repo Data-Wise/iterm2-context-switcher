@@ -4,6 +4,68 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+## [0.6.0] - 2025-12-30 - Interactive Tutorial System 📚
+
+**Tag:** v0.6.0
+**PyPI:** https://pypi.org/project/aiterm-dev/0.6.0/
+**Homebrew:** `brew upgrade data-wise/tap/aiterm`
+
+### 🎉 Major Features
+
+Complete interactive tutorial system for onboarding new users.
+
+#### Tutorial System (`ait learn`)
+
+Progressive learning with 3 levels (31 total steps):
+
+| Level | Steps | Duration | Topics |
+|-------|-------|----------|--------|
+| Getting Started | 7 | ~10 min | Install, detect, switch, help |
+| Intermediate | 11 | ~20 min | Claude Code, workflows, sessions |
+| Advanced | 13 | ~35 min | Release, craft, MCP, IDE |
+
+#### Commands
+
+| Command | Description |
+|---------|-------------|
+| `ait learn` | List all available tutorials |
+| `ait learn start <level>` | Begin a tutorial |
+| `ait learn start <level> -s N` | Resume from step N |
+| `ait learn info <level>` | Show tutorial details |
+
+#### Visual Documentation
+
+- **9 GIF demos** for key commands (VHS-generated)
+- **6 Mermaid diagrams** for learning paths and workflows
+- **4 tutorial pages** in docs site
+- **1 quick reference card** (REFCARD-TUTORIALS.md)
+
+### 📊 Statistics
+
+| Category | Count |
+|----------|-------|
+| New CLI Commands | 4 |
+| Tutorial Steps | 31 |
+| GIF Demos | 9 |
+| Mermaid Diagrams | 6 |
+| New Tests | 75 (tutorial module) |
+| Total Tests | 685 |
+
+### Craft Plugin Integration
+
+- New `/craft:docs:tutorial` skill (craft v1.12.0)
+- 6-phase tutorial generation workflow
+- VHS tape templates for demos
+
+### Documentation
+
+- New `docs/tutorials/` directory with 4 pages
+- Learning path diagrams in `docs/diagrams/`
+- Updated mkdocs.yml navigation
+- User testing checklist for validation
+
+---
+
 ## [0.5.1] - 2025-12-30
 
 **Tag:** v0.5.1

@@ -146,6 +146,63 @@ def learn(
 
 ---
 
+## Visual Documentation
+
+### Tutorial Flow Diagram
+
+The tutorial system follows a progressive 3-level structure:
+
+```mermaid
+flowchart TD
+    subgraph L1["Level 1: Getting Started (~10 min)"]
+        A1["1. What is aiterm?"] --> A2["2. ait doctor"]
+        A2 --> A3["3. ait config"]
+        A3 --> A4["4. ait detect"]
+        A4 --> A5["5. ait switch"]
+        A5 --> A6["6. ait --help"]
+        A6 --> A7["7. Next Steps"]
+    end
+
+    subgraph L2["Level 2: Intermediate (~20 min)"]
+        B1["Claude Code"] --> B2["Workflows"]
+        B2 --> B3["Sessions"]
+        B3 --> B4["Terminals"]
+    end
+
+    subgraph L3["Level 3: Advanced (~35 min)"]
+        C1["Release"] --> C2["Custom Workflows"]
+        C2 --> C3["Craft Integration"]
+        C3 --> C4["MCP & IDE"]
+    end
+
+    A7 --> B1
+    B4 --> C1
+```
+
+See also: [Full Tutorial Flow Diagram](../diagrams/tutorial-flow.md)
+
+### Related Diagrams
+
+| Diagram | Description |
+|---------|-------------|
+| [Context Detection](../diagrams/context-detection.md) | How project context is detected |
+| [Session Lifecycle](../diagrams/session-lifecycle.md) | Claude Code session management |
+| [Release Workflow](../diagrams/release-workflow.md) | Release automation pipeline |
+| [Craft Integration](../diagrams/craft-integration.md) | Plugin architecture |
+| [Git Worktrees](../diagrams/worktree-flow.md) | Parallel development workflow |
+
+### GIF Demos
+
+Each tutorial level includes animated demonstrations:
+
+| Level | GIFs | Location |
+|-------|------|----------|
+| Getting Started | doctor, detect, switch | `docs/demos/tutorials/getting-started-*.gif` |
+| Intermediate | claude, workflows, sessions | `docs/demos/tutorials/intermediate-*.gif` |
+| Advanced | release, worktrees, craft | `docs/demos/tutorials/advanced-*.gif` |
+
+---
+
 ## Tutorial Content Specification
 
 ### Level 1: Getting Started (7 steps, ~10 minutes)

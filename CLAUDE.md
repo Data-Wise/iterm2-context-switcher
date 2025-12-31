@@ -22,45 +22,39 @@ This file provides guidance to Claude Code when working with the aiterm project.
 
 ---
 
-## Current Version: v0.4.0 (Dec 30, 2025)
+## Current Version: v0.6.0 (Dec 30, 2025)
 
-### Next Version: v0.5.0 (In Development)
+### v0.6.0 Features - Interactive Tutorial System
 
-**Release Management** (`ait release`) - Phase 1 Complete:
-- `ait release check` - Validate release readiness
-- `ait release status` - Show version & pending changes
-- `ait release pypi` - Build and publish to PyPI
-- `ait release homebrew` - Update Homebrew formula
-- `ait release tag` - Create annotated git tag
-- `ait release notes` - Generate release notes from commits
-- `ait release full` - Full workflow: check → tag → pypi → homebrew
+**Tutorial System** (`ait learn`):
+- `ait learn` - List all tutorials
+- `ait learn start <level>` - Begin a tutorial
+- `ait learn start <level> -s N` - Resume from step
+- `ait learn info <level>` - Show tutorial details
 
-**Statistics:** 55 tests for release commands
+**3 Progressive Levels (31 total steps):**
 
-### v0.4.0 Features
+| Level | Steps | Duration | Topics |
+|-------|-------|----------|--------|
+| Getting Started | 7 | ~10 min | Install, detect, switch, help |
+| Intermediate | 11 | ~20 min | Claude Code, workflows, sessions |
+| Advanced | 13 | ~35 min | Release, craft, MCP, IDE |
 
-**Craft Plugin Management** (`ait craft`):
-- `ait craft status` - Plugin installation status
-- `ait craft list` - List commands, skills, agents
-- `ait craft install` - Install via symlink
-- `ait craft sync` - Sync with project context
+**Visual Documentation:**
+- 9 GIF demos (VHS-generated)
+- 6 Mermaid diagrams
+- 4 tutorial pages
+- REFCARD-TUTORIALS.md
 
-**Session-Aware Workflows** (`ait workflows`):
-- `ait workflows run test` - Run single workflow
-- `ait workflows run lint+test+build` - Chain with `+`
-- `ait workflows custom create` - Custom YAML workflows
-- `ait workflows status` - Session + workflow status
-
-**13 Built-in Workflows:**
-test, lint, format, check, build, docs, docs-serve, clean, deploy-docs, release
+**Statistics:** 75 tutorial tests, 685 total tests
 
 ### Previous Releases
 
 | Version | Date | Highlights |
 |---------|------|------------|
+| v0.5.0 | Dec 30 | Release automation (7 commands) |
+| v0.4.0 | Dec 30 | Workflows + Craft integration |
 | v0.3.15 | Dec 30 | Ghostty full iTerm2 parity |
-| v0.3.13 | Dec 30 | Feature workflow, ghost aliases |
-| v0.3.10 | Dec 29 | flow-cli integration |
 | v0.3.9 | Dec 29 | Ghostty terminal support |
 | v0.3.6 | Dec 27 | curl installer |
 
@@ -89,11 +83,14 @@ ait doctor                       # Health check
 ait detect                       # Show project context
 ait switch                       # Apply context to terminal
 
+# Tutorials (v0.6.0)
+ait learn                        # List all tutorials
+ait learn start getting-started  # Begin tutorial
+ait learn info intermediate      # Show tutorial details
+
 # Release Management (v0.5.0)
 ait release check                # Validate release readiness
-ait release status               # Show version & pending changes
-ait release pypi                 # Build and publish to PyPI
-ait release full 0.5.0           # Full release workflow
+ait release full 0.6.0           # Full release workflow
 
 # Workflows (v0.4.0)
 ait workflows status             # Session + workflow status
