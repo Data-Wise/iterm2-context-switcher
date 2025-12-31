@@ -4,12 +4,18 @@ All notable changes to this project will be documented in this file.
 
 ---
 
-## [Unreleased] - v0.4.0 Development
+## [0.4.0] - 2025-12-30 - Workflow Automation & Craft Integration 🚀
 
-### Added
+**Tag:** v0.4.0
+**PyPI:** https://pypi.org/project/aiterm-dev/0.4.0/
+**Homebrew:** `brew upgrade data-wise/tap/aiterm`
 
-#### Phase 2: Craft Plugin Management
-- **Craft CLI** (`ait craft`) - Manage Claude Code's craft plugin
+### 🎉 Major Features
+
+Three complete feature systems for workflow automation:
+
+#### Phase 2: Craft Plugin Management (`ait craft`)
+- **Craft CLI** - Manage Claude Code's craft plugin
   - `ait craft status` - Show craft plugin installation status and overview
   - `ait craft list` - List available craft commands, skills, and agents
   - `ait craft install` - Install/reinstall craft plugin via symlink
@@ -19,15 +25,48 @@ All notable changes to this project will be documented in this file.
   - `ait craft commands [namespace]` - Show detailed craft command info
 - **19 tests** for craft plugin management
 
-#### Phase 3: Session-Aware Workflows
-- **Workflow Runner** with session awareness
+#### Phase 3: Session-Aware Workflows (`ait workflows`)
+- **Workflow Runner** with Claude Code session awareness
   - `ait workflows status` - Check session status and available workflows
   - `ait workflows run <name>` - Run workflow with session task updates
   - `ait workflows task <desc>` - Update current session task
-  - Runnable workflows: test, lint, docs, release
 - **Session task auto-update** - Workflows update session task as they progress
 - **Session requirement checks** - Some workflows require active Claude Code session
-- **23 tests** for session-aware workflows
+
+#### Phase 3 Quick Wins: Advanced Workflow Features
+- **13 Built-in Workflows:**
+  - `test` - Run project tests (auto-detected)
+  - `lint` - Run linter (ruff/eslint/lintr)
+  - `format` - Auto-format code
+  - `check` - Type checking (mypy/tsc)
+  - `build` - Build project (wheel/bundle)
+  - `docs` - Build documentation
+  - `docs-serve` - Serve docs locally
+  - `clean` - Clean build artifacts
+  - `deploy-docs` - Deploy docs to GitHub Pages
+  - `release` - Full release workflow
+- **Custom YAML Workflows:**
+  - Store workflows in `~/.config/aiterm/workflows/*.yaml`
+  - `ait workflows custom list` - List custom workflows
+  - `ait workflows custom show <name>` - Show workflow details
+  - `ait workflows custom create <name>` - Create new workflow
+  - `ait workflows custom delete <name>` - Delete workflow
+  - Auto-discovered and merged with built-in workflows
+- **Workflow Chaining:**
+  - Use `+` separator: `ait workflows run lint+test+build`
+  - Sequential execution with early exit on failure
+  - Session task shows chain progress (e.g., "Running lint+test (2/3)")
+
+### 📊 Statistics
+
+| Category | Count |
+|----------|-------|
+| New CLI Commands | 14 (7 craft + 7 workflows) |
+| New Tests | 63 (19 craft + 44 workflows) |
+| Built-in Workflows | 13 |
+| Custom Workflow YAML Support | ✅ |
+
+### Added
 
 ---
 
