@@ -69,6 +69,9 @@ plugins:
 
 exclude_docs: |
   _archive/
+  demos/README.md
+  demos/tutorials/README.md
+  tutorials/USER-TESTING-CHECKLIST.md
 
 markdown_extensions:
   - pymdownx.highlight:
@@ -200,6 +203,8 @@ nav:
           - Tutorial Summary: specs/SPEC-interactive-tutorial-system-SUMMARY.md
           - Tutorial Quickstart: specs/SPEC-interactive-tutorial-QUICKSTART.md
           - Ghostty Enhancements: specs/SPEC-ghostty-enhancements-2025-12-30.md
+          - StatusLine Config UX: specs/SPEC-statusline-config-ux-2025-12-31.md
+          - StatusLine Integration: specs/SPEC-statusline-integration-2025-12-31.md
 
 extra:
   social:
