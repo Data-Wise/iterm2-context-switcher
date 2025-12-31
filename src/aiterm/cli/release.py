@@ -297,6 +297,189 @@ def release_status() -> None:
             print(f"  Major: {major + 1}.0.0")
 
 
+def check_tool_available(tool: str) -> bool:
+    """Check if a command-line tool is available."""
+    code, _ = run_command(["which", tool])
+    return code == 0
+
+
+def build_package(root: Path) -> tuple[bool, str, list[Path]]:
+    """Build the package using uv or pip."""
+    dist_dir = root / "dist"
+
+    # Clean old builds
+    if dist_dir.exists():
+        import shutil
+        shutil.rmtree(dist_dir)
+
+    # Try uv first
+    if check_tool_available("uv"):
+        code, output = run_command(["uv", "build"], capture=True)
+        if code == 0:
+            # Find built files
+            built = list(dist_dir.glob("*.whl")) + list(dist_dir.glob("*.tar.gz"))
+            return True, "Built with uv", built
+        return False, f"uv build failed: {output}", []
+
+    # Fallback to pip/build
+    code, output = run_command(["python", "-m", "build"], capture=True)
+    if code == 0:
+        built = list(dist_dir.glob("*.whl")) + list(dist_dir.glob("*.tar.gz"))
+        return True, "Built with python -m build", built
+    return False, f"Build failed: {output}", []
+
+
+def publish_to_pypi(root: Path, test: bool = False) -> tuple[bool, str]:
+    """Publish package to PyPI."""
+    dist_dir = root / "dist"
+
+    if not dist_dir.exists():
+        return False, "No dist/ directory found. Run build first."
+
+    files = list(dist_dir.glob("*.whl")) + list(dist_dir.glob("*.tar.gz"))
+    if not files:
+        return False, "No distribution files found in dist/"
+
+    # Determine repository
+    repo_args = ["--index-url", "https://test.pypi.org/simple/"] if test else []
+
+    # Try uv publish first
+    if check_tool_available("uv"):
+        cmd = ["uv", "publish"]
+        if test:
+            cmd.extend(["--publish-url", "https://test.pypi.org/legacy/"])
+        code, output = run_command(cmd, capture=True)
+        if code == 0:
+            return True, "Published with uv"
+        # Check if it's an "already exists" error (not a failure)
+        if "already exists" in output.lower() or "409" in output:
+            return True, "Package already exists on PyPI"
+        return False, f"uv publish failed: {output}"
+
+    # Fallback to twine
+    if check_tool_available("twine"):
+        repo = "testpypi" if test else "pypi"
+        cmd = ["twine", "upload", "--repository", repo] + [str(f) for f in files]
+        code, output = run_command(cmd, capture=True)
+        if code == 0:
+            return True, "Published with twine"
+        if "already exists" in output.lower():
+            return True, "Package already exists on PyPI"
+        return False, f"twine upload failed: {output}"
+
+    return False, "Neither uv nor twine found. Install with: pip install twine"
+
+
+def verify_on_pypi(package: str, version: str, test: bool = False) -> tuple[bool, str]:
+    """Verify package is available on PyPI."""
+    import urllib.request
+    import json
+
+    base_url = "https://test.pypi.org/pypi" if test else "https://pypi.org/pypi"
+    url = f"{base_url}/{package}/json"
+
+    try:
+        with urllib.request.urlopen(url, timeout=10) as response:
+            data = json.loads(response.read().decode())
+            pypi_version = data.get("info", {}).get("version", "")
+            if pypi_version == version:
+                return True, f"Verified: {package} {version} on PyPI"
+            return False, f"Version mismatch: PyPI has {pypi_version}, expected {version}"
+    except urllib.error.HTTPError as e:
+        if e.code == 404:
+            return False, f"Package {package} not found on PyPI"
+        return False, f"HTTP error: {e.code}"
+    except Exception as e:
+        return False, f"Verification failed: {e}"
+
+
+@app.command("pypi")
+def release_pypi(
+    skip_build: bool = typer.Option(False, "--skip-build", help="Skip building, use existing dist/"),
+    skip_verify: bool = typer.Option(False, "--skip-verify", help="Skip PyPI verification"),
+    test: bool = typer.Option(False, "--test", "-t", help="Publish to TestPyPI instead"),
+    dry_run: bool = typer.Option(False, "--dry-run", "-n", help="Build but don't publish"),
+) -> None:
+    """
+    Build and publish package to PyPI.
+
+    Examples:
+        ait release pypi
+        ait release pypi --test          # Publish to TestPyPI
+        ait release pypi --dry-run       # Build only
+        ait release pypi --skip-build    # Use existing dist/
+    """
+    root = get_project_root()
+    version = get_version_from_pyproject(root) or "unknown"
+    pypi_target = "TestPyPI" if test else "PyPI"
+
+    print(Panel.fit(f"[bold]Publish to {pypi_target}[/bold]", style="blue"))
+    print()
+
+    # Get package name from pyproject.toml
+    pyproject = root / "pyproject.toml"
+    package_name = "aiterm-dev"  # Default
+    if pyproject.exists():
+        content = pyproject.read_text()
+        for line in content.splitlines():
+            if line.strip().startswith("name"):
+                parts = line.split("=", 1)
+                if len(parts) == 2:
+                    package_name = parts[1].strip().strip('"').strip("'")
+                    break
+
+    print(f"[bold]Package:[/bold] {package_name}")
+    print(f"[bold]Version:[/bold] {version}")
+    print()
+
+    # Step 1: Build
+    if not skip_build:
+        print("[dim]Building package...[/dim]")
+        success, msg, files = build_package(root)
+        if success:
+            print(f"[green]✓[/green] {msg}")
+            for f in files:
+                print(f"  [dim]•[/dim] {f.name}")
+        else:
+            print(f"[red]✗[/red] {msg}")
+            raise typer.Exit(1)
+        print()
+
+    if dry_run:
+        print("[yellow]Dry run - skipping publish[/yellow]")
+        return
+
+    # Step 2: Publish
+    print(f"[dim]Publishing to {pypi_target}...[/dim]")
+    success, msg = publish_to_pypi(root, test=test)
+    if success:
+        print(f"[green]✓[/green] {msg}")
+    else:
+        print(f"[red]✗[/red] {msg}")
+        raise typer.Exit(1)
+    print()
+
+    # Step 3: Verify
+    if not skip_verify:
+        print("[dim]Verifying on PyPI (may take a moment)...[/dim]")
+        import time
+        time.sleep(3)  # Give PyPI a moment to update
+        success, msg = verify_on_pypi(package_name, version, test=test)
+        if success:
+            print(f"[green]✓[/green] {msg}")
+        else:
+            print(f"[yellow]![/yellow] {msg}")
+            print("[dim]Note: PyPI index may take a few minutes to update[/dim]")
+
+    print()
+    print(f"[bold green]Published {package_name} {version} to {pypi_target}![/bold green]")
+
+    if not test:
+        print()
+        print("[dim]Install with:[/dim]")
+        print(f"  pip install {package_name}=={version}")
+
+
 @app.command("tag")
 def release_tag(
     version: str = typer.Argument(None, help="Version to tag (e.g., 0.5.0)"),
