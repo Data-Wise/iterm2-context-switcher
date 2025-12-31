@@ -227,62 +227,55 @@ ait detect    # Shows: 📦 r-package → R-Dev profile
 
 ---
 
-## What's New in v0.3.x
+## What's New
 
-### v0.3.13 (Latest)
+### v0.5.0 (Latest)
 
-- **Dark Mode Toggle** - 4-theme docs site (auto/light/dark/high-contrast)
-- **Demo GIFs** - Automated CI workflow for animated documentation
-- **craft v1.11.0** - Enhanced git worktree and mermaid commands
+- **Release Automation** - Complete CLI for streamlined publishing
+  - `ait release check` - Pre-release validation
+  - `ait release status` - Show version & pending changes
+  - `ait release pypi` - Build and publish to PyPI
+  - `ait release homebrew` - Update Homebrew formula
+  - `ait release tag` - Create annotated git tag
+  - `ait release notes` - Generate release notes from commits
+  - `ait release full` - Complete workflow: check → tag → pypi → homebrew
 
-### v0.3.10-0.3.12
+### v0.4.0
 
-- **Ghostty Terminal Support** - `ait ghostty status/theme/font/set`
-- **flow-cli Integration** - `tm` dispatcher via symlink mechanism
-- **XDG Config** - `AITERM_CONFIG_HOME` with `~/.config/aiterm/` default
-- **Config CLI** - `ait config path/show/init/edit` commands
+- **Workflow Automation** - Session-aware workflow runner
+  - `ait workflows run test` - Run project tests
+  - `ait workflows run lint+test+build` - Chain workflows with `+`
+  - 13 built-in workflows, custom YAML support
+- **Craft Plugin Management** - `ait craft status/list/install/sync`
+- **Feature Workflow** - `ait feature status/start/cleanup`
 
-### v0.3.8-0.3.9
+### v0.3.x Highlights
 
-- **Git Worktrees Guide** - Comprehensive parallel development documentation
-- **Mermaid Diagrams** - Fixed rendering with proper CSS
-- **Enhanced Test Suite** - 41 automated + 33 interactive CLI tests
-
-### v0.3.5-0.3.7
-
-- **Dogfooding Commands** - `ait hello`, `ait goodbye`, `ait info`
-- **curl Installer** - Smart auto-detection (uv/pipx/brew/pip)
-- **Documentation Site** - ADHD-focus design theme
-
-### v0.3.1-0.3.4
-
+- **Ghostty Terminal** - Full iTerm2 parity with 14 themes
 - **Session Coordination** - Hook-based tracking & conflict detection
 - **IDE Integrations** - VS Code, Cursor, Zed, Positron, Windsurf
-- **Session Prune** - Clean up stale sessions
+- **curl Installer** - Smart auto-detection (uv/pipx/brew/pip)
 
 ```bash
-# Session management
-ait sessions live        # Show active Claude Code sessions
-ait sessions conflicts   # Detect parallel session issues
-ait sessions prune       # Clean stale sessions
+# Release automation (v0.5.0)
+ait release check        # Validate before release
+ait release full 0.6.0   # Complete release workflow
 
-# New diagnostics
-ait hello                # Greeting with project info
-ait info                 # System diagnostics
+# Workflow automation (v0.4.0)
+ait workflows status     # Session + workflow status
+ait workflows run test   # Run project tests
 ```
 
 ## Roadmap
 
-### v0.4.0 (Next)
+### v0.6.0 (Next)
 
-- **Workflow Templates** - `ait recipes list/show/apply`
-- **Craft Plugin Integration** - `ait craft install/sync/run`
-- **Session-Aware Workflows** - Context-based automation
+- **Workflow Variables** - `--var key=value` substitution
+- **Workflow Templates** - Reusable workflow patterns
 
 ### v1.0.0
 
 - **Plugin System** - Extend with custom contexts
-- **Multi-Terminal Support** - Ghostty, Kitty, Alacritty
 - **Web UI** - Visual configuration tool
 
 ---

@@ -1565,6 +1565,273 @@ aiterm feature cleanup --force      # No confirmation
 
 ---
 
+## Release Management (v0.5.0)
+
+Commands for managing releases to PyPI and Homebrew.
+
+### `aiterm release check`
+
+Validate release readiness.
+
+```bash
+aiterm release check
+ait release check
+ait release check --skip-tests    # Skip running tests
+ait release check --verbose       # Show detailed output
+```
+
+**Output:**
+```
+╭─────────────────╮
+│ Release Check   │
+╰─────────────────╯
+
+✓  Version consistency       0.5.0
+✓  Tests                     55 passed in 1.03s
+✓  Clean working tree        No uncommitted changes
+✓  On main branch            Current: main
+✓  Tag available             v0.5.0 not yet tagged
+
+Ready to release v0.5.0
+
+Next steps:
+  ait release tag 0.5.0
+  ait release pypi
+```
+
+**Checks:**
+- Version consistency across pyproject.toml, __init__.py, CHANGELOG.md
+- All tests passing
+- Clean git working tree
+- On main/master branch
+- Tag not already existing
+
+---
+
+### `aiterm release status`
+
+Show current release state and pending changes.
+
+```bash
+aiterm release status
+ait release status
+```
+
+**Output:**
+```
+╭────────────────╮
+│ Release Status │
+╰────────────────╯
+
+Current version: 0.5.0
+Latest tag: v0.4.0
+Commits since tag: 5
+
+Pending changes:
+  • feat(release): complete all v0.5.0 release commands
+  • feat(release): add pypi command for build and publish
+  • feat(release): add release management CLI commands
+  • docs: add v0.5.0 plan - release automation
+  • docs: streamline CLAUDE.md for v0.4.0
+
+Suggested next versions:
+  Patch: 0.5.1
+  Minor: 0.6.0
+  Major: 1.0.0
+```
+
+---
+
+### `aiterm release pypi`
+
+Build and publish package to PyPI.
+
+```bash
+aiterm release pypi
+ait release pypi --dry-run      # Build only, don't publish
+ait release pypi --test         # Publish to TestPyPI
+ait release pypi --skip-build   # Use existing dist/
+ait release pypi --skip-verify  # Skip PyPI verification
+```
+
+**Output:**
+```
+╭─────────────────╮
+│ Publish to PyPI │
+╰─────────────────╯
+
+Package: aiterm-dev
+Version: 0.5.0
+
+Building package...
+✓ Built with uv
+  • aiterm_dev-0.5.0-py3-none-any.whl
+  • aiterm_dev-0.5.0.tar.gz
+
+Publishing to PyPI...
+✓ Published with uv
+
+Verifying on PyPI (may take a moment)...
+✓ Verified: aiterm-dev 0.5.0 on PyPI
+
+Published aiterm-dev 0.5.0 to PyPI!
+
+Install with:
+  pip install aiterm-dev==0.5.0
+```
+
+---
+
+### `aiterm release tag`
+
+Create an annotated git tag.
+
+```bash
+aiterm release tag 0.5.0
+ait release tag                      # Use version from pyproject.toml
+ait release tag 0.5.0 -m "Release"   # Custom message
+ait release tag 0.5.0 --push         # Push tag to origin
+```
+
+**Output:**
+```
+✓ Created tag v0.5.0
+Push with: git push origin v0.5.0
+```
+
+---
+
+### `aiterm release notes`
+
+Generate release notes from commits since last tag.
+
+```bash
+aiterm release notes
+ait release notes 0.5.0               # Specify version for header
+ait release notes --since v0.4.0      # Compare from specific tag
+ait release notes -o RELEASE.md       # Write to file
+ait release notes --clipboard         # Copy to clipboard
+```
+
+**Output:**
+```markdown
+# Release v0.5.0
+
+## ✨ Features
+
+- complete all v0.5.0 release commands
+- add pypi command for build and publish
+- add release management CLI commands
+
+## 📚 Documentation
+
+- add v0.5.0 plan - release automation
+- streamline CLAUDE.md for v0.4.0
+
+---
+
+**Full Changelog**: https://github.com/Data-Wise/aiterm/compare/v0.5.0...HEAD
+```
+
+**Categories:**
+- ✨ Features (feat:)
+- 🐛 Bug Fixes (fix:)
+- 📚 Documentation (docs:)
+- ♻️ Refactoring (refactor:)
+- 🧪 Tests (test:)
+- 🔧 Chores (chore:)
+- 📝 Other Changes
+
+---
+
+### `aiterm release homebrew`
+
+Update Homebrew formula in tap.
+
+```bash
+aiterm release homebrew
+ait release homebrew --tap ~/homebrew-tap   # Specify tap path
+ait release homebrew --version 0.5.0        # Specify version
+ait release homebrew --commit --push        # Commit and push
+ait release homebrew --dry-run              # Preview only
+```
+
+**Output:**
+```
+╭─────────────────────────╮
+│ Update Homebrew Formula │
+╰─────────────────────────╯
+
+Package: aiterm-dev
+Version: 0.5.0
+
+Fetching SHA256 from PyPI...
+✓ SHA256: a1b2c3d4e5f6...
+
+Updating formula...
+✓ Updated aiterm.rb
+
+Homebrew formula updated for aiterm-dev 0.5.0!
+
+Test with:
+  brew update && brew upgrade aiterm
+```
+
+---
+
+### `aiterm release full`
+
+Full release workflow: check → tag → push → pypi → homebrew.
+
+```bash
+aiterm release full 0.5.0
+ait release full 0.5.0 --dry-run        # Preview steps
+ait release full 0.5.0 --skip-tests     # Skip test step
+ait release full 0.5.0 --skip-homebrew  # Skip Homebrew update
+```
+
+**Output:**
+```
+╭─────────────────────╮
+│ Full Release: v0.5.0│
+╰─────────────────────╯
+
+Step 1/5: Validate release readiness
+✓ Ready for release
+
+Step 2/5: Create git tag
+✓ Created v0.5.0
+
+Step 3/5: Push tag to origin
+✓ Pushed v0.5.0
+
+Step 4/5: Publish to PyPI
+Building package...
+✓ Built with uv
+Publishing...
+✓ Published with uv
+
+Step 5/5: Update Homebrew formula
+✓ Updated aiterm.rb
+✓ Pushed formula update
+
+╭───────────────────────────────────────────────╮
+│ 🎉 Released aiterm v0.5.0!                    │
+│                                               │
+│ PyPI: https://pypi.org/project/aiterm-dev/   │
+│ GitHub: https://github.com/Data-Wise/aiterm  │
+╰───────────────────────────────────────────────╯
+```
+
+**Steps executed:**
+1. **Check** - Validate version, tests, git status
+2. **Tag** - Create annotated git tag
+3. **Push** - Push tag to origin
+4. **PyPI** - Build and publish package
+5. **Homebrew** - Update formula (optional)
+
+---
+
 ## Examples
 
 ### Quick Setup for Claude Code

@@ -4,6 +4,55 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+## [0.5.0] - 2025-12-30 - Release Automation 🚀
+
+**Tag:** v0.5.0
+**PyPI:** https://pypi.org/project/aiterm-dev/0.5.0/
+**Homebrew:** `brew upgrade data-wise/tap/aiterm`
+
+### 🎉 Major Features
+
+Complete release automation CLI for streamlined publishing workflow.
+
+#### Release Management (`ait release`)
+
+7 new commands for end-to-end release automation:
+
+| Command | Description |
+|---------|-------------|
+| `ait release check` | Pre-release validation (version, tests, changelog, git) |
+| `ait release status` | Show current version, latest tag, pending changes |
+| `ait release pypi` | Build and publish to PyPI with uv |
+| `ait release homebrew` | Update Homebrew formula with SHA256 from PyPI |
+| `ait release tag` | Create annotated git tag |
+| `ait release notes` | Generate release notes from conventional commits |
+| `ait release full` | Complete workflow: check → tag → push → pypi → homebrew |
+
+#### Features
+
+- **Conventional commit parsing** - Categorizes commits by type (feat, fix, docs, etc.)
+- **Automatic SHA256 fetching** - Gets hash from PyPI for Homebrew formula
+- **Dry-run support** - Preview all commands without execution
+- **Version detection** - Reads from pyproject.toml automatically
+- **Git integration** - Creates annotated tags with release notes
+
+### 📊 Statistics
+
+| Category | Count |
+|----------|-------|
+| New CLI Commands | 7 |
+| New Tests | 55 |
+| Total Tests | 611 |
+
+### Added
+
+- `src/aiterm/cli/release.py` - Complete release management CLI (1032 lines)
+- `tests/test_release.py` - Comprehensive test suite (651 lines)
+- `docs/reference/commands.md` - Release Management section
+- `docs/REFCARD.md` - Release commands quick reference
+
+---
+
 ## [0.4.0] - 2025-12-30 - Workflow Automation & Craft Integration 🚀
 
 **Tag:** v0.4.0

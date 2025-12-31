@@ -2,7 +2,7 @@
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│ AITERM v0.3.13 - Terminal Optimizer for AI Development     │
+│ AITERM v0.4.0 - Terminal Optimizer for AI Development      │
 ├─────────────────────────────────────────────────────────────┤
 │                                                             │
 │ ESSENTIAL                                                   │
@@ -12,6 +12,16 @@
 │ ait switch              Apply context to terminal           │
 │ ait hello               Diagnostic greeting                 │
 │ ait info                System diagnostics (--json)         │
+│                                                             │
+│ RELEASE MANAGEMENT (v0.5.0)                                 │
+│ ───────────────────────────                                 │
+│ ait release check       Validate release readiness          │
+│ ait release status      Show version & pending changes      │
+│ ait release pypi        Build and publish to PyPI           │
+│ ait release homebrew    Update Homebrew formula             │
+│ ait release tag         Create annotated git tag            │
+│ ait release notes       Generate release notes              │
+│ ait release full        Full workflow: check→tag→pypi       │
 │                                                             │
 │ CONFIGURATION                                               │
 │ ──────────────────────────────                              │
