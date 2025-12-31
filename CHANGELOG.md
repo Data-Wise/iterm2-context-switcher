@@ -4,6 +4,33 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+## [Unreleased] - v0.4.0 Development
+
+### Added
+
+#### Phase 2: Craft Plugin Management
+- **Craft CLI** (`ait craft`) - Manage Claude Code's craft plugin
+  - `ait craft status` - Show craft plugin installation status and overview
+  - `ait craft list` - List available craft commands, skills, and agents
+  - `ait craft install` - Install/reinstall craft plugin via symlink
+  - `ait craft update` - Update craft plugin (git pull in source)
+  - `ait craft sync` - Sync craft with project context detection
+  - `ait craft run <cmd>` - Show how to run craft commands in Claude Code
+  - `ait craft commands [namespace]` - Show detailed craft command info
+- **19 tests** for craft plugin management
+
+#### Phase 3: Session-Aware Workflows
+- **Workflow Runner** with session awareness
+  - `ait workflows status` - Check session status and available workflows
+  - `ait workflows run <name>` - Run workflow with session task updates
+  - `ait workflows task <desc>` - Update current session task
+  - Runnable workflows: test, lint, docs, release
+- **Session task auto-update** - Workflows update session task as they progress
+- **Session requirement checks** - Some workflows require active Claude Code session
+- **23 tests** for session-aware workflows
+
+---
+
 ## [0.3.15] - 2025-12-30 - Ghostty Full iTerm2 Parity
 
 **Tag:** v0.3.15

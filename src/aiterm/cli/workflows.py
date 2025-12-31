@@ -657,3 +657,249 @@ def workflows_import(
     except json.JSONDecodeError as e:
         console.print(f"[red]Invalid JSON: {e}[/]")
         raise typer.Exit(1)
+
+
+# =============================================================================
+# Phase 3: Session-Aware Workflow Execution
+# =============================================================================
+
+
+def get_current_live_session():
+    """Get the active Claude Code session for the current directory."""
+    from aiterm.cli.sessions import load_live_sessions, get_live_sessions_dir
+
+    sessions = load_live_sessions()
+    current_path = str(Path.cwd())
+
+    for session in sessions:
+        if session.path == current_path:
+            return session
+    return None
+
+
+def update_session_task(description: str | None) -> bool:
+    """Update the task field for the current session."""
+    from aiterm.cli.sessions import get_live_sessions_dir
+
+    session = get_current_live_session()
+    if not session:
+        return False
+
+    session_file = get_live_sessions_dir() / "active" / f"{session.session_id}.json"
+    if not session_file.exists():
+        return False
+
+    try:
+        data = json.loads(session_file.read_text())
+        data["task"] = description
+        data["task_updated"] = datetime.now().astimezone().isoformat()
+        session_file.write_text(json.dumps(data, indent=2))
+        return True
+    except (json.JSONDecodeError, OSError):
+        return False
+
+
+# Built-in runnable workflows (different from templates)
+RUNNABLE_WORKFLOWS: dict[str, dict] = {
+    "test": {
+        "name": "Test Suite",
+        "description": "Run full test suite with coverage",
+        "steps": [
+            {"task": "Running pytest", "command": "pytest --cov"},
+        ],
+        "requires_session": False,
+    },
+    "lint": {
+        "name": "Code Quality Check",
+        "description": "Run linting and type checking",
+        "steps": [
+            {"task": "Running ruff", "command": "ruff check ."},
+        ],
+        "requires_session": False,
+    },
+    "docs": {
+        "name": "Documentation Build",
+        "description": "Build documentation",
+        "steps": [
+            {"task": "Building docs", "command": "mkdocs build"},
+        ],
+        "requires_session": False,
+    },
+    "release": {
+        "name": "Release Preparation",
+        "description": "Prepare project for release",
+        "steps": [
+            {"task": "Running tests", "command": "pytest"},
+            {"task": "Checking lint", "command": "ruff check ."},
+            {"task": "Building package", "command": "python -m build"},
+        ],
+        "requires_session": True,
+    },
+}
+
+
+@app.command("status")
+def workflows_status() -> None:
+    """Check workflow readiness and session status.
+
+    Shows whether Claude Code is active and what runnable
+    workflows are available for the current project.
+    """
+    console.print("[bold cyan]Workflow Status[/]\n")
+
+    # Session check
+    session = get_current_live_session()
+    if session:
+        console.print("[green]✓ Active Claude Code session[/]")
+        console.print(f"  Session: {session.session_id[:20]}")
+        console.print(f"  Duration: {session.duration_str}")
+        if session.task:
+            console.print(f"  Current task: {session.task}")
+    else:
+        console.print("[yellow]○ No active session[/]")
+        console.print("  [dim]Some workflows require an active session[/]")
+
+    console.print()
+
+    # Available runnable workflows
+    console.print("[bold]Runnable Workflows:[/]")
+    for name, wf in RUNNABLE_WORKFLOWS.items():
+        requires = "[yellow](requires session)[/]" if wf.get("requires_session") else ""
+        console.print(f"  [cyan]{name}[/] - {wf['description']} {requires}")
+
+    console.print("\n[dim]Run with: ait workflows run <name>[/]")
+
+
+@app.command("run")
+def workflows_run(
+    name: str = typer.Argument(..., help="Workflow to run."),
+    dry_run: bool = typer.Option(False, "--dry-run", "-n", help="Show what would be done."),
+    no_session: bool = typer.Option(False, "--no-session", help="Run without session integration."),
+    require_session: bool = typer.Option(False, "--require-session", help="Require active session."),
+) -> None:
+    """Run a workflow with session awareness.
+
+    Workflows can update the session task as they progress,
+    giving visibility into what's happening.
+
+    Examples:
+        ait workflows run test
+        ait workflows run release --require-session
+        ait workflows run lint --dry-run
+    """
+    import subprocess
+
+    wf = RUNNABLE_WORKFLOWS.get(name)
+    if not wf:
+        console.print(f"[red]Unknown runnable workflow: {name}[/]")
+        console.print("\nAvailable workflows:")
+        for n in RUNNABLE_WORKFLOWS:
+            console.print(f"  {n}")
+        raise typer.Exit(1)
+
+    # Check session requirements
+    session = get_current_live_session()
+    session_available = session is not None
+
+    if require_session and not session_available:
+        console.print("[red]--require-session specified but no session found.[/]")
+        raise typer.Exit(1)
+
+    if wf.get("requires_session") and not session_available and not no_session:
+        console.print(f"[yellow]Workflow '{name}' requires an active session.[/]")
+        console.print("Use --no-session to run anyway, or start Claude Code first.")
+        raise typer.Exit(1)
+
+    use_session = session_available and not no_session
+
+    console.print(Panel(
+        f"[bold]{wf['name']}[/]\n{wf['description']}",
+        title=f"Running Workflow: {name}",
+        border_style="cyan",
+    ))
+
+    if use_session:
+        console.print(f"[dim]Session: {session.session_id[:20]}[/]")
+    else:
+        console.print("[dim]Running without session integration[/]")
+
+    console.print()
+
+    steps = wf.get("steps", [])
+    for i, step in enumerate(steps, 1):
+        task = step.get("task", f"Step {i}")
+
+        if dry_run:
+            console.print(f"[cyan]Step {i}:[/] {task}")
+            if "command" in step:
+                console.print(f"  [dim]Would run: {step['command']}[/]")
+            continue
+
+        # Update session task
+        if use_session:
+            update_session_task(f"[{name}] {task}")
+
+        console.print(f"[cyan]Step {i}:[/] {task}")
+
+        if "command" in step:
+            try:
+                result = subprocess.run(
+                    step["command"],
+                    shell=True,
+                    capture_output=True,
+                    text=True,
+                )
+                if result.returncode == 0:
+                    console.print(f"  [green]✓ Success[/]")
+                    if result.stdout.strip():
+                        lines = result.stdout.strip().split("\n")
+                        if len(lines) <= 5:
+                            for line in lines:
+                                console.print(f"    [dim]{line}[/]")
+                        else:
+                            console.print(f"    [dim]({len(lines)} lines of output)[/]")
+                else:
+                    console.print(f"  [red]✗ Failed (exit {result.returncode})[/]")
+                    if result.stderr.strip():
+                        console.print(f"    [red]{result.stderr.strip()[:200]}[/]")
+
+                    if use_session:
+                        update_session_task(f"[{name}] FAILED: {task}")
+                    raise typer.Exit(1)
+
+            except Exception as e:
+                console.print(f"  [red]✗ Error: {e}[/]")
+                raise typer.Exit(1)
+
+    if dry_run:
+        console.print("\n[dim]Dry run complete. No changes made.[/]")
+        return
+
+    # Clear session task on completion
+    if use_session:
+        update_session_task(None)
+
+    console.print(f"\n[green]✓ Workflow '{name}' completed![/]")
+
+
+@app.command("task")
+def workflows_task(
+    description: str = typer.Argument(None, help="Task description (omit to clear)."),
+) -> None:
+    """Update the current session task.
+
+    Convenient way to set what you're working on, visible in session status.
+    """
+    session = get_current_live_session()
+    if not session:
+        console.print("[yellow]No active session for this directory.[/]")
+        raise typer.Exit(1)
+
+    if update_session_task(description):
+        if description:
+            console.print(f"[green]Task updated:[/] {description}")
+        else:
+            console.print("[green]Task cleared.[/]")
+    else:
+        console.print("[red]Failed to update task.[/]")
+        raise typer.Exit(1)
