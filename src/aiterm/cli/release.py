@@ -371,12 +371,13 @@ def publish_to_pypi(root: Path, test: bool = False) -> tuple[bool, str]:
 
 
 def verify_on_pypi(package: str, version: str, test: bool = False) -> tuple[bool, str]:
-    """Verify package is available on PyPI."""
+    """Verify specific version of package is available on PyPI."""
     import urllib.request
     import json
 
     base_url = "https://test.pypi.org/pypi" if test else "https://pypi.org/pypi"
-    url = f"{base_url}/{package}/json"
+    # Use version-specific URL to verify exact version exists
+    url = f"{base_url}/{package}/{version}/json"
 
     try:
         with urllib.request.urlopen(url, timeout=10) as response:
@@ -387,7 +388,7 @@ def verify_on_pypi(package: str, version: str, test: bool = False) -> tuple[bool
             return False, f"Version mismatch: PyPI has {pypi_version}, expected {version}"
     except urllib.error.HTTPError as e:
         if e.code == 404:
-            return False, f"Package {package} not found on PyPI"
+            return False, f"Version {version} of {package} not found on PyPI"
         return False, f"HTTP error: {e.code}"
     except Exception as e:
         return False, f"Verification failed: {e}"

@@ -100,7 +100,18 @@
       "Bash(mkdocs build:*)",
       "Bash(ait ghostty --help:*)",
       "Bash(hash -r)",
-      "Bash(pip3 show:*)"
+      "Bash(pip3 show:*)",
+      "Bash(gh run list:*)",
+      "Bash(gh release create v0.4.0 --title \"v0.4.0 - Workflow Automation & Craft Integration\" --notes \"$\\(cat <<''EOF''\n## Workflow Automation & Craft Integration\n\nMajor features for workflow automation and Claude Code integration.\n\n### 🎉 Major Features\n\n#### Craft Plugin Management \\(`ait craft`\\)\n- `ait craft status` - Plugin installation status\n- `ait craft list` - List commands, skills, agents\n- `ait craft install` - Install via symlink\n- `ait craft sync` - Sync with project context\n\n#### Session-Aware Workflows \\(`ait workflows`\\)\n- `ait workflows run test` - Run single workflow\n- `ait workflows run lint+test+build` - Chain with `+`\n- `ait workflows custom create` - Custom YAML workflows\n- `ait workflows status` - Session + workflow status\n\n#### 13 Built-in Workflows\ntest, lint, format, check, build, docs, docs-serve, clean, deploy-docs, release\n\n### 📊 Statistics\n\n| Category | Count |\n|----------|-------|\n| New CLI Commands | 14 \\(7 craft + 7 workflows\\) |\n| New Tests | 63 \\(19 craft + 44 workflows\\) |\n| Built-in Workflows | 13 |\n\n### Installation\n\n```bash\n# Quick Install\ncurl -fsSL https://raw.githubusercontent.com/Data-Wise/aiterm/main/install.sh | bash\n\n# Homebrew\nbrew upgrade data-wise/tap/aiterm\n\n# PyPI\npip install --upgrade aiterm-dev\n```\nEOF\n\\)\")",
+      "Bash(python -m aiterm:*)",
+      "Bash(uv run aiterm release --help:*)",
+      "Bash(uv run pytest:*)",
+      "Bash(uv run aiterm release pypi --help:*)",
+      "Bash(uv run aiterm:*)",
+      "Bash(uv run ait release --help:*)",
+      "Bash(uv run ait release notes:*)",
+      "Bash(gh release create:*)",
+      "Bash(shasum:*)"
     ]
   }
 }
