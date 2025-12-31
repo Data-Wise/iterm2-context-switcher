@@ -130,6 +130,7 @@ nav:
       - IDE Integration: guide/ide-integration.md
       - Workflows: guide/workflows.md
       - Triggers: guide/triggers.md
+      - Release Automation: guide/release-automation.md
 
   # ============================================
   # TIER 3: INTEGRATIONS (Separate Menu!)
