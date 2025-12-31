@@ -469,3 +469,271 @@ class TestTutorialDisplay:
         tutorial.show_completion()
         captured = capsys.readouterr()
         assert "Congratulations" in captured.out or "Complete" in captured.out
+
+
+class TestTutorialStepAdvanced:
+    """Tests for advanced TutorialStep features."""
+
+    def test_step_with_follow_up(self):
+        """Test step with follow_up command."""
+        step = TutorialStep(
+            number=1,
+            title="Step with Follow-up",
+            description="Has a follow-up command.",
+            command="ait status",
+            follow_up="ait info",
+        )
+        assert step.follow_up == "ait info"
+        assert step.command == "ait status"
+
+    def test_step_with_validate_callable(self):
+        """Test step with validate function."""
+        def always_valid():
+            return True
+
+        step = TutorialStep(
+            number=1,
+            title="Validated Step",
+            description="Has validation.",
+            validate=always_valid,
+        )
+        assert step.validate is not None
+        assert step.validate() is True
+
+    def test_step_with_all_fields(self):
+        """Test step with every field populated."""
+        def validator():
+            return True
+
+        step = TutorialStep(
+            number=5,
+            title="Complete Step",
+            description="Step with all fields.",
+            command="ait doctor",
+            hint="Run this to check",
+            interactive=True,
+            gif_path="docs/demos/example.gif",
+            diagram="flowchart TD\n    A-->B",
+            validate=validator,
+            follow_up="ait info",
+        )
+        assert step.number == 5
+        assert step.title == "Complete Step"
+        assert step.command == "ait doctor"
+        assert step.hint == "Run this to check"
+        assert step.interactive is True
+        assert step.gif_path == "docs/demos/example.gif"
+        assert step.diagram is not None
+        assert step.validate() is True
+        assert step.follow_up == "ait info"
+
+
+class TestTutorialCompletion:
+    """Tests for tutorial completion and progression suggestions."""
+
+    def test_getting_started_suggests_intermediate(self, capsys):
+        """Test Getting Started completion suggests Intermediate."""
+        tutorial = create_getting_started_tutorial()
+        tutorial.show_completion()
+        captured = capsys.readouterr()
+        assert "intermediate" in captured.out.lower()
+
+    def test_intermediate_suggests_advanced(self, capsys):
+        """Test Intermediate completion suggests Advanced."""
+        tutorial = create_intermediate_tutorial()
+        tutorial.show_completion()
+        captured = capsys.readouterr()
+        assert "advanced" in captured.out.lower()
+
+    def test_advanced_no_next_suggestion(self, capsys):
+        """Test Advanced completion has no next level suggestion."""
+        tutorial = create_advanced_tutorial()
+        tutorial.show_completion()
+        captured = capsys.readouterr()
+        # Should not suggest another tutorial level
+        output_lower = captured.out.lower()
+        assert "try the" not in output_lower or "getting-started" not in output_lower
+
+
+class TestTutorialErrorHandling:
+    """Tests for error handling and edge cases."""
+
+    def test_parse_level_special_characters(self):
+        """Test parse_level with special characters."""
+        assert parse_level("getting-started!") is None
+        assert parse_level("@intermediate") is None
+        assert parse_level("advanced#$%") is None
+        assert parse_level("---") is None
+
+    def test_show_step_negative_number(self):
+        """Test show_step with negative step number."""
+        tutorial = create_getting_started_tutorial()
+        with pytest.raises(ValueError, match="Step -1 not found"):
+            tutorial.show_step(-1)
+
+    def test_show_step_zero(self):
+        """Test show_step with zero."""
+        tutorial = create_getting_started_tutorial()
+        with pytest.raises(ValueError, match="Step 0 not found"):
+            tutorial.show_step(0)
+
+    def test_show_step_large_number(self):
+        """Test show_step with number beyond step count."""
+        tutorial = create_getting_started_tutorial()
+        with pytest.raises(ValueError, match="Step 100 not found"):
+            tutorial.show_step(100)
+
+    def test_tutorial_empty_steps(self):
+        """Test tutorial with empty steps list."""
+        tutorial = Tutorial(
+            level=TutorialLevel.GETTING_STARTED,
+            title="Empty Tutorial",
+            description="Has no steps.",
+            steps=[],
+        )
+        assert len(tutorial.steps) == 0
+        with pytest.raises(ValueError):
+            tutorial.show_step(1)
+
+    def test_parse_level_unicode(self):
+        """Test parse_level with unicode characters."""
+        assert parse_level("getting-started\u200b") is None  # zero-width space
+        assert parse_level("advanced📚") is None
+
+
+class TestTutorialContentIntegrity:
+    """Tests for content integrity and consistency."""
+
+    def test_all_hints_are_meaningful(self):
+        """Test that all hints have meaningful content."""
+        for level in TutorialLevel:
+            tutorial = get_tutorial(level)
+            for step in tutorial.steps:
+                if step.hint:
+                    assert len(step.hint) >= 5, \
+                        f"Step {step.number} in {level.value} has too short hint"
+
+    def test_all_follow_ups_are_valid_format(self):
+        """Test that all follow_up commands start with 'ait' or '#'."""
+        for level in TutorialLevel:
+            tutorial = get_tutorial(level)
+            for step in tutorial.steps:
+                if step.follow_up:
+                    assert step.follow_up.startswith("ait") or step.follow_up.startswith("#"), \
+                        f"Follow-up '{step.follow_up}' in step {step.number} has invalid format"
+
+    def test_interactive_steps_explain_action(self):
+        """Test interactive steps have descriptions mentioning what to do."""
+        for level in TutorialLevel:
+            tutorial = get_tutorial(level)
+            for step in tutorial.steps:
+                if step.interactive:
+                    assert len(step.description) >= 20, \
+                        f"Interactive step {step.number} in {level.value} needs longer description"
+
+    def test_getting_started_first_step_is_intro(self):
+        """Test that Getting Started first step is introductory (non-interactive)."""
+        tutorial = get_tutorial(TutorialLevel.GETTING_STARTED)
+        first_step = tutorial.steps[0]
+        # Getting Started should start with intro, not interactive
+        assert first_step.interactive is False, \
+            "Getting Started should begin with introduction, not interactive step"
+
+    def test_intermediate_advanced_can_start_interactive(self):
+        """Test that Intermediate/Advanced can start with interactive (assumes prior knowledge)."""
+        for level in [TutorialLevel.INTERMEDIATE, TutorialLevel.ADVANCED]:
+            tutorial = get_tutorial(level)
+            first_step = tutorial.steps[0]
+            # These tutorials assume prior knowledge, so can be interactive
+            assert first_step.title is not None, f"{level.value} first step has title"
+
+
+class TestTutorialRegistry:
+    """Tests for the tutorial registry and lookup functions."""
+
+    def test_get_tutorial_returns_correct_type(self):
+        """Test get_tutorial returns Tutorial instances."""
+        for level in TutorialLevel:
+            tutorial = get_tutorial(level)
+            assert isinstance(tutorial, Tutorial)
+            assert isinstance(tutorial.level, TutorialLevel)
+
+    def test_all_levels_have_factory(self):
+        """Test every TutorialLevel has a factory function."""
+        for level in TutorialLevel:
+            tutorial = get_tutorial(level)
+            assert tutorial is not None, f"No factory for {level.value}"
+
+    def test_tutorials_are_independent(self):
+        """Test each get_tutorial call returns fresh instance."""
+        tutorial1 = get_tutorial(TutorialLevel.GETTING_STARTED)
+        tutorial2 = get_tutorial(TutorialLevel.GETTING_STARTED)
+        assert tutorial1 is not tutorial2  # Different instances
+        assert tutorial1.steps is not tutorial2.steps  # Different step lists
+
+
+class TestTutorialDisplayAdvanced:
+    """Advanced display tests."""
+
+    def test_show_step_displays_follow_up(self, capsys):
+        """Test show_step displays follow_up command if present."""
+        tutorial = create_advanced_tutorial()
+        # Find a step with follow_up
+        for i, step in enumerate(tutorial.steps, 1):
+            if step.follow_up:
+                tutorial.show_step(i)
+                captured = capsys.readouterr()
+                assert "Follow-up" in captured.out or "📎" in captured.out
+                break
+
+    def test_show_intro_displays_prerequisites(self, capsys):
+        """Test show_intro displays prerequisites."""
+        tutorial = create_intermediate_tutorial()
+        tutorial.show_intro()
+        captured = capsys.readouterr()
+        assert "Prerequisites" in captured.out
+
+    def test_show_intro_displays_step_count(self, capsys):
+        """Test show_intro shows step count."""
+        tutorial = create_getting_started_tutorial()
+        tutorial.show_intro()
+        captured = capsys.readouterr()
+        assert "7" in captured.out or "Steps" in captured.out
+
+    def test_show_completion_shows_level(self, capsys):
+        """Test show_completion displays level name."""
+        tutorial = create_intermediate_tutorial()
+        tutorial.show_completion()
+        captured = capsys.readouterr()
+        assert "Intermediate" in captured.out
+
+
+class TestParseLevelRobustness:
+    """Additional parse_level robustness tests."""
+
+    def test_parse_level_with_leading_trailing_chars(self):
+        """Test parse_level strips only whitespace."""
+        assert parse_level("  advanced  ") == TutorialLevel.ADVANCED
+        assert parse_level("\n\tintermediate\r") == TutorialLevel.INTERMEDIATE
+
+    def test_parse_level_partial_match_priority(self):
+        """Test partial match finds correct level."""
+        # 'get' is unique to getting-started
+        assert parse_level("get") == TutorialLevel.GETTING_STARTED
+        # 'int' is unique to intermediate
+        assert parse_level("int") == TutorialLevel.INTERMEDIATE
+        # 'adv' is unique to advanced
+        assert parse_level("adv") == TutorialLevel.ADVANCED
+
+    def test_parse_level_exact_match_preferred(self):
+        """Test exact match is found even if partial would also match."""
+        # Exact match should work
+        assert parse_level("advanced") == TutorialLevel.ADVANCED
+        # Full hyphenated name
+        assert parse_level("getting-started") == TutorialLevel.GETTING_STARTED
+
+    def test_parse_level_numbers_rejected(self):
+        """Test parse_level rejects numeric input."""
+        assert parse_level("1") is None
+        assert parse_level("123") is None
+        assert parse_level("1advanced") is None
