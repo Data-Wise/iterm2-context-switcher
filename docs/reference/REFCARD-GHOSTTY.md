@@ -2,11 +2,11 @@
 
 Quick reference for aiterm's Ghostty terminal integration.
 
-**Added in:** v0.3.9
+**Added in:** v0.3.9 | **Updated:** v0.3.15 (Full iTerm2 Parity)
 
 ---
 
-## Current Commands (v0.3.9+)
+## All Commands (v0.3.15)
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
@@ -33,6 +33,36 @@ Quick reference for aiterm's Ghostty terminal integration.
 │ GENERIC SETTINGS                                            │
 │ ────────────────                                            │
 │ ait ghostty set           Set any config key=value          │
+│                                                             │
+│ PROFILE MANAGEMENT (v0.3.15)                                │
+│ ────────────────────────────                                │
+│ ait ghostty profile list          List saved profiles       │
+│ ait ghostty profile show <name>   Show profile details      │
+│ ait ghostty profile create <name> Create from current config│
+│ ait ghostty profile apply <name>  Apply profile to config   │
+│ ait ghostty profile delete <name> Delete a profile          │
+│                                                             │
+│ CONFIG BACKUP (v0.3.15)                                     │
+│ ───────────────────────                                     │
+│ ait ghostty backup [--suffix]     Create timestamped backup │
+│ ait ghostty restore               List available backups    │
+│ ait ghostty restore <backup>      Restore from backup       │
+│                                                             │
+│ KEYBIND MANAGEMENT (v0.3.15)                                │
+│ ────────────────────────────                                │
+│ ait ghostty keybind list          List current keybinds     │
+│ ait ghostty keybind add KEY ACT   Add a keybinding          │
+│ ait ghostty keybind remove KEY    Remove a keybinding       │
+│ ait ghostty keybind preset NAME   Apply keybind preset      │
+│                                                             │
+│ SESSION CONTROL (v0.3.15)                                   │
+│ ─────────────────────────                                   │
+│ ait ghostty session list          List saved sessions       │
+│ ait ghostty session show <name>   Show session details      │
+│ ait ghostty session save <name>   Save current as session   │
+│ ait ghostty session restore <name> Restore a session        │
+│ ait ghostty session delete <name> Delete a session          │
+│ ait ghostty session split [dir]   Create terminal split     │
 │                                                             │
 │ SHORTCUTS (via ghost alias)                                 │
 │ ──────────────────────────                                  │
@@ -141,40 +171,106 @@ ait terminals detect
 
 ---
 
-## Planned Enhancements (v0.4.0)
+## Keybind Presets (v0.3.15)
 
-The following commands are planned for Phase 0.8:
+Four built-in keybind presets for common workflows:
 
-```
-PROFILE MANAGEMENT (Planned)
-────────────────────────────
-ait ghostty profile list          List profiles
-ait ghostty profile show <name>   Show profile details
-ait ghostty profile apply <name>  Apply a profile
-ait ghostty profile create <name> Create from current
-ait ghostty profile delete <name> Delete a profile
+| Preset | Style | Key Bindings |
+|--------|-------|--------------|
+| `vim` | Vim-style | ctrl+h/j/k/l for navigation, ctrl+w prefixes |
+| `emacs` | Emacs-style | ctrl+x prefixes, buffer-style tabs |
+| `tmux` | tmux-style | ctrl+b prefix for all operations |
+| `macos` | macOS native | cmd+t/w/d, cmd+shift+[] |
 
-KEYBIND MANAGEMENT (Planned)
-────────────────────────────
-ait ghostty keybind list              List keybindings
-ait ghostty keybind add <key> <action> Add keybinding
-ait ghostty keybind remove <key>      Remove keybinding
-ait ghostty keybind preset <name>     Apply preset (vim/emacs)
+```bash
+# Apply a preset
+ait ghostty keybind preset vim
 
-SESSION CONTROL (Planned)
-─────────────────────────
-ait ghostty session save <name>       Save session layout
-ait ghostty session restore <name>    Restore session
-ait ghostty session list              List saved sessions
-ait ghostty session split <dir>       Split pane (h/v)
+# List available presets
+ait ghostty keybind preset --list
 
-CONFIG BACKUP (Planned)
-───────────────────────
-ait ghostty backup                    Timestamped backup
-ait ghostty restore [backup]          Restore from backup
+# Add custom keybind
+ait ghostty keybind add "ctrl+t" "new_tab"
+ait ghostty keybind add "cmd+shift+d" "new_split:down" --prefix global:
 ```
 
-See: [Ghostty Enhancements Spec](../specs/SPEC-ghostty-enhancements-2025-12-30.md)
+**Keybind prefixes:**
+- `global:` - Works even when terminal isn't focused
+- `unconsumed:` - Only if not consumed by shell
+- `all:` - Combines global + unconsumed
+
+---
+
+## Session Management (v0.3.15)
+
+Save and restore terminal layouts with sessions:
+
+```bash
+# Save current directory as a session
+ait ghostty session save work --layout split-h
+
+# List saved sessions
+ait ghostty session list
+
+# Restore a session
+ait ghostty session restore work
+
+# Create a terminal split
+ait ghostty session split right    # or: down, left, up
+```
+
+**Session storage:** `~/.config/ghostty/sessions/*.json`
+
+**Layout types:**
+- `single` - Single pane (default)
+- `split-h` - Horizontal split
+- `split-v` - Vertical split
+- `grid` - 2x2 grid
+
+---
+
+## Profile Management (v0.3.15)
+
+Save and switch between Ghostty configurations:
+
+```bash
+# Create profile from current config
+ait ghostty profile create coding "My dev setup"
+
+# List saved profiles
+ait ghostty profile list
+
+# Apply a profile
+ait ghostty profile apply coding
+
+# Delete a profile
+ait ghostty profile delete old-profile
+```
+
+**Profile storage:** `~/.config/ghostty/profiles/*.conf`
+
+---
+
+## Config Backup (v0.3.15)
+
+Timestamped backups matching Claude Code pattern:
+
+```bash
+# Create backup
+ait ghostty backup
+# → config.backup.20251230123456
+
+# Create backup with custom suffix
+ait ghostty backup --suffix before-update
+
+# List available backups
+ait ghostty restore
+
+# Restore from backup
+ait ghostty restore config.backup.20251230123456
+```
+
+**Backup location:** Same directory as config (`~/.config/ghostty/`)
 
 ---
 
@@ -196,12 +292,17 @@ tm ghost font "Fira Code" 16  # Same as: ait ghostty font set
 | Feature | Ghostty | iTerm2 |
 |---------|---------|--------|
 | Themes | ✓ Built-in (14) | ✓ Color presets |
-| Profiles | ✗ Planned v0.4.0 | ✓ Full support |
+| Profiles | ✓ aiterm managed (v0.3.15) | ✓ Native support |
+| Keybinds | ✓ With presets (v0.3.15) | ✓ Full support |
+| Sessions | ✓ aiterm managed (v0.3.15) | ✓ Arrangements |
 | Tab Title | ✓ Via escape seqs | ✓ Via escape seqs |
+| Backup | ✓ Timestamped (v0.3.15) | ✓ Via plist |
 | Badge | ✗ Not supported | ✓ Full support |
 | Status Bar | ✗ Not supported | ✓ Full support |
 | Native UI | ✓ macOS native | ✓ macOS native |
 | Config Reload | ✓ Auto-reload | ✗ Manual |
+
+**Note:** v0.3.15 achieves full iTerm2 parity for the features Ghostty supports!
 
 ---
 

@@ -4,7 +4,13 @@ All notable changes to this project will be documented in this file.
 
 ---
 
-## [Unreleased] - Phase 0.8 Ghostty Enhancements (Complete)
+## [0.3.15] - 2025-12-30 - Ghostty Full iTerm2 Parity
+
+**Tag:** v0.3.15
+**PyPI:** https://pypi.org/project/aiterm-dev/0.3.15/
+**Homebrew:** `brew upgrade data-wise/tap/aiterm`
+
+Phase 0.8 Complete - Ghostty now has full feature parity with iTerm2!
 
 ### Added
 

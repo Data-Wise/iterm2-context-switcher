@@ -841,7 +841,7 @@ aiterm terminals profile "Production"
 
 ---
 
-## Ghostty Integration (v0.3.9+)
+## Ghostty Integration (v0.3.9+, Enhanced v0.3.15)
 
 Commands for managing Ghostty terminal configuration. Ghostty is a fast, GPU-accelerated terminal emulator by Mitchell Hashimoto.
 
@@ -989,6 +989,194 @@ aiterm ghostty set cursor-style underline
 | `window-padding-y` | Integer | Vertical padding |
 | `background-opacity` | 0.0-1.0 | Window transparency |
 | `cursor-style` | block/bar/underline | Cursor shape |
+
+---
+
+### Profile Management (v0.3.15)
+
+#### `aiterm ghostty profile list`
+
+List all saved profiles.
+
+```bash
+aiterm ghostty profile list
+```
+
+#### `aiterm ghostty profile show <name>`
+
+Show details of a specific profile.
+
+```bash
+aiterm ghostty profile show coding
+```
+
+#### `aiterm ghostty profile create <name> [description]`
+
+Create a new profile from current configuration.
+
+```bash
+aiterm ghostty profile create coding "My development setup"
+```
+
+#### `aiterm ghostty profile apply <name>`
+
+Apply a saved profile to the config.
+
+```bash
+aiterm ghostty profile apply coding
+```
+
+#### `aiterm ghostty profile delete <name>`
+
+Delete a saved profile.
+
+```bash
+aiterm ghostty profile delete old-profile
+```
+
+**Profile storage:** `~/.config/ghostty/profiles/*.conf`
+
+---
+
+### Config Backup (v0.3.15)
+
+#### `aiterm ghostty backup`
+
+Create a timestamped backup of the current config.
+
+```bash
+aiterm ghostty backup
+aiterm ghostty backup --suffix before-update
+```
+
+**Output:**
+```
+✓ Backup created: ~/.config/ghostty/config.backup.20251230123456
+```
+
+#### `aiterm ghostty restore [backup]`
+
+List backups or restore from a specific backup.
+
+```bash
+# List available backups
+aiterm ghostty restore
+
+# Restore from specific backup
+aiterm ghostty restore config.backup.20251230123456
+```
+
+---
+
+### Keybind Management (v0.3.15)
+
+#### `aiterm ghostty keybind list`
+
+List all keybindings from config.
+
+```bash
+aiterm ghostty keybind list
+```
+
+#### `aiterm ghostty keybind add <trigger> <action>`
+
+Add a keybinding to config.
+
+```bash
+aiterm ghostty keybind add "ctrl+t" "new_tab"
+aiterm ghostty keybind add "ctrl+q" "quit" --prefix global:
+```
+
+**Supported prefixes:**
+- `global:` - Works even when terminal isn't focused
+- `unconsumed:` - Only if not consumed by shell
+- `all:` - Combines global + unconsumed
+
+#### `aiterm ghostty keybind remove <trigger>`
+
+Remove a keybinding.
+
+```bash
+aiterm ghostty keybind remove "ctrl+t"
+```
+
+#### `aiterm ghostty keybind preset <name>`
+
+Apply a keybind preset.
+
+```bash
+aiterm ghostty keybind preset vim
+aiterm ghostty keybind preset emacs
+aiterm ghostty keybind preset tmux
+aiterm ghostty keybind preset macos
+```
+
+**Available presets:**
+
+| Preset | Description |
+|--------|-------------|
+| `vim` | Vim-style navigation (ctrl+h/j/k/l, ctrl+w prefixes) |
+| `emacs` | Emacs-style (ctrl+x prefixes, buffer navigation) |
+| `tmux` | tmux-style (ctrl+b prefix for all operations) |
+| `macos` | macOS native (cmd+t/w/d, cmd+shift+[]) |
+
+---
+
+### Session Management (v0.3.15)
+
+#### `aiterm ghostty session list`
+
+List all saved sessions.
+
+```bash
+aiterm ghostty session list
+```
+
+#### `aiterm ghostty session show <name>`
+
+Show details of a saved session.
+
+```bash
+aiterm ghostty session show work
+```
+
+#### `aiterm ghostty session save <name>`
+
+Save current state as a session.
+
+```bash
+aiterm ghostty session save work
+aiterm ghostty session save dev --description "Development session" --layout split-h
+```
+
+**Layout types:** `single`, `split-h`, `split-v`, `grid`
+
+#### `aiterm ghostty session restore <name>`
+
+Restore a saved session.
+
+```bash
+aiterm ghostty session restore work
+```
+
+#### `aiterm ghostty session delete <name>`
+
+Delete a saved session.
+
+```bash
+aiterm ghostty session delete old-session
+```
+
+#### `aiterm ghostty session split [direction]`
+
+Create a terminal split.
+
+```bash
+aiterm ghostty session split right    # Horizontal split
+aiterm ghostty session split down     # Vertical split
+```
+
+**Session storage:** `~/.config/ghostty/sessions/*.json`
 
 ---
 

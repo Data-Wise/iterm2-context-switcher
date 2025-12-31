@@ -31,9 +31,9 @@ ait terminals features ghostty
 
 ---
 
-## Ghostty Support (v0.3.9+)
+## Ghostty Support (v0.3.9+, Enhanced v0.3.15)
 
-[Ghostty](https://ghostty.org/) is a fast, native terminal emulator built with Zig. aiterm provides full support for Ghostty.
+[Ghostty](https://ghostty.org/) is a fast, native terminal emulator built with Zig. aiterm provides **full iTerm2 parity** for Ghostty as of v0.3.15.
 
 ### Detection
 
@@ -56,9 +56,12 @@ Terminal Detection
 | Feature | Support | Notes |
 |---------|---------|-------|
 | Tab Title | ✅ | Via escape sequences |
-| Themes | ✅ | Built-in theme support |
+| Themes | ✅ | 14 built-in themes |
 | Native UI | ✅ | macOS native look |
-| Profiles | ❌ | Not supported by Ghostty |
+| Profiles | ✅ v0.3.15 | aiterm-managed profiles |
+| Keybinds | ✅ v0.3.15 | With presets (vim/emacs/tmux/macos) |
+| Sessions | ✅ v0.3.15 | Save/restore terminal layouts |
+| Backup | ✅ v0.3.15 | Timestamped config backups |
 | Badge | ❌ | Not supported by Ghostty |
 
 ### Configuration
@@ -96,7 +99,7 @@ window-padding-y = 10
 ait terminals title "Working on aiterm"
 ```
 
-### Ghostty CLI Commands (v0.3.9+)
+### Ghostty CLI Commands (v0.3.9+, Enhanced v0.3.15)
 
 aiterm provides dedicated commands for managing Ghostty settings:
 
@@ -118,8 +121,7 @@ ait ghostty status
 ait ghostty theme
 # catppuccin-mocha, dracula, nord, tokyo-night,
 # gruvbox-dark, gruvbox-light, solarized-dark,
-# solarized-light, one-dark, one-light,
-# tomorrow-night, monokai, zenburn, github-dark
+# solarized-light, one-dark, one-light, etc.
 
 # Apply a theme
 ait ghostty theme dracula
@@ -162,6 +164,62 @@ ait ghostty config
 
 # Open config in $EDITOR
 ait ghostty edit
+```
+
+### New in v0.3.15: Full iTerm2 Parity
+
+**Profile Management:**
+```bash
+# Create profile from current config
+ait ghostty profile create coding "My dev setup"
+
+# List and apply profiles
+ait ghostty profile list
+ait ghostty profile apply coding
+
+# Profiles stored in: ~/.config/ghostty/profiles/
+```
+
+**Keybind Management:**
+```bash
+# Apply a keybind preset
+ait ghostty keybind preset vim    # vim-style navigation
+ait ghostty keybind preset tmux   # tmux-style prefixes
+ait ghostty keybind preset macos  # macOS native shortcuts
+
+# Add custom keybinds
+ait ghostty keybind add "ctrl+t" "new_tab"
+ait ghostty keybind add "ctrl+q" "quit" --prefix global:
+
+# List current keybinds
+ait ghostty keybind list
+```
+
+**Session Management:**
+```bash
+# Save current working directory as session
+ait ghostty session save work --layout split-h
+
+# List and restore sessions
+ait ghostty session list
+ait ghostty session restore work
+
+# Create terminal splits
+ait ghostty session split right
+ait ghostty session split down
+
+# Sessions stored in: ~/.config/ghostty/sessions/
+```
+
+**Config Backup:**
+```bash
+# Create timestamped backup
+ait ghostty backup
+# → config.backup.20251230123456
+
+# List and restore backups
+ait ghostty restore
+ait ghostty restore config.backup.20251230123456
 ```
 
 ### flow-cli Integration (tm dispatcher)
@@ -326,8 +384,9 @@ Run `ait terminals compare` for a live comparison:
 │ Kitty     │    ✓     │     ✓     │   ✗   │   ✓    │     ✗     │
 │ Alacritty │    ✗     │     ✓     │   ✗   │   ✓    │     ✗     │
 │ WezTerm   │    ✓     │     ✓     │   ✗   │   ✓    │     ✓     │
-│ Ghostty   │    ✗     │     ✓     │   ✗   │   ✓    │     ✓     │
+│ Ghostty   │  ✓*      │     ✓     │   ✗   │   ✓    │     ✓     │
 └───────────┴──────────┴───────────┴───────┴────────┴───────────┘
+* Ghostty profiles managed by aiterm v0.3.15+ (not native to Ghostty)
 ```
 
 ---
