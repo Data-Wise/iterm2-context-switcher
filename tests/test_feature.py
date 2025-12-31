@@ -270,3 +270,73 @@ class TestFeatureCleanupCommand:
                     assert result.exit_code == 0
                     assert "Dry run" in result.stdout
                     assert "feature/merged" in result.stdout
+
+
+class TestFeaturePromoteCommand:
+    """Tests for feature promote command."""
+
+    def test_promote_no_gh(self):
+        """Test promote when gh CLI is not installed."""
+        from typer.testing import CliRunner
+        from aiterm.cli.main import app
+
+        runner = CliRunner()
+
+        with patch("aiterm.cli.feature._check_gh_installed") as mock_gh:
+            mock_gh.return_value = False
+            result = runner.invoke(app, ["feature", "promote"])
+            assert result.exit_code == 1
+            assert "gh" in result.stdout.lower()
+
+    def test_promote_not_in_repo(self):
+        """Test promote when not in a git repo."""
+        from typer.testing import CliRunner
+        from aiterm.cli.main import app
+
+        runner = CliRunner()
+
+        with patch("aiterm.cli.feature._check_gh_installed") as mock_gh:
+            mock_gh.return_value = True
+            with patch("aiterm.cli.feature._get_repo_root") as mock_root:
+                mock_root.return_value = None
+                result = runner.invoke(app, ["feature", "promote"])
+                assert result.exit_code == 1
+                assert "Not in a git repository" in result.stdout
+
+    def test_promote_pr_exists(self):
+        """Test promote when PR already exists."""
+        from typer.testing import CliRunner
+        from aiterm.cli.main import app
+
+        runner = CliRunner()
+
+        with patch("aiterm.cli.feature._check_gh_installed") as mock_gh:
+            mock_gh.return_value = True
+            with patch("aiterm.cli.feature._get_repo_root") as mock_root:
+                mock_root.return_value = Path("/path/to/repo")
+                with patch("aiterm.cli.feature._get_current_branch") as mock_branch:
+                    mock_branch.return_value = "feature/existing"
+                    with patch("aiterm.cli.feature._get_pr_for_branch") as mock_pr:
+                        mock_pr.return_value = {
+                            "number": 42,
+                            "title": "Existing PR",
+                            "state": "OPEN",
+                            "url": "https://github.com/test/repo/pull/42"
+                        }
+                        result = runner.invoke(app, ["feature", "promote"])
+                        assert result.exit_code == 0
+                        assert "PR already exists" in result.stdout
+                        assert "#42" in result.stdout
+
+    def test_promote_help(self):
+        """Test promote --help shows options."""
+        from typer.testing import CliRunner
+        from aiterm.cli.main import app
+
+        runner = CliRunner()
+        result = runner.invoke(app, ["feature", "promote", "--help"])
+        assert result.exit_code == 0
+        assert "--draft" in result.stdout
+        assert "--title" in result.stdout
+        assert "--base" in result.stdout
+        assert "--web" in result.stdout

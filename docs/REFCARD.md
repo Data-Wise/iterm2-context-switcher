@@ -2,7 +2,7 @@
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│ AITERM v0.6.0 - Terminal Optimizer for AI Development      │
+│ AITERM v0.6.2 - Terminal Optimizer for AI Development      │
 ├─────────────────────────────────────────────────────────────┤
 │                                                             │
 │ ESSENTIAL                                                   │
@@ -89,11 +89,12 @@
 │ ait ghostty font        Get or set font configuration       │
 │ ait ghostty set         Set any config value                │
 │                                                             │
-│ FEATURE WORKFLOW (v0.3.13+)                                 │
-│ ───────────────────────────                                 │
+│ FEATURE WORKFLOW (v0.6.2+)                                  │
+│ ──────────────────────────                                  │
 │ ait feature status      Show feature pipeline visualization │
 │ ait feature list        List features with worktree paths   │
 │ ait feature start       Create feature branch + worktree    │
+│ ait feature promote     Create PR to dev (uses gh CLI)      │
 │ ait feature cleanup     Remove merged feature branches      │
 │                                                             │
 │ FLOW-CLI INTEGRATION (v0.3.10+)                             │

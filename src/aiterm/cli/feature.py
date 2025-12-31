@@ -7,6 +7,7 @@ Commands:
 - list: List features with worktree info
 - start: Create feature branch + optional worktree + deps
 - cleanup: Interactive cleanup of merged features
+- promote: Create PR to dev branch
 """
 
 import subprocess
@@ -495,3 +496,155 @@ def feature_cleanup(
         _run_git(["branch", "-d", feature.full_name])
 
     console.print(f"\n[green]✓[/] Cleaned up {len(merged)} merged branches.")
+
+
+def _run_gh(args: list[str], capture: bool = True) -> Optional[str]:
+    """Run a gh CLI command and return output."""
+    try:
+        result = subprocess.run(
+            ["gh"] + args,
+            capture_output=capture,
+            text=True,
+            check=True,
+        )
+        return result.stdout.strip() if capture else None
+    except subprocess.CalledProcessError as e:
+        if capture:
+            return e.stderr.strip() if e.stderr else None
+        return None
+    except FileNotFoundError:
+        return None
+
+
+def _check_gh_installed() -> bool:
+    """Check if gh CLI is installed."""
+    try:
+        subprocess.run(["gh", "--version"], capture_output=True, check=True)
+        return True
+    except (subprocess.CalledProcessError, FileNotFoundError):
+        return False
+
+
+def _get_pr_for_branch(branch: str) -> Optional[dict]:
+    """Get PR info for a branch if one exists."""
+    import json
+
+    result = _run_gh(["pr", "view", branch, "--json", "number,title,state,url"])
+    if result and not result.startswith("no pull requests"):
+        try:
+            return json.loads(result)
+        except json.JSONDecodeError:
+            return None
+    return None
+
+
+@app.command(
+    "promote",
+    epilog="""
+[bold]Examples:[/]
+  ait feature promote              # Create PR for current branch
+  ait feature promote --draft      # Create as draft PR
+  ait feature promote --title "Add auth"  # Custom title
+""",
+)
+def feature_promote(
+    draft: bool = typer.Option(
+        False, "--draft", "-d", help="Create as draft PR."
+    ),
+    title: Optional[str] = typer.Option(
+        None, "--title", "-t", help="PR title (default: branch name)."
+    ),
+    body: Optional[str] = typer.Option(
+        None, "--body", "-b", help="PR body/description."
+    ),
+    base: str = typer.Option(
+        "dev", "--base", help="Target branch for PR."
+    ),
+    web: bool = typer.Option(
+        False, "--web", "-w", help="Open PR in browser after creation."
+    ),
+) -> None:
+    """Create a pull request to dev for the current feature branch."""
+    # Check prerequisites
+    if not _check_gh_installed():
+        console.print("[red]Error:[/] GitHub CLI (gh) is not installed.")
+        console.print("Install: brew install gh")
+        raise typer.Exit(1)
+
+    repo_root = _get_repo_root()
+    if not repo_root:
+        console.print("[red]Error:[/] Not in a git repository")
+        raise typer.Exit(1)
+
+    current_branch = _get_current_branch()
+    if not current_branch:
+        console.print("[red]Error:[/] Could not determine current branch")
+        raise typer.Exit(1)
+
+    # Validate we're on a feature branch
+    if not current_branch.startswith("feature/") and not current_branch.startswith("feat/"):
+        console.print(f"[yellow]Warning:[/] Current branch '{current_branch}' doesn't look like a feature branch")
+        if not typer.confirm("Continue anyway?"):
+            raise typer.Exit(0)
+
+    # Check if PR already exists
+    existing_pr = _get_pr_for_branch(current_branch)
+    if existing_pr:
+        console.print(f"[yellow]PR already exists:[/] #{existing_pr['number']} - {existing_pr['title']}")
+        console.print(f"  State: {existing_pr['state']}")
+        console.print(f"  URL: {existing_pr['url']}")
+        raise typer.Exit(0)
+
+    # Generate title from branch name if not provided
+    if not title:
+        # Convert feature/my-cool-feature to "My cool feature"
+        feature_name = current_branch.replace("feature/", "").replace("feat/", "")
+        title = feature_name.replace("-", " ").replace("_", " ").title()
+
+    console.print(f"[bold cyan]Creating PR:[/] {current_branch} → {base}")
+    console.print(f"[dim]Title:[/] {title}")
+
+    # Push branch first
+    console.print("[dim]Pushing branch to origin...[/]")
+    push_result = _run_git(["push", "-u", "origin", current_branch])
+
+    # Build gh pr create command
+    gh_args = ["pr", "create", "--base", base, "--title", title]
+
+    if draft:
+        gh_args.append("--draft")
+
+    if body:
+        gh_args.extend(["--body", body])
+    else:
+        # Generate default body
+        default_body = f"""## Summary
+
+<!-- Brief description of changes -->
+
+## Changes
+
+<!-- List key changes -->
+
+## Testing
+
+<!-- How to test -->
+
+---
+🤖 Created with `ait feature promote`
+"""
+        gh_args.extend(["--body", default_body])
+
+    # Create PR
+    console.print("[dim]Creating pull request...[/]")
+    result = _run_gh(gh_args)
+
+    if result and result.startswith("https://"):
+        console.print(f"\n[green]✓[/] PR created: {result}")
+
+        if web:
+            console.print("[dim]Opening in browser...[/]")
+            _run_gh(["pr", "view", "--web"])
+    else:
+        console.print(f"[red]Error creating PR:[/] {result}")
+        raise typer.Exit(1)
