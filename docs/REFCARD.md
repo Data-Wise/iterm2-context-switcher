@@ -2,7 +2,7 @@
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│ AITERM v0.3.11 - Terminal Optimizer for AI Development     │
+│ AITERM v0.3.13 - Terminal Optimizer for AI Development     │
 ├─────────────────────────────────────────────────────────────┤
 │                                                             │
 │ ESSENTIAL                                                   │
@@ -13,7 +13,7 @@
 │ ait hello               Diagnostic greeting                 │
 │ ait info                System diagnostics (--json)         │
 │                                                             │
-│ CONFIGURATION (NEW in v0.3.11)                              │
+│ CONFIGURATION                                               │
 │ ──────────────────────────────                              │
 │ ait config path         Show config directory               │
 │ ait config path --all   Show all paths with status          │
@@ -72,6 +72,13 @@
 │ ait ghostty font        Get or set font configuration       │
 │ ait ghostty set         Set any config value                │
 │                                                             │
+│ FEATURE WORKFLOW (v0.3.13+)                                 │
+│ ───────────────────────────                                 │
+│ ait feature status      Show feature pipeline visualization │
+│ ait feature list        List features with worktree paths   │
+│ ait feature start       Create feature branch + worktree    │
+│ ait feature cleanup     Remove merged feature branches      │
+│                                                             │
 │ FLOW-CLI INTEGRATION (v0.3.10+)                             │
 │ ───────────────────────────────                             │
 │ tm title <text>         Set tab title (instant)             │
@@ -124,10 +131,15 @@
 | Topic | File |
 |-------|------|
 | Claude Code | [REFCARD-CLAUDE.md](reference/REFCARD-CLAUDE.md) |
-| MCP Servers | [REFCARD-MCP.md](reference/REFCARD-MCP.md) |
-| Hooks | [REFCARD-HOOKS.md](reference/REFCARD-HOOKS.md) |
 | Context Detection | [REFCARD-CONTEXT.md](reference/REFCARD-CONTEXT.md) |
+| Craft Plugin | [REFCARD-CRAFT.md](reference/REFCARD-CRAFT.md) |
+| Feature Workflow | [REFCARD-FEATURE.md](reference/REFCARD-FEATURE.md) |
+| Ghostty Terminal | [REFCARD-GHOSTTY.md](reference/REFCARD-GHOSTTY.md) |
+| Hooks | [REFCARD-HOOKS.md](reference/REFCARD-HOOKS.md) |
+| IDE Integration | [REFCARD-IDE.md](reference/REFCARD-IDE.md) |
+| MCP Servers | [REFCARD-MCP.md](reference/REFCARD-MCP.md) |
 | OpenCode | [REFCARD-OPENCODE.md](reference/REFCARD-OPENCODE.md) |
+| Sessions | [REFCARD-SESSIONS.md](reference/REFCARD-SESSIONS.md) |
 
 ## Print Version
 

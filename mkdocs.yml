@@ -10,21 +10,37 @@ edit_uri: edit/main/docs/
 theme:
   name: material
   palette:
-    # adhd-focus preset: forest green (#2d6a4f), sage accent (#40916c)
+    # Theme 1: Auto (follows system preference) - Default
+    - media: "(prefers-color-scheme)"
+      scheme: default
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/brightness-auto
+        name: Switch to light mode
+    # Theme 2: Light mode - adhd-focus forest green
     - media: "(prefers-color-scheme: light)"
       scheme: default
       primary: custom
       accent: custom
       toggle:
-        icon: material/brightness-7
+        icon: material/weather-sunny
         name: Switch to dark mode
+    # Theme 3: Dark mode - slate with sage accents
     - media: "(prefers-color-scheme: dark)"
       scheme: slate
       primary: custom
       accent: custom
       toggle:
-        icon: material/brightness-4
-        name: Switch to light mode
+        icon: material/weather-night
+        name: Switch to high contrast
+    # Theme 4: High contrast - accessibility focused
+    - scheme: default
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/contrast-circle
+        name: Switch to auto mode
   font:
     text: Inter
     code: JetBrains Mono
@@ -46,6 +62,7 @@ extra_css:
 
 extra_javascript:
   - https://unpkg.com/mermaid@10/dist/mermaid.min.js
+  - javascripts/theme-toggle.js
 
 plugins:
   - search
@@ -133,6 +150,7 @@ nav:
       - Context Types: reference/REFCARD-CONTEXT.md
       - Craft Plugin: reference/REFCARD-CRAFT.md
       - Feature Workflow: reference/REFCARD-FEATURE.md
+      - Ghostty Terminal: reference/REFCARD-GHOSTTY.md
       - Hooks: reference/REFCARD-HOOKS.md
       - Sessions: reference/REFCARD-SESSIONS.md
       - IDE Reference: reference/REFCARD-IDE.md
@@ -158,6 +176,8 @@ nav:
       - API Reference: api/AITERM-API.md
       - Implementation: AITERM-IMPLEMENTATION-SUMMARY.md
       - Contributing: development/contributing.md
+      - Specs:
+          - Ghostty Enhancements: specs/SPEC-ghostty-enhancements-2025-12-30.md
 
 extra:
   social:

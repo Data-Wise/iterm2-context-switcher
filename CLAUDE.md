@@ -28,72 +28,20 @@ This file provides guidance to Claude Code when working with the aiterm project.
 
 ---
 
-## Layered Architecture (aiterm + flow-cli + craft)
+## Project Status: v0.3.13 ✅ RELEASED
 
-aiterm is part of a 3-layer developer tooling stack:
+**Current Version:** v0.3.13 (Dec 30, 2025)
 
-```
-┌─────────────────────────────────────────────────────────────────┐
-│  Layer 3: craft plugin (Claude Code)                            │
-│  /craft:git:feature - AI-assisted, tests, changelog             │
-├─────────────────────────────────────────────────────────────────┤
-│  Layer 2: aiterm (Python CLI) ← YOU ARE HERE                    │
-│  ait feature - rich visualization, complex automation           │
-├─────────────────────────────────────────────────────────────────┤
-│  Layer 1: flow-cli (Pure ZSH)                                   │
-│  g, wt, cc - instant (<10ms), zero overhead, ADHD-friendly      │
-└─────────────────────────────────────────────────────────────────┘
-```
+**v0.3.13 Release (Dec 30, 2025):**
+- [x] **Dark mode toggle:** 4-theme docs site (auto/light/dark/high-contrast)
+- [x] **Demo GIFs:** Automated CI workflow for GIF generation
+- [x] **craft v1.11.0:** Enhanced git worktree and mermaid commands
 
-### When to Use aiterm vs flow-cli
-
-| Need | Use | Command |
-|------|-----|---------|
-| Quick branch creation | flow-cli | `g feature start <name>` |
-| Quick worktree | flow-cli | `wt create <branch>` |
-| **Full feature setup (deps)** | aiterm | `ait feature start -w` |
-| **Pipeline visualization** | aiterm | `ait feature status` |
-| **Interactive cleanup** | aiterm | `ait feature cleanup` |
-| Quick MCP check | flow-cli | `mcp test <name>` |
-| **Full MCP validation** | aiterm | `ait mcp validate` |
-| Launch Claude | flow-cli | `cc`, `cc yolo` |
-| **Configure Claude settings** | aiterm | `ait claude settings` |
-
-### Delegation Pattern
-
-flow-cli's `tm` dispatcher delegates to aiterm for rich operations:
-- `tm ghost` → `ait ghost` (Ghostty status)
-- `tm detect` → `ait detect` (context detection)
-- `tm switch` → `ait switch` (apply context)
-
-### aiterm Owns:
-1. **Rich visualization** (tables, panels, trees via Rich)
-2. **Complex automation** (deps install, multi-step workflows)
-3. **Claude Code integration** (settings, hooks, approvals, MCP)
-4. **Terminal configuration** (profiles, themes, fonts)
-5. **Session tracking** (live sessions, conflicts, history)
-6. **Workflow templates** (full workflow management)
-7. **IDE integrations** (VS Code, Cursor, Zed, Positron, Windsurf)
-
-### flow-cli Owns:
-1. **Instant operations** (<10ms response, pure ZSH)
-2. **Session management** (work/finish/hop)
-3. **ADHD motivation** (win/yay/streaks/goals)
-4. **Quick navigation** (pick/dash)
-5. **Simple dispatchers** (g/cc/mcp/r/qu/obs/wt/tm)
-
-**See:** `docs/guide/flow-cli-integration.md` for full comparison
-
----
-
-## Project Status: v0.3.10 ✅ RELEASED
-
-**Current Version:** v0.3.10 (Dec 29, 2025)
-
-**v0.3.10 Release (Dec 29, 2025):**
+**v0.3.10-0.3.12 Releases (Dec 29, 2025):**
 - [x] **flow-cli integration:** `tm` dispatcher via symlink mechanism
 - [x] **XDG config:** `AITERM_CONFIG_HOME` with `~/.config/aiterm/` default
 - [x] **Config CLI:** `ait config path/show/init/edit` commands
+- [x] **Feature workflow docs:** Complete tutorial and reference
 
 **v0.3.9 Release (Dec 29, 2025):**
 - [x] **Ghostty terminal support:** `ait ghostty status/theme/font/set`

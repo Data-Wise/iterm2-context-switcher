@@ -657,3 +657,576 @@ def workflows_import(
     except json.JSONDecodeError as e:
         console.print(f"[red]Invalid JSON: {e}[/]")
         raise typer.Exit(1)
+
+
+# =============================================================================
+# Phase 3: Session-Aware Workflow Execution
+# =============================================================================
+
+
+def get_current_live_session():
+    """Get the active Claude Code session for the current directory."""
+    from aiterm.cli.sessions import load_live_sessions, get_live_sessions_dir
+
+    sessions = load_live_sessions()
+    current_path = str(Path.cwd())
+
+    for session in sessions:
+        if session.path == current_path:
+            return session
+    return None
+
+
+def update_session_task(description: str | None) -> bool:
+    """Update the task field for the current session."""
+    from aiterm.cli.sessions import get_live_sessions_dir
+
+    session = get_current_live_session()
+    if not session:
+        return False
+
+    session_file = get_live_sessions_dir() / "active" / f"{session.session_id}.json"
+    if not session_file.exists():
+        return False
+
+    try:
+        data = json.loads(session_file.read_text())
+        data["task"] = description
+        data["task_updated"] = datetime.now().astimezone().isoformat()
+        session_file.write_text(json.dumps(data, indent=2))
+        return True
+    except (json.JSONDecodeError, OSError):
+        return False
+
+
+# Built-in runnable workflows (different from templates)
+RUNNABLE_WORKFLOWS: dict[str, dict] = {
+    "test": {
+        "name": "Test Suite",
+        "description": "Run full test suite with coverage",
+        "steps": [
+            {"task": "Running pytest", "command": "pytest --cov"},
+        ],
+        "requires_session": False,
+    },
+    "lint": {
+        "name": "Code Quality Check",
+        "description": "Run linting and type checking",
+        "steps": [
+            {"task": "Running ruff", "command": "ruff check ."},
+        ],
+        "requires_session": False,
+    },
+    "format": {
+        "name": "Code Formatting",
+        "description": "Format code with ruff",
+        "steps": [
+            {"task": "Formatting code", "command": "ruff format ."},
+        ],
+        "requires_session": False,
+    },
+    "check": {
+        "name": "Pre-commit Check",
+        "description": "Run lint and format checks",
+        "steps": [
+            {"task": "Checking format", "command": "ruff format --check ."},
+            {"task": "Checking lint", "command": "ruff check ."},
+        ],
+        "requires_session": False,
+    },
+    "build": {
+        "name": "Build Package",
+        "description": "Build distributable package",
+        "steps": [
+            {"task": "Building package", "command": "python -m build"},
+        ],
+        "requires_session": False,
+    },
+    "docs": {
+        "name": "Documentation Build",
+        "description": "Build documentation",
+        "steps": [
+            {"task": "Building docs", "command": "mkdocs build"},
+        ],
+        "requires_session": False,
+    },
+    "docs-serve": {
+        "name": "Documentation Server",
+        "description": "Serve documentation locally",
+        "steps": [
+            {"task": "Serving docs", "command": "mkdocs serve"},
+        ],
+        "requires_session": False,
+    },
+    "clean": {
+        "name": "Clean Build Artifacts",
+        "description": "Remove build/cache directories",
+        "steps": [
+            {"task": "Cleaning build", "command": "rm -rf build/ dist/ *.egg-info"},
+            {"task": "Cleaning cache", "command": "find . -type d -name '__pycache__' -exec rm -rf {} + 2>/dev/null || true"},
+            {"task": "Cleaning pytest", "command": "rm -rf .pytest_cache .coverage htmlcov/"},
+        ],
+        "requires_session": False,
+    },
+    "release": {
+        "name": "Release Preparation",
+        "description": "Prepare project for release",
+        "steps": [
+            {"task": "Running tests", "command": "pytest"},
+            {"task": "Checking lint", "command": "ruff check ."},
+            {"task": "Building package", "command": "python -m build"},
+        ],
+        "requires_session": True,
+    },
+    "deploy-docs": {
+        "name": "Deploy Documentation",
+        "description": "Build and deploy docs to GitHub Pages",
+        "steps": [
+            {"task": "Building docs", "command": "mkdocs build --strict"},
+            {"task": "Deploying to GitHub Pages", "command": "mkdocs gh-deploy --force"},
+        ],
+        "requires_session": True,
+    },
+}
+
+
+# =============================================================================
+# Custom YAML Workflow Support
+# =============================================================================
+
+
+def get_custom_workflows_dir() -> Path:
+    """Get custom workflows directory."""
+    return Path.home() / ".config" / "aiterm" / "workflows"
+
+
+def load_custom_workflow(name: str) -> dict | None:
+    """Load a custom workflow from YAML file."""
+    try:
+        import yaml
+    except ImportError:
+        return None
+
+    workflows_dir = get_custom_workflows_dir()
+    yaml_file = workflows_dir / f"{name}.yaml"
+    yml_file = workflows_dir / f"{name}.yml"
+
+    target = yaml_file if yaml_file.exists() else yml_file if yml_file.exists() else None
+    if not target:
+        return None
+
+    try:
+        data = yaml.safe_load(target.read_text())
+        return {
+            "name": data.get("name", name),
+            "description": data.get("description", "Custom workflow"),
+            "steps": data.get("steps", []),
+            "requires_session": data.get("requires_session", False),
+            "source": str(target),
+        }
+    except Exception:
+        return None
+
+
+def list_custom_workflows() -> list[str]:
+    """List all custom workflow names."""
+    workflows_dir = get_custom_workflows_dir()
+    if not workflows_dir.exists():
+        return []
+
+    workflows = []
+    for f in workflows_dir.iterdir():
+        if f.suffix in (".yaml", ".yml"):
+            workflows.append(f.stem)
+    return sorted(set(workflows))
+
+
+def get_all_workflows() -> dict[str, dict]:
+    """Get all workflows (built-in + custom)."""
+    all_wf = dict(RUNNABLE_WORKFLOWS)
+
+    # Add custom workflows (custom overrides built-in with same name)
+    for name in list_custom_workflows():
+        custom = load_custom_workflow(name)
+        if custom:
+            all_wf[name] = custom
+
+    return all_wf
+
+
+@app.command("status")
+def workflows_status() -> None:
+    """Check workflow readiness and session status.
+
+    Shows whether Claude Code is active and what runnable
+    workflows are available for the current project.
+    """
+    console.print("[bold cyan]Workflow Status[/]\n")
+
+    # Session check
+    session = get_current_live_session()
+    if session:
+        console.print("[green]✓ Active Claude Code session[/]")
+        console.print(f"  Session: {session.session_id[:20]}")
+        console.print(f"  Duration: {session.duration_str}")
+        if session.task:
+            console.print(f"  Current task: {session.task}")
+    else:
+        console.print("[yellow]○ No active session[/]")
+        console.print("  [dim]Some workflows require an active session[/]")
+
+    console.print()
+
+    # Get all workflows (built-in + custom)
+    all_workflows = get_all_workflows()
+    custom_names = set(list_custom_workflows())
+
+    # Available runnable workflows
+    console.print("[bold]Runnable Workflows:[/]")
+    for name, wf in sorted(all_workflows.items()):
+        requires = "[yellow](session)[/]" if wf.get("requires_session") else ""
+        custom = "[green](custom)[/]" if name in custom_names else ""
+        console.print(f"  [cyan]{name}[/] - {wf['description']} {requires} {custom}")
+
+    console.print("\n[dim]Run with: ait workflows run <name>[/]")
+    console.print("[dim]Chain with: ait workflows run lint+test+build[/]")
+
+
+def run_single_workflow(
+    name: str,
+    wf: dict,
+    dry_run: bool,
+    use_session: bool,
+    session: any,
+    chain_context: str = "",
+) -> bool:
+    """Run a single workflow. Returns True on success, False on failure."""
+    import subprocess
+
+    prefix = f"[{chain_context}] " if chain_context else ""
+    steps = wf.get("steps", [])
+
+    for i, step in enumerate(steps, 1):
+        task = step.get("task", f"Step {i}")
+
+        if dry_run:
+            console.print(f"[cyan]{prefix}Step {i}:[/] {task}")
+            if "command" in step:
+                console.print(f"  [dim]Would run: {step['command']}[/]")
+            continue
+
+        # Update session task
+        if use_session:
+            update_session_task(f"{prefix}{task}")
+
+        console.print(f"[cyan]{prefix}Step {i}:[/] {task}")
+
+        if "command" in step:
+            try:
+                result = subprocess.run(
+                    step["command"],
+                    shell=True,
+                    capture_output=True,
+                    text=True,
+                )
+                if result.returncode == 0:
+                    console.print(f"  [green]✓ Success[/]")
+                    if result.stdout.strip():
+                        lines = result.stdout.strip().split("\n")
+                        if len(lines) <= 5:
+                            for line in lines:
+                                console.print(f"    [dim]{line}[/]")
+                        else:
+                            console.print(f"    [dim]({len(lines)} lines of output)[/]")
+                else:
+                    console.print(f"  [red]✗ Failed (exit {result.returncode})[/]")
+                    if result.stderr.strip():
+                        console.print(f"    [red]{result.stderr.strip()[:200]}[/]")
+
+                    if use_session:
+                        update_session_task(f"{prefix}FAILED: {task}")
+                    return False
+
+            except Exception as e:
+                console.print(f"  [red]✗ Error: {e}[/]")
+                return False
+
+    return True
+
+
+@app.command("run")
+def workflows_run(
+    name: str = typer.Argument(..., help="Workflow(s) to run. Use + to chain (e.g., lint+test)."),
+    dry_run: bool = typer.Option(False, "--dry-run", "-n", help="Show what would be done."),
+    no_session: bool = typer.Option(False, "--no-session", help="Run without session integration."),
+    require_session: bool = typer.Option(False, "--require-session", help="Require active session."),
+) -> None:
+    """Run a workflow with session awareness.
+
+    Workflows can update the session task as they progress,
+    giving visibility into what's happening.
+
+    Supports chaining multiple workflows with + separator.
+
+    Examples:
+        ait workflows run test
+        ait workflows run lint+test+build
+        ait workflows run release --require-session
+        ait workflows run lint --dry-run
+    """
+    # Parse workflow chain
+    workflow_names = [n.strip() for n in name.split("+") if n.strip()]
+    if not workflow_names:
+        console.print("[red]No workflow specified.[/]")
+        raise typer.Exit(1)
+
+    # Get all available workflows
+    all_workflows = get_all_workflows()
+
+    # Validate all workflows exist
+    workflows_to_run = []
+    for wf_name in workflow_names:
+        wf = all_workflows.get(wf_name)
+        if not wf:
+            # Try loading as custom workflow
+            wf = load_custom_workflow(wf_name)
+        if not wf:
+            console.print(f"[red]Unknown workflow: {wf_name}[/]")
+            console.print("\nAvailable workflows:")
+            for n in sorted(all_workflows.keys()):
+                console.print(f"  {n}")
+            raise typer.Exit(1)
+        workflows_to_run.append((wf_name, wf))
+
+    # Check session requirements
+    session = get_current_live_session()
+    session_available = session is not None
+
+    if require_session and not session_available:
+        console.print("[red]--require-session specified but no session found.[/]")
+        raise typer.Exit(1)
+
+    # Check if any workflow requires session
+    any_requires_session = any(wf.get("requires_session") for _, wf in workflows_to_run)
+    if any_requires_session and not session_available and not no_session:
+        requiring = [n for n, wf in workflows_to_run if wf.get("requires_session")]
+        console.print(f"[yellow]Workflow(s) {', '.join(requiring)} require an active session.[/]")
+        console.print("Use --no-session to run anyway, or start Claude Code first.")
+        raise typer.Exit(1)
+
+    use_session = session_available and not no_session
+
+    # Show workflow chain summary
+    is_chain = len(workflows_to_run) > 1
+    if is_chain:
+        chain_desc = " → ".join(wf_name for wf_name, _ in workflows_to_run)
+        console.print(Panel(
+            f"[bold]Workflow Chain[/]\n{chain_desc}",
+            title=f"Running: {name}",
+            border_style="cyan",
+        ))
+    else:
+        wf_name, wf = workflows_to_run[0]
+        console.print(Panel(
+            f"[bold]{wf['name']}[/]\n{wf['description']}",
+            title=f"Running Workflow: {wf_name}",
+            border_style="cyan",
+        ))
+
+    if use_session:
+        console.print(f"[dim]Session: {session.session_id[:20]}[/]")
+    else:
+        console.print("[dim]Running without session integration[/]")
+
+    console.print()
+
+    # Run each workflow in chain
+    completed = 0
+    for wf_name, wf in workflows_to_run:
+        if is_chain:
+            console.print(f"\n[bold cyan]▸ {wf_name}[/] - {wf['description']}")
+
+        chain_context = wf_name if is_chain else ""
+        success = run_single_workflow(
+            name=wf_name,
+            wf=wf,
+            dry_run=dry_run,
+            use_session=use_session,
+            session=session,
+            chain_context=chain_context,
+        )
+
+        if not success:
+            console.print(f"\n[red]✗ Workflow chain failed at '{wf_name}'[/]")
+            if completed > 0:
+                console.print(f"[dim]Completed {completed}/{len(workflows_to_run)} workflows[/]")
+            raise typer.Exit(1)
+
+        completed += 1
+
+    if dry_run:
+        console.print("\n[dim]Dry run complete. No changes made.[/]")
+        return
+
+    # Clear session task on completion
+    if use_session:
+        update_session_task(None)
+
+    if is_chain:
+        console.print(f"\n[green]✓ Workflow chain completed! ({completed} workflows)[/]")
+    else:
+        console.print(f"\n[green]✓ Workflow '{workflows_to_run[0][0]}' completed![/]")
+
+
+@app.command("task")
+def workflows_task(
+    description: str = typer.Argument(None, help="Task description (omit to clear)."),
+) -> None:
+    """Update the current session task.
+
+    Convenient way to set what you're working on, visible in session status.
+    """
+    session = get_current_live_session()
+    if not session:
+        console.print("[yellow]No active session for this directory.[/]")
+        raise typer.Exit(1)
+
+    if update_session_task(description):
+        if description:
+            console.print(f"[green]Task updated:[/] {description}")
+        else:
+            console.print("[green]Task cleared.[/]")
+    else:
+        console.print("[red]Failed to update task.[/]")
+        raise typer.Exit(1)
+
+
+# =============================================================================
+# Custom Workflow Management Commands
+# =============================================================================
+
+
+@app.command("custom")
+def workflows_custom(
+    action: str = typer.Argument(None, help="Action: list, show, create, delete"),
+    name: str = typer.Argument(None, help="Workflow name for show/create/delete"),
+) -> None:
+    """Manage custom YAML workflows.
+
+    Custom workflows are stored in ~/.config/aiterm/workflows/
+
+    Examples:
+        ait workflows custom list
+        ait workflows custom show my-workflow
+        ait workflows custom create my-workflow
+        ait workflows custom delete my-workflow
+    """
+    workflows_dir = get_custom_workflows_dir()
+
+    if action is None or action == "list":
+        # List custom workflows
+        custom = list_custom_workflows()
+        if not custom:
+            console.print("[dim]No custom workflows found.[/]")
+            console.print(f"\n[dim]Create one at: {workflows_dir}/<name>.yaml[/]")
+            console.print("\n[bold]Example workflow YAML:[/]")
+            console.print("""
+[cyan]name: my-workflow
+description: My custom workflow
+requires_session: false
+steps:
+  - task: Running tests
+    command: pytest
+  - task: Building docs
+    command: mkdocs build[/]
+""")
+            return
+
+        console.print("[bold]Custom Workflows[/]\n")
+        for wf_name in custom:
+            wf = load_custom_workflow(wf_name)
+            if wf:
+                desc = wf.get("description", "")
+                console.print(f"  [cyan]{wf_name}[/] - {desc}")
+        console.print(f"\n[dim]Directory: {workflows_dir}[/]")
+
+    elif action == "show":
+        if not name:
+            console.print("[red]Specify a workflow name: ait workflows custom show <name>[/]")
+            raise typer.Exit(1)
+
+        wf = load_custom_workflow(name)
+        if not wf:
+            console.print(f"[red]Custom workflow '{name}' not found.[/]")
+            raise typer.Exit(1)
+
+        console.print(Panel(
+            f"[bold]Description:[/] {wf.get('description', 'N/A')}\n"
+            f"[bold]Requires Session:[/] {wf.get('requires_session', False)}\n"
+            f"[bold]Source:[/] {wf.get('source', 'N/A')}\n\n"
+            f"[bold]Steps:[/]\n" +
+            "\n".join(f"  {i}. {s.get('task', 'Step')}: {s.get('command', 'N/A')}"
+                     for i, s in enumerate(wf.get('steps', []), 1)),
+            title=f"Custom Workflow: {name}",
+            border_style="cyan",
+        ))
+
+    elif action == "create":
+        if not name:
+            console.print("[red]Specify a workflow name: ait workflows custom create <name>[/]")
+            raise typer.Exit(1)
+
+        # Create workflows directory if needed
+        workflows_dir.mkdir(parents=True, exist_ok=True)
+
+        yaml_file = workflows_dir / f"{name}.yaml"
+        if yaml_file.exists():
+            console.print(f"[yellow]Workflow '{name}' already exists at {yaml_file}[/]")
+            console.print("Edit it directly or delete first.")
+            raise typer.Exit(1)
+
+        # Create template workflow
+        template = f"""# Custom workflow: {name}
+# Documentation: https://Data-Wise.github.io/aiterm/workflows/
+
+name: {name}
+description: My custom workflow
+requires_session: false
+
+steps:
+  - task: First step
+    command: echo "Step 1"
+
+  - task: Second step
+    command: echo "Step 2"
+
+# Tips:
+# - Use requires_session: true for workflows that need Claude Code
+# - Steps run sequentially, chain fails on first error
+# - Use 'ait workflows run {name}' to execute
+"""
+        yaml_file.write_text(template)
+        console.print(f"[green]Created custom workflow:[/] {yaml_file}")
+        console.print("\nEdit the file to customize, then run with:")
+        console.print(f"  [cyan]ait workflows run {name}[/]")
+
+    elif action == "delete":
+        if not name:
+            console.print("[red]Specify a workflow name: ait workflows custom delete <name>[/]")
+            raise typer.Exit(1)
+
+        yaml_file = workflows_dir / f"{name}.yaml"
+        yml_file = workflows_dir / f"{name}.yml"
+        target = yaml_file if yaml_file.exists() else yml_file if yml_file.exists() else None
+
+        if not target:
+            console.print(f"[red]Custom workflow '{name}' not found.[/]")
+            raise typer.Exit(1)
+
+        target.unlink()
+        console.print(f"[green]Deleted custom workflow:[/] {name}")
+
+    else:
+        console.print(f"[red]Unknown action: {action}[/]")
+        console.print("Available: list, show, create, delete")
+        raise typer.Exit(1)

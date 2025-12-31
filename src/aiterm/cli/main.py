@@ -789,6 +789,7 @@ from aiterm.cli import statusbar as statusbar_cli
 from aiterm.cli import terminals as terminals_cli
 from aiterm.cli import workflows as workflows_cli
 from aiterm.cli import sessions as sessions_cli
+from aiterm.cli import craft as craft_cli
 
 app.add_typer(agents_cli.app, name="agents")
 app.add_typer(memory_cli.app, name="memory")
@@ -799,6 +800,7 @@ app.add_typer(statusbar_cli.app, name="statusbar")
 app.add_typer(terminals_cli.app, name="terminals")
 app.add_typer(workflows_cli.app, name="workflows")
 app.add_typer(sessions_cli.app, name="sessions")
+app.add_typer(craft_cli.app, name="craft")
 
 
 if __name__ == "__main__":

@@ -1,10 +1,10 @@
 project: aiterm
 status: active
 priority: P1
-progress: 45
-version: 0.3.14
-updated: 2025-12-30T18:30
-next: Phase 1e Workflow Templates (ait recipes list/show/apply)
+progress: 30
+version: 0.3.13
+updated: 2025-12-30
+next: Phase 1b Feature Workflow (ait feature status/start/cleanup) or Phase 0.7 Quick Wins
 
 ## 🎯 v0.4.0 Plan: Workflow Automation & Craft Integration
 
@@ -37,24 +37,7 @@ next: Phase 1e Workflow Templates (ait recipes list/show/apply)
 | Agents | 1 | 6 | +5 |
 | Skills | 8 | 11 | +3 |
 
-### Phase 1: Worktree & Workflow Integration
-
-**Phase 1c: craft Worktree Finish Workflow** ✅ COMPLETE
-- [x] `/craft:git:worktree` base - 6 actions (setup/create/move/list/clean/install)
-- [x] Add `finish` action - AI-assisted feature completion:
-  - [x] Run tests (auto-detect: pytest/npm test/R CMD check/cargo/go)
-  - [x] Generate changelog entry from commits (branch type → section mapping)
-  - [x] Create PR with AI-generated description
-- [x] Integration docs with `ait feature status` for pipeline view
-
-**Phase 1d: Workflow Enforcement** ✅ ALREADY COMPLETE
-- [x] flow-cli `g feature` commands (start/sync/list/finish/status/prune) - already in g-dispatcher
-- [x] `g promote` and `g release` PR commands - already working
-- [x] Workflow guard (blocks direct push to main/dev) - already active
-- [x] 16 tests passing in test-g-feature.zsh
-- [x] Cross-references added to aiterm (done in architecture docs session)
-
-**Phase 1e: Workflow Templates** (After 1c/1d)
+### Phase 1: Workflow Templates (After Phase 0)
 - [ ] Create `workflow_recipes.py` CLI module
 - [ ] Define recipe format (YAML)
 - [ ] Implement 6 built-in recipes (fullstack, release, feature, debug, docs, r-dev)
@@ -70,49 +53,7 @@ next: Phase 1e Workflow Templates (ait recipes list/show/apply)
 - [ ] Session checks in workflow runner
 - [ ] Task auto-update during workflows
 
-## ✅ Just Completed (Session Dec 30, 2025 - Phase 1c & 1d)
-
-- ✅ **Phase 1c: craft Worktree Finish Workflow COMPLETE**
-  - Added `/craft:git:worktree finish` action (150+ lines)
-  - 3-step AI-assisted workflow: tests → changelog → PR
-  - Auto-detect 5 project types (Node/Python/R/Rust/Go)
-  - Branch type → changelog section mapping (feat→Added, fix→Fixed, etc.)
-  - AI-generated PR titles and bodies
-  - Optional flags: --skip-tests, --draft, --target
-  - Updated integration docs with workflow summary
-
-- ✅ **Phase 1d: Workflow Enforcement - ALREADY COMPLETE**
-  - Discovered flow-cli `g feature` commands already fully implemented
-  - 8 commands: start/sync/list/finish/status/prune + promote/release
-  - Workflow guard blocks direct push to main/dev
-  - 16/16 tests passing
-  - No PR needed - cross-references already added in architecture docs
-
-📊 **Session Stats:**
-- 1 craft command enhanced (+178 lines)
-- 7 actions total in worktree command
-- Phase 1c + 1d both complete
-- Next: Phase 1e Workflow Templates
-
-## ✅ Just Completed (Session Dec 30, 2025 - Architecture Docs)
-
-- ✅ **Layered Architecture Documentation COMPLETE**
-  - Added 3-layer architecture section to aiterm CLAUDE.md
-  - Added 3-layer architecture section to flow-cli CLAUDE.md
-  - Added "See also" epilogs to `ait feature` and `ait mcp` commands
-  - Added "See also" to flow-cli `wt help` and `mcp help`
-  - Created `docs/guide/flow-cli-integration.md` (full comparison guide)
-  - Added to mkdocs nav and deployed to GitHub Pages
-  - XDG config tests added (18 tests, all passing)
-
-📊 **Session Stats:**
-- 5 files modified in aiterm
-- 3 files modified in flow-cli
-- 1 new guide created (flow-cli-integration.md)
-- 18 new config tests
-- Docs deployed: https://data-wise.github.io/aiterm/guide/flow-cli-integration/
-
-## ✅ Earlier Today (Session Dec 30, 2025 - Phase 0.7 & 1b)
+## ✅ Just Completed (Session Dec 30, 2025 - Phase 0.7 & 1b)
 
 - ✅ **Phase 0.7: Quick Wins COMPLETE**
   - `ait ghost` aliases for quick Ghostty access (status/theme/config/font)

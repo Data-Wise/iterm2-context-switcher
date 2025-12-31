@@ -841,7 +841,7 @@ aiterm terminals profile "Production"
 
 ---
 
-## Ghostty Integration (v0.3.9+)
+## Ghostty Integration (v0.3.9+, Enhanced v0.3.15)
 
 Commands for managing Ghostty terminal configuration. Ghostty is a fast, GPU-accelerated terminal emulator by Mitchell Hashimoto.
 
@@ -989,6 +989,579 @@ aiterm ghostty set cursor-style underline
 | `window-padding-y` | Integer | Vertical padding |
 | `background-opacity` | 0.0-1.0 | Window transparency |
 | `cursor-style` | block/bar/underline | Cursor shape |
+
+---
+
+### Profile Management (v0.3.15)
+
+#### `aiterm ghostty profile list`
+
+List all saved profiles.
+
+```bash
+aiterm ghostty profile list
+```
+
+#### `aiterm ghostty profile show <name>`
+
+Show details of a specific profile.
+
+```bash
+aiterm ghostty profile show coding
+```
+
+#### `aiterm ghostty profile create <name> [description]`
+
+Create a new profile from current configuration.
+
+```bash
+aiterm ghostty profile create coding "My development setup"
+```
+
+#### `aiterm ghostty profile apply <name>`
+
+Apply a saved profile to the config.
+
+```bash
+aiterm ghostty profile apply coding
+```
+
+#### `aiterm ghostty profile delete <name>`
+
+Delete a saved profile.
+
+```bash
+aiterm ghostty profile delete old-profile
+```
+
+**Profile storage:** `~/.config/ghostty/profiles/*.conf`
+
+---
+
+### Config Backup (v0.3.15)
+
+#### `aiterm ghostty backup`
+
+Create a timestamped backup of the current config.
+
+```bash
+aiterm ghostty backup
+aiterm ghostty backup --suffix before-update
+```
+
+**Output:**
+```
+✓ Backup created: ~/.config/ghostty/config.backup.20251230123456
+```
+
+#### `aiterm ghostty restore [backup]`
+
+List backups or restore from a specific backup.
+
+```bash
+# List available backups
+aiterm ghostty restore
+
+# Restore from specific backup
+aiterm ghostty restore config.backup.20251230123456
+```
+
+---
+
+### Keybind Management (v0.3.15)
+
+#### `aiterm ghostty keybind list`
+
+List all keybindings from config.
+
+```bash
+aiterm ghostty keybind list
+```
+
+#### `aiterm ghostty keybind add <trigger> <action>`
+
+Add a keybinding to config.
+
+```bash
+aiterm ghostty keybind add "ctrl+t" "new_tab"
+aiterm ghostty keybind add "ctrl+q" "quit" --prefix global:
+```
+
+**Supported prefixes:**
+- `global:` - Works even when terminal isn't focused
+- `unconsumed:` - Only if not consumed by shell
+- `all:` - Combines global + unconsumed
+
+#### `aiterm ghostty keybind remove <trigger>`
+
+Remove a keybinding.
+
+```bash
+aiterm ghostty keybind remove "ctrl+t"
+```
+
+#### `aiterm ghostty keybind preset <name>`
+
+Apply a keybind preset.
+
+```bash
+aiterm ghostty keybind preset vim
+aiterm ghostty keybind preset emacs
+aiterm ghostty keybind preset tmux
+aiterm ghostty keybind preset macos
+```
+
+**Available presets:**
+
+| Preset | Description |
+|--------|-------------|
+| `vim` | Vim-style navigation (ctrl+h/j/k/l, ctrl+w prefixes) |
+| `emacs` | Emacs-style (ctrl+x prefixes, buffer navigation) |
+| `tmux` | tmux-style (ctrl+b prefix for all operations) |
+| `macos` | macOS native (cmd+t/w/d, cmd+shift+[]) |
+
+---
+
+### Session Management (v0.3.15)
+
+#### `aiterm ghostty session list`
+
+List all saved sessions.
+
+```bash
+aiterm ghostty session list
+```
+
+#### `aiterm ghostty session show <name>`
+
+Show details of a saved session.
+
+```bash
+aiterm ghostty session show work
+```
+
+#### `aiterm ghostty session save <name>`
+
+Save current state as a session.
+
+```bash
+aiterm ghostty session save work
+aiterm ghostty session save dev --description "Development session" --layout split-h
+```
+
+**Layout types:** `single`, `split-h`, `split-v`, `grid`
+
+#### `aiterm ghostty session restore <name>`
+
+Restore a saved session.
+
+```bash
+aiterm ghostty session restore work
+```
+
+#### `aiterm ghostty session delete <name>`
+
+Delete a saved session.
+
+```bash
+aiterm ghostty session delete old-session
+```
+
+#### `aiterm ghostty session split [direction]`
+
+Create a terminal split.
+
+```bash
+aiterm ghostty session split right    # Horizontal split
+aiterm ghostty session split down     # Vertical split
+```
+
+**Session storage:** `~/.config/ghostty/sessions/*.json`
+
+---
+
+## Craft Plugin Management (v0.4.0)
+
+Commands for managing Claude Code's craft plugin - a collection of commands, skills, and agents.
+
+### `aiterm craft status`
+
+Show craft plugin installation status and overview.
+
+```bash
+aiterm craft status
+ait craft status
+```
+
+**Output:**
+```
+Craft Plugin Status
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+✓ Installed: ~/.claude/plugins/craft
+  Source: ~/projects/dev-tools/claude-plugins/craft
+  Version: 1.8.0
+
+Overview:
+  Commands: 60
+  Skills: 16
+  Agents: 8
+```
+
+---
+
+### `aiterm craft list`
+
+List available craft commands, skills, and agents.
+
+```bash
+aiterm craft list              # List all
+aiterm craft list --commands   # Commands only
+aiterm craft list --skills     # Skills only
+aiterm craft list --agents     # Agents only
+```
+
+---
+
+### `aiterm craft install`
+
+Install or reinstall craft plugin via symlink.
+
+```bash
+aiterm craft install
+aiterm craft install --source ~/my-craft-plugin
+```
+
+Creates symlink: `~/.claude/plugins/craft` → source directory
+
+---
+
+### `aiterm craft update`
+
+Update craft plugin (git pull in source directory).
+
+```bash
+aiterm craft update
+```
+
+---
+
+### `aiterm craft sync`
+
+Sync craft with project context detection.
+
+```bash
+aiterm craft sync                    # Auto-detect project type
+aiterm craft sync --type python      # Force Python project type
+aiterm craft sync --type node        # Force Node.js project type
+aiterm craft sync --type r           # Force R project type
+```
+
+---
+
+### `aiterm craft run <command>`
+
+Show how to run a craft command in Claude Code.
+
+```bash
+aiterm craft run commit
+aiterm craft run test:generate
+```
+
+**Output:**
+```
+To run 'commit' in Claude Code:
+
+  /craft:commit
+
+Or invoke via chat:
+  "Run the craft commit workflow"
+```
+
+---
+
+### `aiterm craft commands [namespace]`
+
+Show detailed craft command info.
+
+```bash
+aiterm craft commands              # All namespaces
+aiterm craft commands git          # Git commands only
+aiterm craft commands test         # Test commands only
+aiterm craft commands docs         # Docs commands only
+```
+
+---
+
+## Workflows (v0.4.0)
+
+Session-aware workflow runner with built-in and custom workflow support.
+
+### `aiterm workflows status`
+
+Check session status and available workflows.
+
+```bash
+aiterm workflows status
+ait workflows status
+```
+
+**Output:**
+```
+Workflow Status
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Session: ✓ Active (1766786256-71941)
+Project: aiterm
+Branch: dev
+
+Available Workflows (13):
+  test      Run project tests
+  lint      Run linter (ruff/eslint/lintr)
+  format    Auto-format code
+  check     Type checking (mypy/tsc)
+  build     Build project
+  docs      Build documentation
+  ...
+```
+
+---
+
+### `aiterm workflows run <name>`
+
+Run a workflow with session task updates.
+
+```bash
+# Run single workflow
+aiterm workflows run test
+aiterm workflows run lint
+aiterm workflows run docs
+
+# Chain multiple workflows with +
+aiterm workflows run lint+test
+aiterm workflows run format+lint+test+build
+```
+
+**Workflow chaining:**
+- Use `+` to chain workflows: `lint+test+build`
+- Executes sequentially, stops on first failure
+- Session task updates show progress: "Running lint+test (2/3)"
+
+**Example output:**
+```
+Running workflow: lint+test
+
+[1/2] lint
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Running: ruff check .
+✓ Lint passed
+
+[2/2] test
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Running: pytest
+✓ Tests passed (44 passed in 0.58s)
+
+✓ Workflow chain completed successfully
+```
+
+---
+
+### `aiterm workflows task <description>`
+
+Update current session task description.
+
+```bash
+aiterm workflows task "Implementing feature X"
+aiterm workflows task "Code review for PR #123"
+```
+
+---
+
+### `aiterm workflows list`
+
+List all available workflows (built-in + custom).
+
+```bash
+aiterm workflows list
+```
+
+**Output:**
+```
+Available Workflows
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Built-in (13):
+  test        Run project tests
+  lint        Run linter (ruff/eslint/lintr)
+  format      Auto-format code
+  check       Type checking (mypy/tsc)
+  build       Build project (wheel/bundle)
+  docs        Build documentation
+  docs-serve  Serve docs locally
+  clean       Clean build artifacts
+  deploy-docs Deploy to GitHub Pages
+  release     Full release workflow
+
+Custom (2):
+  my-deploy   Custom deployment workflow
+  ci-check    Pre-CI validation
+```
+
+---
+
+### Built-in Workflows
+
+| Workflow | Description | Command |
+|----------|-------------|---------|
+| `test` | Run project tests | Auto-detected (pytest/npm test/testthat) |
+| `lint` | Run linter | ruff/eslint/lintr |
+| `format` | Auto-format code | ruff format/prettier/styler |
+| `check` | Type checking | mypy/tsc |
+| `build` | Build project | wheel/npm build/R CMD build |
+| `docs` | Build documentation | mkdocs build/quarto |
+| `docs-serve` | Serve docs locally | mkdocs serve |
+| `clean` | Clean artifacts | rm -rf dist/ build/ |
+| `deploy-docs` | Deploy to GitHub Pages | mkdocs gh-deploy |
+| `release` | Full release | lint+test+build+deploy |
+
+---
+
+### Custom YAML Workflows
+
+Create custom workflows in `~/.config/aiterm/workflows/`.
+
+#### `aiterm workflows custom list`
+
+List custom workflows.
+
+```bash
+aiterm workflows custom list
+```
+
+#### `aiterm workflows custom show <name>`
+
+Show custom workflow details.
+
+```bash
+aiterm workflows custom show my-deploy
+```
+
+#### `aiterm workflows custom create <name>`
+
+Create a new custom workflow.
+
+```bash
+aiterm workflows custom create my-deploy
+```
+
+Creates `~/.config/aiterm/workflows/my-deploy.yaml`:
+
+```yaml
+name: my-deploy
+description: Custom deployment workflow
+commands:
+  - git pull origin main
+  - npm run build
+  - npm run deploy
+requires_session: false
+```
+
+#### `aiterm workflows custom delete <name>`
+
+Delete a custom workflow.
+
+```bash
+aiterm workflows custom delete my-deploy
+```
+
+---
+
+### Custom Workflow YAML Format
+
+```yaml
+# ~/.config/aiterm/workflows/example.yaml
+name: example
+description: Example workflow description
+commands:
+  - echo "Step 1"
+  - echo "Step 2"
+  - npm run build
+requires_session: false  # true if Claude Code session required
+```
+
+**Fields:**
+| Field | Required | Description |
+|-------|----------|-------------|
+| `name` | Yes | Workflow identifier |
+| `description` | Yes | Human-readable description |
+| `commands` | Yes | List of shell commands to run |
+| `requires_session` | No | Whether active Claude Code session is required (default: false) |
+
+---
+
+## Feature Workflow (v0.3.13)
+
+Commands for managing feature branches and worktrees.
+
+### `aiterm feature status`
+
+Show feature branch pipeline visualization.
+
+```bash
+aiterm feature status
+ait feature status
+```
+
+**Output:**
+```
+Feature Pipeline
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+main ──────► dev ──────► feature/*
+  │            │
+  │            ├── feature/auth (worktree: ~/.git-worktrees/aiterm/auth)
+  │            │     └── 3 commits ahead
+  │            │
+  │            └── feature/api-v2
+  │                  └── 7 commits ahead, needs rebase
+
+Branch: dev (current)
+Status: 2 active features
+```
+
+---
+
+### `aiterm feature list`
+
+List feature branches with details.
+
+```bash
+aiterm feature list          # Active features
+aiterm feature list --all    # Include merged
+```
+
+---
+
+### `aiterm feature start <name>`
+
+Start a new feature branch.
+
+```bash
+aiterm feature start auth
+aiterm feature start api-v2 --worktree    # Create worktree
+aiterm feature start api-v2 -w            # Short form
+aiterm feature start ui --base main       # Custom base branch
+aiterm feature start ui --no-install      # Skip dependency install
+```
+
+---
+
+### `aiterm feature cleanup`
+
+Clean up merged feature branches.
+
+```bash
+aiterm feature cleanup              # Interactive
+aiterm feature cleanup --dry-run    # Preview only
+aiterm feature cleanup --force      # No confirmation
+```
 
 ---
 

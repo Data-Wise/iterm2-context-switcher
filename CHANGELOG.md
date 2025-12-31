@@ -4,25 +4,117 @@ All notable changes to this project will be documented in this file.
 
 ---
 
-## [0.3.14] - 2025-12-30 - Improved Branch State Detection
+## [0.4.0] - 2025-12-30 - Workflow Automation & Craft Integration 🚀
 
-**Tag:** v0.3.14
-**PyPI:** https://pypi.org/project/aiterm-dev/0.3.14/
+**Tag:** v0.4.0
+**PyPI:** https://pypi.org/project/aiterm-dev/0.4.0/
 **Homebrew:** `brew upgrade data-wise/tap/aiterm`
 
-### Fixed
-- **Branch State Detection** - Distinguish "new" from "merged" branches
-  - Branches with 0 commits ahead now show `(new)` instead of `(merged)`
-  - Merged status only applies to branches that had commits merged to dev
-  - Summary shows separate counts: "2 in progress, 1 new, 1 merged"
-  - Fixes confusing UX where newly created branches appeared as "merged"
+### 🎉 Major Features
 
-### Documentation
-- **Feature Workflow Docs** - Added comprehensive legend
-  - Legend table explaining all symbols (●, ○, +N, 📁)
-  - Branch States table (active/new/merged) with actions
-  - Status Values table with colors for list command
-  - Updated examples showing all three states
+Three complete feature systems for workflow automation:
+
+#### Phase 2: Craft Plugin Management (`ait craft`)
+- **Craft CLI** - Manage Claude Code's craft plugin
+  - `ait craft status` - Show craft plugin installation status and overview
+  - `ait craft list` - List available craft commands, skills, and agents
+  - `ait craft install` - Install/reinstall craft plugin via symlink
+  - `ait craft update` - Update craft plugin (git pull in source)
+  - `ait craft sync` - Sync craft with project context detection
+  - `ait craft run <cmd>` - Show how to run craft commands in Claude Code
+  - `ait craft commands [namespace]` - Show detailed craft command info
+- **19 tests** for craft plugin management
+
+#### Phase 3: Session-Aware Workflows (`ait workflows`)
+- **Workflow Runner** with Claude Code session awareness
+  - `ait workflows status` - Check session status and available workflows
+  - `ait workflows run <name>` - Run workflow with session task updates
+  - `ait workflows task <desc>` - Update current session task
+- **Session task auto-update** - Workflows update session task as they progress
+- **Session requirement checks** - Some workflows require active Claude Code session
+
+#### Phase 3 Quick Wins: Advanced Workflow Features
+- **13 Built-in Workflows:**
+  - `test` - Run project tests (auto-detected)
+  - `lint` - Run linter (ruff/eslint/lintr)
+  - `format` - Auto-format code
+  - `check` - Type checking (mypy/tsc)
+  - `build` - Build project (wheel/bundle)
+  - `docs` - Build documentation
+  - `docs-serve` - Serve docs locally
+  - `clean` - Clean build artifacts
+  - `deploy-docs` - Deploy docs to GitHub Pages
+  - `release` - Full release workflow
+- **Custom YAML Workflows:**
+  - Store workflows in `~/.config/aiterm/workflows/*.yaml`
+  - `ait workflows custom list` - List custom workflows
+  - `ait workflows custom show <name>` - Show workflow details
+  - `ait workflows custom create <name>` - Create new workflow
+  - `ait workflows custom delete <name>` - Delete workflow
+  - Auto-discovered and merged with built-in workflows
+- **Workflow Chaining:**
+  - Use `+` separator: `ait workflows run lint+test+build`
+  - Sequential execution with early exit on failure
+  - Session task shows chain progress (e.g., "Running lint+test (2/3)")
+
+### 📊 Statistics
+
+| Category | Count |
+|----------|-------|
+| New CLI Commands | 14 (7 craft + 7 workflows) |
+| New Tests | 63 (19 craft + 44 workflows) |
+| Built-in Workflows | 13 |
+| Custom Workflow YAML Support | ✅ |
+
+### Added
+
+---
+
+## [0.3.15] - 2025-12-30 - Ghostty Full iTerm2 Parity
+
+**Tag:** v0.3.15
+**PyPI:** https://pypi.org/project/aiterm-dev/0.3.15/
+**Homebrew:** `brew upgrade data-wise/tap/aiterm`
+
+Phase 0.8 Complete - Ghostty now has full feature parity with iTerm2!
+
+### Added
+
+#### Phase 0.8.1-0.8.2: Ghostty Profile & Backup Management
+- **Profile Management** - Save and switch between Ghostty configurations
+  - `ait ghostty profile list` - List saved profiles
+  - `ait ghostty profile show <name>` - Show profile details
+  - `ait ghostty profile create <name>` - Create profile from current config
+  - `ait ghostty profile apply <name>` - Apply profile to config
+  - `ait ghostty profile delete <name>` - Delete a profile
+  - Profiles stored in `~/.config/ghostty/profiles/*.conf`
+- **Config Backup** - Timestamped backups matching claude backup pattern
+  - `ait ghostty backup [--suffix]` - Create timestamped backup
+  - `ait ghostty restore [backup]` - Restore from backup (with pre-restore safety)
+  - `ait ghostty restore` (no args) - List available backups
+
+#### Phase 0.8.3: Ghostty Keybind Management
+- **Keybind Management** - Manage Ghostty keyboard shortcuts
+  - `ait ghostty keybind list` - List current keybinds from config
+  - `ait ghostty keybind add <trigger> <action>` - Add a keybind
+  - `ait ghostty keybind remove <trigger>` - Remove a keybind
+  - `ait ghostty keybind preset <name>` - Apply keybind preset
+  - **Presets:** vim, emacs, tmux, macos (for common workflows)
+  - Supports prefixes: `global:`, `unconsumed:`, `all:`
+
+#### Phase 0.8.4: Ghostty Session Management
+- **Session Management** - Save and restore terminal layouts
+  - `ait ghostty session list` - List saved sessions
+  - `ait ghostty session show <name>` - Show session details
+  - `ait ghostty session save <name>` - Save current directory as session
+  - `ait ghostty session restore <name>` - Restore a session
+  - `ait ghostty session delete <name>` - Delete a session
+  - `ait ghostty session split [direction]` - Create terminal split
+  - Sessions stored in `~/.config/ghostty/sessions/*.json`
+  - Layout types: single, split-h, split-v, grid
+
+### Tests
+- 96 Ghostty tests total (34 new for keybind/session management)
 
 ---
 
