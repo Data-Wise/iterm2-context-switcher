@@ -12,9 +12,13 @@
         <meta name="author" content="Data-Wise">
       
       
-        <link rel="canonical" href="https://data-wise.github.io/aiterm/proposals/FEATURE-BRANCH-NEXT-STEPS/">
+        <link rel="canonical" href="https://data-wise.github.io/aiterm/getting-started/installation/">
       
       
+        <link rel="prev" href="../../GETTING-STARTED/">
+      
+      
+        <link rel="next" href="../../guide/shell-completion/">
       
       
         
@@ -25,7 +29,7 @@
     
     
       
-        <title>Feature Branch + Worktree Workflow - Next Steps - aiterm</title>
+        <title>Install Guide - aiterm</title>
       
     
     
@@ -78,7 +82,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#feature-branch-worktree-workflow-next-steps" class="md-skip">
+        <a href="#installation" class="md-skip">
           Skip to content
         </a>
       
@@ -112,7 +116,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Feature Branch + Worktree Workflow - Next Steps
+              Install Guide
             
           </span>
         </div>
@@ -262,10 +266,12 @@
   
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
+      <li class="md-tabs__item md-tabs__item--active">
         <a href="../../QUICK-START/" class="md-tabs__link">
           
   
@@ -473,26 +479,31 @@
       
   
   
+    
   
   
+  
     
     
     
     
+      
+        
+        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
         
           
-          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
             
   
   
@@ -510,7 +521,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
             
@@ -581,10 +592,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../getting-started/installation/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Install Guide
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -600,6 +638,487 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Requirements
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Requirements">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#system-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        System Requirements
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#optional-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Optional Requirements
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installation-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Installation Methods
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Installation Methods">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#method-1-homebrew-macos-recommended" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Method 1: Homebrew (macOS - Recommended 🍺)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Method 1: Homebrew (macOS - Recommended 🍺)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#install-homebrew-if-needed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Install Homebrew (if needed)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#install-aiterm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Install aiterm
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#update-aiterm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Update aiterm
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#uninstall" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Uninstall
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#method-2-uv-cross-platform" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Method 2: UV (Cross-Platform ⚡)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Method 2: UV (Cross-Platform ⚡)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#install-uv" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Install UV
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#install-aiterm_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Install aiterm
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#update-aiterm_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Update aiterm
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#method-3-pipx" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Method 3: pipx
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Method 3: pipx">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#install-pipx" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Install pipx
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#install-aiterm_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Install aiterm
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#update-aiterm_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Update aiterm
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#method-4-development-installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Method 4: Development Installation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#post-installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Post-Installation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Post-Installation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#verify-installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verify Installation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shell-completion-optional" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Shell Completion (Optional)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Shell Completion (Optional)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#zsh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zsh
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bash" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bash
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Troubleshooting
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#command-not-found" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Command Not Found
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#permission-denied" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Permission Denied
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#python-version-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Python Version Issues
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iterm2-not-detected" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        iTerm2 Not Detected
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installation-methods-comparison" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Installation Methods Comparison
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#uninstalling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Uninstalling
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Uninstalling">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#homebrew" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Homebrew
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#uv" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        UV
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pipx" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        pipx
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#development-install" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Development Install
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Next Steps
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#version-information" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Version Information
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#getting-help" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Getting Help
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1064,6 +1583,34 @@
   
   
   
+    <li class="md-nav__item">
+      <a href="../../guide/flow-cli-integration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    flow-cli
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
     
     
     
@@ -1078,10 +1625,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_3" >
         
           
-          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_5_3" id="__nav_5_3_label" tabindex="0">
             
   
   
@@ -1099,8 +1646,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_5_2">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_3">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -1250,10 +1797,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_3" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_4" >
         
           
-          <label class="md-nav__link" for="__nav_5_3" id="__nav_5_3_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_5_4" id="__nav_5_4_label" tabindex="0">
             
   
   
@@ -1271,8 +1818,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_3_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_5_3">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_4">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -1366,10 +1913,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_4" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_5" >
         
           
-          <label class="md-nav__link" for="__nav_5_4" id="__nav_5_4_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_5_5" id="__nav_5_5_label" tabindex="0">
             
   
   
@@ -1387,8 +1934,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_4_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_5_4">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_5">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -1482,10 +2029,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_5" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_6" >
         
           
-          <label class="md-nav__link" for="__nav_5_5" id="__nav_5_5_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_5_6" id="__nav_5_6_label" tabindex="0">
             
   
   
@@ -1503,8 +2050,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_5_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_5_5">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_6">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -2521,33 +3068,22 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#implementation-phases" class="md-nav__link">
+  <a href="#requirements" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Implementation Phases
+        Requirements
       
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#phase-0-quick-wins-do-now-1-hour-total" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Phase 0: Quick Wins (Do Now - 1 hour total)
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Phase 0: Quick Wins (Do Now - 1 hour total)">
+    <nav class="md-nav" aria-label="Requirements">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#01-feature-branch-aliases-5-min" class="md-nav__link">
+  <a href="#system-requirements" class="md-nav__link">
     <span class="md-ellipsis">
       
-        0.1 Feature Branch Aliases (5 min)
+        System Requirements
       
     </span>
   </a>
@@ -2555,32 +3091,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#02-worktree-aliases-5-min" class="md-nav__link">
+  <a href="#optional-requirements" class="md-nav__link">
     <span class="md-ellipsis">
       
-        0.2 Worktree Aliases (5 min)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#03-github-branch-protection-10-min" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        0.3 GitHub Branch Protection (10 min)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#04-pre-push-warning-hook-10-min" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        0.4 Pre-push Warning Hook (10 min)
+        Optional Requirements
       
     </span>
   </a>
@@ -2593,22 +3107,34 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#phase-1-visibility-v040-this-week" class="md-nav__link">
+  <a href="#installation-methods" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Phase 1: Visibility (v0.4.0 - This Week)
+        Installation Methods
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Phase 1: Visibility (v0.4.0 - This Week)">
+    <nav class="md-nav" aria-label="Installation Methods">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#11-ait-feature-status-command" class="md-nav__link">
+  <a href="#method-1-homebrew-macos-recommended" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1.1 ait feature status Command
+        Method 1: Homebrew (macOS - Recommended 🍺)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Method 1: Homebrew (macOS - Recommended 🍺)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#install-homebrew-if-needed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Install Homebrew (if needed)
       
     </span>
   </a>
@@ -2616,10 +3142,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#12-ait-feature-list-command" class="md-nav__link">
+  <a href="#install-aiterm" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1.2 ait feature list Command
+        Install aiterm
       
     </span>
   </a>
@@ -2627,10 +3153,137 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#13-ait-feature-cleanup-command" class="md-nav__link">
+  <a href="#update-aiterm" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1.3 ait feature cleanup Command
+        Update aiterm
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#uninstall" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Uninstall
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#method-2-uv-cross-platform" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Method 2: UV (Cross-Platform ⚡)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Method 2: UV (Cross-Platform ⚡)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#install-uv" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Install UV
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#install-aiterm_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Install aiterm
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#update-aiterm_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Update aiterm
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#method-3-pipx" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Method 3: pipx
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Method 3: pipx">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#install-pipx" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Install pipx
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#install-aiterm_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Install aiterm
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#update-aiterm_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Update aiterm
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#method-4-development-installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Method 4: Development Installation
       
     </span>
   </a>
@@ -2643,22 +3296,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#phase-2-automation-v04x-week-2-3" class="md-nav__link">
+  <a href="#post-installation" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Phase 2: Automation (v0.4.x - Week 2-3)
+        Post-Installation
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Phase 2: Automation (v0.4.x - Week 2-3)">
+    <nav class="md-nav" aria-label="Post-Installation">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#21-ait-feature-start-name-command" class="md-nav__link">
+  <a href="#verify-installation" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2.1 ait feature start &lt;name&gt; Command
+        Verify Installation
       
     </span>
   </a>
@@ -2666,10 +3319,22 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#22-ait-feature-hotfix-name-command" class="md-nav__link">
+  <a href="#shell-completion-optional" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2.2 ait feature hotfix &lt;name&gt; Command
+        Shell Completion (Optional)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Shell Completion (Optional)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#zsh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zsh
       
     </span>
   </a>
@@ -2677,10 +3342,43 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#23-ait-feature-sync-command" class="md-nav__link">
+  <a href="#bash" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2.3 ait feature sync Command
+        Bash
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Troubleshooting
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#command-not-found" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Command Not Found
       
     </span>
   </a>
@@ -2688,10 +3386,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#24-ait-feature-promote-command" class="md-nav__link">
+  <a href="#permission-denied" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2.4 ait feature promote Command
+        Permission Denied
       
     </span>
   </a>
@@ -2699,10 +3397,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#25-ait-feature-release-command" class="md-nav__link">
+  <a href="#python-version-issues" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2.5 ait feature release Command
+        Python Version Issues
       
     </span>
   </a>
@@ -2710,10 +3408,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#26-github-actions-enforcement" class="md-nav__link">
+  <a href="#iterm2-not-detected" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2.6 GitHub Actions Enforcement
+        iTerm2 Not Detected
       
     </span>
   </a>
@@ -2726,22 +3424,33 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#phase-3-craft-integration-v05x-week-4" class="md-nav__link">
+  <a href="#installation-methods-comparison" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Phase 3: Craft Integration (v0.5.x - Week 4+)
+        Installation Methods Comparison
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Phase 3: Craft Integration (v0.5.x - Week 4+)">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#uninstalling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Uninstalling
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Uninstalling">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#31-craftgitfeature-skill" class="md-nav__link">
+  <a href="#homebrew" class="md-nav__link">
     <span class="md-ellipsis">
       
-        3.1 /craft:git:feature Skill
+        Homebrew
       
     </span>
   </a>
@@ -2749,10 +3458,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#32-enhanced-craftgitworktree" class="md-nav__link">
+  <a href="#uv" class="md-nav__link">
     <span class="md-ellipsis">
       
-        3.2 Enhanced /craft:git:worktree
+        UV
       
     </span>
   </a>
@@ -2760,10 +3469,21 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#33-pipeline-visualization" class="md-nav__link">
+  <a href="#pipx" class="md-nav__link">
     <span class="md-ellipsis">
       
-        3.3 Pipeline Visualization
+        pipx
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#development-install" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Development Install
       
     </span>
   </a>
@@ -2776,10 +3496,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#files-to-createmodify" class="md-nav__link">
+  <a href="#next-steps" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Files to Create/Modify
+        Next Steps
       
     </span>
   </a>
@@ -2787,10 +3507,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#success-metrics" class="md-nav__link">
+  <a href="#version-information" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Success Metrics
+        Version Information
       
     </span>
   </a>
@@ -2798,21 +3518,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#dependencies" class="md-nav__link">
+  <a href="#getting-help" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Dependencies
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#quick-reference" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Quick Reference
+        Getting Help
       
     </span>
   </a>
@@ -2839,383 +3548,285 @@
   
 
 
-<h1 id="feature-branch-worktree-workflow-next-steps">Feature Branch + Worktree Workflow - Next Steps</h1>
-<p><strong>Created:</strong> 2025-12-28
-<strong>Related:</strong> <a href="../FEATURE-BRANCH-WORKFLOW/">FEATURE-BRANCH-WORKFLOW.md</a>
-<strong>Scope:</strong> Combines feature branch discipline with git worktrees</p>
+<h1 id="installation">Installation</h1>
+<p>Complete installation guide for <strong>aiterm</strong> v0.1.0.</p>
 <hr />
-<h2 id="implementation-phases">Implementation Phases</h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>Phase 0: Quick Wins (Now)
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>   ↓
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>Phase 1: Visibility (v0.4.0)
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>   ↓
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>Phase 2: Automation (v0.4.x)
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>   ↓
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>Phase 3: Integration (v0.5.x)
-</code></pre></div>
+<h2 id="requirements">Requirements</h2>
+<h3 id="system-requirements">System Requirements</h3>
+<ul>
+<li><strong>Operating System:</strong> macOS (Linux support coming in v0.2.0)</li>
+<li><strong>Python:</strong> 3.10 or higher</li>
+<li><strong>Terminal:</strong> iTerm2 (other terminals coming in v0.2.0)</li>
+</ul>
+<h3 id="optional-requirements">Optional Requirements</h3>
+<ul>
+<li><strong>Claude Code CLI:</strong> For Claude Code integration features</li>
+<li><strong>Gemini CLI:</strong> For Gemini integration (v0.2.0+)</li>
+<li><strong>Git:</strong> For git branch/status detection</li>
+</ul>
 <hr />
-<h2 id="phase-0-quick-wins-do-now-1-hour-total">Phase 0: Quick Wins (Do Now - 1 hour total)</h2>
-<h3 id="01-feature-branch-aliases-5-min">0.1 Feature Branch Aliases (5 min)</h3>
-<p>Add to <code>~/.config/zsh/functions/git-helpers.zsh</code>:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># Feature branch workflow</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="nb">alias</span><span class="w"> </span><span class="nv">gfs</span><span class="o">=</span><span class="s1">&#39;git checkout dev &amp;&amp; git pull &amp;&amp; git checkout -b feature/&#39;</span>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="nb">alias</span><span class="w"> </span><span class="nv">gfh</span><span class="o">=</span><span class="s1">&#39;git checkout main &amp;&amp; git pull &amp;&amp; git checkout -b hotfix/&#39;</span>
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="nb">alias</span><span class="w"> </span><span class="nv">gfp</span><span class="o">=</span><span class="s1">&#39;git push -u origin HEAD &amp;&amp; gh pr create --base dev&#39;</span>
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="nb">alias</span><span class="w"> </span><span class="nv">gfr</span><span class="o">=</span><span class="s1">&#39;git checkout dev &amp;&amp; gh pr create --base main&#39;</span>
-<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="nb">alias</span><span class="w"> </span><span class="nv">gfstatus</span><span class="o">=</span><span class="s1">&#39;git log --oneline dev..HEAD&#39;</span>
+<h2 id="installation-methods">Installation Methods</h2>
+<h3 id="method-1-homebrew-macos-recommended">Method 1: Homebrew (macOS - Recommended 🍺)</h3>
+<p><strong>Homebrew</strong> is the easiest way to install aiterm on macOS. One command, automatic updates, no Python setup needed.</p>
+<h4 id="install-homebrew-if-needed">Install Homebrew (if needed)</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># Install Homebrew if you don&#39;t have it</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>/bin/bash<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span>curl<span class="w"> </span>-fsSL<span class="w"> </span>https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh<span class="k">)</span><span class="s2">&quot;</span>
 </code></pre></div>
-<ul class="task-list">
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Add aliases to git-helpers.zsh</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Source and test</li>
-</ul>
-<h3 id="02-worktree-aliases-5-min">0.2 Worktree Aliases (5 min)</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># Worktree navigation</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="nb">alias</span><span class="w"> </span><span class="nv">wt</span><span class="o">=</span><span class="s1">&#39;cd ~/.git-worktrees&#39;</span>
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="nb">alias</span><span class="w"> </span><span class="nv">wtl</span><span class="o">=</span><span class="s1">&#39;git worktree list&#39;</span>
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="c1"># Worktree creation function</span>
-<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>_wt_create<span class="o">()</span><span class="w"> </span><span class="o">{</span>
-<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">    </span><span class="nb">local</span><span class="w"> </span><span class="nv">branch</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span>
-<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">    </span><span class="nb">local</span><span class="w"> </span><span class="nv">project</span><span class="o">=</span><span class="k">$(</span>basename<span class="w"> </span><span class="k">$(</span>git<span class="w"> </span>rev-parse<span class="w"> </span>--show-toplevel<span class="k">))</span>
-<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">    </span><span class="nb">local</span><span class="w"> </span><span class="nv">folder</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$branch</span><span class="s2">&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>tr<span class="w"> </span><span class="s1">&#39;/&#39;</span><span class="w"> </span><span class="s1">&#39;-&#39;</span><span class="k">)</span>
-<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="w">    </span>mkdir<span class="w"> </span>-p<span class="w"> </span>~/.git-worktrees/<span class="nv">$project</span>
-<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="w">    </span>git<span class="w"> </span>worktree<span class="w"> </span>add<span class="w"> </span>~/.git-worktrees/<span class="nv">$project</span>/<span class="nv">$folder</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$branch</span><span class="s2">&quot;</span>
-<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;✅ Created: ~/.git-worktrees/</span><span class="nv">$project</span><span class="s2">/</span><span class="nv">$folder</span><span class="s2">&quot;</span>
-<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="o">}</span>
-<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="nb">alias</span><span class="w"> </span><span class="nv">wtc</span><span class="o">=</span><span class="s1">&#39;_wt_create&#39;</span>
+<h4 id="install-aiterm">Install aiterm</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># Install from Data-Wise tap</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>brew<span class="w"> </span>install<span class="w"> </span>data-wise/tap/aiterm
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="c1"># Verify installation</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>aiterm<span class="w"> </span>--version
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>ait<span class="w"> </span>--version<span class="w">  </span><span class="c1"># Short alias also works</span>
 </code></pre></div>
-<ul class="task-list">
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Add worktree aliases/functions</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Create <code>~/.git-worktrees</code> folder</li>
-</ul>
-<h3 id="03-github-branch-protection-10-min">0.3 GitHub Branch Protection (10 min)</h3>
-<p>On GitHub (for aiterm, craft, scribe, atlas):</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>Settings → Branches → Add rule
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>├── Branch name pattern: main
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>├── ✓ Require a pull request before merging
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>├── ✓ Require status checks to pass (if CI exists)
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>└── ✓ Do not allow bypassing the above settings
+<h4 id="update-aiterm">Update aiterm</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># Update to latest version</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>brew<span class="w"> </span>upgrade<span class="w"> </span>aiterm
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="c1"># Or update all Homebrew packages</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>brew<span class="w"> </span>upgrade
 </code></pre></div>
-<ul class="task-list">
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> aiterm: Add branch protection</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> craft: Add branch protection</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> scribe: Add branch protection</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> atlas: Add branch protection</li>
+<h4 id="uninstall">Uninstall</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>brew<span class="w"> </span>uninstall<span class="w"> </span>aiterm
+</code></pre></div>
+<p><strong>Why Homebrew?</strong></p>
+<ul>
+<li>✅ One-line installation</li>
+<li>✅ Automatic dependency management (Python, etc.)</li>
+<li>✅ Simple updates with <code>brew upgrade</code></li>
+<li>✅ Standard macOS package manager</li>
+<li>✅ No virtual environment configuration needed</li>
 </ul>
-<h3 id="04-pre-push-warning-hook-10-min">0.4 Pre-push Warning Hook (10 min)</h3>
-<p>Create <code>~/.config/git/hooks/pre-push</code>:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="ch">#!/bin/bash</span>
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="c1"># Global pre-push hook for feature branch workflow</span>
+<hr />
+<h3 id="method-2-uv-cross-platform">Method 2: UV (Cross-Platform ⚡)</h3>
+<p><strong>UV</strong> is 10-100x faster than pip and works on all platforms.</p>
+<h4 id="install-uv">Install UV</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># Install uv if you don&#39;t have it</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>curl<span class="w"> </span>-LsSf<span class="w"> </span>https://astral.sh/uv/install.sh<span class="w"> </span><span class="p">|</span><span class="w"> </span>sh
 <a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>
-<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="nv">current_branch</span><span class="o">=</span><span class="k">$(</span>git<span class="w"> </span>branch<span class="w"> </span>--show-current<span class="k">)</span>
-<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>
-<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$current_branch</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;main&quot;</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
-<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;&quot;</span>
-<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;⚠️  WARNING: Pushing directly to main&quot;</span>
-<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;   Consider using the feature branch workflow:&quot;</span>
-<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;   → gfp (feature → dev)&quot;</span>
-<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;   → gfr (dev → main)&quot;</span>
-<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;&quot;</span>
-<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="w">    </span><span class="nb">read</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;Continue anyway? [y/N] &quot;</span><span class="w"> </span>-n<span class="w"> </span><span class="m">1</span><span class="w"> </span>-r
-<a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a><span class="w">    </span><span class="nb">echo</span>
-<a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a><span class="w">    </span><span class="o">[[</span><span class="w"> </span><span class="nv">$REPLY</span><span class="w"> </span><span class="o">=</span>~<span class="w"> </span>^<span class="o">[</span>Yy<span class="o">]</span>$<span class="w"> </span><span class="o">]]</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">exit</span><span class="w"> </span><span class="m">1</span>
-<a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a><span class="k">fi</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="c1"># Verify installation</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>uv<span class="w"> </span>--version
 </code></pre></div>
-<ul class="task-list">
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Create hook file</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Make executable: <code>chmod +x</code></li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Configure: <code>git config --global core.hooksPath ~/.config/git/hooks</code></li>
-</ul>
+<h4 id="install-aiterm_1">Install aiterm</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1"># Install aiterm as a CLI tool</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>uv<span class="w"> </span>tool<span class="w"> </span>install<span class="w"> </span>git+https://github.com/Data-Wise/aiterm
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="c1"># Verify installation</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>aiterm<span class="w"> </span>--version
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>ait<span class="w"> </span>--version<span class="w">  </span><span class="c1"># Short alias also works</span>
+</code></pre></div>
+<h4 id="update-aiterm_1">Update aiterm</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1"># Update to latest version</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>uv<span class="w"> </span>tool<span class="w"> </span>upgrade<span class="w"> </span>aiterm
+</code></pre></div>
 <hr />
-<h2 id="phase-1-visibility-v040-this-week">Phase 1: Visibility (v0.4.0 - This Week)</h2>
-<h3 id="11-ait-feature-status-command">1.1 <code>ait feature status</code> Command</h3>
-<p>Show feature pipeline visualization:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1"># src/aiterm/cli/feature.py</span>
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="nd">@app</span><span class="o">.</span><span class="n">command</span><span class="p">()</span>
-<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="k">def</span><span class="w"> </span><span class="nf">status</span><span class="p">():</span>
-<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Show feature pipeline status across branches&quot;&quot;&quot;</span>
-<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>    <span class="c1"># Parse git branch info</span>
-<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>    <span class="c1"># Show: in-progress, in-dev, in-main</span>
-<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>    <span class="c1"># Highlight worktree locations</span>
+<h3 id="method-3-pipx">Method 3: pipx</h3>
+<p><strong>pipx</strong> installs Python CLI tools in isolated environments.</p>
+<h4 id="install-pipx">Install pipx</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1"># Install pipx</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--user<span class="w"> </span>pipx
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="c1"># Add pipx to PATH</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>python3<span class="w"> </span>-m<span class="w"> </span>pipx<span class="w"> </span>ensurepath
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="c1"># Restart your terminal, then verify</span>
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>pipx<span class="w"> </span>--version
 </code></pre></div>
-<ul class="task-list">
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Create <code>src/aiterm/cli/feature.py</code></li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Register in main CLI</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Add tests</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Update docs</li>
-</ul>
-<h3 id="12-ait-feature-list-command">1.2 <code>ait feature list</code> Command</h3>
-<p>List all features with worktree info:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>$<span class="w"> </span>ait<span class="w"> </span>feature<span class="w"> </span>list
-<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>┌─<span class="w"> </span>Features<span class="w"> </span>────────────────────────────────────────┐
-<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>│<span class="w">                                                   </span>│
-<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>│<span class="w"> </span>feature/user-auth<span class="w">                                 </span>│
-<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>│<span class="w"> </span>├──<span class="w"> </span>Worktree:<span class="w"> </span>~/.git-worktrees/aiterm/feature-..<span class="w"> </span>│
-<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>│<span class="w"> </span>├──<span class="w"> </span>Status:<span class="w"> </span><span class="m">5</span><span class="w"> </span>commits<span class="w"> </span>ahead<span class="w"> </span>of<span class="w"> </span>dev<span class="w">               </span>│
-<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>│<span class="w"> </span>└──<span class="w"> </span>Last<span class="w"> </span>commit:<span class="w"> </span><span class="m">2</span><span class="w"> </span>hours<span class="w"> </span>ago<span class="w">                     </span>│
-<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>│<span class="w">                                                   </span>│
-<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>│<span class="w"> </span>feature/api-refactor<span class="w">                              </span>│
-<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>│<span class="w"> </span>├──<span class="w"> </span>Worktree:<span class="w"> </span><span class="o">(</span>none<span class="w"> </span>-<span class="w"> </span><span class="k">in</span><span class="w"> </span>main<span class="w"> </span>repo<span class="o">)</span><span class="w">              </span>│
-<a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>│<span class="w"> </span>└──<span class="w"> </span>Status:<span class="w"> </span><span class="m">2</span><span class="w"> </span>commits<span class="w"> </span>ahead<span class="w"> </span>of<span class="w"> </span>dev<span class="w">               </span>│
-<a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a>│<span class="w">                                                   </span>│
-<a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a>└───────────────────────────────────────────────────┘
+<h4 id="install-aiterm_2">Install aiterm</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="c1"># Install aiterm</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>pipx<span class="w"> </span>install<span class="w"> </span>git+https://github.com/Data-Wise/aiterm
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="c1"># Verify installation</span>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>aiterm<span class="w"> </span>--version
 </code></pre></div>
-<ul class="task-list">
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Add <code>list</code> subcommand</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Show worktree paths</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Show commit status</li>
-</ul>
-<h3 id="13-ait-feature-cleanup-command">1.3 <code>ait feature cleanup</code> Command</h3>
-<p>Remove merged worktrees and branches:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="nd">@app</span><span class="o">.</span><span class="n">command</span><span class="p">()</span>
-<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="k">def</span><span class="w"> </span><span class="nf">cleanup</span><span class="p">(</span><span class="n">dry_run</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
-<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Clean up merged feature branches and worktrees&quot;&quot;&quot;</span>
-<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>    <span class="c1"># Find merged branches</span>
-<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>    <span class="c1"># Check for worktrees</span>
-<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>    <span class="c1"># Prompt for removal</span>
-<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>    <span class="c1"># git worktree prune</span>
+<h4 id="update-aiterm_2">Update aiterm</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="c1"># Update to latest version</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>pipx<span class="w"> </span>upgrade<span class="w"> </span>aiterm
 </code></pre></div>
-<ul class="task-list">
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Find merged branches</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Identify orphaned worktrees</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Safe removal with confirmation</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Prune git worktree references</li>
-</ul>
 <hr />
-<h2 id="phase-2-automation-v04x-week-2-3">Phase 2: Automation (v0.4.x - Week 2-3)</h2>
-<h3 id="21-ait-feature-start-name-command">2.1 <code>ait feature start &lt;name&gt;</code> Command</h3>
-<p>Create worktree + branch + install deps:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>$<span class="w"> </span>ait<span class="w"> </span>feature<span class="w"> </span>start<span class="w"> </span>user-auth
-<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>✓<span class="w"> </span>Switched<span class="w"> </span>to<span class="w"> </span>dev,<span class="w"> </span>pulled<span class="w"> </span>latest
-<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>✓<span class="w"> </span>Created<span class="w"> </span>branch:<span class="w"> </span>feature/user-auth
-<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>✓<span class="w"> </span>Created<span class="w"> </span>worktree:<span class="w"> </span>~/.git-worktrees/aiterm/feature-user-auth
-<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>✓<span class="w"> </span>Detected:<span class="w"> </span>Python/uv
-<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>✓<span class="w"> </span>Installed<span class="w"> </span>dependencies
-<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>✓<span class="w"> </span>Ready<span class="w"> </span>at:<span class="w"> </span>~/.git-worktrees/aiterm/feature-user-auth
+<h3 id="method-4-development-installation">Method 4: Development Installation</h3>
+<p>For contributing or local development:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="c1"># Clone the repository</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/Data-Wise/aiterm.git
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="nb">cd</span><span class="w"> </span>aiterm
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="c1"># Create virtual environment with uv</span>
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>uv<span class="w"> </span>venv
+<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>
+<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="c1"># Activate environment</span>
+<a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a><span class="nb">source</span><span class="w"> </span>.venv/bin/activate
+<a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a>
+<a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a><span class="c1"># Install in editable mode with dev dependencies</span>
+<a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a>uv<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;.[dev]&quot;</span>
+<a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a>
+<a id="__codelineno-10-14" name="__codelineno-10-14" href="#__codelineno-10-14"></a><span class="c1"># Run tests</span>
+<a id="__codelineno-10-15" name="__codelineno-10-15" href="#__codelineno-10-15"></a>pytest<span class="w"> </span>-v
+<a id="__codelineno-10-16" name="__codelineno-10-16" href="#__codelineno-10-16"></a>
+<a id="__codelineno-10-17" name="__codelineno-10-17" href="#__codelineno-10-17"></a><span class="c1"># Verify installation</span>
+<a id="__codelineno-10-18" name="__codelineno-10-18" href="#__codelineno-10-18"></a>aiterm<span class="w"> </span>--version
 </code></pre></div>
-<ul class="task-list">
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Create branch from dev</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Create worktree</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Detect project type</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Install dependencies</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Option: <code>--no-worktree</code> for simple branch</li>
-</ul>
-<h3 id="22-ait-feature-hotfix-name-command">2.2 <code>ait feature hotfix &lt;name&gt;</code> Command</h3>
-<p>Same as start but from main:</p>
-<ul class="task-list">
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Create from main instead of dev</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Use <code>hotfix/</code> prefix</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Fast-track to main option</li>
-</ul>
-<h3 id="23-ait-feature-sync-command">2.3 <code>ait feature sync</code> Command</h3>
-<p>Rebase/merge with upstream:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>$<span class="w"> </span>ait<span class="w"> </span>feature<span class="w"> </span>sync
-<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>✓<span class="w"> </span>Fetched<span class="w"> </span>latest<span class="w"> </span>from<span class="w"> </span>origin
-<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>✓<span class="w"> </span>Rebased<span class="w"> </span>feature/user-auth<span class="w"> </span>onto<span class="w"> </span>dev
-<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>✓<span class="w"> </span>No<span class="w"> </span>conflicts
+<hr />
+<h2 id="post-installation">Post-Installation</h2>
+<h3 id="verify-installation">Verify Installation</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="c1"># Check version</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>aiterm<span class="w"> </span>--version
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="c1"># Run health check</span>
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>aiterm<span class="w"> </span>doctor
+<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>
+<a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="c1"># Test context detection</span>
+<a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a>aiterm<span class="w"> </span>detect
 </code></pre></div>
-<ul class="task-list">
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Fetch origin</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Rebase onto dev (or merge)</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Handle conflicts gracefully</li>
-</ul>
-<h3 id="24-ait-feature-promote-command">2.4 <code>ait feature promote</code> Command</h3>
-<p>Create PR to dev:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>$<span class="w"> </span>ait<span class="w"> </span>feature<span class="w"> </span>promote
-<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>✓<span class="w"> </span>Pushed<span class="w"> </span>to<span class="w"> </span>origin/feature/user-auth
-<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>✓<span class="w"> </span>Created<span class="w"> </span>PR<span class="w"> </span><span class="c1">#42: feature/user-auth → dev</span>
-<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>→<span class="w"> </span>https://github.com/Data-Wise/aiterm/pull/42
-</code></pre></div>
-<ul class="task-list">
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Push to origin</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Create PR via <code>gh</code></li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Option: <code>--merge</code> for direct merge</li>
-</ul>
-<h3 id="25-ait-feature-release-command">2.5 <code>ait feature release</code> Command</h3>
-<p>Create PR from dev to main:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>$<span class="w"> </span>ait<span class="w"> </span>feature<span class="w"> </span>release
-<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>✓<span class="w"> </span>Created<span class="w"> </span>PR<span class="w"> </span><span class="c1">#43: dev → main</span>
-<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>→<span class="w"> </span>https://github.com/Data-Wise/aiterm/pull/43
-</code></pre></div>
-<ul class="task-list">
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Verify on dev branch</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Create PR to main</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Option: <code>--changelog</code> to generate</li>
-</ul>
-<h3 id="26-github-actions-enforcement">2.6 GitHub Actions Enforcement</h3>
-<p>Create <code>.github/workflows/branch-protection.yml</code>:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Branch Protection</span>
+<p>Expected output from <code>aiterm doctor</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>aiterm doctor - Health check
 <a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>
-<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="nt">on</span><span class="p">:</span>
-<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="w">  </span><span class="nt">pull_request</span><span class="p">:</span>
-<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="w">    </span><span class="nt">branches</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">main</span><span class="p p-Indicator">]</span>
-<a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>
-<a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="nt">jobs</span><span class="p">:</span>
-<a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a><span class="w">  </span><span class="nt">check-source</span><span class="p">:</span>
-<a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a><span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ubuntu-latest</span>
-<a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a><span class="w">    </span><span class="nt">steps</span><span class="p">:</span>
-<a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Verify PR from dev</span>
-<a id="__codelineno-12-12" name="__codelineno-12-12" href="#__codelineno-12-12"></a><span class="w">        </span><span class="nt">if</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">github.head_ref != &#39;dev&#39;</span>
-<a id="__codelineno-12-13" name="__codelineno-12-13" href="#__codelineno-12-13"></a><span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
-<a id="__codelineno-12-14" name="__codelineno-12-14" href="#__codelineno-12-14"></a><span class="w">          </span><span class="no">echo &quot;❌ PRs to main must come from dev branch&quot;</span>
-<a id="__codelineno-12-15" name="__codelineno-12-15" href="#__codelineno-12-15"></a><span class="w">          </span><span class="no">echo &quot;Current source: ${{ github.head_ref }}&quot;</span>
-<a id="__codelineno-12-16" name="__codelineno-12-16" href="#__codelineno-12-16"></a><span class="w">          </span><span class="no">exit 1</span>
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>Terminal: iTerm.app
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>Shell: /bin/zsh
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>Python: 3.10+
+<a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>aiterm: 0.1.0-dev
+<a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a>
+<a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a>Basic checks passed!
 </code></pre></div>
-<ul class="task-list">
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Create workflow file</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Apply to key repos</li>
-</ul>
+<h3 id="shell-completion-optional">Shell Completion (Optional)</h3>
+<p>Enable tab completion for your shell:</p>
+<h4 id="zsh">Zsh</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="c1"># Add to ~/.zshrc</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="nb">eval</span><span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span><span class="nv">_AITERM_COMPLETE</span><span class="o">=</span>zsh_source<span class="w"> </span>aiterm<span class="k">)</span><span class="s2">&quot;</span>
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="c1"># Reload shell</span>
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="nb">source</span><span class="w"> </span>~/.zshrc
+</code></pre></div>
+<h4 id="bash">Bash</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="c1"># Add to ~/.bashrc</span>
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="nb">eval</span><span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span><span class="nv">_AITERM_COMPLETE</span><span class="o">=</span>bash_source<span class="w"> </span>aiterm<span class="k">)</span><span class="s2">&quot;</span>
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>
+<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="c1"># Reload shell</span>
+<a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="nb">source</span><span class="w"> </span>~/.bashrc
+</code></pre></div>
 <hr />
-<h2 id="phase-3-craft-integration-v05x-week-4">Phase 3: Craft Integration (v0.5.x - Week 4+)</h2>
-<h3 id="31-craftgitfeature-skill">3.1 <code>/craft:git:feature</code> Skill</h3>
-<p>Full Claude Code integration:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>/craft:git:feature<span class="w"> </span>start<span class="w"> </span>authentication<span class="w"> </span>--with-tests
-<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>/craft:git:feature<span class="w"> </span>promote<span class="w"> </span>--run-checks<span class="w"> </span>--changelog
-<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>/craft:git:feature<span class="w"> </span>release<span class="w"> </span>--version-bump<span class="w"> </span>minor
+<h2 id="troubleshooting">Troubleshooting</h2>
+<h3 id="command-not-found">Command Not Found</h3>
+<p>If <code>aiterm</code> command is not found after installation:</p>
+<p><strong>UV users:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="c1"># Check UV bin directory is in PATH</span>
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="nb">echo</span><span class="w"> </span><span class="nv">$PATH</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-o<span class="w"> </span>~/.local/bin
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>
+<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="c1"># If not found, add to your shell config (~/.zshrc or ~/.bashrc)</span>
+<a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a><span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">/.local/bin:</span><span class="nv">$PATH</span><span class="s2">&quot;</span>
+</code></pre></div></p>
+<p><strong>pipx users:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="c1"># Ensure pipx path</span>
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>python3<span class="w"> </span>-m<span class="w"> </span>pipx<span class="w"> </span>ensurepath
+<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>
+<a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="c1"># Restart terminal</span>
+</code></pre></div></p>
+<h3 id="permission-denied">Permission Denied</h3>
+<p>If you get permission errors:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="c1"># Don&#39;t use sudo with uv or pipx!</span>
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="c1"># They install to user directories automatically</span>
+<a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>
+<a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a><span class="c1"># If you accidentally used sudo, uninstall and reinstall:</span>
+<a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a>uv<span class="w"> </span>tool<span class="w"> </span>uninstall<span class="w"> </span>aiterm
+<a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a>uv<span class="w"> </span>tool<span class="w"> </span>install<span class="w"> </span>git+https://github.com/Data-Wise/aiterm
 </code></pre></div>
-<ul class="task-list">
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Create skill file</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Integration with <code>/craft:check</code></li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Auto-changelog generation</li>
-</ul>
-<h3 id="32-enhanced-craftgitworktree">3.2 Enhanced <code>/craft:git:worktree</code></h3>
-<p>Add feature workflow integration:</p>
-<ul class="task-list">
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <code>move --to-feature</code> option</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Auto-detect branch type</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Link with feature status</li>
-</ul>
-<h3 id="33-pipeline-visualization">3.3 Pipeline Visualization</h3>
-<p>Mermaid diagram generation:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>/craft:git:feature<span class="w"> </span>diagram
+<h3 id="python-version-issues">Python Version Issues</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="c1"># Check Python version</span>
+<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>python3<span class="w"> </span>--version
+<a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>
+<a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a><span class="c1"># aiterm requires Python 3.10+</span>
+<a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a><span class="c1"># Update Python if needed:</span>
+<a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a>brew<span class="w"> </span>install<span class="w"> </span>python@3.12<span class="w">  </span><span class="c1"># macOS with Homebrew</span>
 </code></pre></div>
-<pre class="mermaid"><code>graph LR
-    subgraph "In Progress"
-        A[feature/auth] --&gt; B[dev]
-        C[feature/ui] --&gt; B
-    end
-    B --&gt; D[main]
-    D --&gt; E[v0.3.9]</code></pre>
-<ul class="task-list">
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Generate Mermaid from git state</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Include in status output</li>
-</ul>
+<h3 id="iterm2-not-detected">iTerm2 Not Detected</h3>
+<p>If <code>aiterm doctor</code> shows wrong terminal:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="c1"># Check TERM_PROGRAM environment variable</span>
+<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="nb">echo</span><span class="w"> </span><span class="nv">$TERM_PROGRAM</span>
+<a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>
+<a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a><span class="c1"># Should show: iTerm.app</span>
+<a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a><span class="c1"># If not, you&#39;re not running in iTerm2</span>
+</code></pre></div>
 <hr />
-<h2 id="files-to-createmodify">Files to Create/Modify</h2>
+<h2 id="installation-methods-comparison">Installation Methods Comparison</h2>
 <table>
 <thead>
 <tr>
-<th>File</th>
-<th>Phase</th>
-<th>Action</th>
+<th>Method</th>
+<th>Platform</th>
+<th>Speed</th>
+<th>Updates</th>
+<th>Best For</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>~/.config/zsh/functions/git-helpers.zsh</code></td>
-<td>0</td>
-<td>Add aliases</td>
+<td><strong>Homebrew</strong> 🍺</td>
+<td>macOS</td>
+<td>Fast</td>
+<td><code>brew upgrade</code></td>
+<td>Mac users (recommended)</td>
 </tr>
 <tr>
-<td><code>~/.config/git/hooks/pre-push</code></td>
-<td>0</td>
-<td>Create hook</td>
+<td><strong>UV</strong> ⚡</td>
+<td>All</td>
+<td>Fastest</td>
+<td><code>uv tool upgrade</code></td>
+<td>Cross-platform, speed</td>
 </tr>
 <tr>
-<td><code>~/.git-worktrees/</code></td>
-<td>0</td>
-<td>Create folder</td>
+<td><strong>pipx</strong></td>
+<td>All</td>
+<td>Fast</td>
+<td><code>pipx upgrade</code></td>
+<td>Python developers</td>
 </tr>
 <tr>
-<td><code>src/aiterm/cli/feature.py</code></td>
-<td>1</td>
-<td>New command group</td>
-</tr>
-<tr>
-<td><code>.github/workflows/branch-protection.yml</code></td>
-<td>2</td>
-<td>Create workflow</td>
-</tr>
-<tr>
-<td><code>craft/skills/git/feature.md</code></td>
-<td>3</td>
-<td>New skill</td>
-</tr>
-<tr>
-<td><code>V0.4.0-PLAN.md</code></td>
-<td>-</td>
-<td>Update with feature workflow</td>
+<td><strong>Source</strong></td>
+<td>All</td>
+<td>Slow</td>
+<td><code>git pull</code></td>
+<td>Contributors</td>
 </tr>
 </tbody>
 </table>
 <hr />
-<h2 id="success-metrics">Success Metrics</h2>
-<table>
-<thead>
-<tr>
-<th>Metric</th>
-<th>Target</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>No accidental main merges</td>
-<td>0 in 30 days</td>
-</tr>
-<tr>
-<td>Feature branch adoption</td>
-<td>100% of new features</td>
-</tr>
-<tr>
-<td>Worktree usage</td>
-<td>50%+ of long features</td>
-</tr>
-<tr>
-<td>Cleanup frequency</td>
-<td>Weekly</td>
-</tr>
-<tr>
-<td>Pipeline visibility</td>
-<td>Status check daily</td>
-</tr>
-</tbody>
-</table>
-<hr />
-<h2 id="dependencies">Dependencies</h2>
-<ul class="task-list">
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <code>/craft:git:worktree</code> command exists</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> GitHub CLI (<code>gh</code>) installed</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Branch protection enabled on repos</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> aiterm v0.4.0 release</li>
-</ul>
-<hr />
-<h2 id="quick-reference">Quick Reference</h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="c1"># Phase 0 Aliases (after setup)</span>
-<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>gfs<span class="w">       </span><span class="c1"># Start feature from dev</span>
-<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>gfh<span class="w">       </span><span class="c1"># Start hotfix from main</span>
-<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>gfp<span class="w">       </span><span class="c1"># Promote (PR to dev)</span>
-<a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>gfr<span class="w">       </span><span class="c1"># Release (PR dev → main)</span>
-<a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>
-<a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a>wt<span class="w">        </span><span class="c1"># Go to worktrees folder</span>
-<a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a>wtl<span class="w">       </span><span class="c1"># List worktrees</span>
-<a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a>wtc<span class="w">       </span><span class="c1"># Create worktree</span>
-<a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a>
-<a id="__codelineno-15-11" name="__codelineno-15-11" href="#__codelineno-15-11"></a><span class="c1"># Phase 1+ Commands (v0.4.0)</span>
-<a id="__codelineno-15-12" name="__codelineno-15-12" href="#__codelineno-15-12"></a>ait<span class="w"> </span>feature<span class="w"> </span>status
-<a id="__codelineno-15-13" name="__codelineno-15-13" href="#__codelineno-15-13"></a>ait<span class="w"> </span>feature<span class="w"> </span>list
-<a id="__codelineno-15-14" name="__codelineno-15-14" href="#__codelineno-15-14"></a>ait<span class="w"> </span>feature<span class="w"> </span>cleanup
-<a id="__codelineno-15-15" name="__codelineno-15-15" href="#__codelineno-15-15"></a>
-<a id="__codelineno-15-16" name="__codelineno-15-16" href="#__codelineno-15-16"></a><span class="c1"># Phase 2+ Commands (v0.4.x)</span>
-<a id="__codelineno-15-17" name="__codelineno-15-17" href="#__codelineno-15-17"></a>ait<span class="w"> </span>feature<span class="w"> </span>start<span class="w"> </span>&lt;name&gt;
-<a id="__codelineno-15-18" name="__codelineno-15-18" href="#__codelineno-15-18"></a>ait<span class="w"> </span>feature<span class="w"> </span>hotfix<span class="w"> </span>&lt;name&gt;
-<a id="__codelineno-15-19" name="__codelineno-15-19" href="#__codelineno-15-19"></a>ait<span class="w"> </span>feature<span class="w"> </span>sync
-<a id="__codelineno-15-20" name="__codelineno-15-20" href="#__codelineno-15-20"></a>ait<span class="w"> </span>feature<span class="w"> </span>promote
-<a id="__codelineno-15-21" name="__codelineno-15-21" href="#__codelineno-15-21"></a>ait<span class="w"> </span>feature<span class="w"> </span>release
+<h2 id="uninstalling">Uninstalling</h2>
+<h3 id="homebrew">Homebrew</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>brew<span class="w"> </span>uninstall<span class="w"> </span>aiterm
+</code></pre></div>
+<h3 id="uv">UV</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>uv<span class="w"> </span>tool<span class="w"> </span>uninstall<span class="w"> </span>aiterm
+</code></pre></div>
+<h3 id="pipx">pipx</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>pipx<span class="w"> </span>uninstall<span class="w"> </span>aiterm
+</code></pre></div>
+<h3 id="development-install">Development Install</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="nb">cd</span><span class="w"> </span>aiterm
+<a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>uv<span class="w"> </span>pip<span class="w"> </span>uninstall<span class="w"> </span>aiterm
 </code></pre></div>
 <hr />
-<p><em>Status: Planning</em>
-<em>Target: v0.4.x</em>
-<em>Scope: Feature branches + Worktrees integration</em></p>
+<h2 id="next-steps">Next Steps</h2>
+<ul>
+<li>✅ <strong>Quick Start:</strong> <a href="../../QUICK-START/">Get started in 2 minutes</a></li>
+<li>📖 <strong>CLI Reference:</strong> <a href="../../reference/commands/">All commands and examples</a></li>
+<li>🎯 <strong>Workflows:</strong> <a href="../../guide/workflows/">Common use cases</a></li>
+<li>⚙️ <strong>Claude Integration:</strong> <a href="../../guide/claude-integration/">Set up auto-approvals</a></li>
+</ul>
+<hr />
+<h2 id="version-information">Version Information</h2>
+<ul>
+<li><strong>Current Version:</strong> 0.1.0-dev</li>
+<li><strong>Release Date:</strong> December 2024</li>
+<li><strong>Python Support:</strong> 3.10, 3.11, 3.12, 3.13, 3.14</li>
+<li><strong>macOS Support:</strong> Monterey (12.0) and later</li>
+</ul>
+<hr />
+<h2 id="getting-help">Getting Help</h2>
+<ul>
+<li><strong>Documentation:</strong> <a href="https://data-wise.github.io/aiterm">https://data-wise.github.io/aiterm</a></li>
+<li><strong>Issues:</strong> <a href="https://github.com/Data-Wise/aiterm/issues">GitHub Issues</a></li>
+<li><strong>Discussions:</strong> <a href="https://github.com/Data-Wise/aiterm/discussions">GitHub Discussions</a></li>
+</ul>
 
 
 

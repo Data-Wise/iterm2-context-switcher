@@ -5,39 +5,11 @@
          <lastmod>2025-12-31</lastmod>
     </url>
     <url>
-         <loc>https://data-wise.github.io/aiterm/AITERM-DOCS-INDEX/</loc>
-         <lastmod>2025-12-31</lastmod>
-    </url>
-    <url>
          <loc>https://data-wise.github.io/aiterm/AITERM-IMPLEMENTATION-SUMMARY/</loc>
          <lastmod>2025-12-31</lastmod>
     </url>
     <url>
-         <loc>https://data-wise.github.io/aiterm/AUTO-UPDATE-INDEX/</loc>
-         <lastmod>2025-12-31</lastmod>
-    </url>
-    <url>
-         <loc>https://data-wise.github.io/aiterm/AUTO-UPDATE-REFCARD/</loc>
-         <lastmod>2025-12-31</lastmod>
-    </url>
-    <url>
-         <loc>https://data-wise.github.io/aiterm/AUTO-UPDATE-TUTORIAL/</loc>
-         <lastmod>2025-12-31</lastmod>
-    </url>
-    <url>
-         <loc>https://data-wise.github.io/aiterm/AUTO-UPDATE-WORKFLOW-DIAGRAM/</loc>
-         <lastmod>2025-12-31</lastmod>
-    </url>
-    <url>
-         <loc>https://data-wise.github.io/aiterm/AUTO-UPDATE-WORKFLOW/</loc>
-         <lastmod>2025-12-31</lastmod>
-    </url>
-    <url>
          <loc>https://data-wise.github.io/aiterm/CLAUDE-CODE-TUTORIAL/</loc>
-         <lastmod>2025-12-31</lastmod>
-    </url>
-    <url>
-         <loc>https://data-wise.github.io/aiterm/DOCS-HELPERS/</loc>
          <lastmod>2025-12-31</lastmod>
     </url>
     <url>
@@ -57,18 +29,6 @@
          <lastmod>2025-12-31</lastmod>
     </url>
     <url>
-         <loc>https://data-wise.github.io/aiterm/_archive/PROPOSAL-DOCS-REORGANIZATION/</loc>
-         <lastmod>2025-12-31</lastmod>
-    </url>
-    <url>
-         <loc>https://data-wise.github.io/aiterm/_archive/PROPOSAL-craft-enhancements-2025-12-26/</loc>
-         <lastmod>2025-12-31</lastmod>
-    </url>
-    <url>
-         <loc>https://data-wise.github.io/aiterm/_archive/PROPOSAL-craft-worktree-mermaid-2025-12-28/</loc>
-         <lastmod>2025-12-31</lastmod>
-    </url>
-    <url>
          <loc>https://data-wise.github.io/aiterm/api/AITERM-API/</loc>
          <lastmod>2025-12-31</lastmod>
     </url>
@@ -82,14 +42,6 @@
     </url>
     <url>
          <loc>https://data-wise.github.io/aiterm/demos/</loc>
-         <lastmod>2025-12-31</lastmod>
-    </url>
-    <url>
-         <loc>https://data-wise.github.io/aiterm/design/TERMINAL-DISPATCHER-DESIGN/</loc>
-         <lastmod>2025-12-31</lastmod>
-    </url>
-    <url>
-         <loc>https://data-wise.github.io/aiterm/development/architecture/</loc>
          <lastmod>2025-12-31</lastmod>
     </url>
     <url>
@@ -117,10 +69,6 @@
          <lastmod>2025-12-31</lastmod>
     </url>
     <url>
-         <loc>https://data-wise.github.io/aiterm/getting-started/quickstart/</loc>
-         <lastmod>2025-12-31</lastmod>
-    </url>
-    <url>
          <loc>https://data-wise.github.io/aiterm/guide/claude-integration/</loc>
          <lastmod>2025-12-31</lastmod>
     </url>
@@ -130,6 +78,10 @@
     </url>
     <url>
          <loc>https://data-wise.github.io/aiterm/guide/feature-workflow/</loc>
+         <lastmod>2025-12-31</lastmod>
+    </url>
+    <url>
+         <loc>https://data-wise.github.io/aiterm/guide/flow-cli-integration/</loc>
          <lastmod>2025-12-31</lastmod>
     </url>
     <url>
@@ -186,34 +138,6 @@
     </url>
     <url>
          <loc>https://data-wise.github.io/aiterm/guides/VIDEO-WALKTHROUGH/</loc>
-         <lastmod>2025-12-31</lastmod>
-    </url>
-    <url>
-         <loc>https://data-wise.github.io/aiterm/proposals/AITERM-IN-FLOW-CLI/</loc>
-         <lastmod>2025-12-31</lastmod>
-    </url>
-    <url>
-         <loc>https://data-wise.github.io/aiterm/proposals/FEATURE-BRANCH-NEXT-STEPS/</loc>
-         <lastmod>2025-12-31</lastmod>
-    </url>
-    <url>
-         <loc>https://data-wise.github.io/aiterm/proposals/FEATURE-BRANCH-WORKFLOW/</loc>
-         <lastmod>2025-12-31</lastmod>
-    </url>
-    <url>
-         <loc>https://data-wise.github.io/aiterm/proposals/FEATURE-WORKFLOW-OWNERSHIP/</loc>
-         <lastmod>2025-12-31</lastmod>
-    </url>
-    <url>
-         <loc>https://data-wise.github.io/aiterm/proposals/SESSION-SUMMARY-spec-workflow-2025-12-30/</loc>
-         <lastmod>2025-12-31</lastmod>
-    </url>
-    <url>
-         <loc>https://data-wise.github.io/aiterm/proposals/XDG-CONFIG-MIGRATION/</loc>
-         <lastmod>2025-12-31</lastmod>
-    </url>
-    <url>
-         <loc>https://data-wise.github.io/aiterm/proposals/ZSH-DELEGATION-FLOW-CLI/</loc>
          <lastmod>2025-12-31</lastmod>
     </url>
     <url>
@@ -277,23 +201,7 @@
          <lastmod>2025-12-31</lastmod>
     </url>
     <url>
-         <loc>https://data-wise.github.io/aiterm/sessions/2025-12-29-workflow-enforcement-proposal/</loc>
-         <lastmod>2025-12-31</lastmod>
-    </url>
-    <url>
          <loc>https://data-wise.github.io/aiterm/specs/SPEC-ghostty-enhancements-2025-12-30/</loc>
-         <lastmod>2025-12-31</lastmod>
-    </url>
-    <url>
-         <loc>https://data-wise.github.io/aiterm/specs/SPEC-interactive-tutorial-system-SUMMARY/</loc>
-         <lastmod>2025-12-31</lastmod>
-    </url>
-    <url>
-         <loc>https://data-wise.github.io/aiterm/specs/SPEC-interactive-tutorial-system/</loc>
-         <lastmod>2025-12-31</lastmod>
-    </url>
-    <url>
-         <loc>https://data-wise.github.io/aiterm/specs/_archive/SPEC-dark-mode-toggle-2025-12-30/</loc>
          <lastmod>2025-12-31</lastmod>
     </url>
     <url>
