@@ -801,6 +801,7 @@ app.add_typer(gemini_cli.app, name="gemini")
 app.add_typer(statusbar_cli.app, name="statusbar")
 app.add_typer(terminals_cli.app, name="terminals")
 app.add_typer(workflows_cli.app, name="workflows")
+app.add_typer(workflows_cli.app, name="recipes", hidden=True)  # Alias for workflows
 app.add_typer(sessions_cli.app, name="sessions")
 app.add_typer(craft_cli.app, name="craft")
 app.add_typer(release_cli.app, name="release")

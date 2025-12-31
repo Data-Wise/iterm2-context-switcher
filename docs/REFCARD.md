@@ -95,6 +95,7 @@
 │ ait feature list        List features with worktree paths   │
 │ ait feature start       Create feature branch + worktree    │
 │ ait feature promote     Create PR to dev (uses gh CLI)      │
+│ ait feature release     Create PR dev→main (uses gh CLI)    │
 │ ait feature cleanup     Remove merged feature branches      │
 │                                                             │
 │ FLOW-CLI INTEGRATION (v0.3.10+)                             │

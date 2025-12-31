@@ -340,3 +340,77 @@ class TestFeaturePromoteCommand:
         assert "--title" in result.stdout
         assert "--base" in result.stdout
         assert "--web" in result.stdout
+
+
+class TestFeatureReleaseCommand:
+    """Tests for feature release command."""
+
+    def test_release_no_gh(self):
+        """Test release when gh CLI is not installed."""
+        from typer.testing import CliRunner
+        from aiterm.cli.main import app
+
+        runner = CliRunner()
+
+        with patch("aiterm.cli.feature._check_gh_installed") as mock_gh:
+            mock_gh.return_value = False
+            result = runner.invoke(app, ["feature", "release"])
+            assert result.exit_code == 1
+            assert "gh" in result.stdout.lower()
+
+    def test_release_not_in_repo(self):
+        """Test release when not in a git repo."""
+        from typer.testing import CliRunner
+        from aiterm.cli.main import app
+
+        runner = CliRunner()
+
+        with patch("aiterm.cli.feature._check_gh_installed") as mock_gh:
+            mock_gh.return_value = True
+            with patch("aiterm.cli.feature._get_repo_root") as mock_root:
+                mock_root.return_value = None
+                result = runner.invoke(app, ["feature", "release"])
+                assert result.exit_code == 1
+                assert "Not in a git repository" in result.stdout
+
+    def test_release_pr_exists(self):
+        """Test release when PR from dev to main already exists."""
+        from typer.testing import CliRunner
+        from aiterm.cli.main import app
+        import json
+
+        runner = CliRunner()
+
+        with patch("aiterm.cli.feature._check_gh_installed") as mock_gh:
+            mock_gh.return_value = True
+            with patch("aiterm.cli.feature._get_repo_root") as mock_root:
+                mock_root.return_value = Path("/path/to/repo")
+                with patch("aiterm.cli.feature._get_current_branch") as mock_branch:
+                    mock_branch.return_value = "dev"
+                    with patch("aiterm.cli.feature._get_pr_for_branch") as mock_pr:
+                        mock_pr.return_value = None  # No PR for "dev" branch directly
+                        with patch("aiterm.cli.feature._run_gh") as mock_run_gh:
+                            # Return existing PR from dev to main
+                            mock_run_gh.return_value = json.dumps([{
+                                "number": 99,
+                                "title": "Release: merge dev to main",
+                                "state": "OPEN",
+                                "url": "https://github.com/test/repo/pull/99"
+                            }])
+                            result = runner.invoke(app, ["feature", "release"])
+                            assert result.exit_code == 0
+                            assert "Release PR already exists" in result.stdout
+                            assert "#99" in result.stdout
+
+    def test_release_help(self):
+        """Test release --help shows options."""
+        from typer.testing import CliRunner
+        from aiterm.cli.main import app
+
+        runner = CliRunner()
+        result = runner.invoke(app, ["feature", "release", "--help"])
+        assert result.exit_code == 0
+        assert "--draft" in result.stdout
+        assert "--title" in result.stdout
+        assert "--body" in result.stdout
+        assert "--web" in result.stdout

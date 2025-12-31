@@ -2,7 +2,7 @@
 
 Rich CLI commands for managing feature branches and git worktrees.
 
-**Added in:** v0.3.13
+**Added in:** v0.3.13 | **Updated:** v0.6.2 (promote/release commands)
 
 ---
 
@@ -17,12 +17,15 @@ The feature workflow commands provide:
 - **Pipeline Visualization** - See your feature branches in a tree view
 - **Worktree Integration** - Parallel development with git worktrees
 - **Dependency Automation** - Auto-install deps when creating branches
+- **PR Automation** - Create PRs to dev (promote) and main (release)
 - **Cleanup Tools** - Remove merged branches and worktrees
 
 ```bash
 ait feature status    # Show pipeline
 ait feature list      # List all features
 ait feature start     # Create new feature
+ait feature promote   # Create PR to dev
+ait feature release   # Create PR from dev to main
 ait feature cleanup   # Remove merged
 ```
 
@@ -190,6 +193,93 @@ Deleting branch: feature/deprecated-api
 
 ---
 
+### `ait feature promote`
+
+Create a pull request from your feature branch to dev.
+
+```bash
+# Create PR from current feature branch to dev
+ait feature promote
+
+# Create as draft PR
+ait feature promote --draft
+
+# Custom title
+ait feature promote --title "Add authentication system"
+
+# Target different base branch
+ait feature promote --base main
+
+# Open PR in browser after creation
+ait feature promote --web
+```
+
+**Options:**
+
+| Option | Short | Description |
+|--------|-------|-------------|
+| `--draft` | `-d` | Create as draft PR |
+| `--title` | `-t` | PR title (default: branch name) |
+| `--base` | `-b` | Target branch (default: `dev`) |
+| `--web` | `-w` | Open PR in browser after creation |
+
+**Requirements:**
+
+- GitHub CLI (`gh`) must be installed and authenticated
+- Must be on a feature branch (starts with `feature/` or `feat/`)
+
+**What it does:**
+
+1. Checks if PR already exists for the branch
+2. Pushes current branch to origin
+3. Creates PR with commit summary as body
+4. Optionally opens in browser
+
+---
+
+### `ait feature release`
+
+Create a release PR from dev to main.
+
+```bash
+# Create release PR from dev to main
+ait feature release
+
+# Create as draft PR
+ait feature release --draft
+
+# Custom title
+ait feature release --title "v1.0.0 Release"
+
+# Open PR in browser after creation
+ait feature release --web
+```
+
+**Options:**
+
+| Option | Short | Description |
+|--------|-------|-------------|
+| `--draft` | `-d` | Create as draft PR |
+| `--title` | `-t` | PR title (default: "Release: merge dev to main") |
+| `--body` | `-b` | Custom PR body |
+| `--web` | `-w` | Open PR in browser after creation |
+
+**Requirements:**
+
+- GitHub CLI (`gh`) must be installed and authenticated
+- Should be on `dev` branch (warns if not)
+
+**What it does:**
+
+1. Checks if release PR already exists
+2. Fetches latest changes from origin
+3. Shows commits to be merged
+4. Pushes dev to origin
+5. Creates PR with commit summary
+6. Optionally opens in browser
+
+---
+
 ## Workflow Examples
 
 ### Starting a New Feature
@@ -215,6 +305,39 @@ ait feature status
 
 # Detailed list with worktrees
 ait feature list
+```
+
+### Promoting a Feature
+
+When your feature is ready for review:
+
+```bash
+# 1. Check your feature status
+ait feature status
+
+# 2. Create PR to dev branch
+ait feature promote
+
+# 3. Or create as draft for early feedback
+ait feature promote --draft --web
+```
+
+### Making a Release
+
+When dev is ready to merge to main:
+
+```bash
+# 1. Switch to dev branch
+git checkout dev
+
+# 2. Check what will be released
+ait feature release --dry-run  # Coming soon
+
+# 3. Create release PR
+ait feature release
+
+# 4. Or create with custom title
+ait feature release --title "v1.0.0 Release" --web
 ```
 
 ### After Merging a PR
@@ -254,7 +377,8 @@ graph LR
 | With worktree | `g feature start NAME -w` | `ait feature start NAME --worktree` | `/craft:git:worktree create` |
 | Check status | `g status` | `ait feature status` | - |
 | List features | `g feature list` | `ait feature list` | - |
-| Finish & PR | `g feature finish` | - | `/craft:git:worktree finish` |
+| PR to dev | `g feature pr` | `ait feature promote` | `/craft:git:worktree finish` |
+| PR dev→main | - | `ait feature release` | - |
 | Cleanup | `g feature prune` | `ait feature cleanup` | `/craft:git:worktree clean` |
 
 ### craft Integration

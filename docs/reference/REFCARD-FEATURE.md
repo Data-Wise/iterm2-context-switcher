@@ -7,11 +7,22 @@ Fast reference for `ait feature` commands.
 ## Commands
 
 ```bash
+# Viewing
 ait feature status              # Pipeline visualization
 ait feature list                # List features (active only)
 ait feature list --all          # List all (including merged)
+
+# Creating
 ait feature start <name>        # Create feature/<name> from dev
 ait feature start <name> -w     # Create with worktree
+
+# PR Workflow (v0.6.2+)
+ait feature promote             # Create PR to dev
+ait feature promote --draft     # Create as draft PR
+ait feature release             # Create PR from dev to main
+ait feature release --title "v1.0.0"
+
+# Cleanup
 ait feature cleanup             # Remove merged branches
 ait feature cleanup -n          # Dry run (preview)
 ```
@@ -25,8 +36,15 @@ ait feature cleanup -n          # Dry run (preview)
 ait feature start auth-v2 --worktree
 cd ~/.git-worktrees/myproject/auth-v2
 
+# Work on feature... then create PR to dev
+ait feature promote
+
 # Check what's active
 ait feature status
+
+# When ready to release dev to main
+git checkout dev
+ait feature release
 
 # After PR merged, cleanup
 ait feature cleanup
@@ -43,6 +61,24 @@ ait feature cleanup
 | `--worktree` | `-w` | off | Create in worktree |
 | `--no-install` | | off | Skip dep install |
 | `--base` | `-b` | `dev` | Base branch |
+
+### `ait feature promote` (v0.6.2+)
+
+| Option | Short | Default | Description |
+|--------|-------|---------|-------------|
+| `--draft` | `-d` | off | Create as draft PR |
+| `--title` | `-t` | branch name | Custom PR title |
+| `--base` | `-b` | `dev` | Target branch |
+| `--web` | `-w` | off | Open in browser |
+
+### `ait feature release` (v0.6.2+)
+
+| Option | Short | Default | Description |
+|--------|-------|---------|-------------|
+| `--draft` | `-d` | off | Create as draft PR |
+| `--title` | `-t` | auto | PR title |
+| `--body` | `-b` | auto | Custom PR body |
+| `--web` | `-w` | off | Open in browser |
 
 ### `ait feature cleanup`
 
@@ -79,8 +115,9 @@ ait feature cleanup
 
 | Task | flow-cli | aiterm |
 |------|----------|--------|
-| Quick branch | `gfs name` | - |
-| Quick PR | `gfp` | - |
+| Quick branch | `gfs name` | `ait feature start name` |
+| Quick PR | `gfp` | `ait feature promote` |
+| Release PR | - | `ait feature release` |
 | Pipeline | - | `ait feature status` |
 | Full setup | - | `ait feature start -w` |
 | Cleanup | - | `ait feature cleanup` |

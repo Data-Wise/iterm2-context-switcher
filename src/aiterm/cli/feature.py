@@ -8,6 +8,7 @@ Commands:
 - start: Create feature branch + optional worktree + deps
 - cleanup: Interactive cleanup of merged features
 - promote: Create PR to dev branch
+- release: Create PR from dev to main
 """
 
 import subprocess
@@ -641,6 +642,145 @@ def feature_promote(
 
     if result and result.startswith("https://"):
         console.print(f"\n[green]✓[/] PR created: {result}")
+
+        if web:
+            console.print("[dim]Opening in browser...[/]")
+            _run_gh(["pr", "view", "--web"])
+    else:
+        console.print(f"[red]Error creating PR:[/] {result}")
+        raise typer.Exit(1)
+
+
+@app.command(
+    "release",
+    epilog="""
+[bold]Examples:[/]
+  ait feature release              # Create PR from dev to main
+  ait feature release --draft      # Create as draft PR
+  ait feature release --title "v1.0.0 Release"
+""",
+)
+def feature_release(
+    draft: bool = typer.Option(
+        False, "--draft", "-d", help="Create as draft PR."
+    ),
+    title: Optional[str] = typer.Option(
+        None, "--title", "-t", help="PR title (default: 'Release: merge dev to main')."
+    ),
+    body: Optional[str] = typer.Option(
+        None, "--body", "-b", help="PR body/description."
+    ),
+    web: bool = typer.Option(
+        False, "--web", "-w", help="Open PR in browser after creation."
+    ),
+) -> None:
+    """Create a release PR from dev to main."""
+    # Check prerequisites
+    if not _check_gh_installed():
+        console.print("[red]Error:[/] GitHub CLI (gh) is not installed.")
+        console.print("Install: brew install gh")
+        raise typer.Exit(1)
+
+    repo_root = _get_repo_root()
+    if not repo_root:
+        console.print("[red]Error:[/] Not in a git repository")
+        raise typer.Exit(1)
+
+    current_branch = _get_current_branch()
+
+    # Warn if not on dev
+    if current_branch != "dev":
+        console.print(f"[yellow]Warning:[/] Current branch is '{current_branch}', not 'dev'")
+        if not typer.confirm("Continue anyway?"):
+            raise typer.Exit(0)
+
+    # Check if PR already exists
+    existing_pr = _get_pr_for_branch("dev")
+    if existing_pr and existing_pr.get("baseRefName") == "main":
+        console.print(f"[yellow]Release PR already exists:[/] #{existing_pr['number']} - {existing_pr['title']}")
+        console.print(f"  State: {existing_pr['state']}")
+        console.print(f"  URL: {existing_pr['url']}")
+        raise typer.Exit(0)
+
+    # Check for open PRs from dev to main
+    import json
+    check_result = _run_gh(["pr", "list", "--base", "main", "--head", "dev", "--json", "number,title,state,url"])
+    if check_result:
+        try:
+            prs = json.loads(check_result)
+            if prs:
+                pr = prs[0]
+                console.print(f"[yellow]Release PR already exists:[/] #{pr['number']} - {pr['title']}")
+                console.print(f"  State: {pr['state']}")
+                console.print(f"  URL: {pr['url']}")
+                raise typer.Exit(0)
+        except json.JSONDecodeError:
+            pass
+
+    # Generate title if not provided
+    if not title:
+        title = "Release: merge dev to main"
+
+    console.print(f"[bold cyan]Creating release PR:[/] dev → main")
+    console.print(f"[dim]Title:[/] {title}")
+
+    # Ensure dev is up to date
+    console.print("[dim]Fetching latest changes...[/]")
+    _run_git(["fetch", "origin", "dev", "main"])
+
+    # Check commits ahead
+    commits_ahead = _run_git(["rev-list", "--count", "main..dev"])
+    if commits_ahead and commits_ahead.isdigit():
+        count = int(commits_ahead)
+        if count == 0:
+            console.print("[yellow]Warning:[/] dev has no new commits compared to main")
+            if not typer.confirm("Create PR anyway?"):
+                raise typer.Exit(0)
+        else:
+            console.print(f"[dim]Commits to merge:[/] {count}")
+
+    # Push dev to ensure it's up to date on remote
+    console.print("[dim]Pushing dev to origin...[/]")
+    _run_git(["push", "origin", "dev"])
+
+    # Build gh pr create command
+    gh_args = ["pr", "create", "--base", "main", "--head", "dev", "--title", title]
+
+    if draft:
+        gh_args.append("--draft")
+
+    if body:
+        gh_args.extend(["--body", body])
+    else:
+        # Generate default body with commit summary
+        commit_log = _run_git(["log", "--oneline", "main..dev", "--no-merges"])
+        commits_list = commit_log.split("\n") if commit_log else []
+
+        default_body = f"""## Release Summary
+
+Merging dev → main
+
+### Commits ({len(commits_list)})
+
+"""
+        for commit in commits_list[:15]:  # Show first 15 commits
+            default_body += f"- {commit}\n"
+
+        if len(commits_list) > 15:
+            default_body += f"\n... and {len(commits_list) - 15} more commits\n"
+
+        default_body += """
+---
+🤖 Created with `ait feature release`
+"""
+        gh_args.extend(["--body", default_body])
+
+    # Create PR
+    console.print("[dim]Creating release pull request...[/]")
+    result = _run_gh(gh_args)
+
+    if result and result.startswith("https://"):
+        console.print(f"\n[green]✓[/] Release PR created: {result}")
 
         if web:
             console.print("[dim]Opening in browser...[/]")
