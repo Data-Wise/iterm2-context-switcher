@@ -229,8 +229,12 @@ ait detect    # Shows: 📦 r-package → R-Dev profile
 
 ## What's New
 
-### v0.6.0 (Latest)
+### v0.6.3 (Latest)
 
+- **Feature Workflow Enhancements** - Complete PR automation
+  - `ait feature promote` - Create PRs to dev branch
+  - `ait feature release` - Create release PRs (dev→main)
+  - `ait recipes` - Quick alias for workflow templates
 - **Interactive Tutorial System** - Learn aiterm step-by-step
   - `ait learn start` - Begin interactive tutorials
   - `ait learn list` - Browse available tutorials

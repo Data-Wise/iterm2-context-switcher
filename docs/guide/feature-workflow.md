@@ -2,7 +2,7 @@
 
 Rich CLI commands for managing feature branches and git worktrees.
 
-**Added in:** v0.3.13 | **Updated:** v0.6.2 (promote/release commands)
+**Added in:** v0.3.13 | **Updated:** v0.6.3 (promote/release commands)
 
 ---
 
