@@ -191,6 +191,12 @@ class TestTimeSegment:
 
     def test_session_duration_format(self, segment):
         """Test session duration formatting."""
+        # Clean up any existing session file
+        from pathlib import Path
+        session_file = Path("/tmp/claude-session-new-session-test")
+        if session_file.exists():
+            session_file.unlink()
+
         # New session
         duration = segment._get_session_duration("new-session-test")
         assert duration in ["0m", "<1m"]

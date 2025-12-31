@@ -829,6 +829,10 @@ class TimeSegment:
             last_msg = messages[-1]
             last_time = last_msg.get('timestamp', 0)
 
+            # Return None if timestamp is missing or invalid
+            if not last_time:
+                return None
+
             # Calculate idle time
             now = int(time.time())
             idle_seconds = now - last_time

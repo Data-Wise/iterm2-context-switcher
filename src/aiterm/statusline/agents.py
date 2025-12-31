@@ -67,8 +67,8 @@ class AgentDetector:
 
         for location in possible_locations:
             if location.exists() and location.is_dir():
-                # Count agent PID files or status files
-                agent_files = list(location.glob('*.pid')) + list(location.glob('agent-*'))
+                # Count agent PID files or status files (use set to avoid duplicates)
+                agent_files = list(set(location.glob('*.pid')) | set(location.glob('agent-*')))
                 if agent_files:
                     # Filter for running agents (check if PIDs are alive)
                     running = 0
