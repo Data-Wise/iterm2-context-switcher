@@ -2,7 +2,7 @@
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│ AITERM v0.4.0 - Terminal Optimizer for AI Development      │
+│ AITERM v0.6.0 - Terminal Optimizer for AI Development      │
 ├─────────────────────────────────────────────────────────────┤
 │                                                             │
 │ ESSENTIAL                                                   │
@@ -12,6 +12,13 @@
 │ ait switch              Apply context to terminal           │
 │ ait hello               Diagnostic greeting                 │
 │ ait info                System diagnostics (--json)         │
+│                                                             │
+│ INTERACTIVE TUTORIALS (v0.6.0)                              │
+│ ──────────────────────────────                              │
+│ ait learn start         Start interactive tutorial          │
+│ ait learn list          List available tutorials            │
+│ ait learn progress      Show learning progress              │
+│ ait learn reset         Reset tutorial progress             │
 │                                                             │
 │ RELEASE MANAGEMENT (v0.5.0)                                 │
 │ ───────────────────────────                                 │
@@ -150,6 +157,7 @@
 | MCP Servers | [REFCARD-MCP.md](reference/REFCARD-MCP.md) |
 | OpenCode | [REFCARD-OPENCODE.md](reference/REFCARD-OPENCODE.md) |
 | Sessions | [REFCARD-SESSIONS.md](reference/REFCARD-SESSIONS.md) |
+| Tutorials | [REFCARD-TUTORIALS.md](reference/REFCARD-TUTORIALS.md) |
 
 ## Print Version
 

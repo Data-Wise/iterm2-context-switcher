@@ -229,15 +229,27 @@ ait detect    # Shows: 📦 r-package → R-Dev profile
 
 ## What's New
 
-### v0.5.0 (Latest)
+### v0.6.0 (Latest)
+
+- **Interactive Tutorial System** - Learn aiterm step-by-step
+  - `ait learn start` - Begin interactive tutorials
+  - `ait learn list` - Browse available tutorials
+  - `ait learn progress` - Track your learning
+  - Three skill levels: Getting Started, Intermediate, Advanced
+  - 75 comprehensive tests, GIF demos
+- **PyPI Trusted Publishing** - Automated releases via GitHub Actions
+
+```bash
+# Interactive tutorials (v0.6.0)
+ait learn start getting-started   # Start learning
+ait learn list                    # See all tutorials
+ait learn progress                # Check progress
+```
+
+### v0.5.0
 
 - **Release Automation** - Complete CLI for streamlined publishing
   - `ait release check` - Pre-release validation
-  - `ait release status` - Show version & pending changes
-  - `ait release pypi` - Build and publish to PyPI
-  - `ait release homebrew` - Update Homebrew formula
-  - `ait release tag` - Create annotated git tag
-  - `ait release notes` - Generate release notes from commits
   - `ait release full` - Complete workflow: check → tag → pypi → homebrew
 
 ### v0.4.0
@@ -245,32 +257,19 @@ ait detect    # Shows: 📦 r-package → R-Dev profile
 - **Workflow Automation** - Session-aware workflow runner
   - `ait workflows run test` - Run project tests
   - `ait workflows run lint+test+build` - Chain workflows with `+`
-  - 13 built-in workflows, custom YAML support
 - **Craft Plugin Management** - `ait craft status/list/install/sync`
-- **Feature Workflow** - `ait feature status/start/cleanup`
 
 ### v0.3.x Highlights
 
 - **Ghostty Terminal** - Full iTerm2 parity with 14 themes
 - **Session Coordination** - Hook-based tracking & conflict detection
 - **IDE Integrations** - VS Code, Cursor, Zed, Positron, Windsurf
-- **curl Installer** - Smart auto-detection (uv/pipx/brew/pip)
-
-```bash
-# Release automation (v0.5.0)
-ait release check        # Validate before release
-ait release full 0.6.0   # Complete release workflow
-
-# Workflow automation (v0.4.0)
-ait workflows status     # Session + workflow status
-ait workflows run test   # Run project tests
-```
 
 ## Roadmap
 
-### v0.6.0 (Next)
+### v0.7.0 (Next)
 
-- **Workflow Variables** - `--var key=value` substitution
+- **Ghostty Enhancements** - Theme switching, badge integration
 - **Workflow Templates** - Reusable workflow patterns
 
 ### v1.0.0
@@ -296,7 +295,7 @@ ait workflows run test   # Run project tests
 - 🎯 Single-purpose commands (no analysis paralysis)
 - 🎨 Visual context cues (production = red!)
 - 📝 Comprehensive docs with examples
-- 🧪 Well-tested (155 tests, 85% coverage)
+- 🧪 Well-tested (685 tests, 85% coverage)
 
 **Perfect for:**
 
