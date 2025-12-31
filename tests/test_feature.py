@@ -330,16 +330,20 @@ class TestFeaturePromoteCommand:
 
     def test_promote_help(self):
         """Test promote --help shows options."""
+        import re
         from typer.testing import CliRunner
         from aiterm.cli.main import app
 
         runner = CliRunner(env={"NO_COLOR": "1"})
         result = runner.invoke(app, ["feature", "promote", "--help"])
         assert result.exit_code == 0
-        assert "--draft" in result.stdout
-        assert "--title" in result.stdout
-        assert "--base" in result.stdout
-        assert "--web" in result.stdout
+
+        # Strip ANSI codes for reliable assertion
+        clean_output = re.sub(r'\x1b\[[0-9;]*m', '', result.stdout)
+        assert "--draft" in clean_output
+        assert "--title" in clean_output
+        assert "--base" in clean_output
+        assert "--web" in clean_output
 
 
 class TestFeatureReleaseCommand:
@@ -404,13 +408,17 @@ class TestFeatureReleaseCommand:
 
     def test_release_help(self):
         """Test release --help shows options."""
+        import re
         from typer.testing import CliRunner
         from aiterm.cli.main import app
 
         runner = CliRunner(env={"NO_COLOR": "1"})
         result = runner.invoke(app, ["feature", "release", "--help"])
         assert result.exit_code == 0
-        assert "--draft" in result.stdout
-        assert "--title" in result.stdout
-        assert "--body" in result.stdout
-        assert "--web" in result.stdout
+
+        # Strip ANSI codes for reliable assertion
+        clean_output = re.sub(r'\x1b\[[0-9;]*m', '', result.stdout)
+        assert "--draft" in clean_output
+        assert "--title" in clean_output
+        assert "--body" in clean_output
+        assert "--web" in clean_output
