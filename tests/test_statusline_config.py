@@ -202,7 +202,7 @@ class TestStatusLineConfig:
 
         git_settings = config.list_settings(category='git')
 
-        assert len(git_settings) == 5  # 5 git settings
+        assert len(git_settings) == 6  # 6 git settings (added git.show_worktrees)
         assert all(s['category'] == 'git' for s in git_settings)
         assert any(s['key'] == 'git.show_ahead_behind' for s in git_settings)
 
@@ -212,7 +212,7 @@ class TestStatusLineConfig:
 
         display_settings = config.list_settings(category='display')
 
-        assert len(display_settings) == 12  # 12 display settings (added show_background_agents)
+        assert len(display_settings) == 13  # 13 display settings
         assert all(s['category'] == 'display' for s in display_settings)
 
     def test_deep_merge(self, config):

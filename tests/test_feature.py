@@ -333,7 +333,7 @@ class TestFeaturePromoteCommand:
         from typer.testing import CliRunner
         from aiterm.cli.main import app
 
-        runner = CliRunner()
+        runner = CliRunner(env={"NO_COLOR": "1"})
         result = runner.invoke(app, ["feature", "promote", "--help"])
         assert result.exit_code == 0
         assert "--draft" in result.stdout
@@ -407,7 +407,7 @@ class TestFeatureReleaseCommand:
         from typer.testing import CliRunner
         from aiterm.cli.main import app
 
-        runner = CliRunner()
+        runner = CliRunner(env={"NO_COLOR": "1"})
         result = runner.invoke(app, ["feature", "release", "--help"])
         assert result.exit_code == 0
         assert "--draft" in result.stdout
