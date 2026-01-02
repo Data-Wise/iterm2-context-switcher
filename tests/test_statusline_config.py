@@ -212,7 +212,7 @@ class TestStatusLineConfig:
 
         display_settings = config.list_settings(category='display')
 
-        assert len(display_settings) == 13  # 13 display settings
+        assert len(display_settings) == 17  # 17 display settings (13 original + 4 spacing)
         assert all(s['category'] == 'display' for s in display_settings)
 
     def test_deep_merge(self, config):
