@@ -455,3 +455,79 @@ class TestSpacingFeatures:
 
         # Should fall back to left-only when no room for right side
         assert "This is a very long left side" in aligned
+
+    # =============================================================================
+    # Additional Edge Case Tests
+    # =============================================================================
+
+    def test_calculate_gap_invalid_preset(self, renderer):
+        """Test gap calculation with invalid preset name."""
+        # Config validation prevents invalid presets - this should raise ValueError
+        import pytest
+        with pytest.raises(ValueError) as exc_info:
+            renderer.config.set('spacing.mode', 'invalid-preset')
+
+        # Error message should list valid choices
+        assert "Valid choices: minimal, standard, spacious" in str(exc_info.value)
+
+    def test_calculate_gap_very_narrow_terminal(self, renderer):
+        """Test gap calculation on very narrow terminal."""
+        # 40 columns * 0.20 = 8, but min_gap is 10
+        gap = renderer._calculate_gap(40)
+        assert gap == 10  # Should clamp to min_gap
+
+    def test_calculate_gap_very_wide_terminal(self, renderer):
+        """Test gap calculation on ultra-wide terminal."""
+        # 400 columns * 0.20 = 80, but max_gap is 40
+        gap = renderer._calculate_gap(400)
+        assert gap == 40  # Should clamp to max_gap
+
+    def test_render_gap_exact_3_chars(self, renderer):
+        """Test separator rendering with exactly 3 chars (minimum)."""
+        gap = renderer._render_gap(3)
+
+        # Should contain separator
+        assert '…' in gap
+        # Should have correct visible length
+        visible_length = renderer._strip_ansi_length(gap)
+        assert visible_length == 3
+
+    def test_render_gap_odd_width(self, renderer):
+        """Test separator centering with odd gap width."""
+        gap = renderer._render_gap(7)
+
+        # Should have correct visible length
+        visible_length = renderer._strip_ansi_length(gap)
+        assert visible_length == 7
+        # Should contain separator
+        assert '…' in gap
+
+    def test_render_gap_even_width(self, renderer):
+        """Test separator centering with even gap width."""
+        gap = renderer._render_gap(8)
+
+        # Should have correct visible length
+        visible_length = renderer._strip_ansi_length(gap)
+        assert visible_length == 8
+        # Should contain separator
+        assert '…' in gap
+
+    def test_strip_ansi_complex_codes(self, renderer):
+        """Test ANSI stripping with multiple escape sequences."""
+        # Multiple codes: bold + color
+        text = "\033[38;5;240m\033[1mBold and colored\033[0m"
+        length = renderer._strip_ansi_length(text)
+        assert length == len("Bold and colored")
+
+    def test_strip_ansi_nested_codes(self, renderer):
+        """Test nested ANSI codes."""
+        # Nested codes with text between
+        text = "\033[1m\033[31mRed bold\033[0m normal"
+        length = renderer._strip_ansi_length(text)
+        assert length == len("Red bold normal")
+
+    def test_strip_ansi_no_codes(self, renderer):
+        """Test ANSI stripping with plain text (no codes)."""
+        text = "Plain text without codes"
+        length = renderer._strip_ansi_length(text)
+        assert length == len(text)
