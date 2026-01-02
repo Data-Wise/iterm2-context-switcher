@@ -814,3 +814,394 @@ class TestSpacingFeatures:
         config2.reset()
         assert config2.get('spacing.mode') == 'standard'  # Default
         assert config2.get('spacing.show_separator') == True  # Default
+
+    # =============================================================================
+    # Edge Case Tests
+    # =============================================================================
+
+    def test_calculate_gap_zero_width(self, renderer):
+        """Test gap calculation with zero terminal width."""
+        gap = renderer._calculate_gap(0)
+        # Should return minimum gap even with zero width
+        min_gap = renderer.config.get('spacing.min_gap', 10)
+        assert gap == min_gap
+
+    def test_calculate_gap_negative_width(self, renderer):
+        """Test gap calculation with negative terminal width."""
+        gap = renderer._calculate_gap(-100)
+        # Should return minimum gap, not negative
+        min_gap = renderer.config.get('spacing.min_gap', 10)
+        assert gap == min_gap
+        assert gap > 0
+
+    def test_render_gap_size_one(self, renderer):
+        """Test rendering gap with size 1 (smallest possible)."""
+        gap = renderer._render_gap(1)
+        # Should be single space, no separator
+        assert gap == ' '
+        assert '…' not in gap
+
+    def test_render_gap_size_two(self, renderer):
+        """Test rendering gap with size 2 (below separator threshold)."""
+        gap = renderer._render_gap(2)
+        # Too small for separator (needs >= 3)
+        assert gap == '  '
+        assert '…' not in gap
+        visible_length = renderer._strip_ansi_length(gap)
+        assert visible_length == 2
+
+    def test_align_line_empty_segments(self, renderer):
+        """Test alignment with empty segments."""
+        # Both empty
+        aligned = renderer._align_line('', '')
+        assert isinstance(aligned, str)
+
+        # Left empty
+        aligned = renderer._align_line('', 'Right')
+        assert 'Right' in aligned
+
+        # Right empty
+        aligned = renderer._align_line('Left', '')
+        assert 'Left' in aligned
+
+    def test_align_line_only_ansi_codes(self, renderer):
+        """Test alignment with segments containing only ANSI codes."""
+        left = '\033[0m\033[38;5;240m\033[0m'  # Only ANSI codes
+        right = '\033[1m\033[0m'  # Only ANSI codes
+
+        aligned = renderer._align_line(left, right)
+        # Should handle gracefully
+        assert isinstance(aligned, str)
+
+    def test_align_line_unicode_characters(self, renderer):
+        """Test alignment with Unicode characters."""
+        left = "🐍 Python 🚀"
+        right = "✨ Sonnet 💎"
+
+        aligned = renderer._align_line(left, right)
+        assert "🐍" in aligned
+        assert "✨" in aligned
+
+    def test_align_line_very_long_segments(self, renderer, monkeypatch):
+        """Test alignment with very long segments exceeding terminal width."""
+        from collections import namedtuple
+        TerminalSize = namedtuple('TerminalSize', ['columns', 'lines'])
+
+        def mock_get_terminal_size(fallback=None):
+            return TerminalSize(columns=80, lines=24)
+
+        import shutil
+        monkeypatch.setattr(shutil, 'get_terminal_size', mock_get_terminal_size)
+
+        # Create segments that together exceed terminal width
+        left = "A" * 70  # Very long
+        right = "B" * 30  # Also long
+
+        aligned = renderer._align_line(left, right)
+        # Should fall back to left-only when combined length exceeds terminal
+        assert "A" in aligned
+
+    def test_strip_ansi_multiple_resets(self, renderer):
+        """Test ANSI stripping with multiple reset codes."""
+        text = "Hello\033[0m World\033[0m Test\033[0m"
+        length = renderer._strip_ansi_length(text)
+        assert length == len("Hello World Test")
+
+    def test_strip_ansi_malformed_codes(self, renderer):
+        """Test ANSI stripping handles incomplete escape sequences gracefully."""
+        # Incomplete escape sequence
+        text = "Hello\033[38World"
+        length = renderer._strip_ansi_length(text)
+        # Should handle gracefully without crashing
+        assert isinstance(length, int)
+        assert length > 0
+
+    def test_calculate_gap_boundary_widths(self, renderer):
+        """Test gap calculation at preset boundary widths."""
+        # Test exactly at min_gap threshold
+        renderer.config.set('spacing.mode', 'standard')  # 20% base
+
+        # Width that produces exactly min_gap (50 * 0.20 = 10)
+        gap = renderer._calculate_gap(50)
+        assert gap == 10
+
+        # Width just above min_gap (55 * 0.20 = 11)
+        gap = renderer._calculate_gap(55)
+        assert gap == 11
+
+    def test_render_gap_with_separator_disabled_via_config(self, renderer):
+        """Test that separator respects config setting."""
+        renderer.config.set('spacing.show_separator', False)
+
+        gap = renderer._render_gap(20)
+        # Should be all spaces, no separator
+        assert '…' not in gap
+        assert gap == ' ' * 20
+
+    # =============================================================================
+    # End-to-End (E2E) Tests
+    # =============================================================================
+
+    def test_e2e_complete_render_pipeline(self, renderer, tmp_path, monkeypatch):
+        """E2E: Test complete rendering pipeline from JSON to output."""
+        import json
+
+        # Create realistic project directory
+        project_dir = tmp_path / "test-project"
+        project_dir.mkdir()
+        (project_dir / "pyproject.toml").write_text("[project]\nname = 'test'\n")
+
+        # Create realistic JSON input (simulating Claude Code statusLine data)
+        mock_json = json.dumps({
+            "workspace": {
+                "current_dir": str(project_dir),
+                "project_dir": str(project_dir)
+            },
+            "model": {
+                "display_name": "Claude Sonnet 4.5"
+            },
+            "output_style": {
+                "name": "standard"
+            },
+            "session_id": "e2e-test-123",
+            "cost": {
+                "total_lines_added": 250,
+                "total_lines_removed": 100,
+                "total_duration_ms": 120000
+            }
+        })
+
+        # Render
+        output = renderer.render(mock_json)
+
+        # Verify complete output structure
+        assert '╭─' in output  # Top line
+        assert '╰─' in output  # Bottom line
+        assert 'Sonnet' in output  # Model name
+        assert isinstance(output, str)
+        assert len(output) > 0
+
+        # Verify lines are properly formed
+        lines = [l for l in output.split('\n') if l]
+        assert len(lines) >= 2
+
+    def test_e2e_preset_switching_workflow(self, renderer):
+        """E2E: Test switching between all presets in realistic workflow."""
+        from collections import namedtuple
+        import shutil
+
+        TerminalSize = namedtuple('TerminalSize', ['columns', 'lines'])
+
+        def mock_get_terminal_size(fallback=None):
+            return TerminalSize(columns=120, lines=24)
+
+        original_get_terminal_size = shutil.get_terminal_size
+
+        try:
+            shutil.get_terminal_size = mock_get_terminal_size
+
+            left = "Project Info"
+            right = "Status"
+
+            # Workflow: Start with standard
+            renderer.config.set('spacing.mode', 'standard')
+            output1 = renderer._align_line(left, right)
+            gap1 = renderer._calculate_gap(120)
+
+            # Switch to minimal (user wants compact view)
+            renderer.config.set('spacing.mode', 'minimal')
+            output2 = renderer._align_line(left, right)
+            gap2 = renderer._calculate_gap(120)
+
+            # Switch to spacious (user wants clarity)
+            renderer.config.set('spacing.mode', 'spacious')
+            output3 = renderer._align_line(left, right)
+            gap3 = renderer._calculate_gap(120)
+
+            # Switch back to standard
+            renderer.config.set('spacing.mode', 'standard')
+            output4 = renderer._align_line(left, right)
+            gap4 = renderer._calculate_gap(120)
+
+            # Verify gaps follow expected order
+            assert gap2 < gap1 < gap3  # minimal < standard < spacious
+            assert gap4 == gap1  # Returned to standard
+
+            # All outputs should contain both segments
+            for output in [output1, output2, output3, output4]:
+                assert "Project Info" in output
+                assert "Status" in output
+
+        finally:
+            shutil.get_terminal_size = original_get_terminal_size
+
+    def test_e2e_terminal_resize_scenario(self, renderer, monkeypatch):
+        """E2E: Simulate terminal resize and verify adaptive spacing."""
+        from collections import namedtuple
+
+        TerminalSize = namedtuple('TerminalSize', ['columns', 'lines'])
+
+        left = "Left Content"
+        right = "Right Content"
+
+        # Simulate terminal resize events
+        widths = [120, 100, 80, 160, 200, 120]  # Realistic resize sequence
+        previous_gap = None
+
+        for width in widths:
+            def mock_get_terminal_size(fallback=None):
+                return TerminalSize(columns=width, lines=24)
+
+            import shutil
+            monkeypatch.setattr(shutil, 'get_terminal_size', mock_get_terminal_size)
+
+            gap = renderer._calculate_gap(width)
+            aligned = renderer._align_line(left, right)
+
+            # Verify gap adapts to width
+            min_gap = renderer.config.get('spacing.min_gap', 10)
+            max_gap = renderer.config.get('spacing.max_gap', 40)
+            assert min_gap <= gap <= max_gap
+
+            # Verify both segments still visible (unless terminal too narrow)
+            if width >= 50:  # Reasonable minimum
+                assert "Left Content" in aligned
+
+            previous_gap = gap
+
+    def test_e2e_all_segments_rendering(self, renderer):
+        """E2E: Test rendering with all possible segment types."""
+        import json
+
+        # JSON with all segment types populated
+        mock_json = json.dumps({
+            "workspace": {
+                "current_dir": "/Users/dt/projects/test",
+                "project_dir": "/Users/dt/projects/test"
+            },
+            "model": {
+                "display_name": "Claude Opus 4.5"
+            },
+            "output_style": {
+                "name": "standard"
+            },
+            "session_id": "all-segments-test",
+            "cost": {
+                "total_lines_added": 500,
+                "total_lines_removed": 200,
+                "total_duration_ms": 180000
+            },
+            "git": {
+                "branch": "feature/test",
+                "dirty": True,
+                "ahead": 3,
+                "behind": 1
+            }
+        })
+
+        output = renderer.render(mock_json)
+
+        # Verify output is well-formed
+        assert isinstance(output, str)
+        assert len(output) > 0
+        assert '╭─' in output
+        assert '╰─' in output
+
+        # Should contain model name
+        assert 'Opus' in output or 'Sonnet' in output
+
+    def test_e2e_config_file_operations(self, tmp_path):
+        """E2E: Test complete config file lifecycle."""
+        import json
+
+        # Create isolated config with explicit path
+        config_file = tmp_path / "statusline.json"
+
+        # 1. Create config with custom spacing
+        config1 = StatusLineConfig()
+        config1.config_path = config_file  # Override default path
+        config1.set('spacing.mode', 'spacious')
+        config1.set('spacing.min_gap', 25)
+        config1.set('spacing.show_separator', False)
+
+        # 2. Verify config file was created
+        assert config_file.exists()
+
+        # 3. Read file directly to verify JSON structure
+        with open(config_file) as f:
+            data = json.load(f)
+
+        # Spacing settings are under 'spacing' key, not 'display.spacing'
+        assert data['spacing']['mode'] == 'spacious'
+        assert data['spacing']['min_gap'] == 25
+        assert data['spacing']['show_separator'] == False
+
+        # 4. Create new config instance (loads from file)
+        config2 = StatusLineConfig()
+        config2.config_path = config_file  # Point to same file
+        assert config2.get('spacing.mode') == 'spacious'
+        assert config2.get('spacing.min_gap') == 25
+
+        # 5. Modify and verify persistence
+        config2.set('spacing.mode', 'minimal')
+
+        config3 = StatusLineConfig()
+        config3.config_path = config_file  # Point to same file
+        assert config3.get('spacing.mode') == 'minimal'
+        assert config3.get('spacing.min_gap') == 25  # Unchanged
+
+    def test_e2e_error_recovery(self, renderer):
+        """E2E: Test error recovery in various failure scenarios."""
+        import json
+
+        # Test 1: Invalid JSON
+        invalid_json = "{ invalid json }"
+        output = renderer.render(invalid_json)
+        assert "Invalid JSON" in output
+
+        # Test 2: Missing required fields
+        minimal_json = json.dumps({"model": {"display_name": "Test"}})
+        output = renderer.render(minimal_json)
+        # Should not crash, should render with defaults
+        assert isinstance(output, str)
+
+        # Test 3: Malformed model name
+        weird_json = json.dumps({
+            "workspace": {"current_dir": "/tmp", "project_dir": "/tmp"},
+            "model": {"display_name": ""},  # Empty
+            "output_style": {"name": "standard"}
+        })
+        output = renderer.render(weird_json)
+        assert isinstance(output, str)
+
+    def test_e2e_stress_test_rapid_preset_changes(self, renderer):
+        """E2E: Stress test with rapid preset changes."""
+        presets = ['minimal', 'standard', 'spacious']
+
+        # Rapidly switch presets 100 times
+        for i in range(100):
+            preset = presets[i % 3]
+            renderer.config.set('spacing.mode', preset)
+            gap = renderer._calculate_gap(120)
+
+            # Verify gap is always valid
+            assert gap > 0
+            assert gap <= 60  # Max possible gap
+
+    def test_e2e_unicode_and_ansi_complex(self, renderer):
+        """E2E: Test complex Unicode + ANSI combinations."""
+        # Complex segment with Unicode, emojis, and ANSI codes
+        left = "\033[1m🚀 Project\033[0m \033[38;5;240m│\033[0m 🐍 Python"
+        right = "✨ \033[1mStatus\033[0m 💎"
+
+        aligned = renderer._align_line(left, right)
+
+        # Verify both segments present
+        assert "🚀" in aligned
+        assert "✨" in aligned
+        assert isinstance(aligned, str)
+
+        # Verify proper length calculation
+        visible_length = renderer._strip_ansi_length(left)
+        # Should count emoji and text, not ANSI codes
+        assert visible_length > 0
