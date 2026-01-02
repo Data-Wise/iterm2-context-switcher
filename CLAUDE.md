@@ -23,7 +23,69 @@ This file provides guidance to Claude Code when working with the aiterm project.
 
 ---
 
-## Current Version: v0.7.0 (Jan 1, 2026)
+## Current Version: v0.7.1 (Jan 2, 2026)
+
+### v0.7.1 Features - StatusLine Spacing Presets
+
+**Spacing Presets System:**
+
+- ✅ Configurable gap spacing between left/right segments (v0.7.1)
+- ✅ 3 presets: minimal (15%), standard (20%), spacious (30%)
+- ✅ Dynamic gap calculation based on terminal width
+- ✅ Optional centered separator (`…`) in gap
+- ✅ Smart constraints (min/max limits)
+- ✅ CLI command: `ait statusline config spacing <preset>`
+- ✅ 12 comprehensive tests (all passing)
+- ✅ Complete documentation with visual examples
+
+**Visual Example:**
+
+```text
+Terminal: 120 columns, standard preset (20%)
+
+Before (filled):
+╭─ ░▒▓ 📁 aiterm  main ▓▒░                               ░▒▓ (wt) feature ▓▒░
+
+After (spacing preset):
+╭─ ░▒▓ 📁 aiterm  main ▓▒░            …           ░▒▓ (wt) feature ▓▒░
+                        ^^^^^^^^^^^^^^^^^^^^^^^^
+                        24 chars (20% of 120)
+```
+
+**Quick Commands:**
+
+```bash
+# Apply spacing presets
+ait statusline config spacing minimal    # Tight (15%, 5-20 chars)
+ait statusline config spacing standard   # Balanced (20%, 10-40 chars)
+ait statusline config spacing spacious   # Wide (30%, 15-60 chars)
+
+# Manual overrides
+ait statusline config set spacing.min_gap 12
+ait statusline config set spacing.max_gap 50
+ait statusline config set spacing.show_separator false
+
+# Preview changes
+ait statusline test
+```
+
+**Files:**
+
+- [docs/guides/statusline-spacing.md](docs/guides/statusline-spacing.md) - Complete user guide (416 lines)
+- [docs/reference/commands.md](docs/reference/commands.md) - Command reference
+- [docs/specs/SPEC-statusline-spacing-2026-01-02.md](docs/specs/SPEC-statusline-spacing-2026-01-02.md) - Implementation spec
+
+**Statistics:**
+
+| Metric | Value |
+|--------|-------|
+| Files Changed | 6 |
+| Lines Added | 1,303 |
+| New Tests | 12 |
+| Total Tests | 173 (all passing) |
+| Documentation | 541 lines |
+
+---
 
 ### v0.7.0 Features - Minimal StatusLine Redesign
 
