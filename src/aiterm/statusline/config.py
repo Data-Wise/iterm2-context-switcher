@@ -314,6 +314,31 @@ class StatusLineConfig:
                 'description': 'Spacing around separators (minimal=1, standard=2, relaxed=3 spaces)',
                 'category': 'display'
             },
+            'spacing.mode': {
+                'type': 'str',
+                'default': 'standard',
+                'choices': ['minimal', 'standard', 'spacious'],
+                'description': 'Gap size between left and right segments',
+                'category': 'display'
+            },
+            'spacing.min_gap': {
+                'type': 'int',
+                'default': 10,
+                'description': 'Minimum gap in chars (narrow terminal fallback)',
+                'category': 'display'
+            },
+            'spacing.max_gap': {
+                'type': 'int',
+                'default': 40,
+                'description': 'Maximum gap in chars (wide terminal cap)',
+                'category': 'display'
+            },
+            'spacing.show_separator': {
+                'type': 'bool',
+                'default': True,
+                'description': 'Show subtle separator (…) in gap center',
+                'category': 'display'
+            },
             'usage.show_reset_timer': {
                 'type': 'bool',
                 'default': True,

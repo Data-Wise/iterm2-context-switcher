@@ -43,7 +43,11 @@ class TestStatusLineRenderer:
 
     def test_render_basic(self, mock_json):
         """Test basic rendering."""
-        renderer = StatusLineRenderer()
+        # Enable features for testing
+        config = StatusLineConfig()
+        config.set('display.show_lines_changed', True)
+
+        renderer = StatusLineRenderer(config)
         output = renderer.render(mock_json)
 
         assert isinstance(output, str)
@@ -169,7 +173,11 @@ class TestTimeSegment:
 
     @pytest.fixture
     def config(self):
-        return StatusLineConfig()
+        config = StatusLineConfig()
+        # Enable time features for testing
+        config.set('display.show_current_time', True)
+        config.set('display.show_session_duration', True)
+        return config
 
     @pytest.fixture
     def segment(self, config):
@@ -207,7 +215,10 @@ class TestLinesSegment:
 
     @pytest.fixture
     def config(self):
-        return StatusLineConfig()
+        config = StatusLineConfig()
+        # Enable lines changed feature for testing
+        config.set('display.show_lines_changed', True)
+        return config
 
     @pytest.fixture
     def segment(self, config):
@@ -262,3 +273,185 @@ class TestThinkingSegment:
 
         # Should return empty string gracefully
         assert output == ""
+
+
+class TestSpacingFeatures:
+    """Test spacing features for gap between left and right segments."""
+
+    @pytest.fixture
+    def config(self, tmp_path, monkeypatch):
+        """Create isolated config for testing."""
+        # Use a temporary config file to avoid interference with user's config
+        config_file = tmp_path / "test_statusline.json"
+        monkeypatch.setenv('AITERM_CONFIG_DIR', str(tmp_path))
+        config = StatusLineConfig()
+        # Reset spacing to standard preset defaults
+        config.set('spacing.mode', 'standard')
+        config.set('spacing.min_gap', 10)
+        config.set('spacing.max_gap', 40)
+        config.set('spacing.show_separator', True)
+        return config
+
+    @pytest.fixture
+    def renderer(self, config):
+        return StatusLineRenderer(config)
+
+    # =============================================================================
+    # Gap Calculation Tests
+    # =============================================================================
+
+    def test_calculate_gap_standard_preset(self, renderer):
+        """Test gap calculation with standard preset (20%)."""
+        # Terminal width 120 * 0.20 = 24
+        gap = renderer._calculate_gap(120)
+        assert gap == 24
+
+    def test_calculate_gap_minimal_preset(self, renderer, monkeypatch):
+        """Test gap calculation with minimal preset (15%)."""
+        renderer.config.set('spacing.mode', 'minimal')
+        # Terminal width 120 * 0.15 = 18
+        gap = renderer._calculate_gap(120)
+        assert gap == 18
+
+    def test_calculate_gap_spacious_preset(self, renderer, monkeypatch):
+        """Test gap calculation with spacious preset (30%)."""
+        renderer.config.set('spacing.mode', 'spacious')
+        # Terminal width 120 * 0.30 = 36
+        gap = renderer._calculate_gap(120)
+        assert gap == 36
+
+    def test_calculate_gap_min_constraint(self, renderer):
+        """Test gap respects minimum constraint."""
+        # Very narrow terminal: 50 * 0.20 = 10
+        # Standard preset min_gap is 10, should not go below
+        gap = renderer._calculate_gap(50)
+        assert gap >= 10
+
+        # Even narrower: 40 * 0.20 = 8, should clamp to min_gap=10
+        gap = renderer._calculate_gap(40)
+        assert gap == 10
+
+    def test_calculate_gap_max_constraint(self, renderer):
+        """Test gap respects maximum constraint."""
+        # Very wide terminal: 300 * 0.20 = 60
+        # Standard preset max_gap is 40, should not exceed
+        gap = renderer._calculate_gap(300)
+        assert gap == 40
+
+    def test_calculate_gap_config_overrides(self, renderer):
+        """Test config overrides for min/max gap."""
+        # Set custom min/max
+        renderer.config.set('spacing.min_gap', 15)
+        renderer.config.set('spacing.max_gap', 30)
+
+        # Test min override: 60 * 0.20 = 12, should clamp to 15
+        gap = renderer._calculate_gap(60)
+        assert gap == 15
+
+        # Test max override: 200 * 0.20 = 40, should clamp to 30
+        gap = renderer._calculate_gap(200)
+        assert gap == 30
+
+    # =============================================================================
+    # Gap Rendering Tests
+    # =============================================================================
+
+    def test_render_gap_with_separator(self, renderer):
+        """Test gap rendering with centered separator."""
+        gap = renderer._render_gap(20)
+
+        # Should contain separator (…) in ANSI wrapper
+        assert '…' in gap
+        # Should have ANSI color code (38;5;240m for dim gray)
+        assert '\033[38;5;240m' in gap
+        # Total visible length should be 20 (spaces + separator)
+        visible_length = renderer._strip_ansi_length(gap)
+        assert visible_length == 20
+
+    def test_render_gap_without_separator(self, renderer):
+        """Test gap rendering with separator disabled."""
+        renderer.config.set('spacing.show_separator', False)
+        gap = renderer._render_gap(20)
+
+        # Should not contain separator
+        assert '…' not in gap
+        # Should be just spaces
+        assert gap == ' ' * 20
+
+    def test_render_gap_too_small_for_separator(self, renderer):
+        """Test gap rendering when too small for separator."""
+        # Gap of 2 is too small for separator (needs >= 3)
+        gap = renderer._render_gap(2)
+
+        # Should fall back to just spaces
+        assert gap == '  '
+        assert '…' not in gap
+
+    # =============================================================================
+    # Alignment Integration Tests
+    # =============================================================================
+
+    def test_align_line_with_spacing(self, renderer, monkeypatch):
+        """Test line alignment uses spacing system."""
+        # Mock terminal width
+        from collections import namedtuple
+        TerminalSize = namedtuple('TerminalSize', ['columns', 'lines'])
+
+        def mock_get_terminal_size(fallback=None):
+            return TerminalSize(columns=120, lines=24)
+
+        import shutil
+        monkeypatch.setattr(shutil, 'get_terminal_size', mock_get_terminal_size)
+
+        left = "Left side"
+        right = "Right side"
+
+        aligned = renderer._align_line(left, right)
+
+        # Should contain both sides
+        assert "Left side" in aligned
+        assert "Right side" in aligned
+
+        # Should have gap with separator (if enabled)
+        if renderer.config.get('spacing.show_separator', True):
+            assert '…' in aligned
+
+    def test_align_line_narrow_terminal(self, renderer, monkeypatch):
+        """Test line alignment on narrow terminal."""
+        # Mock narrow terminal (80 cols)
+        from collections import namedtuple
+        TerminalSize = namedtuple('TerminalSize', ['columns', 'lines'])
+
+        def mock_get_terminal_size(fallback=None):
+            return TerminalSize(columns=80, lines=24)
+
+        import shutil
+        monkeypatch.setattr(shutil, 'get_terminal_size', mock_get_terminal_size)
+
+        left = "Left side with longer text"
+        right = "Right side"
+
+        aligned = renderer._align_line(left, right)
+
+        # Should still contain both sides if there's any room
+        assert "Left side" in aligned
+
+    def test_align_line_fallback_to_left_only(self, renderer, monkeypatch):
+        """Test line alignment falls back to left-only on very narrow terminal."""
+        # Mock very narrow terminal (40 cols)
+        from collections import namedtuple
+        TerminalSize = namedtuple('TerminalSize', ['columns', 'lines'])
+
+        def mock_get_terminal_size(fallback=None):
+            return TerminalSize(columns=40, lines=24)
+
+        import shutil
+        monkeypatch.setattr(shutil, 'get_terminal_size', mock_get_terminal_size)
+
+        left = "This is a very long left side segment that takes up lots of space"
+        right = "Right"
+
+        aligned = renderer._align_line(left, right)
+
+        # Should fall back to left-only when no room for right side
+        assert "This is a very long left side" in aligned

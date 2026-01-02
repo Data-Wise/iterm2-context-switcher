@@ -446,6 +446,135 @@ def config_validate():
         raise typer.Exit(1)
 
 
+@config_app.command(
+    "preset",
+    epilog="""
+\b
+Examples:
+  ait statusline config preset minimal    # Minimal statusLine (no bloat)
+  ait statusline config preset default    # Restore default settings
+"""
+)
+def config_preset(
+    preset_name: str = typer.Argument(
+        ...,
+        help="Preset name (minimal, default)"
+    )
+):
+    """Apply configuration preset.
+
+    Presets:
+      minimal - Clean statusLine without time-tracking bloat
+      default - Restore all default settings
+    """
+    config = StatusLineConfig()
+
+    presets = {
+        'minimal': {
+            'display.show_session_duration': False,
+            'display.show_current_time': False,
+            'display.show_lines_changed': False,
+            'display.show_session_usage': False,
+            'display.show_weekly_usage': False,
+            'usage.show_reset_timer': False,
+        },
+        'default': {}  # Will trigger full reset
+    }
+
+    if preset_name not in presets:
+        console.print(f"[red]Unknown preset: {preset_name}[/]")
+        console.print("\n[dim]Available presets:[/]")
+        for name in presets.keys():
+            console.print(f"  • {name}")
+        raise typer.Exit(1)
+
+    if preset_name == 'default':
+        # Full reset to defaults
+        if Confirm.ask("Reset entire configuration to defaults?", default=False):
+            config.reset()
+            console.print("[green]✓[/] Configuration reset to defaults")
+        else:
+            console.print("[yellow]Cancelled[/]")
+        return
+
+    # Apply preset changes
+    changes = presets[preset_name]
+    console.print(f"[bold]Applying preset:[/] {preset_name}\n")
+
+    table = Table()
+    table.add_column("Setting", style="cyan")
+    table.add_column("Old", style="dim")
+    table.add_column("New", style="green")
+
+    for key, new_value in changes.items():
+        old_value = config.get(key)
+        if old_value != new_value:
+            table.add_row(key, str(old_value), str(new_value))
+            config.set(key, new_value)
+
+    console.print(table)
+    console.print(f"\n[green]✓[/] Preset '{preset_name}' applied")
+    console.print("\n[dim]Restart Claude Code to see changes[/]")
+
+
+@config_app.command(
+    "spacing",
+    epilog="""
+\b
+Examples:
+  ait statusline config spacing minimal    # Tight spacing (15% gap)
+  ait statusline config spacing standard   # Balanced spacing (20% gap)
+  ait statusline config spacing spacious   # Wide spacing (30% gap)
+"""
+)
+def config_spacing(
+    preset_name: str = typer.Argument(
+        ...,
+        help="Spacing preset (minimal, standard, spacious)"
+    )
+):
+    """Configure gap spacing between left and right segments.
+
+    Presets:
+      minimal  - Tight spacing (15% of terminal width, 5-20 char gap)
+      standard - Balanced spacing (20% of terminal width, 10-40 char gap)
+      spacious - Wide spacing (30% of terminal width, 15-60 char gap)
+
+    The gap creates visual separation between left and right statusLine segments,
+    making it easier to distinguish project info from worktree context.
+    """
+    config = StatusLineConfig()
+
+    valid_presets = ['minimal', 'standard', 'spacious']
+
+    if preset_name not in valid_presets:
+        console.print(f"[red]Unknown spacing preset: {preset_name}[/]")
+        console.print("\n[dim]Available presets:[/]")
+        for name in valid_presets:
+            console.print(f"  • {name}")
+        raise typer.Exit(1)
+
+    # Get current value
+    old_value = config.get('spacing.mode', 'standard')
+
+    # Set new value
+    config.set('spacing.mode', preset_name)
+
+    # Show change
+    console.print(f"[bold]Spacing preset updated[/]\n")
+
+    table = Table()
+    table.add_column("Setting", style="cyan")
+    table.add_column("Old", style="dim")
+    table.add_column("New", style="green")
+
+    table.add_row("spacing.mode", old_value, preset_name)
+
+    console.print(table)
+    console.print(f"\n[green]✓[/] Spacing set to '{preset_name}'")
+    console.print("\n[dim]Run 'ait statusline test' to preview the new spacing[/]")
+
+
 # =============================================================================
 # Theme Commands
 # =============================================================================
